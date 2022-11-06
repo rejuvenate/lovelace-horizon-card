@@ -69,6 +69,7 @@ Note: If you get an error similar to this `Custom element doesn't exist` you wil
 <details>
 <summary><sup>1</sup> Supported languages</summary>
 
+- `ca` Catalan
 - `cs` Czech
 - `da` Danish
 - `de` German
@@ -79,6 +80,7 @@ Note: If you get an error similar to this `Custom element doesn't exist` you wil
 - `fr` French
 - `he` Hebrew
 - `hu` Hungarian
+- `is` Icelandic
 - `it` Italian
 - `lt` Lithuanian
 - `nb` Norwegian (Bokmål)
@@ -90,6 +92,8 @@ Note: If you get an error similar to this `Custom element doesn't exist` you wil
 - `sk` Slovak
 - `sl` Slovenian
 - `sv` Swedish
+- `tr` Turkish
+- `uk` Ukrainian
 
 </details>
 
