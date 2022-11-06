@@ -1,6 +1,6 @@
 import { HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers'
 import { CSSResult, LitElement, TemplateResult } from 'lit'
-import { customElement, property } from 'lit/decorators'
+import { customElement, property } from 'lit/decorators.js'
 
 import cardStyles from '../../cardStyles'
 import { ESunCardI18NKeys,ISunCardConfig } from '../../types'

@@ -1,6 +1,6 @@
 import { HomeAssistant } from 'custom-card-helpers'
 import { CSSResult, LitElement, TemplateResult } from 'lit'
-import { customElement,  state } from 'lit/decorators'
+import { customElement,  state } from 'lit/decorators.js'
 
 import cardStyles from '../../cardStyles'
 import { Constants } from '../../constants'
