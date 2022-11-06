@@ -69,6 +69,7 @@ Note: If you get an error similar to this `Custom element doesn't exist` you wil
 <details>
 <summary><sup>1</sup> Supported languages</summary>
 
+- `bg` Bulgarian
 - `ca` Catalan
 - `cs` Czech
 - `da` Danish

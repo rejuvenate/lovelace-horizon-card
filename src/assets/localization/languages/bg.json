@@ -1,0 +1,12 @@
+{
+  "azimuth": "Азимут",
+  "dawn": "Зора",
+  "dusk": "Здрач",
+  "elevation": "Височина",
+  "noon": "Пладне",
+  "sunrise": "Изгрев",
+  "sunset": "Залез",
+  "errors": {
+    "SunIntegrationNotFound": "Интеграцията Sun не е намерена"
+  }
+}
