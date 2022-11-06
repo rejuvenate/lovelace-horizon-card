@@ -1,3 +1,4 @@
+import bg from './assets/localization/languages/bg.json'
 import ca from './assets/localization/languages/ca.json'
 import cs from './assets/localization/languages/cs.json'
 import da from './assets/localization/languages/da.json'
@@ -81,7 +82,7 @@ export class Constants {
   }
 
   static readonly LOCALIZATION_LANGUAGES: Record<string, TSunCardI18NKeys> = {
-    ca, cs, da, de, en, es, et, fi, fr, he, hu, is, it, lt, nb, nl, nn, pl, 'pt-BR': ptBR, ru, sk, sl, sv, tr, uk
+    bg, ca, cs, da, de, en, es, et, fi, fr, he, hu, is, it, lt, nb, nl, nn, pl, 'pt-BR': ptBR, ru, sk, sl, sv, tr, uk
   }
 
   static readonly FALLBACK_LOCALIZATION = en
