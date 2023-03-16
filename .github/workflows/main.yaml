@@ -1,0 +1,63 @@
+name: Build & Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Lint
+        run: yarn test
+
+      - name: Build
+        run: yarn build
+
+      - uses: rymndhng/release-on-push-action@master
+        id: release
+        with:
+          bump_version_scheme: minor
+          use_github_release_notes: true
+
+      - name: Log Release Version
+        run: |
+          echo "Created tag name: ${{ steps.release.outputs.tag_name }}"
+          echo "Created release version: ${{ steps.release.outputs.version }}"
+
+      - name: Upload JS card file to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          overwrite: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.release.outputs.version }}
+          file: /home/runner/work/lovelace-sun-card/lovelace-sun-card/dist/lovelace-sun-card.js
