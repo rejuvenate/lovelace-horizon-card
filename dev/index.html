@@ -33,7 +33,7 @@
   <div class="card">
     <sun-card id="test"></sun-card>
   </div>
-  <script src="../dist/home-assistant-sun-card.js"></script>
+  <script src="/lovelace-sun-card.js"></script>
   <script>
     const darkMode = false
     if (!darkMode) {
@@ -42,12 +42,7 @@
 
     const test = document.querySelector('#test')
     test.setConfig({
-      title: 'Sunrise & Sunset',
-      /*fields: {
-        azimuth: true,
-        elevation: true
-      }//*/
-      //use12hourClock: true
+      title: 'Sunrise & Sunset'
     })
     test.hass = {
       language: 'en',
