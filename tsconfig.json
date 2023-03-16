@@ -3,7 +3,10 @@
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": ["es2018", "dom"],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "noEmit": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -14,16 +17,20 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "typeRoots": ["./src/types/custom", "node_modules/@types"],
+    "typeRoots": [
+      "./src/types/custom",
+      "node_modules/@types"
+    ],
     "rootDir": ".",
     "allowJs": true,
     "removeComments": true,
     "esModuleInterop": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
   },
   "include": [
     "src/**/*",
-    "tests/**/*"
+    "test/**/*",
+    "node_modules/ts-jest/globals.d.ts"
   ],
   "exclude": [
     "node_modules",
