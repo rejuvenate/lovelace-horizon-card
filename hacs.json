@@ -1,5 +1,5 @@
 {
   "name": "Sun Card",
   "render_readme": true,
-  "filename": "home-assistant-sun-card.js"
+  "filename": "lovelace-sun-card.js"
 }
