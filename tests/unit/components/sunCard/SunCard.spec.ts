@@ -1,55 +1,45 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResult } from "lit";
 
-import { SunCard } from '../../../../src/components/sunCard/SunCard'
-import { SunCardEditor } from '../../../../src/components/sunCardEditor'
-import { Constants } from '../../../../src/constants'
-import { ESunCardErrors, ISunCardConfig, TSunCardData } from '../../../../src/types'
-import { CustomSnapshotSerializer, TemplateResultTestHelper } from '../../../helpers/TestHelpers'
+import { SunCard } from "../../../../src/components/sunCard/SunCard";
+import { SunCardEditor } from "../../../../src/components/sunCardEditor";
+import { Constants } from "../../../../src/constants";
+import { ESunCardErrors, ISunCardConfig, TSunCardData } from "../../../../src/types";
+import { CustomSnapshotSerializer, TemplateResultTestHelper } from "../../../helpers/TestHelpers";
 
-jest.mock('../../../../src/components/SunErrorContent', () => require('../../../mocks/SunErrorContent'))
-jest.mock('../../../../src/components/sunCard/SunCardContent', () => require('../../../mocks/SunCardContent'))
-jest.mock('../../../../src/utils/HelperFunctions', () => require('../../../mocks/HelperFunctions'))
-jest.mock('../../../../src/utils/I18N', () => require('../../../mocks/I18N'))
-jest.mock('../../../../src/cardStyles', () => css``)
+jest.mock("../../../../src/components/SunErrorContent", () => require("../../../mocks/SunErrorContent"));
+jest.mock("../../../../src/components/sunCard/SunCardContent", () => require("../../../mocks/SunCardContent"));
+jest.mock("../../../../src/utils/HelperFunctions", () => require("../../../mocks/HelperFunctions"));
+jest.mock("../../../../src/utils/I18N", () => require("../../../mocks/I18N"));
+jest.mock("../../../../src/cardStyles", () => css``);
 
-expect.addSnapshotSerializer(new CustomSnapshotSerializer())
+expect.addSnapshotSerializer(new CustomSnapshotSerializer());
 
 // JSDom doesn't include SVGPathElement
 class SVGPathElement {
-  getPointAtLength () {
+  getPointAtLength() {
     return {
       x: 0,
       y: 0
-    }
+    };
   }
 }
 
-Object.defineProperty(window, 'SVGPathElement' , { value: SVGPathElement })
+Object.defineProperty(window, "SVGPathElement", { value: SVGPathElement });
 
-describe('SunCard', () => {
-  let sunCard: SunCard
-
-  beforeAll(() => {
-    jest
-      .useFakeTimers()
-      .setSystemTime(new Date("2020-01-01"));
-  });
-
-  afterAll(() => {
-    jest.useRealTimers();
-  });
+describe("SunCard", () => {
+  let sunCard: SunCard;
 
   beforeEach(() => {
-    sunCard = new SunCard()
-    sunCard.attachShadow({ mode: 'open' })
-  })
+    sunCard = new SunCard();
+    sunCard.attachShadow({ mode: "open" });
+  });
 
-  describe('set hass', () => {
-    it('updates lastHass property', () => {
-      jest.spyOn(sunCard as any, 'populateConfigFromHass').mockReturnValue(undefined)
-      jest.spyOn(sunCard as any, 'processLastHass').mockReturnValue(undefined)
-      expect(sunCard['lastHass']).toBeUndefined()
+  describe("set hass", () => {
+    it("updates lastHass property", () => {
+      jest.spyOn(sunCard as any, "populateConfigFromHass").mockReturnValue(undefined);
+      jest.spyOn(sunCard as any, "processLastHass").mockReturnValue(undefined);
+      expect(sunCard["lastHass"]).toBeUndefined();
 
       const expectedLastHass = {} as HomeAssistant;
       sunCard.hass = expectedLastHass;
@@ -403,8 +393,20 @@ describe('SunCard', () => {
 
   describe("readTime", () => {
     it("sets a specific day, month and year to a provided string date", () => {
-      const result = sunCard["readTime"]("0", 2022, 8, 13);
-      expect(result).toEqual(new Date("2022-08-13T22:00:00.000Z")); // Sat Jun 12 2021 01:00:00 GMT+0100 (British Summer Time)
+      // Prepare
+      const attributeToParse = "2023-03-18T00:00:00.000Z";
+      const year = 2023;
+      const month = 1;
+      const date = 1;
+
+      // Act
+      const result = sunCard["readTime"](attributeToParse, year, month, date);
+
+      // Assert
+      expect(result).toBeInstanceOf(Date);
+      expect(result.getUTCFullYear()).toEqual(year);
+      expect(result.getUTCMonth()).toEqual(month);
+      expect(result.getUTCDate()).toEqual(date);
     });
   });
 

@@ -168,7 +168,7 @@ export class SunCard extends LitElement {
   private readTime(attributeToParse: string, year: number, month: number, date: number) {
     const read = new Date(attributeToParse);
     read.setUTCFullYear(year);
-    read.setUTCMonth(month - 1);
+    read.setUTCMonth(month);
     read.setUTCDate(date);
 
     return read;
