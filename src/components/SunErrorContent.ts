@@ -14,6 +14,8 @@ export class SunErrorContent {
 
   public render (): TemplateResult {
     const errorMessage = this.i18n.tr(`errors.${this.error}`)
+    // eslint-disable-next-line no-console
+    console.error(errorMessage)
 
     return html`
       <div class="sun-card-error">
