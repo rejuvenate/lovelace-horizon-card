@@ -8,7 +8,7 @@ const extensions = ['.ts']
 export default {
   input: './src/index.ts',
   output: {
-    file: './dist/home-assistant-sun-card.js',
+    file: './dist/lovelace-sun-card.js',
     format: 'cjs'
   },
   plugins: [
