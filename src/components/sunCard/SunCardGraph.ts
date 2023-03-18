@@ -2,6 +2,7 @@ import { html, TemplateResult } from 'lit'
 
 import { Constants } from '../../constants'
 import { TSunCardData, TSunInfo } from '../../types'
+
 export class SunCardGraph {
   private sunInfo: TSunInfo
 

@@ -14,7 +14,6 @@ export class SunErrorContent {
 
   public render (): TemplateResult {
     const errorMessage = this.i18n.tr(`errors.${this.error}`)
-    console.error(errorMessage)
 
     return html`
       <div class="sun-card-error">
