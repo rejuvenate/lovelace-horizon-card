@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/rejuvenate/sun-card/issues"
   },
-  "homepage": "https://github.com/rejuvenate/sun-card-sun-card#readme",
+  "homepage": "https://github.com/rejuvenate/lovelace-sun-card#readme",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
