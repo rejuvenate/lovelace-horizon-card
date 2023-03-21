@@ -1,7 +1,7 @@
 {
-  "name": "lovelace-sun-card",
+  "name": "lovelace-horizon-card",
   "version": "1.0.0",
-  "description": "Home Assistant Sun card based on Google Weather design",
+  "description": "Home Assistant Horizon card based on Google Weather design",
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rejuvenate/lovelace-sun-card.git"
+    "url": "git+https://github.com/rejuvenate/lovelace-horizon-card.git"
   },
   "author": "rejuvenate",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rejuvenate/lovelace-sun-card/issues"
+    "url": "https://github.com/rejuvenate/lovelace-horizon-card/issues"
   },
-  "homepage": "https://github.com/rejuvenate/lovelace-sun-card#readme",
+  "homepage": "https://github.com/rejuvenate/lovelace-horizon-card#readme",
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@babel/plugin-proposal-class-properties": "^7.18.6",

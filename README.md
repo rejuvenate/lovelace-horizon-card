@@ -1,19 +1,11 @@
-# Lovelace Sun Card: A Google Weather Inspired Component for Home Assistant
+# Lovelace Horizon Card: A Google Weather Inspired Component for Home Assistant
 
-Elevate your Home Assistant dashboard with the beautifully designed Sun Card, inspired by Google Weather.
+Elevate your Home Assistant dashboard with the beautifully designed Horizon Card, inspired by Google Weather.
 This custom card displays sun-related information in a visually appealing and easy-to-read format.
 
 ## Revived Fork Information
 
-Lovelace-sun-card is a fork of the original [home-assistant-sun-card](https://github.com/AitorDB/home-assistant-sun-card) project by [@AitorDB](https://github.com/AitorDB) to continue the great work and distribute responsibility of supporting and advancing the project among a team of people. Consider joining us!
-# Lovelace Sun Card: A Google Weather Inspired Component for Home Assistant
-
-Elevate your Home Assistant dashboard with the beautifully designed Sun Card, inspired by Google Weather.
-This custom card displays sun-related information in a visually appealing and easy-to-read format.
-
-## Revived Fork Information
-
-Lovelace-sun-card is a fork of the original [home-assistant-sun-card](https://github.com/AitorDB/home-assistant-sun-card) project by [@AitorDB](https://github.com/AitorDB) to continue the great work and distribute responsibility of supporting and advancing the project among a team of people. Consider joining us!
+Lovelace-horizon-card is a fork of the original [home-assistant-sun-card](https://github.com/AitorDB/home-assistant-sun-card) project by [@AitorDB](https://github.com/AitorDB) to continue the great work and distribute responsibility of supporting and advancing the project among a team of people. Consider joining us!
 
 ## Preview
 
@@ -29,29 +21,29 @@ Lovelace-sun-card is a fork of the original [home-assistant-sun-card](https://gi
 
 ### HACS
 
-The Home Assistant Sun Card is readily available in the HACS directory.
+The Home Assistant Horizon Card is readily available in the HACS directory.
 Learn more about HACS [here](https://hacs.xyz/).
 
 ### Manual Installation
 
 1. If necessary, create a `www` folder in your configuration folder (where `configuration.yaml` is found).
-1. Download the `lovelace-sun-card.js` file from the [latest release](https://github.com/rejuvenate/lovelace-sun-card/releases) and save it to your `configuration/www` folder.
+1. Download the `lovelace-horizon-card.js` file from the [latest release](https://github.com/rejuvenate/lovelace-horizon-card/releases) and save it to your `configuration/www` folder.
 1. Navigate to `Configuration > Lovelace dashboard > Resources` in Home Assistant and click on `Add resource`.
-   - Add `/local/community/lovelace-sun-card.js` to the URL field.
+   - Add `/local/community/lovelace-horizon-card.js` to the URL field.
    - Choose `Javascript Module` as the Resource type.
 
 ## Setup
 
 ### Using UI
 
-1. Access your dashboard, enter edit mode, and click on `Add card`. You should find `Custom: Sun card` in the list.
+1. Access your dashboard, enter edit mode, and click on `Add card`. You should find `Custom: Horizon card` in the list.
 2. In the UI editor, customize the card by modifying its configuration as detailed in the Config section below.
 
-> Note: If `Custom: Sun card` doesn't appear, reload the page and clear the cache.
+> Note: If `Custom: Horizon card` doesn't appear, reload the page and clear the cache.
 
 ### Using YAML
 
-1. Add a new card with `type: 'custom:sun-card'` to your cards list and include any additional configuration from the Config section below.
+1. Add a new card with `type: 'custom:horizon-card'` to your cards list and include any additional configuration from the Config section below.
 
 > Note: If you encounter an error like `Custom element doesn't exist`, reload the page and clear the cache.
 

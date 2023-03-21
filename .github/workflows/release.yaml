@@ -61,4 +61,4 @@ jobs:
           overwrite: true
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.release.outputs.version }}
-          file: dist/lovelace-sun-card.js
+          file: dist/lovelace-horizon-card.js
