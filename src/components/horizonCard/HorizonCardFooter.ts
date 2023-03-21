@@ -23,30 +23,30 @@ export class HorizonCardFooter {
       <div class="horizon-card-footer">
         <div class="horizon-card-field-row">
           ${
-  this.fields?.dawn !== undefined && this.times?.dawn !== undefined
-    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dawn, this.times.dawn)
+  this.fields?.dawn !== undefined
+    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dawn, this.times?.dawn)
     : HelperFunctions.nothing()
 }
           ${
-  this.fields?.noon !== undefined && this.times?.noon !== undefined
-    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Noon, this.times.noon)
+  this.fields?.noon !== undefined
+    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Noon, this.times?.noon)
     : HelperFunctions.nothing()
 }
           ${
-  this.fields?.dusk !== undefined && this.times?.dusk !== undefined
-    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dusk, this.times.dusk)
+  this.fields?.dusk !== undefined
+    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dusk, this.times?.dusk)
     : HelperFunctions.nothing()
 }
         </div>
 
         <div class="horizon-card-field-row">
           ${
-  this.fields?.azimuth !== undefined && this.data?.azimuth !== undefined
+  this.fields?.azimuth !== undefined
     ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Azimuth, this.data?.azimuth)
     : HelperFunctions.nothing()
 }
           ${
-  this.fields?.elevation !== undefined && this.data?.elevation !== undefined
+  this.fields?.elevation !== undefined
     ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Elevation, this.data?.elevation)
     : HelperFunctions.nothing()
 }

@@ -33,13 +33,13 @@ export class HorizonCardHeader {
     return html`
       <div class="horizon-card-header">
         ${
-  this.fields?.sunrise && this.times?.sunrise
-    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Sunrise, this.times.sunrise)
+  this.fields?.sunrise
+    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Sunrise, this.times?.sunrise)
     : HelperFunctions.nothing()
 }
         ${
-  this.fields?.sunset && this.times?.sunset
-    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Sunset, this.times.sunset)
+  this.fields?.sunset
+    ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Sunset, this.times?.sunset)
     : HelperFunctions.nothing()
 }
       </div>

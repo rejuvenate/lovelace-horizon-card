@@ -29,4 +29,11 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
     
 `;
 
-exports[`HelperFunctions renderFieldElement returns an empty template when the provided value is undefined 1`] = `<!----><!--?-->`;
+exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is undefined 1`] = `
+<!---->
+      <div class="horizon-card-text-container">
+        <span class="horizon-card-field-name"><!--?lit-->sunrise</span>
+        <span class="horizon-card-field-value"><!--?lit-->-</span>
+      </div>
+    
+`;

@@ -19,7 +19,7 @@ describe('HelperFunctions', () => {
   })
 
   describe('renderFieldElement', () => {
-    it('returns an empty template when the provided value is undefined', async () => {
+    it('returns a field element template when the provided value is undefined', async () => {
       const i18 = new I18N('es', false)
 
       const element = window.document.createElement('test-element') as TemplateResultTestHelper<typeof HelperFunctions.renderFieldElement>
@@ -81,9 +81,9 @@ describe('HelperFunctions', () => {
     })
   })
 
-  describe('todayAtStartOfDay', () => {
-    it('returns today at the beginning of the day', () => {
-      const result = HelperFunctions.todayAtStartOfDay()
+  describe('startOfDay', () => {
+    it('returns the beginning of the day for the provided now', () => {
+      const result = HelperFunctions.startOfDay(new Date(0))
       expect(result.getHours()).toBe(0)
       expect(result.getMinutes()).toBe(0)
       expect(result.getSeconds()).toBe(0)
@@ -91,9 +91,9 @@ describe('HelperFunctions', () => {
     })
   })
 
-  describe('todayAtEndOfDay', () => {
-    it('returns today at the end of the day', () => {
-      const result = HelperFunctions.todayAtEndOfDay()
+  describe('endOfDay', () => {
+    it('returns the end of the day for the provided now', () => {
+      const result = HelperFunctions.endOfDay(new Date(0))
       expect(result.getHours()).toBe(23)
       expect(result.getMinutes()).toBe(59)
       expect(result.getSeconds()).toBe(59)

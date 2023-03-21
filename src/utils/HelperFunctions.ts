@@ -11,7 +11,7 @@ export class HelperFunctions {
   public static renderFieldElement (i18n: I18N, translationKey: string, value: Date | number | string | undefined): TemplateResult {
     let display: string
     if (value === undefined) {
-      return HelperFunctions.nothing()
+      display = '-'
     } else if (value instanceof Date) {
       display = i18n.formatDateAsTime(value)
     } else {
@@ -30,8 +30,8 @@ export class HelperFunctions {
     return Object.keys(Constants.LOCALIZATION_LANGUAGES).includes(language)
   }
 
-  public static todayAtStartOfDay (): Date {
-    const today = new Date()
+  public static startOfDay (now: Date): Date {
+    const today = new Date(now)
     today.setHours(0)
     today.setMinutes(0)
     today.setSeconds(0)
@@ -40,8 +40,8 @@ export class HelperFunctions {
     return today
   }
 
-  public static todayAtEndOfDay (): Date {
-    const today = new Date()
+  public static endOfDay (now: Date): Date {
+    const today = new Date(now)
     today.setHours(23)
     today.setMinutes(59)
     today.setSeconds(59)

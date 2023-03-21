@@ -14,3 +14,6 @@ trim_trailing_whitespace = false
 
 [*.snap]
 trim_trailing_whitespace = false
+
+[*.py]
+indent_size = 4

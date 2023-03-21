@@ -27,11 +27,11 @@ export class HelperFunctions {
     return 0
   }
 
-  public static todayAtStartOfDay (): Date {
+  public static startOfDay (): Date {
     return new Date(0)
   }
 
-  public static todayAtEndOfDay (): Date {
+  public static endOfDay (): Date {
     return new Date(0)
   }
 

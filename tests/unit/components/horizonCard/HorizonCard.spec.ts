@@ -9,7 +9,6 @@ import { CustomSnapshotSerializer, TemplateResultTestHelper } from '../../../hel
 
 jest.mock('../../../../src/components/HorizonErrorContent', () => require('../../../mocks/HorizonErrorContent'))
 jest.mock('../../../../src/components/horizonCard/HorizonCardContent', () => require('../../../mocks/HorizonCardContent'))
-jest.mock('../../../../src/utils/HelperFunctions', () => require('../../../mocks/HelperFunctions'))
 jest.mock('../../../../src/utils/I18N', () => require('../../../mocks/I18N'))
 jest.mock('../../../../src/cardStyles', () => css``)
 
@@ -344,7 +343,7 @@ describe('HorizonCard', () => {
         dayProgressPercent: 0,
         duskProgressPercent: 0,
         sunAboveHorizon: 0,
-        sunPercentOverHorizon: 0,
+        sunPercentOverHorizon: 100,
         sunPosition: { x: 0, y: 0 }
       }
 
@@ -370,14 +369,18 @@ describe('HorizonCard', () => {
 
   describe('readTimes', () => {
     it('returns dates for each time field', () => {
-      const readTimeSpy = jest.spyOn(horizonCard as any, 'readTime').mockReturnValue(new Date(0))
+      const normalizeSunEventTimeSpy = jest.spyOn(horizonCard as any, 'normalizeSunEventTime')
+        .mockReturnValue(new Date(0))
+      const combineDateTimeSpy = jest.spyOn(horizonCard as any, 'combineDateTime')
+        .mockReturnValue(new Date(0))
+
       const result = horizonCard['readTimes']({
         next_setting: 0,
         next_dawn: 0,
         next_dusk: 0,
         next_noon: 0,
         next_rising: 0
-      })
+      }, new Date())
 
       expect(result).toEqual({
         dawn: new Date(0),
@@ -387,26 +390,164 @@ describe('HorizonCard', () => {
         sunset: new Date(0)
       })
 
-      expect(readTimeSpy).toHaveBeenCalledTimes(4)
+      expect(normalizeSunEventTimeSpy).toHaveBeenCalledTimes(4)
+      expect(combineDateTimeSpy).toHaveBeenCalledTimes(1)
     })
   })
 
-  describe('readTime', () => {
-    it('sets a specific day, month and year to a provided string date', () => {
-      // Prepare
-      const attributeToParse = '2023-03-18T00:00:00.000Z'
-      const year = 2023
-      const month = 1
-      const date = 1
+  describe('normalizeSunEventTime', () => {
+    it('normalizes the moment of a specific event according to next noon if within 24h', () => {
+      const eventTime = '2021-06-13T12:34:56.007'
+      const now = new Date('2021-06-13T13:40:23')
+      const noon = new Date('2021-06-12T23:45:56')
 
-      // Act
-      const result = horizonCard['readTime'](attributeToParse, year, month, date)
+      const result = horizonCard['normalizeSunEventTime'](eventTime, now, noon)
 
-      // Assert
-      expect(result).toBeInstanceOf(Date)
-      expect(result.getUTCFullYear()).toEqual(year)
-      expect(result.getUTCMonth()).toEqual(month)
-      expect(result.getUTCDate()).toEqual(date)
+      if (typeof result === 'object') {
+        expect(result.getFullYear()).toEqual(2021)
+        expect(result.getMonth()).toEqual(5)
+        expect(result.getDate()).toEqual(13)
+        expect(result.getHours()).toEqual(12)
+        expect(result.getMinutes()).toEqual(34)
+        expect(result.getSeconds()).toEqual(56)
+        expect(result.getMilliseconds()).toEqual(7)
+      }
+    })
+    it('normalizes the moment of a specific event and returns undefined if not within 24h of next noon', () => {
+      const eventTime = '2021-06-14T12:34:56.007'
+      const now = new Date('2021-06-13T13:40:23')
+      const noon = new Date('2021-06-12T23:45:56')
+
+      const result = horizonCard['normalizeSunEventTime'](eventTime, now, noon)
+
+      expect(result).toBeUndefined()
+    })
+  })
+
+  describe('combineDateTime', () => {
+    it('combines the date of one Date with the time of another Date', () => {
+      const date = new Date('2021-06-12T23:45:56')
+      const time = new Date('2023-03-18T12:34:56.007')
+
+      const result = horizonCard['combineDateTime'](date, time)
+
+      expect(result.getFullYear()).toEqual(2021)
+      expect(result.getMonth()).toEqual(5)
+      expect(result.getDate()).toEqual(12)
+      expect(result.getHours()).toEqual(12)
+      expect(result.getMinutes()).toEqual(34)
+      expect(result.getSeconds()).toEqual(56)
+      expect(result.getMilliseconds()).toEqual(7)
+    })
+  })
+
+  describe('now and fixed now', () => {
+    beforeAll(() => {
+      jest.useFakeTimers()
+      jest.setSystemTime(new Date(2023, 2, 20, 12, 34, 56))
+    })
+
+    afterAll(() => {
+      jest.useRealTimers()
+    })
+
+    it('uses actual time when no fixed offset', () => {
+      const result = horizonCard['now']()
+
+      expect(result).toEqual(new Date())
+    })
+
+    it('uses date of noon plus set fixed offset from midnight', () => {
+      horizonCard['setFixedNow'](new Date('2023-03-18T07:35:15'))
+
+      const result = horizonCard['now']()
+
+      expect(result).toEqual(new Date('2023-03-18T07:35:15'))
+    })
+  })
+
+  describe('calculateUsableSunrise', () => {
+    it('returns actual time when usable', () => {
+      const dayStartMs = new Date('2023-03-18T00:00:00').getTime()
+      const elevation = -10
+      const noon = new Date('2023-03-18T12:20:00')
+      const sunset = new Date('2023-03-18T06:30:00')
+      const sunrise = new Date('2023-03-18T19:40:00')
+
+      const result = horizonCard['calculateUsableSunrise'](dayStartMs, elevation, noon, sunset, sunrise)
+
+      expect(result).toEqual(new Date('2023-03-18T06:30:00').getTime())
+    })
+
+    it('returns day start when undefined above horizon', () => {
+      const dayStartMs = new Date('2023-03-18T00:00:00').getTime()
+      const elevation = 1
+      const noon = new Date('2023-03-18T12:20:00')
+      const sunset = undefined
+      const sunrise = new Date('2023-03-18T19:40:00')
+
+      const result = horizonCard['calculateUsableSunrise'](dayStartMs, elevation, noon, sunset, sunrise)
+
+      expect(result).toEqual(new Date('2023-03-18T00:00:00').getTime())
+    })
+
+    it('returns noon minus 1ms when undefined below horizon', () => {
+      const dayStartMs = new Date('2023-03-18T00:00:00').getTime()
+      const elevation = -1
+      const noon = new Date('2023-03-18T12:20:00')
+      const sunset = undefined
+      const sunrise = new Date('2023-03-18T19:40:00')
+
+      const result = horizonCard['calculateUsableSunrise'](dayStartMs, elevation, noon, sunset, sunrise)
+
+      expect(result).toEqual(new Date('2023-03-18T12:20:00').getTime() - 1)
+    })
+
+    it('returns day start when sunset is before midnight', () => {
+      const dayStartMs = new Date('2023-03-18T00:00:00').getTime()
+      const elevation = -10
+      const noon = new Date('2023-03-18T12:20:00')
+      const sunset = new Date('2023-03-18T23:30:00')
+      const sunrise = new Date('2023-03-18T22:45:00')
+
+      const result = horizonCard['calculateUsableSunrise'](dayStartMs, elevation, noon, sunset, sunrise)
+
+      expect(result).toEqual(new Date('2023-03-18T00:00:00').getTime())
+    })
+  })
+
+  describe('calculateUsableSunset', () => {
+    it('returns actual time when usable', () => {
+      const dayEndMs = new Date('2023-03-18T23:59:59.999').getTime()
+      const elevation = -10
+      const noon = new Date('2023-03-18T12:20:00')
+      const sunset = new Date('2023-03-18T19:30:00')
+
+      const result = horizonCard['calculateUsableSunset'](dayEndMs, elevation, noon, sunset)
+
+      expect(result).toEqual(new Date('2023-03-18T19:30:00').getTime())
+    })
+
+    it('returns day start when undefined above horizon', () => {
+      const dayEndMs = new Date('2023-03-18T23:59:59.999').getTime()
+      const elevation = 1
+      const noon = new Date('2023-03-18T12:20:00')
+      const sunset = undefined
+
+      const result = horizonCard['calculateUsableSunset'](dayEndMs, elevation, noon, sunset)
+
+      expect(result).toEqual(new Date('2023-03-18T23:59:59.999').getTime())
+    })
+
+    it('returns noon plus 1ms when undefined below horizon', () => {
+      const dayEndMs = new Date('2023-03-18T23:59:59.999').getTime()
+      const elevation = -1
+      const noon = new Date('2023-03-18T12:20:00')
+      const sunset = undefined
+
+      const result = horizonCard['calculateUsableSunset'](dayEndMs, elevation, noon, sunset)
+
+      expect(result).toEqual(new Date('2023-03-18T12:20:00').getTime() + 1)
     })
   })
 
@@ -415,13 +556,20 @@ describe('HorizonCard', () => {
       const path = new SVGPathElement()
       jest.spyOn((horizonCard as any).shadowRoot, 'querySelector').mockReturnValue(path)
 
-      const result = horizonCard['calculateSunInfo'](new Date(0), new Date(0))
+      const result = horizonCard['calculateSunInfo'](45, new Date(), {
+        dusk: new Date(0),
+        dawn: new Date(0),
+        noon: new Date(0),
+        sunrise: new Date(0),
+        sunset: new Date(0)
+      })
+
       expect(result).toEqual({
         dawnProgressPercent: 0,
         dayProgressPercent: 0,
         duskProgressPercent: 0,
         sunAboveHorizon: true,
-        sunPercentOverHorizon: 0,
+        sunPercentOverHorizon: 100,
         sunPosition: {
           x: 0,
           y: 0

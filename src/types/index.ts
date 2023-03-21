@@ -55,11 +55,11 @@ export enum EHorizonCardErrors {
 }
 
 export type THorizonCardTimes = {
-  dawn: Date
-  dusk: Date
+  dawn?: Date
+  dusk?: Date
   noon: Date
-  sunrise: Date
-  sunset: Date
+  sunrise?: Date
+  sunset?: Date
 }
 
 export type THorizonCardData = {

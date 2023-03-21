@@ -86,4 +86,7 @@ export class Constants {
   }
 
   static readonly FALLBACK_LOCALIZATION = en
+
+  // Magic number - used by Home Assistant and the library (astral) it uses to calculate the sun events
+  static readonly BELOW_HORIZON_ELEVATION = 0.83
 }
