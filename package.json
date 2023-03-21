@@ -1,7 +1,7 @@
 {
   "name": "lovelace-sun-card",
   "version": "1.0.0",
-  "description": "Home assistant sun card based on Google weather design",
+  "description": "Home Assistant Sun card based on Google Weather design",
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
