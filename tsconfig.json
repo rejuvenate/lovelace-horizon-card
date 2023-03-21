@@ -29,11 +29,9 @@
   },
   "include": [
     "src/**/*",
-    "test/**/*",
-    "node_modules/ts-jest/globals.d.ts"
+    "tests/**/*",
   ],
   "exclude": [
     "node_modules",
-    "es"
   ]
 }

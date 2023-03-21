@@ -22,16 +22,16 @@ describe('SunErrorContent', () => {
       consoleErrorSpy.mockRestore()
     })
 
-    it("prints a console error message", () => {
-      const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
+    it('prints a console error message', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation()
       const config = {
-        type: "sun-card",
-        i18n: new I18N("es", undefined)
-      };
+        type: 'sun-card',
+        i18n: new I18N('es', undefined)
+      }
 
-      const sunErrorContent = new SunErrorContent(config, ESunCardErrors.SunIntegrationNotFound);
-      sunErrorContent.render();
-      expect(consoleErrorSpy).toHaveBeenCalledWith("errors.SunIntegrationNotFound");
+      const sunErrorContent = new SunErrorContent(config, ESunCardErrors.SunIntegrationNotFound)
+      sunErrorContent.render()
+      expect(consoleErrorSpy).toHaveBeenCalledWith('errors.SunIntegrationNotFound')
     })
 
     it('returns a valid error template result', async () => {

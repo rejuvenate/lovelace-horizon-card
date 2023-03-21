@@ -12,6 +12,9 @@ module.exports = {
     "plugin:@typescript-eslint/recommended"
   ],
   rules: {
+    "quotes": ["warn", "single", { "allowTemplateLiterals": true }],
+    "semi": ["warn", "never"],
+    "space-before-function-paren": ["warn", "always"],
     "comma-dangle": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",

@@ -1,6 +1,6 @@
-import { LovelaceCardConfig } from "custom-card-helpers";
+import { LovelaceCardConfig } from 'custom-card-helpers'
 
-import { I18N } from "../utils/I18N";
+import { I18N } from '../utils/I18N'
 
 export type TSunCardFields = {
   sunrise?: boolean
@@ -26,12 +26,12 @@ export interface ISunCardConfig extends LovelaceCardConfig {
   fields?: TSunCardFields
 }
 
-export interface IConfigChangedEvent<T> extends CustomEvent<T> {
-  target: CustomEvent["target"] & {
+export interface IConfigChangedEvent <T> extends CustomEvent<T> {
+  target: CustomEvent['target'] & {
     configValue: string
     selected?: string
     checked?: boolean
-  };
+  }
 }
 
 export type TSunInfo = {
@@ -51,26 +51,8 @@ export type TSunInfo = {
 }
 
 export enum ESunCardErrors {
-  SunIntegrationNotFound = "SunIntegrationNotFound"
+  SunIntegrationNotFound = 'SunIntegrationNotFound'
 }
-
-export enum ESunCardI18NKeys {
-  Azimuth = "azimuth",
-  Dawn = "dawn",
-  Dusk = "dusk",
-  Elevation = "elevation",
-  Noon = "noon",
-  Sunrise = "sunrise",
-  Sunset = "sunset"
-}
-
-export type TSunCardI18NErrorKeys = {
-  [key in ESunCardErrors]: string
-}
-
-export type TSunCardI18NKeys = { [key in ESunCardI18NKeys]: string } | { errors: TSunCardI18NErrorKeys }
-
-export type TSunCardI18N = Record<string, unknown>
 
 export type TSunCardTimes = {
   dawn: Date
@@ -90,3 +72,21 @@ export type TSunCardData = {
 
   error?: ESunCardErrors
 }
+
+export enum ESunCardI18NKeys {
+  Azimuth = 'azimuth',
+  Dawn = 'dawn',
+  Dusk = 'dusk',
+  Elevation = 'elevation',
+  Noon = 'noon',
+  Sunrise = 'sunrise',
+  Sunset = 'sunset'
+}
+
+export type TSunCardI18N = Record<string, unknown>
+
+export type TSunCardI18NErrorKeys = {
+  [key in ESunCardErrors]: string
+}
+
+export type TSunCardI18NKeys = { [key in ESunCardI18NKeys ]: string } | { errors: TSunCardI18NErrorKeys }
