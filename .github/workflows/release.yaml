@@ -9,7 +9,6 @@ on:
 jobs:
   build-and-release:
     name: Build & Release
-    needs: build-and-test
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,7 +38,7 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      - name: Lint
+      - name: Test
         run: yarn test
 
       - name: Build
@@ -62,4 +61,4 @@ jobs:
           overwrite: true
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.release.outputs.version }}
-          file: /home/runner/work/lovelace-sun-card/lovelace-sun-card/dist/lovelace-sun-card.js
+          file: dist/lovelace-sun-card.js
