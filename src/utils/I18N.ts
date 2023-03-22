@@ -1,8 +1,8 @@
 import { Constants } from '../constants'
-import { TSunCardI18N, TSunCardI18NKeys } from '../types'
+import { THorizonCardI18N, THorizonCardI18NKeys } from '../types'
 
 export class I18N {
-  private localization: TSunCardI18NKeys
+  private localization: THorizonCardI18NKeys
   private dateFormatter: Intl.DateTimeFormat
 
   constructor (language: string, use12HourClock: boolean | undefined) {
@@ -52,11 +52,11 @@ export class I18N {
   }
 
   // Janky recursive logic to handle nested values in i18n json sources
-  private getLocalizationElement (localization: TSunCardI18N, translationKey: string): string | TSunCardI18N {
+  private getLocalizationElement (localization: THorizonCardI18N, translationKey: string): string | THorizonCardI18N {
     if (translationKey.includes('.')) {
       const parts = translationKey.split('.', 2)
       // TODO: maybe add typecheck
-      const localization = this.getLocalizationElement(this.localization, parts[0]) as TSunCardI18N
+      const localization = this.getLocalizationElement(this.localization, parts[0]) as THorizonCardI18N
       return this.getLocalizationElement(localization, parts[1])
     } else {
       // if the translation isn't completed in the target language, fall back to english

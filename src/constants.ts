@@ -24,11 +24,11 @@ import sl from './assets/localization/languages/sl.json'
 import sv from './assets/localization/languages/sv.json'
 import tr from './assets/localization/languages/tr.json'
 import uk from './assets/localization/languages/uk.json'
-import { ISunCardConfig, TSunCardI18NKeys, TSunCardTimes, TSunInfo } from './types'
+import { IHorizonCardConfig, THorizonCardI18NKeys, THorizonCardTimes, TSunInfo } from './types'
 
 export class Constants {
-  static readonly DEFAULT_CONFIG: ISunCardConfig = {
-    type: 'sun-card',
+  static readonly DEFAULT_CONFIG: IHorizonCardConfig = {
+    type: 'horizon-card',
     darkMode: true,
     language: 'en',
     use12hourClock: false,
@@ -73,7 +73,7 @@ export class Constants {
     sunset: 0
   }
 
-  static readonly DEFAULT_TIMES: TSunCardTimes = {
+  static readonly DEFAULT_TIMES: THorizonCardTimes = {
     dawn: new Date(),
     dusk: new Date(),
     noon: new Date(),
@@ -81,7 +81,7 @@ export class Constants {
     sunset: new Date()
   }
 
-  static readonly LOCALIZATION_LANGUAGES: Record<string, TSunCardI18NKeys> = {
+  static readonly LOCALIZATION_LANGUAGES: Record<string, THorizonCardI18NKeys> = {
     bg, ca, cs, da, de, en, es, et, fi, fr, he, hu, is, it, lt, nb, nl, nn, pl, 'pt-BR': ptBR, ru, sk, sl, sv, tr, uk
   }
 

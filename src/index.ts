@@ -1,3 +1,3 @@
-import './components/sunCard'
-import './components/sunCardEditor'
+import './components/horizonCard'
+import './components/horizonCardEditor'
 

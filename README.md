@@ -1,51 +1,79 @@
-# Lovelace Horizon Card: A Google Weather Inspired Component for Home Assistant
+# Lovelace Horizon Card
 
-Elevate your Home Assistant dashboard with the beautifully designed Horizon Card, inspired by Google Weather.
-This custom card displays sun-related information in a visually appealing and easy-to-read format.
+A [Home Assistant Dashboard Card](https://www.home-assistant.io/dashboards/) available through the [Home Assistant Community Store](https://hacs.xyz) and inspired by Google Weather.
 
-## Revived Fork Information
-
-Lovelace-horizon-card is a fork of the original [home-assistant-sun-card](https://github.com/AitorDB/home-assistant-sun-card) project by [@AitorDB](https://github.com/AitorDB) to continue the great work and distribute responsibility of supporting and advancing the project among a team of people. Consider joining us!
-
-## Preview
+The Horizon Card tracks the position of the Sun over the horizon and shows the times of various Sun events, as well as the current azimuth and elevation, in a visually appealing and easy-to-read format.
 
 <p align="center">
-<img width="400" alt="Light mode preview" src="https://user-images.githubusercontent.com/6829526/118412152-54d93900-b690-11eb-8b2b-e87b4cbcca7f.png"/><img width="400" alt="Dark mode preview" src="https://user-images.githubusercontent.com/6829526/118412162-64f11880-b690-11eb-9bd7-b8c6c7d8efd8.png"/>
+  <img width="400" alt="Light mode preview" src="https://user-images.githubusercontent.com/6829526/118412152-54d93900-b690-11eb-8b2b-e87b4cbcca7f.png"/>
+  <img width="400" alt="Dark mode preview" src="https://user-images.githubusercontent.com/6829526/118412162-64f11880-b690-11eb-9bd7-b8c6c7d8efd8.png"/>
 </p>
 
-## Prerequisites
+## Revived fork information
 
-- Ensure you have the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup.
+Lovelace Horizon Card is a fork of the original [home-assistant-sun-card](https://github.com/AitorDB/home-assistant-sun-card) project by [@AitorDB](https://github.com/AitorDB) to continue the great work and distribute the responsibility of supporting and advancing the project among a team of people.
+
+Consider joining us!
 
 ## Installation
 
+### Prerequisites
+
+- Ensure you have the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup.
+
 ### HACS
 
-The Home Assistant Horizon Card is readily available in the HACS directory.
-Learn more about HACS [here](https://hacs.xyz/).
+1. Make sure the [HACS](https://github.com/custom-components/hacs) component is installed and working.
+2. Search for `lovelace-horizon-card` in HACS and install it.
+3. Add the resources, depending on whether you manage your Lovelace resources via the UI or YAML:
+   1. **UI:** Go to [![My Home Assistant](https://my.home-assistant.io/badges/lovelace_resources.svg)](https://my.home-assistant.io/redirect/lovelace_resources) and click **Add resource** *(or navigate to Settings -> Dashboards -> Resources -> Add Resource)* and enter:
+   
+      **URL**: `/hacsfiles/lovelace-horizon-card/lovelace-horizon-card.js`
 
-### Manual Installation
+      **Type**: JavaScript Module
+   2. **YAML:** Add the configuration to your `ui-lovelace.yaml`.
 
-1. If necessary, create a `www` folder in your configuration folder (where `configuration.yaml` is found).
-1. Download the `lovelace-horizon-card.js` file from the [latest release](https://github.com/rejuvenate/lovelace-horizon-card/releases) and save it to your `configuration/www` folder.
-1. Navigate to `Configuration > Lovelace dashboard > Resources` in Home Assistant and click on `Add resource`.
-   - Add `/local/community/lovelace-horizon-card.js` to the URL field.
-   - Choose `Javascript Module` as the Resource type.
+      ```yaml
+      resources:
+        - url: /hacsfiles/lovelace-horizon-card/lovelace-horizon-card.js
+          type: module
+      ```
+
+### Manual installation
+
+1. Download the latest [lovelace-horizon-card.js](https://github.com/rejuvenate/lovelace-horizon-card/releases/latest/download/lovelace-horizon-card.js) file.
+2. If necessary, create a `www` folder in your configuration folder (where `configuration.yaml` is found).
+3. Copy the downloaded file into your `www` folder.
+4. Add the resources, depending on whether you manage your Lovelace resources via the UI or YAML:
+   1. **UI:** Go to [![My Home Assistant](https://my.home-assistant.io/badges/lovelace_resources.svg)](https://my.home-assistant.io/redirect/lovelace_resources) and click **Add resource** *(or navigate to Settings -> Dashboards -> Resources -> Add Resource)* and enter:
+
+      **URL**: `/local/lovelace-horizon-card.js`
+      
+      **Type**: JavaScript Module
+   2. **YAML:** Add the configuration to your `ui-lovelace.yaml`:
+
+      ```yaml
+      resources:
+        - url: /local/lovelace-horizon-card.js
+          type: module
+      ```
+
+5. Restart Home Assistant.
 
 ## Setup
 
 ### Using UI
 
-1. Access your dashboard, enter edit mode, and click on `Add card`. You should find `Custom: Horizon card` in the list.
+1. Access your dashboard, enter edit mode, and click on **Add card**. You should be able to find **Custom: Horizon Card** in the list.
 2. In the UI editor, customize the card by modifying its configuration as detailed in the Config section below.
 
-> Note: If `Custom: Horizon card` doesn't appear, reload the page and clear the cache.
+> Note: If **Custom: Horizon Card** doesn't appear, clear the cache and reload the page.
 
 ### Using YAML
 
-1. Add a new card with `type: 'custom:horizon-card'` to your cards list and include any additional configuration from the Config section below.
+1. Add a new card with `type: custom:horizon-card` to your cards list and include any additional configuration from the Config section below.
 
-> Note: If you encounter an error like `Custom element doesn't exist`, reload the page and clear the cache.
+> Note: If you encounter an error like *Custom element doesn't exist*, clear the cache and reload the page.
 
 ## Configuration
 
@@ -58,7 +86,7 @@ Learn more about HACS [here](https://hacs.xyz/).
 | use12hourClock | `boolean`            | Use 12/24 hour clock                   | Uses locale of configured language to decide        |
 | title          | `string`             | Card title                             | Doesn't display a title by default                  |
 
-### Visibility Fields
+### Visibility fields
 
 Supported settings inside the `fields` setting:
 
@@ -103,6 +131,6 @@ Supported options for the `language` setting:
 - `tr` Turkish
 - `uk` Ukrainian
 
-## Known Issues
+## Known issues
 
-- Home Assistant may display next events rather than today's events
+- Home Assistant reports the time of the next occurring Sun event. For example, if you look at the card during the day, the time for sunrise will reflect tomorrow's sunrise and not the one that occurred on the same day. 

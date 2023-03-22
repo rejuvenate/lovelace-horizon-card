@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SunErrorContent render returns a valid error template result 1`] = `
-<!---->
-      <div class="sun-card-error">
-        <!--?lit-->errors.SunIntegrationNotFound
-      </div>
-    
-`;

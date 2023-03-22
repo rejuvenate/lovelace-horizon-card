@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SunCardEditor render renders the sun card editor content render result 1`] = `
-<!---->
-      <div class="card-config">
-        SUN CARD EDITOR CONTENT
-      </div>
-    
-`;

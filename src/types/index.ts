@@ -2,7 +2,7 @@ import { LovelaceCardConfig } from 'custom-card-helpers'
 
 import { I18N } from '../utils/I18N'
 
-export type TSunCardFields = {
+export type THorizonCardFields = {
   sunrise?: boolean
   sunset?: boolean
 
@@ -14,7 +14,7 @@ export type TSunCardFields = {
   elevation?: boolean
 }
 
-export interface ISunCardConfig extends LovelaceCardConfig {
+export interface IHorizonCardConfig extends LovelaceCardConfig {
   i18n?: I18N
   darkMode?: boolean
   language?: string
@@ -23,7 +23,7 @@ export interface ISunCardConfig extends LovelaceCardConfig {
   component?: string
   use12hourClock?: boolean
 
-  fields?: TSunCardFields
+  fields?: THorizonCardFields
 }
 
 export interface IConfigChangedEvent <T> extends CustomEvent<T> {
@@ -50,11 +50,11 @@ export type TSunInfo = {
   }
 }
 
-export enum ESunCardErrors {
+export enum EHorizonCardErrors {
   SunIntegrationNotFound = 'SunIntegrationNotFound'
 }
 
-export type TSunCardTimes = {
+export type THorizonCardTimes = {
   dawn: Date
   dusk: Date
   noon: Date
@@ -62,18 +62,18 @@ export type TSunCardTimes = {
   sunset: Date
 }
 
-export type TSunCardData = {
+export type THorizonCardData = {
   azimuth: number
   elevation: number
 
   sunInfo: TSunInfo
 
-  times: TSunCardTimes
+  times: THorizonCardTimes
 
-  error?: ESunCardErrors
+  error?: EHorizonCardErrors
 }
 
-export enum ESunCardI18NKeys {
+export enum EHorizonCardI18NKeys {
   Azimuth = 'azimuth',
   Dawn = 'dawn',
   Dusk = 'dusk',
@@ -83,10 +83,10 @@ export enum ESunCardI18NKeys {
   Sunset = 'sunset'
 }
 
-export type TSunCardI18N = Record<string, unknown>
+export type THorizonCardI18N = Record<string, unknown>
 
-export type TSunCardI18NErrorKeys = {
-  [key in ESunCardErrors]: string
+export type THorizonCardI18NErrorKeys = {
+  [key in EHorizonCardErrors]: string
 }
 
-export type TSunCardI18NKeys = { [key in ESunCardI18NKeys ]: string } | { errors: TSunCardI18NErrorKeys }
+export type THorizonCardI18NKeys = { [key in EHorizonCardI18NKeys ]: string } | { errors: THorizonCardI18NErrorKeys }

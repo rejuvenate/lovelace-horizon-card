@@ -12,9 +12,9 @@ export class HelperFunctions {
 
     const display = value instanceof Date ? value.getTime() : value.toString()
     return html`
-      <div class="sun-card-text-container">
-        <span class="sun-card-field-name">${ translationKey }</span>
-        <span class="sun-card-field-value">${ display }</span>
+      <div class="horizon-card-text-container">
+        <span class="horizon-card-field-name">${ translationKey }</span>
+        <span class="horizon-card-field-value">${ display }</span>
       </div>
     `
   }
@@ -23,14 +23,14 @@ export class HelperFunctions {
     return language !== 'notSupportedLanguage'
   }
 
-  public static findSectionPosition (_msSinceSectionStart: number, _msSectionEnd: number, _section: number): number {    
+  public static findSectionPosition (_msSinceSectionStart: number, _msSectionEnd: number, _section: number): number {
     return 0
   }
 
   public static todayAtStartOfDay (): Date {
     return new Date(0)
   }
-  
+
   public static todayAtEndOfDay (): Date {
     return new Date(0)
   }

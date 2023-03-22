@@ -19,9 +19,9 @@ export class HelperFunctions {
     }
 
     return html`
-      <div class="sun-card-text-container">
-        <span class="sun-card-field-name">${ i18n.tr(translationKey) }</span>
-        <span class="sun-card-field-value">${ display }</span>
+      <div class="horizon-card-text-container">
+        <span class="horizon-card-field-name">${ i18n.tr(translationKey) }</span>
+        <span class="horizon-card-field-value">${ display }</span>
       </div>
     `
   }

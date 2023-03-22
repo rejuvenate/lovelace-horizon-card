@@ -4,27 +4,27 @@ exports[`HelperFunctions nothing returns an empty template result 1`] = `<!---->
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a date 1`] = `
 <!---->
-      <div class="sun-card-text-container">
-        <span class="sun-card-field-name"><!--?lit-->sunrise</span>
-        <span class="sun-card-field-value"><!--?lit-->1623029837812</span>
+      <div class="horizon-card-text-container">
+        <span class="horizon-card-field-name"><!--?lit-->sunrise</span>
+        <span class="horizon-card-field-value"><!--?lit-->1623029837812</span>
       </div>
     
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a number 1`] = `
 <!---->
-      <div class="sun-card-text-container">
-        <span class="sun-card-field-name"><!--?lit-->sunrise</span>
-        <span class="sun-card-field-value"><!--?lit-->9</span>
+      <div class="horizon-card-text-container">
+        <span class="horizon-card-field-name"><!--?lit-->sunrise</span>
+        <span class="horizon-card-field-value"><!--?lit-->9</span>
       </div>
     
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a string 1`] = `
 <!---->
-      <div class="sun-card-text-container">
-        <span class="sun-card-field-name"><!--?lit-->sunrise</span>
-        <span class="sun-card-field-value"><!--?lit-->test</span>
+      <div class="horizon-card-text-container">
+        <span class="horizon-card-field-name"><!--?lit-->sunrise</span>
+        <span class="horizon-card-field-value"><!--?lit-->test</span>
       </div>
     
 `;

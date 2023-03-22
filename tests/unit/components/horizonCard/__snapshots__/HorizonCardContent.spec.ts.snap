@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HorizonCardContent render does not render the footer when show footer returns false 1`] = `
+<!---->
+      <ha-card>
+        <div class="horizon-card ">
+          <!--?lit-->
+      <div class="horizon-card-header">
+        HORIZON CARD HEADER
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-graph">
+        HORIZON CARD GRAPH
+      </div>
+    
+          <!--?lit--><!--?-->
+        </div>
+      </ha-card>
+    
+`;
+
+exports[`HorizonCardContent render does not render the header when show header returns false 1`] = `
+<!---->
+      <ha-card>
+        <div class="horizon-card ">
+          <!--?lit--><!--?-->
+          <!--?lit-->
+      <div class="horizon-card-graph">
+        HORIZON CARD GRAPH
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-footer">
+        HORIZON CARD FOOTER
+      </div>
+    
+        </div>
+      </ha-card>
+    
+`;
+
+exports[`HorizonCardContent render does not set dark mode when it is set to false on the config 1`] = `
+<!---->
+      <ha-card>
+        <div class="horizon-card ">
+          <!--?lit-->
+      <div class="horizon-card-header">
+        HORIZON CARD HEADER
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-graph">
+        HORIZON CARD GRAPH
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-footer">
+        HORIZON CARD FOOTER
+      </div>
+    
+        </div>
+      </ha-card>
+    
+`;
+
+exports[`HorizonCardContent render renders the footer when show footer returns true 1`] = `
+<!---->
+      <ha-card>
+        <div class="horizon-card ">
+          <!--?lit-->
+      <div class="horizon-card-header">
+        HORIZON CARD HEADER
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-graph">
+        HORIZON CARD GRAPH
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-footer">
+        HORIZON CARD FOOTER
+      </div>
+    
+        </div>
+      </ha-card>
+    
+`;
+
+exports[`HorizonCardContent render renders the header when show header returns true 1`] = `
+<!---->
+      <ha-card>
+        <div class="horizon-card ">
+          <!--?lit-->
+      <div class="horizon-card-header">
+        HORIZON CARD HEADER
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-graph">
+        HORIZON CARD GRAPH
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-footer">
+        HORIZON CARD FOOTER
+      </div>
+    
+        </div>
+      </ha-card>
+    
+`;
+
+exports[`HorizonCardContent render sets dark mode when it is set to true on the config 1`] = `
+<!---->
+      <ha-card>
+        <div class="horizon-card horizon-card-dark">
+          <!--?lit-->
+      <div class="horizon-card-header">
+        HORIZON CARD HEADER
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-graph">
+        HORIZON CARD GRAPH
+      </div>
+    
+          <!--?lit-->
+      <div class="horizon-card-footer">
+        HORIZON CARD FOOTER
+      </div>
+    
+        </div>
+      </ha-card>
+    
+`;
