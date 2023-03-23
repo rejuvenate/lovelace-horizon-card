@@ -16,6 +16,9 @@ export class HelperFunctions {
       display = i18n.formatDateAsTime(value)
     } else {
       display = value.toString()
+      if (translationKey === 'azimuth' || translationKey === 'elevation') {
+        display += '°'
+      }
     }
 
     return html`

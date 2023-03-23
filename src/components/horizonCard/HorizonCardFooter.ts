@@ -23,17 +23,17 @@ export class HorizonCardFooter {
       <div class="horizon-card-footer">
         <div class="horizon-card-field-row">
           ${
-  this.fields?.dawn !== undefined
+  this.fields?.dawn
     ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dawn, this.times?.dawn)
     : HelperFunctions.nothing()
 }
           ${
-  this.fields?.noon !== undefined
+  this.fields?.noon
     ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Noon, this.times?.noon)
     : HelperFunctions.nothing()
 }
           ${
-  this.fields?.dusk !== undefined
+  this.fields?.dusk
     ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dusk, this.times?.dusk)
     : HelperFunctions.nothing()
 }
@@ -41,12 +41,12 @@ export class HorizonCardFooter {
 
         <div class="horizon-card-field-row">
           ${
-  this.fields?.azimuth !== undefined
+  this.fields?.azimuth
     ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Azimuth, this.data?.azimuth)
     : HelperFunctions.nothing()
 }
           ${
-  this.fields?.elevation !== undefined
+  this.fields?.elevation
     ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Elevation, this.data?.elevation)
     : HelperFunctions.nothing()
 }

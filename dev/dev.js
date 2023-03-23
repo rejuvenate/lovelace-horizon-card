@@ -74,9 +74,15 @@ function init(testData) {
     }
     test.setConfig({
       title: "Sunrise & Sunset",
-      showAzimuth: true,
-      showElevation: true,
-      darkMode: settings.darkMode
+      fields: {
+        // sunrise: false,
+        // sunset: false,
+        // dawn: false,
+        // dusk: false,
+        // noon: false,
+        azimuth: true,
+        elevation: true
+      }
     });
 
     const tzOffset = testData[settings.date][settings.place]["tzOffset"];

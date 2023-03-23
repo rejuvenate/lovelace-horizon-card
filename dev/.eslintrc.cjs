@@ -8,6 +8,7 @@ module.exports = {
     "no-console": "warn",
     "no-multiple-empty-lines": "warn",
     "prefer-const": "warn",
+    "quotes": ["warn", "double"],
     "@typescript-eslint/no-floating-promises": "off",
   }
 }
