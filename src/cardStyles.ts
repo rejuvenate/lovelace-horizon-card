@@ -55,6 +55,7 @@ export default css`
 
   .horizon-card-header .horizon-card-field-value {
     font-size: 1.85rem;
+    line-height: 28px;
   }
 
   .horizon-card-title {
