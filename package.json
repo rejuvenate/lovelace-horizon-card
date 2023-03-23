@@ -1,7 +1,7 @@
 {
   "name": "lovelace-horizon-card",
   "version": "1.0.0",
-  "description": "Home Assistant Horizon card based on Google Weather design",
+  "description": "Successor to 'Sun Card' - Information about the sun in a beautiful Google weather inspired design",
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
