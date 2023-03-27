@@ -126,6 +126,7 @@ Supported options for the `language` setting:
 - `nn` Norwegian (Nynorsk)
 - `pl` Polish
 - `pt-BR` Portuguese (Brazil)
+- `ro` Romanian
 - `ru` Russian
 - `sk` Slovak
 - `sl` Slovenian
