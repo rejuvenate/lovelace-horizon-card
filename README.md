@@ -33,21 +33,25 @@ Please ensure you have the [Sun integration](https://www.home-assistant.io/integ
    Addition to the HACS default repository is pending and shouldn't take longer than a couple of days (see: https://github.com/hacs/default/pull/1808).
    This step won't be necessary afterwards.
 1. Search for `lovelace-horizon-card` in HACS and install it.
+1. Restart Home Assistant.
 
 ### Manual Installation
 
 <details>
 <summary>Show detailed instructions</summary>
+
+Installation via HACS is recommended, but a manual setup is supported.
+
 1. Download the latest [lovelace-horizon-card.js](https://github.com/rejuvenate/lovelace-horizon-card/releases/latest/download/lovelace-horizon-card.js) file.
-2. If necessary, create a `www` folder in your configuration folder (where `configuration.yaml` is found).
-3. Copy the downloaded file into your `www` folder.
-4. Add the resources, depending on whether you manage your Lovelace resources via the UI or YAML:
+1. If necessary, create a `www` folder in your configuration folder (where `configuration.yaml` is found).
+1. Copy the downloaded file into your `www` folder.
+1. Add the resources, depending on whether you manage your Lovelace resources via the UI or YAML:
    1. **UI:** Go to [![My Home Assistant](https://my.home-assistant.io/badges/lovelace_resources.svg)](https://my.home-assistant.io/redirect/lovelace_resources) and click **Add resource** *(or navigate to Settings -> Dashboards -> Resources -> Add Resource)* and enter:
 
       **URL**: `/local/lovelace-horizon-card.js`
       
       **Type**: JavaScript Module
-   2. **YAML:** Add the configuration to your `ui-lovelace.yaml`:
+   1. **YAML:** Add the configuration to your `ui-lovelace.yaml`:
 
       ```yaml
       resources:
@@ -55,7 +59,8 @@ Please ensure you have the [Sun integration](https://www.home-assistant.io/integ
           type: module
       ```
   
-5. Restart Home Assistant.
+1. Restart Home Assistant.
+
 </details>
 
 ## Setup
