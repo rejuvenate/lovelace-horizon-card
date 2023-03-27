@@ -1,0 +1,12 @@
+{
+    "Azimuth": "Azimut",
+    "Dawn": "Zori",
+    "Dusk": "Amurg",
+    "Elevation": "Elevație",
+    "Noon": "Zenit",
+    "Sunrise": "Răsărit",
+    "Sunset": "Apus",
+    "errors": {
+      "SunIntegrationNotFound": "Integrare solară indisponibilă"
+    }
+}
