@@ -16,7 +16,7 @@ export class HorizonCardGraph {
     const dayID = 'day-gradient'
     const duskID = 'dusk-gradient'
 
-    const viewBox = "0 0 550 150"
+    const viewBox = '0 0 550 150'
     // TODO: Check sun opacity
 
     return html`

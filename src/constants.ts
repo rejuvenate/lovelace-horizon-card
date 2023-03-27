@@ -28,7 +28,6 @@ import tr from './assets/localization/languages/tr.json'
 import uk from './assets/localization/languages/uk.json'
 import zh_Hans from './assets/localization/languages/zh-Hans.json'
 import zh_Hant from './assets/localization/languages/zh-Hant.json'
-
 import { IHorizonCardConfig, THorizonCardI18NKeys, THorizonCardTimes, TSunInfo } from './types'
 
 export class Constants {
