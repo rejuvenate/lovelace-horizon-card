@@ -3,10 +3,9 @@
   "dawn": "拂晓",
   "dusk": "傍晚",
   "elevation": "仰角",
+  "moonrise": "月出",
+  "moonset": "月落",
   "noon": "日中",
   "sunrise": "日出",
-  "sunset": "日落",
-  "errors": {
-    "SunIntegrationNotFound": "未搜索到集成 Sun"
-  }
+  "sunset": "日落"
 }

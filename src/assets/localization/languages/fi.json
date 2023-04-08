@@ -3,10 +3,9 @@
   "dawn": "Sarastus",
   "dusk": "Hämärä",
   "elevation": "Korkeus",
+  "moonrise": "Kuunnousu",
+  "moonset": "Kuunlasku",
   "noon": "Keskipäivä",
   "sunrise": "Auringonnousu",
-  "sunset": "Auringonlasku",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Auringonlasku"
 }

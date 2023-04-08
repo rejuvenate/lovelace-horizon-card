@@ -1,19 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HorizonCard render renders an error if error is present on data 1`] = `
-<!---->
-      <div class="horizon-card-error">
-        ERROR
-      </div>
-    
+<div class="horizon-card-error">
+  ERROR
+</div>
 `;
 
+exports[`HorizonCard render renders nothing if hass has not been set 1`] = ``;
+
 exports[`HorizonCard render renders the horizon card if no error is present on data 1`] = `
-<!---->
-      <ha-card>
-        <div class="horizon-card">
-          HORIZON CARD CONTENT
-        </div>
-      </ha-card>
-    
+<ha-card>
+  <div class="horizon-card">
+    HORIZON CARD CONTENT
+  </div>
+</ha-card>
 `;

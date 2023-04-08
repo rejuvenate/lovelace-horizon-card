@@ -3,10 +3,9 @@
   "dawn": "Рассвет",
   "dusk": "Сумерки",
   "elevation": "Высота",
+  "moonrise": "Восход луны",
+  "moonset": "Закат луны",
   "noon": "Зенит",
   "sunrise": "Восход",
-  "sunset": "Закат",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Закат"
 }

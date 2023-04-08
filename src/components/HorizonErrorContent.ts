@@ -1,15 +1,15 @@
 import { html, TemplateResult } from 'lit'
 
-import { EHorizonCardErrors, IHorizonCardConfig } from '../types'
+import { EHorizonCardErrors } from '../types'
 import { I18N } from '../utils/I18N'
 
 export class HorizonErrorContent {
-  private i18n: I18N
-  private error: EHorizonCardErrors
+  private readonly i18n: I18N
+  private readonly error: EHorizonCardErrors
 
-  constructor (config: IHorizonCardConfig, error: EHorizonCardErrors) {
-    this.i18n = config.i18n!
+  constructor (error: EHorizonCardErrors, i18n: I18N) {
     this.error = error
+    this.i18n = i18n
   }
 
   public render (): TemplateResult {

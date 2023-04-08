@@ -3,10 +3,9 @@
   "dawn": "明け方",
   "dusk": "夕",
   "elevation": "仰俯角",
+  "moonrise": "月の出",
+  "moonset": "月の入り",
   "noon": "太陽の正午",
   "sunrise": "日出",
-  "sunset": "日沒",
-  "errors": {
-    "SunIntegrationNotFound": "インテグレーション Sun は検索できません"
-  }
+  "sunset": "日沒"
 }

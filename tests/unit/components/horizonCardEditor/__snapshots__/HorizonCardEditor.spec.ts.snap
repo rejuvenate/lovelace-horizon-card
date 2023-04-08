@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`HorizonCardEditor render renders the horizon card editor content render result 1`] = `
-<!---->
-      <div class="card-config">
-        HORIZON CARD EDITOR CONTENT
-      </div>
-    
-`;

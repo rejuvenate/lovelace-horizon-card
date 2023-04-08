@@ -3,10 +3,9 @@
   "dawn": "Koidik",
   "dusk": "Hämarik",
   "elevation": "Kõrgus",
+  "moonrise": "Kuutõus",
+  "moonset": "Kuuloojang",
   "noon": "Keskpäev",
   "sunrise": "Päikesetõus",
-  "sunset": "Päikeseloojang",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Päikeseloojang"
 }

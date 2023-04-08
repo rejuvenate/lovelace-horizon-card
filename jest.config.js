@@ -1,4 +1,5 @@
 module.exports = {
+  globalSetup: './global-setup.js',
   transformIgnorePatterns: ['node_modules/?!(lit-html)'],
   preset: 'ts-jest/presets/js-with-ts',
   testEnvironment: 'jsdom',
@@ -21,5 +22,6 @@ module.exports = {
   },
   setupFiles: [
     './tests/helpers/TestHelpers.ts'
-  ]
+  ],
+  snapshotSerializers: ["jest-serializer-html"]
 }

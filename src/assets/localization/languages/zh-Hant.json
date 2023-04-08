@@ -3,10 +3,9 @@
   "dawn": "黎明",
   "dusk": "黃昏",
   "elevation": "仰角",
+  "moonrise": "月出",
+  "moonset": "月落",
   "noon": "日正當中",
   "sunrise": "日昇",
-  "sunset": "日落",
-  "errors": {
-    "SunIntegrationNotFound": "沒有找到整合 Sun"
-  }
+  "sunset": "日落"
 }

@@ -3,10 +3,9 @@
   "dawn": "Świt",
   "dusk": "Zmierzch",
   "elevation": "Wysokość",
+  "moonrise": "Wschód księżyca",
+  "moonset": "Zachód księżyca",
   "noon": "Górowanie",
   "sunrise": "Wschód",
-  "sunset": "Zachód",
-  "errors": {
-    "SunIntegrationNotFound": "Nie odnaleziono integracji sun"
-  }
+  "sunset": "Zachód"
 }

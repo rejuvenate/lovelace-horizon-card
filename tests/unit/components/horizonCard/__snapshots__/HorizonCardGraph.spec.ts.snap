@@ -1,119 +1,655 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HorizonCardGraph render should the graph with the data values when provided 1`] = `
-<!---->
-      <div class="horizon-card-graph">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 150">
-
-          <!-- Define gradients for use when drawing afterwards -->
-          <defs>
-            <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="sun-gradient">
-              <stop offset="0%" class="sunInitialStop"></stop>
-              <stop class="sunMiddleStop" offset="0%"></stop>
-              <stop class="sunEndStop" offset="0%"></stop>
-            </linearGradient>
-
-            <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="dawn-gradient">
-              <stop offset="0%" class="dawnInitialStop"></stop>
-              <stop class="dawnMiddleStop" offset="100%"></stop>
-              <stop class="dawnEndStop" offset="100%"></stop>
-            </linearGradient>
-
-            <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="day-gradient">
-              <stop offset="0%" class="dayInitialStop"></stop>
-              <stop class="dayMiddleStop" offset="100%"></stop>
-              <stop class="dayEndStop" offset="100%"></stop>
-            </linearGradient>
-
-            <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="dusk-gradient">
-              <stop offset="0%" class="duskInitialStop"></stop>
-              <stop class="duskMiddleStop" offset="23%"></stop>
-              <stop class="duskEndStop" offset="23%"></stop>
-            </linearGradient>
-          </defs>
-
-          <!-- Draw path of the sun across the 'sky' -->
-          <path class="horizon-card-sun-line" d="M5,146 C29,153 73,128 101,108 C276,-29 342,23 449,108 C473,123 509,150 545,146" fill="none" stroke="var(--horizon-card-lines)"></path>
-
-          <!-- Draw between the path of the sun and the horizon line for dawn -->
-          <!-- IE: First dark blue part -->
-          <path d="M5,146 C29,153 73,128 101,108 L 5 108" fill="url(#dawn-gradient)" stroke="url(#dawn-gradient)" opacity="100"></path>
-
-          <!-- Draw between the path of the sun and the horizon line for day -->
-          <!-- IE: Main light blue part in the middle -->
-          <path d="M101,108 C276,-29 342,23 449,108 L 104,108" fill="url(#day-gradient)" stroke="url(#day-gradient)" opacity="100"></path>
-
-          <!-- Draw between the path of the sun and the horizon line for dusk -->
-          <!-- IE: Last dark blue part -->
-          <path d="M449,108 C473,123 509,150 545,146 L 545 108" fill="url(#dusk-gradient)" stroke="url(#dusk-gradient)" opacity="23"></path>
-
-          <!-- Draw the horizon, dawn and dusk lines (the gray horizontal/vertical lines) -->
-          <line x1="5" y1="108" x2="545" y2="108" stroke="var(--horizon-card-lines)"></line>
-          <line x1="101" y1="25" x2="101" y2="100" stroke="var(--horizon-card-lines)"></line>
-          <line x1="449" y1="25" x2="449" y2="100" stroke="var(--horizon-card-lines)"></line>
-
-          <!-- Draw a circle representing the sun -->
-          <circle r="17" stroke="none" cx="50" cy="50" opacity="0" fill="url(#sun-gradient)"></circle>
-        </svg>
-      </div>
-    
+exports[`HorizonCardGraph render does not render the moon when not configured so 1`] = `
+<div class="horizon-card-graph">
+  <svg viewbox="0 0 550 150"
+       xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <path id="sun-path-unscaled"
+            d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146"
+      >
+      </path>
+      <path id="sun-path"
+            d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146"
+      >
+      </path>
+      <clipPath id="upper-path-mask">
+        <use href="#sun-path">
+        </use>
+      </clipPath>
+      <clipPath id="lower-path-mask">
+        <path d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146 V0 H0">
+        </path>
+      </clipPath>
+      <filter id="moon-blur">
+        <feGaussianBlur in="SourceGraphic"
+                        stddeviation="0"
+        >
+        </feGaussianBlur>
+      </filter>
+      <circle id="moon"
+              stroke="none"
+              cx="0"
+              cy="0"
+              r="14"
+      >
+      </circle>
+      <path id="shade"
+            stroke-width="0"
+            d="M-14,0
+                a 14,14
+                0
+                1,1
+                28,0
+                a 14,14
+                0
+                1,0
+                -28,0
+                Z"
+      >
+      </path>
+      <mask id="moon-shadow-mask">
+        <use href="#shade"
+             stroke="white"
+             fill="white"
+             filter="url(#moon-blur)"
+             stroke-width="0"
+        >
+        </use>
+      </mask>
+      <mask id="moon-shadow-mask-inverted">
+        <circle fill="white"
+                stroke="white"
+                stroke-width="0"
+                cx="0"
+                cy="0"
+                r="14"
+        >
+        </circle>
+        <use href="#shade"
+             stroke="black"
+             fill="black"
+             filter="url(#moon-blur)"
+             stroke-width="0"
+        >
+        </use>
+      </mask>
+    </defs>
+    <g transform-origin="center"
+       transform="scale(1 1)"
+    >
+      <line y1="3"
+            y2="72"
+            stroke="var(--hc-lines)"
+            x1="0"
+            x2="0"
+      >
+      </line>
+      <line y1="3"
+            y2="72"
+            stroke="var(--hc-lines)"
+            x1="0"
+            x2="0"
+      >
+      </line>
+    </g>
+    <g transform-origin="center"
+       transform="translate(0 0) scale(1 1)"
+    >
+      <use href="#sun-path"
+           fill="none"
+           stroke="var(--hc-lines)"
+      >
+      </use>
+      <path clip-path="url(#lower-path-mask)"
+            class="dawn"
+            d="M5,0 H0 V150 H5"
+      >
+      </path>
+      <path clip-path="url(#upper-path-mask)"
+            class="day"
+            d="M0,0 H0
+            V0 H0"
+      >
+      </path>
+      <line x1="5"
+            x2="545"
+            stroke="var(--hc-lines)"
+            y1="0"
+            y2="0"
+      >
+      </line>
+      <path stroke="var(--hc-lines)"
+            fill="none"
+            d="M535 -5 L545 0 L535 5"
+      >
+      </path>
+      <circle stroke="none"
+              fill="var(--hc-sun-color)"
+              cx="0"
+              cy="0"
+              r="17"
+      >
+      </circle>
+    </g>
+  </svg>
+</div>
 `;
 
-exports[`HorizonCardGraph render should the graph with the default values when data values are not provided 1`] = `
-<!---->
-      <div class="horizon-card-graph">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 150">
+exports[`HorizonCardGraph render renders the graph with the data values when provided 1`] = `
+<div class="horizon-card-graph">
+  <svg viewbox="0 0 550 150"
+       xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <path id="sun-path-unscaled"
+            d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146"
+      >
+      </path>
+      <path id="sun-path"
+            d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146"
+      >
+      </path>
+      <clipPath id="upper-path-mask">
+        <use href="#sun-path">
+        </use>
+      </clipPath>
+      <clipPath id="lower-path-mask">
+        <path d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146 V0 H0">
+        </path>
+      </clipPath>
+      <filter id="moon-blur">
+        <feGaussianBlur in="SourceGraphic"
+                        stddeviation="0"
+        >
+        </feGaussianBlur>
+      </filter>
+      <circle id="moon"
+              stroke="none"
+              cx="100"
+              cy="25"
+              r="14"
+      >
+      </circle>
+      <path id="shade"
+            stroke-width="0"
+            d="M86,25
+                a 14,14
+                0
+                1,1
+                28,0
+                a 14,14
+                0
+                1,1
+                -28,0
+                Z"
+      >
+      </path>
+      <mask id="moon-shadow-mask">
+        <use href="#shade"
+             stroke="white"
+             fill="white"
+             filter="url(#moon-blur)"
+             stroke-width="0"
+        >
+        </use>
+      </mask>
+      <mask id="moon-shadow-mask-inverted">
+        <circle fill="white"
+                stroke="white"
+                stroke-width="0"
+                cx="100"
+                cy="25"
+                r="14"
+        >
+        </circle>
+        <use href="#shade"
+             stroke="black"
+             fill="black"
+             filter="url(#moon-blur)"
+             stroke-width="0"
+        >
+        </use>
+      </mask>
+    </defs>
+    <g transform-origin="center"
+       transform="scale(1 1)"
+    >
+      <line y1="3"
+            y2="72"
+            stroke="var(--hc-lines)"
+            x1="200"
+            x2="200"
+      >
+      </line>
+      <line y1="3"
+            y2="72"
+            stroke="var(--hc-lines)"
+            x1="400"
+            x2="400"
+      >
+      </line>
+    </g>
+    <g transform-origin="center"
+       transform="translate(0 0) scale(1 1)"
+    >
+      <use href="#sun-path"
+           fill="none"
+           stroke="var(--hc-lines)"
+      >
+      </use>
+      <path clip-path="url(#lower-path-mask)"
+            class="dawn"
+            d="M5,84 H50 V150 H5"
+      >
+      </path>
+      <path clip-path="url(#upper-path-mask)"
+            class="day"
+            d="M200,0 H50
+            V84 H200"
+      >
+      </path>
+      <line x1="5"
+            x2="545"
+            stroke="var(--hc-lines)"
+            y1="84"
+            y2="84"
+      >
+      </line>
+      <path stroke="var(--hc-lines)"
+            fill="none"
+            d="M535 79 L545 84 L535 89"
+      >
+      </path>
+      <circle stroke="none"
+              fill="var(--hc-sun-color)"
+              cx="50"
+              cy="50"
+              r="17"
+      >
+      </circle>
+    </g>
+    <g transform="rotate(0 100 25)">
+      <use href="#moon"
+           fill="var(--hc-moon-shadow-color)"
+      >
+      </use>
+      <use href="#moon"
+           fill="var(--hc-moon-color)"
+           mask="url(#moon-shadow-mask)"
+      >
+      </use>
+    </g>
+    <g transform="rotate( 100 25)">
+      <circle stroke="none"
+              cx="96.5"
+              cy="19.75"
+              r="4.666666666666667"
+              fill="var(--hc-moon-spot-color)"
+      >
+      </circle>
+      <circle stroke="none"
+              cx="105.25"
+              cy="18"
+              r="3.5"
+              fill="var(--hc-moon-spot-color)"
+      >
+      </circle>
+      <circle stroke="none"
+              cx="96.5"
+              cy="28.5"
+              r="3.5"
+              fill="var(--hc-moon-spot-color)"
+      >
+      </circle>
+      <circle stroke="none"
+              cx="107"
+              cy="25"
+              r="2.8"
+              fill="var(--hc-moon-spot-color)"
+      >
+      </circle>
+    </g>
+  </svg>
+</div>
+`;
 
-          <!-- Define gradients for use when drawing afterwards -->
-          <defs>
-            <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="sun-gradient">
-              <stop offset="0%" class="sunInitialStop"></stop>
-              <stop class="sunMiddleStop" offset="0%"></stop>
-              <stop class="sunEndStop" offset="0%"></stop>
-            </linearGradient>
+exports[`HorizonCardGraph render renders the graph with the default values when data values are not provided 1`] = `
+<div class="horizon-card-graph">
+  <svg viewbox="0 0 550 150"
+       xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <path id="sun-path-unscaled"
+            d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146"
+      >
+      </path>
+      <path id="sun-path"
+            d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146"
+      >
+      </path>
+      <clipPath id="upper-path-mask">
+        <use href="#sun-path">
+        </use>
+      </clipPath>
+      <clipPath id="lower-path-mask">
+        <path d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146 V0 H0">
+        </path>
+      </clipPath>
+      <filter id="moon-blur">
+        <feGaussianBlur in="SourceGraphic"
+                        stddeviation="0"
+        >
+        </feGaussianBlur>
+      </filter>
+      <circle id="moon"
+              stroke="none"
+              cx="0"
+              cy="0"
+              r="14"
+      >
+      </circle>
+      <path id="shade"
+            stroke-width="0"
+            d="M-14,0
+                a 14,14
+                0
+                1,1
+                28,0
+                a 14,14
+                0
+                1,0
+                -28,0
+                Z"
+      >
+      </path>
+      <mask id="moon-shadow-mask">
+        <use href="#shade"
+             stroke="white"
+             fill="white"
+             filter="url(#moon-blur)"
+             stroke-width="0"
+        >
+        </use>
+      </mask>
+      <mask id="moon-shadow-mask-inverted">
+        <circle fill="white"
+                stroke="white"
+                stroke-width="0"
+                cx="0"
+                cy="0"
+                r="14"
+        >
+        </circle>
+        <use href="#shade"
+             stroke="black"
+             fill="black"
+             filter="url(#moon-blur)"
+             stroke-width="0"
+        >
+        </use>
+      </mask>
+    </defs>
+    <g transform-origin="center"
+       transform="scale(1 1)"
+    >
+      <line y1="3"
+            y2="72"
+            stroke="var(--hc-lines)"
+            x1="0"
+            x2="0"
+      >
+      </line>
+      <line y1="3"
+            y2="72"
+            stroke="var(--hc-lines)"
+            x1="0"
+            x2="0"
+      >
+      </line>
+    </g>
+    <g transform-origin="center"
+       transform="translate(0 0) scale(1 1)"
+    >
+      <use href="#sun-path"
+           fill="none"
+           stroke="var(--hc-lines)"
+      >
+      </use>
+      <path clip-path="url(#lower-path-mask)"
+            class="dawn"
+            d="M5,0 H0 V150 H5"
+      >
+      </path>
+      <path clip-path="url(#upper-path-mask)"
+            class="day"
+            d="M0,0 H0
+            V0 H0"
+      >
+      </path>
+      <line x1="5"
+            x2="545"
+            stroke="var(--hc-lines)"
+            y1="0"
+            y2="0"
+      >
+      </line>
+      <path stroke="var(--hc-lines)"
+            fill="none"
+            d="M535 -5 L545 0 L535 5"
+      >
+      </path>
+      <circle stroke="none"
+              fill="var(--hc-sun-color)"
+              cx="0"
+              cy="0"
+              r="17"
+      >
+      </circle>
+    </g>
+    <g transform="rotate(0 0 0)">
+      <use href="#moon"
+           fill="var(--hc-moon-shadow-color)"
+      >
+      </use>
+      <use href="#moon"
+           fill="var(--hc-moon-color)"
+           mask="url(#moon-shadow-mask)"
+      >
+      </use>
+    </g>
+    <g transform="rotate(0 0 0)">
+      <circle stroke="none"
+              cx="-3.5"
+              cy="-5.25"
+              r="4.666666666666667"
+              fill="var(--hc-moon-spot-color)"
+      >
+      </circle>
+      <circle stroke="none"
+              cx="5.25"
+              cy="-7"
+              r="3.5"
+              fill="var(--hc-moon-spot-color)"
+      >
+      </circle>
+      <circle stroke="none"
+              cx="-3.5"
+              cy="3.5"
+              r="3.5"
+              fill="var(--hc-moon-spot-color)"
+      >
+      </circle>
+      <circle stroke="none"
+              cx="7"
+              cy="0"
+              r="2.8"
+              fill="var(--hc-moon-spot-color)"
+      >
+      </circle>
+    </g>
+  </svg>
+</div>
+`;
 
-            <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="dawn-gradient">
-              <stop offset="0%" class="dawnInitialStop"></stop>
-              <stop class="dawnMiddleStop" offset="0%"></stop>
-              <stop class="dawnEndStop" offset="0%"></stop>
-            </linearGradient>
-
-            <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="day-gradient">
-              <stop offset="0%" class="dayInitialStop"></stop>
-              <stop class="dayMiddleStop" offset="0%"></stop>
-              <stop class="dayEndStop" offset="0%"></stop>
-            </linearGradient>
-
-            <linearGradient x1="0%" y1="0%" x2="100%" y2="0%" id="dusk-gradient">
-              <stop offset="0%" class="duskInitialStop"></stop>
-              <stop class="duskMiddleStop" offset="0%"></stop>
-              <stop class="duskEndStop" offset="0%"></stop>
-            </linearGradient>
-          </defs>
-
-          <!-- Draw path of the sun across the 'sky' -->
-          <path class="horizon-card-sun-line" d="M5,146 C29,153 73,128 101,108 C276,-29 342,23 449,108 C473,123 509,150 545,146" fill="none" stroke="var(--horizon-card-lines)"></path>
-
-          <!-- Draw between the path of the sun and the horizon line for dawn -->
-          <!-- IE: First dark blue part -->
-          <path d="M5,146 C29,153 73,128 101,108 L 5 108" fill="url(#dawn-gradient)" stroke="url(#dawn-gradient)" opacity="0"></path>
-
-          <!-- Draw between the path of the sun and the horizon line for day -->
-          <!-- IE: Main light blue part in the middle -->
-          <path d="M101,108 C276,-29 342,23 449,108 L 104,108" fill="url(#day-gradient)" stroke="url(#day-gradient)" opacity="0"></path>
-
-          <!-- Draw between the path of the sun and the horizon line for dusk -->
-          <!-- IE: Last dark blue part -->
-          <path d="M449,108 C473,123 509,150 545,146 L 545 108" fill="url(#dusk-gradient)" stroke="url(#dusk-gradient)" opacity="0"></path>
-
-          <!-- Draw the horizon, dawn and dusk lines (the gray horizontal/vertical lines) -->
-          <line x1="5" y1="108" x2="545" y2="108" stroke="var(--horizon-card-lines)"></line>
-          <line x1="101" y1="25" x2="101" y2="100" stroke="var(--horizon-card-lines)"></line>
-          <line x1="449" y1="25" x2="449" y2="100" stroke="var(--horizon-card-lines)"></line>
-
-          <!-- Draw a circle representing the sun -->
-          <circle r="17" stroke="none" cx="0" cy="0" opacity="0" fill="url(#sun-gradient)"></circle>
-        </svg>
-      </div>
-    
+exports[`HorizonCardGraph renders the graph flipped horizontally when configured so 1`] = `
+<div class="horizon-card-graph">
+  <svg viewbox="0 0 550 150"
+       xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <path id="sun-path-unscaled"
+            d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146"
+      >
+      </path>
+      <path id="sun-path"
+            d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146"
+      >
+      </path>
+      <clipPath id="upper-path-mask">
+        <use href="#sun-path">
+        </use>
+      </clipPath>
+      <clipPath id="lower-path-mask">
+        <path d="M 5,146
+            C 103.334,146 176.666,20 275,20
+            S 446.666,146 545,146 V0 H0">
+        </path>
+      </clipPath>
+      <filter id="moon-blur">
+        <feGaussianBlur in="SourceGraphic"
+                        stddeviation="0"
+        >
+        </feGaussianBlur>
+      </filter>
+      <circle id="moon"
+              stroke="none"
+              cx="0"
+              cy="0"
+              r="14"
+      >
+      </circle>
+      <path id="shade"
+            stroke-width="0"
+            d="M-14,0
+                a 14,14
+                0
+                1,1
+                28,0
+                a 14,14
+                0
+                1,0
+                -28,0
+                Z"
+      >
+      </path>
+      <mask id="moon-shadow-mask">
+        <use href="#shade"
+             stroke="white"
+             fill="white"
+             filter="url(#moon-blur)"
+             stroke-width="0"
+        >
+        </use>
+      </mask>
+      <mask id="moon-shadow-mask-inverted">
+        <circle fill="white"
+                stroke="white"
+                stroke-width="0"
+                cx="0"
+                cy="0"
+                r="14"
+        >
+        </circle>
+        <use href="#shade"
+             stroke="black"
+             fill="black"
+             filter="url(#moon-blur)"
+             stroke-width="0"
+        >
+        </use>
+      </mask>
+    </defs>
+    <g transform-origin="center"
+       transform="scale(-1 1)"
+    >
+      <line y1="3"
+            y2="72"
+            stroke="var(--hc-lines)"
+            x1="0"
+            x2="0"
+      >
+      </line>
+      <line y1="3"
+            y2="72"
+            stroke="var(--hc-lines)"
+            x1="0"
+            x2="0"
+      >
+      </line>
+    </g>
+    <g transform-origin="center"
+       transform="translate(0 0) scale(-1 1)"
+    >
+      <use href="#sun-path"
+           fill="none"
+           stroke="var(--hc-lines)"
+      >
+      </use>
+      <path clip-path="url(#lower-path-mask)"
+            class="dawn"
+            d="M5,0 H0 V150 H5"
+      >
+      </path>
+      <path clip-path="url(#upper-path-mask)"
+            class="day"
+            d="M0,0 H0
+            V0 H0"
+      >
+      </path>
+      <line x1="5"
+            x2="545"
+            stroke="var(--hc-lines)"
+            y1="0"
+            y2="0"
+      >
+      </line>
+      <path stroke="var(--hc-lines)"
+            fill="none"
+            d="M535 -5 L545 0 L535 5"
+      >
+      </path>
+      <circle stroke="none"
+              fill="var(--hc-sun-color)"
+              cx="0"
+              cy="0"
+              r="17"
+      >
+      </circle>
+    </g>
+  </svg>
+</div>
 `;

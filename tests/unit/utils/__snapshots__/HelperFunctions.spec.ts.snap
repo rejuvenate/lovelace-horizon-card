@@ -1,39 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HelperFunctions nothing returns an empty template result 1`] = `<!----><!--?-->`;
+exports[`HelperFunctions renderFieldElement returns a field element template when Moon integration is missing 1`] = `
+<div class="horizon-card-text-container">
+  <div class="horizon-card-field-moon-phase"
+       style="transform: rotate(0deg)"
+  >
+    <ha-icon icon="mdi:moon-full">
+    </ha-icon>
+  </div>
+  <div class="horizon-card-field-value horizon-card-field-value-moon-phase">
+    <span title="Install Moon integration to get localized Moon phase name">
+      full_moon (!)
+    </span>
+  </div>
+</div>
+`;
 
-exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a date 1`] = `
-<!---->
-      <div class="horizon-card-text-container">
-        <span class="horizon-card-field-name"><!--?lit-->sunrise</span>
-        <span class="horizon-card-field-value"><!--?lit-->1623029837812</span>
-      </div>
-    
+exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a TMoonPhase 1`] = `
+<div class="horizon-card-text-container">
+  <div class="horizon-card-field-moon-phase"
+       style="transform: rotate(0deg)"
+  >
+    <ha-icon icon="mdi:moon-full">
+    </ha-icon>
+  </div>
+  <div class="horizon-card-field-value horizon-card-field-value-moon-phase">
+    component.sensor.state.moon__phase.full_moon
+  </div>
+</div>
+`;
+
+exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a date for 12 clock with pre-am/pm 1`] = `
+<div class="horizon-card-text-container">
+  <div class="horizon-card-field-name">
+    Gündoğumu
+  </div>
+  <div class="horizon-card-field-value ">
+    <span class="horizon-card-field-value-secondary">
+      ÖS
+    </span>
+    9:37
+  </div>
+</div>
+`;
+
+exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a date for 12h clock with post-am/pm 1`] = `
+<div class="horizon-card-text-container">
+  <div class="horizon-card-field-name">
+    Sunrise
+  </div>
+  <div class="horizon-card-field-value ">
+    9:37
+    <span class="horizon-card-field-value-secondary">
+      PM
+    </span>
+  </div>
+</div>
+`;
+
+exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a date for 24h clock 1`] = `
+<div class="horizon-card-text-container">
+  <div class="horizon-card-field-name">
+    Sunrise
+  </div>
+  <div class="horizon-card-field-value ">
+    21:37
+  </div>
+</div>
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a number 1`] = `
-<!---->
-      <div class="horizon-card-text-container">
-        <span class="horizon-card-field-name"><!--?lit-->sunrise</span>
-        <span class="horizon-card-field-value"><!--?lit-->9</span>
-      </div>
-    
+<div class="horizon-card-text-container">
+  <div class="horizon-card-field-name">
+    Sunrise
+  </div>
+  <div class="horizon-card-field-value ">
+    9
+  </div>
+</div>
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a string 1`] = `
-<!---->
-      <div class="horizon-card-text-container">
-        <span class="horizon-card-field-name"><!--?lit-->sunrise</span>
-        <span class="horizon-card-field-value"><!--?lit-->test</span>
-      </div>
-    
+<div class="horizon-card-text-container">
+  <div class="horizon-card-field-name">
+    Sunrise
+  </div>
+  <div class="horizon-card-field-value ">
+    test
+  </div>
+</div>
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is undefined 1`] = `
-<!---->
-      <div class="horizon-card-text-container">
-        <span class="horizon-card-field-name"><!--?lit-->sunrise</span>
-        <span class="horizon-card-field-value"><!--?lit-->-</span>
-      </div>
-    
+<div class="horizon-card-text-container">
+  <div class="horizon-card-field-name">
+    Sunrise
+  </div>
+  <div class="horizon-card-field-value ">
+    -
+  </div>
+</div>
 `;

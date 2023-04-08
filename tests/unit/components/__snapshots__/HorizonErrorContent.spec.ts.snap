@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SunErrorContent render returns a valid error template result 1`] = `
-<!---->
-      <div class="horizon-card-error">
-        <!--?lit-->errors.SunIntegrationNotFound
-      </div>
-    
+exports[`HorizonErrorContent render returns a valid error template result 1`] = `
+<div class="horizon-card-error">
+  errors.MockError
+</div>
 `;

@@ -3,10 +3,9 @@
   "dawn": "Svítání",
   "dusk": "Soumrak",
   "elevation": "Výška",
+  "moonrise": "Východ měsíce",
+  "moonset": "Západ měsíce",
   "noon": "Sluneční poledne",
   "sunrise": "Východ slunce",
-  "sunset": "Západ slunce",
-  "errors": {
-    "SunIntegrationNotFound": "Integrace Sun nenalezena"
-  }
+  "sunset": "Západ slunce"
 }

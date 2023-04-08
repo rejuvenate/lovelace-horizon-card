@@ -3,10 +3,9 @@
   "dawn": "Amanecer",
   "dusk": "Anochecer",
   "elevation": "Elevación",
+  "moonrise": "Salida de la luna",
+  "moonset": "Puesta de la luna",
   "noon": "Mediodía solar",
   "sunrise": "Salida del sol",
-  "sunset": "Atardecer",
-  "errors": {
-    "SunIntegrationNotFound": "No se encontró la integración de Sun"
-  }
+  "sunset": "Atardecer"
 }

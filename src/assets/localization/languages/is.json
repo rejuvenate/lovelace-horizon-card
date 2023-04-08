@@ -3,10 +3,9 @@
   "dawn": "Dögun",
   "dusk": "Rökkur",
   "elevation": "Hækkun",
+  "moonrise": "Tunglupprás",
+  "moonset": "Tunglsetur",
   "noon": "Sólarhádegi",
   "sunrise": "Sólarupprás",
-  "sunset": "Sólsetur",
-  "errors": {
-    "SunIntegrationNotFound": "Sólar eining fannst ekki"
-  }
+  "sunset": "Sólsetur"
 }

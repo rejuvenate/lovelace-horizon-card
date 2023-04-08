@@ -1,13 +1,13 @@
+import { NumberFormat, TimeFormat } from 'custom-card-helpers'
+
 import { HorizonErrorContent } from '../../../src/components/HorizonErrorContent'
 import { EHorizonCardErrors } from '../../../src/types'
 import { I18N } from '../../../src/utils/I18N'
-import { CustomSnapshotSerializer, TemplateResultTestHelper } from '../../helpers/TestHelpers'
+import { TemplateResultTestHelper } from '../../helpers/TestHelpers'
 
 jest.mock('../../../src/utils/I18N', () => require('../../mocks/I18N'))
 
-expect.addSnapshotSerializer(new CustomSnapshotSerializer())
-
-describe('SunErrorContent', () => {
+describe('HorizonErrorContent', () => {
   describe('render', () => {
     let consoleErrorSpy: jest.SpyInstance
     beforeAll(() => {
@@ -22,32 +22,27 @@ describe('SunErrorContent', () => {
       consoleErrorSpy.mockRestore()
     })
 
+    enum MockErrors {
+      MOCK_ERROR = 'MockError'
+    }
+
     it('prints a console error message', () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation()
-      const config = {
-        type: 'horizon-card',
-        i18n: new I18N('es', undefined)
-      }
 
-      const sunErrorContent = new HorizonErrorContent(config, EHorizonCardErrors.SunIntegrationNotFound)
-      sunErrorContent.render()
-      expect(consoleErrorSpy).toHaveBeenCalledWith('errors.SunIntegrationNotFound')
+      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language, (key) => key)
+      const horizonErrorContent = new HorizonErrorContent(MockErrors.MOCK_ERROR as unknown as EHorizonCardErrors, i18n)
+      horizonErrorContent.render()
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith('errors.MockError')
     })
 
     it('returns a valid error template result', async () => {
-      // jest.spyOn(console, 'error').mockImplementation()
-      const config = {
-        type: 'horizon-card',
-        i18n: new I18N('es', undefined)
-      }
+      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language, (key) => key)
+      const horizonErrorContent = new HorizonErrorContent(MockErrors.MOCK_ERROR as unknown as EHorizonCardErrors, i18n)
 
-      const sunErrorContent = new HorizonErrorContent(config, EHorizonCardErrors.SunIntegrationNotFound)
-      const element = window.document.createElement('test-element') as TemplateResultTestHelper<typeof sunErrorContent.render>
-      element.templateResultFunction = () => sunErrorContent.render()
-      window.document.body.appendChild(element)
-      await element.updateComplete
+      const html = await TemplateResultTestHelper.renderElement(horizonErrorContent)
 
-      expect(element.shadowRoot!.innerHTML).toMatchSnapshot()
+      expect(html).toMatchSnapshot()
     })
   })
 })

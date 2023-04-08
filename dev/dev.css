@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap');
 
+horizon-card {
+  --primary-text-color: #e1e1e1;
+  --secondary-text-color: #9b9b9b;
+  --primary-color: rgb(3, 169, 244);
+  font-size: 18px;
+}
+
+body.light horizon-card {
+  --primary-text-color: #212121;
+  --secondary-text-color: #727272;
+  --primary-color: rgb(3, 169, 244);
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background: #111111;
@@ -14,8 +27,9 @@ body.light {
     border-radius: 4px;
     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
     padding: 1rem;
-    max-width: 1000px;
+    max-width: 700px;
     margin: auto;
+    box-sizing: border-box;
 }
 
 body.light .card {
@@ -27,18 +41,21 @@ body:not(.light) #dev-panel {
 }
 
 #dev-panel > div {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
 }
 
 #time {
     text-align: center;
     padding-top: 1em;
+    padding-bottom: 1em;
     font-size: 120%;
 }
 
 #buttons {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 #langs {
@@ -48,13 +65,13 @@ body:not(.light) #dev-panel {
 }
 
 #buttons > div {
-    flex-grow: 1;
+    /*flex-grow: 1;*/
 }
 
 .radio {
     display: flex;
     flex-flow: column wrap;
-    max-height: 150px;
+    max-height: 180px;
 }
 
 #buttons div {

@@ -3,10 +3,9 @@
   "dawn": "Aušra",
   "dusk": "Prieblanda",
   "elevation": "Pakilimas",
+  "moonrise": "Mėnulio kilimas",
+  "moonset": "Mėnulio leidimasis",
   "noon": "Vidurdienis",
   "sunrise": "Saulėtekis",
-  "sunset": "Saulėlydis",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Saulėlydis"
 }

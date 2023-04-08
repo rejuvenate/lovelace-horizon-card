@@ -31,15 +31,43 @@ import tr from './assets/localization/languages/tr.json'
 import uk from './assets/localization/languages/uk.json'
 import zh_Hans from './assets/localization/languages/zh-Hans.json'
 import zh_Hant from './assets/localization/languages/zh-Hant.json'
-import { IHorizonCardConfig, THorizonCardI18NKeys, THorizonCardTimes, TSunInfo } from './types'
+import {
+  IHorizonCardConfig,
+  SunCalcMoonPhase,
+  THorizonCardData,
+  THorizonCardI18NKeys,
+  TMoonPhase
+} from './types'
 
 export class Constants {
+  static readonly FALLBACK_LOCALIZATION = en
+
+  static readonly DEFAULT_REFRESH_PERIOD = 20 * 1000
+
+  // 24 hours in milliseconds
+  static readonly MS_24_HOURS = 24 * 60 * 60 * 1000
+
+  // 12 hours in milliseconds
+  static readonly MS_12_HOURS = 12 * 60 * 60 * 1000
+
+  // Mapping of SunCalc moon phases to Home Assistant moon phase state and icon
+  static readonly MOON_PHASES: Record<SunCalcMoonPhase, TMoonPhase> = {
+    newMoon: {state: 'new_moon', icon: 'moon-new'},
+    waxingCrescentMoon: {state: 'waxing_crescent', icon: 'moon-waxing-crescent'},
+    firstQuarterMoon: {state: 'first_quarter', icon: 'moon-first-quarter'},
+    waxingGibbousMoon: {state: 'waxing_gibbous', icon: 'moon-waxing-gibbous'},
+    fullMoon: {state: 'full_moon', icon: 'moon-full'},
+    waningGibbousMoon: {state: 'waning_gibbous', icon: 'moon-waning-gibbous'},
+    thirdQuarterMoon: {state: 'last_quarter', icon: 'moon-last-quarter'},
+    waningCrescentMoon: {state: 'waning_crescent', icon: 'moon-waning-crescent'}
+  }
+
+  // Default config values, they will be used if the user hasn't provided a value in the card config
   static readonly DEFAULT_CONFIG: IHorizonCardConfig = {
     type: 'horizon-card',
-    darkMode: true,
-    language: 'en',
-    use12hourClock: false,
-    component: 'sun.sun',
+    moon: true,
+    debug_level: 0,
+    refresh_period: Constants.DEFAULT_REFRESH_PERIOD,
     fields: {
       sunrise: true,
       sunset: true,
@@ -47,53 +75,74 @@ export class Constants {
       noon: true,
       dusk: true,
       azimuth: false,
-      elevation: false
+      elevation: false,
+      moonrise: false,
+      moonset: false,
+      moon_phase: false
+    }
+    // These keys must not be in the default config as they are provided by Home Assistant:
+    // language, dark_mode, latitude, longitude, elevation, time_zone.
+    // The default for 'now' is the current time and must not be specified here either.
+  }
+
+  static readonly DEFAULT_CARD_DATA: THorizonCardData = {
+    partial: false,
+    latitude: 0,
+    longitude: 0,
+    sunData: {
+      azimuth: 0,
+      elevation: 0,
+      times: {
+        now: new Date(),
+        dawn: new Date(),
+        dusk: new Date(),
+        midnight: new Date(),
+        noon: new Date(),
+        sunrise: new Date(),
+        sunset: new Date()
+      },
+      hueReduce: 0,
+      saturationReduce: 0,
+      lightnessReduce: 0
+    },
+    sunPosition: {
+      x: 0,
+      y: 0,
+      scaleY: 1,
+      offsetY: 0,
+      horizonY: 0,
+      sunriseX: 0,
+      sunsetX: 0,
+    },
+    moonData: {
+      azimuth: 0,
+      elevation: 0,
+      fraction: 0,
+      phase: Constants.MOON_PHASES.fullMoon,
+      phaseRotation: 0,
+      zenithAngle: 0,
+      parallacticAngle: 0,
+      times: {
+        now: new Date(),
+        moonrise: new Date(),
+        moonset: new Date()
+      },
+      saturationReduce: 0,
+      lightnessReduce: 0
+    },
+    moonPosition: {
+      x: 0,
+      y: 0
     }
   }
 
-  static readonly EVENT_X_POSITIONS = {
-    dayStart: 5,
-    sunrise: 101,
-    sunset: 449,
-    dayEnd: 545
-  }
+  static readonly HORIZON_Y = 84
 
-  static readonly HORIZON_Y = 108
   static readonly SUN_RADIUS = 17
-  static readonly SUN_SECTIONS = {
-    dawn: 105,
-    day: 499 - 106,
-    dusk: 605 - 500
-  }
 
-  static readonly DEFAULT_SUN_INFO: TSunInfo = {
-    dawnProgressPercent: 0,
-    dayProgressPercent: 0,
-    duskProgressPercent: 0,
-    sunAboveHorizon: false,
-    sunPercentOverHorizon: 0,
-    sunPosition: {
-      x: 0,
-      y: 0
-    },
-    sunrise: 0,
-    sunset: 0
-  }
-
-  static readonly DEFAULT_TIMES: THorizonCardTimes = {
-    dawn: new Date(),
-    dusk: new Date(),
-    noon: new Date(),
-    sunrise: new Date(),
-    sunset: new Date()
-  }
+  static readonly MOON_RADIUS = 14
 
   static readonly LOCALIZATION_LANGUAGES: Record<string, THorizonCardI18NKeys> = {
     bg, ca, cs, da, de, en, es, et, fi, fr, he, hr, hu, is, it, ja, ko, lt, ms, nb, nl, nn, pl, 'pt-BR': ptBR, ro, ru, sk, sl, sv, tr, uk, 'zh-Hans': zh_Hans, 'zh-Hant': zh_Hant
   }
-
-  static readonly FALLBACK_LOCALIZATION = en
-
-  // Magic number - used by Home Assistant and the library (astral) it uses to calculate the sun events
-  static readonly BELOW_HORIZON_ELEVATION = 0.83
 }

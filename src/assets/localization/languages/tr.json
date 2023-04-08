@@ -3,10 +3,9 @@
   "dawn": "Şafak",
   "dusk": "Alacakaranlık",
   "elevation": "Yükseklik",
+  "moonrise": "Ayın doğuşu",
+  "moonset": "Ayın batışı",
   "noon": "Öğle",
   "sunrise": "Gündoğumu",
-  "sunset": "Günbatımı",
-  "errors": {
-    "SunIntegrationNotFound": "Güneş entegrasyonu bulunamadı"
-  }
+  "sunset": "Günbatımı"
 }

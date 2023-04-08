@@ -3,10 +3,9 @@
   "dawn": "Світанок",
   "dusk": "Сутінки",
   "elevation": "Висота",
+  "moonrise": "Схід місяця",
+  "moonset": "Захід місяця",
   "noon": "Заніт",
   "sunrise": "Схід",
-  "sunset": "Захід",
-  "errors": {
-    "SunIntegrationNotFound": "Інтеграцію Sun не знайдено"
-  }
+  "sunset": "Захід"
 }

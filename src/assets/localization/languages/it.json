@@ -3,10 +3,9 @@
   "dawn": "Aurora",
   "dusk": "Crepuscolo",
   "elevation": "Elevazione",
+  "moonrise": "Sorgere della luna",
+  "moonset": "Tramonto della luna",
   "noon": "Mezzogiorno solare",
   "sunrise": "Alba",
-  "sunset": "Tramonto",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Tramonto"
 }

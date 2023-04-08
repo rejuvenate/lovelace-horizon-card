@@ -3,10 +3,9 @@
   "dawn": "Hajnal",
   "dusk": "Szürkület",
   "elevation": "Magasság",
+  "moonrise": "Holdkelte",
+  "moonset": "Holdnyugta",
   "noon": "Dél",
   "sunrise": "Napkelte",
-  "sunset": "Napnyugta",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Napnyugta"
 }

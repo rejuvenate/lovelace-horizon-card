@@ -3,10 +3,9 @@
   "dawn": "Aube",
   "dusk": "Crépuscule",
   "elevation": "Élévation",
+  "moonrise": "Lever de lune",
+  "moonset": "Coucher de lune",
   "noon": "Midi solaire",
   "sunrise": "Lever du soleil",
-  "sunset": "Coucher du soleil",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Coucher du soleil"
 }

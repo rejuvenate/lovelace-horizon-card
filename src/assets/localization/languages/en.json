@@ -3,10 +3,9 @@
   "dawn": "Dawn",
   "dusk": "Dusk",
   "elevation": "Elevation",
+  "moonrise": "Moonrise",
+  "moonset": "Moonset",
   "noon": "Solar noon",
   "sunrise": "Sunrise",
-  "sunset": "Sunset",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Sunset"
 }

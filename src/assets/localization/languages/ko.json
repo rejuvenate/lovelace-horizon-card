@@ -3,10 +3,9 @@
   "dawn": "새벽",
   "dusk": "저녁",
   "elevation": "태양 고도",
+  "moonrise": "월출",
+  "moonset": "월몰",
   "noon": "태양 정오",
   "sunrise": "해돋이",
-  "sunset": "해넘이",
-  "errors": {
-    "SunIntegrationNotFound": "태양 통합구성요소를 찾을 수 없습니다"
-  }
+  "sunset": "해넘이"
 }

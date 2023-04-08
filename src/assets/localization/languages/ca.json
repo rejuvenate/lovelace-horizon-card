@@ -3,10 +3,9 @@
   "dawn": "Alba",
   "dusk": "Capvespre",
   "elevation": "Elevació",
+  "moonrise": "Sortida de la lluna",
+  "moonset": "Posta de lluna",
   "noon": "Migdia solar",
   "sunrise": "Sortida del sol",
-  "sunset": "Posta del sol",
-  "errors": {
-    "SunIntegrationNotFound": "No s'ha trobat la integració Sun"
-  }
+  "sunset": "Posta del sol"
 }

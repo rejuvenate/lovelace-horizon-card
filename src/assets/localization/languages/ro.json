@@ -3,10 +3,9 @@
   "dawn": "Zori",
   "dusk": "Amurg",
   "elevation": "Elevație",
+  "moonrise": "Răsărit lunii",
+  "moonset": "Apus lunii",
   "noon": "Zenit",
   "sunrise": "Răsărit",
-  "sunset": "Apus",
-  "errors": {
-    "SunIntegrationNotFound": "Integrare solară indisponibilă"
-  }
+  "sunset": "Apus"
 }

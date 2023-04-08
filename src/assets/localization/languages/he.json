@@ -3,10 +3,9 @@
   "dawn": "עלות השחר",
   "dusk": "בין הערבים",
   "elevation": "גובה",
+  "moonrise": "זריחה ירח",
+  "moonset": "שקיעה ירח",
   "noon": "אמצע היום",
   "sunrise": "זריחה",
-  "sunset": "שקיעה",
-  "errors": {
-    "SunIntegrationNotFound": "אינטגרצית שמש לא נמצאה"
-  }
+  "sunset": "שקיעה"
 }

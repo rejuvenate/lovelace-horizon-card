@@ -3,10 +3,9 @@
   "dawn": "Daggry",
   "dusk": "Skumring",
   "elevation": "Højde",
+  "moonrise": "Måneopgang",
+  "moonset": "Månenedgang",
   "noon": "Middag",
   "sunrise": "Solopgang",
-  "sunset": "Solnedgang",
-  "errors": {
-    "SunIntegrationNotFound": "kunne ikke finde integrationen for Sol"
-  }
+  "sunset": "Solnedgang"
 }

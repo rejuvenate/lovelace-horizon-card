@@ -1,13 +1,11 @@
 {
-    "azimuth": "Azimuth",
-    "dawn": "Fajar",
-    "dusk": "Senja",
-    "elevation": "Ketinggian",
-    "noon": "Tengahari",
-    "sunrise": "Fajar",
-    "sunset": "Senja",
-    "errors": {
-      "SunIntegrationNotFound": "Integrasi Sun tidak ditemui."
-    }
-  }
-  
+  "azimuth": "Azimut",
+  "dawn": "Fajar",
+  "dusk": "Senja",
+  "elevation": "Ketinggian",
+  "moonrise": "Bulan terbit",
+  "moonset": "Bulan terbenam",
+  "noon": "Tengahari",
+  "sunrise": "Matahari terbit",
+  "sunset": "Matahari terbenam"
+}

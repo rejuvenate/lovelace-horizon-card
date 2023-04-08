@@ -3,10 +3,9 @@
   "dawn": "Morgendämmerung",
   "dusk": "Abenddämmerung",
   "elevation": "Zenitwinkel",
+  "moonrise": "Mondaufgang",
+  "moonset": "Monduntergang",
   "noon": "Zenit",
   "sunrise": "Sonnenaufgang",
-  "sunset": "Sonnenuntergang",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Sonnenuntergang"
 }

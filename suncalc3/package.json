@@ -1,0 +1,234 @@
+{
+  "name": "suncalc3",
+  "version": "2.0.5",
+  "description": "A tiny JavaScript library for calculating sun/moon positions and phases.",
+  "homepage": "https://github.com/hypnos3/suncalc3",
+  "keywords": [
+    "sun",
+    "astronomy",
+    "math",
+    "calculation",
+    "sunrise",
+    "sunset",
+    "twilight",
+    "moon",
+    "illumination",
+    "solar"
+  ],
+  "author": {
+    "name": "Hypnos3",
+    "email": "hypnos3@online.de",
+    "url": "https://github.com/hypnos3"
+  },
+  "contributors": [
+    {
+      "name": "Hypnos3",
+      "url": "https://github.com/hypnos3"
+    },
+    {
+      "name": "Vladimir Agafonkin",
+      "url": "https://github.com/mourner"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hypnos3/suncalc3.git"
+  },
+  "main": "suncalc.js",
+  "types": "suncalc.d.ts",
+  "devDependencies": {
+    "eslint": ">=8.12.0",
+    "eslint-plugin-json": ">=3.1.0",
+    "eslint-plugin-node": ">=11.1.0",
+    "tape": "^5.5.2",
+    "typescript":"^4.6.3"
+  },
+  "files": [
+    "suncalc.js"
+  ],
+  "scripts": {
+    "pretest": "eslint suncalc.js test.js",
+    "test": "node test.js",
+    "prepublishOnly": "tsc && eslint suncalc.js test.js && npm test",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  },
+  "jshintConfig": {
+    "quotmark": "single",
+    "trailing": true,
+    "unused": true
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true,
+      "browser": true,
+      "commonjs": true,
+      "jquery": true,
+      "amd": true
+    },
+    "extends": "eslint:recommended",
+    "settings": {
+      "html/html-extensions": [
+        ".html",
+        ".htm",
+        ".we"
+      ],
+      "html/indent": "+4",
+      "html/report-bad-indent": "error",
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      }
+    },
+    "globals": {
+      "RED": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "rules": {
+      "indent": [
+        "error",
+        4,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "max-len": [
+        "error",
+        {
+          "code": 250,
+          "ignoreComments": true,
+          "ignoreTrailingComments": true,
+          "ignoreUrls": true,
+          "ignoreRegExpLiterals": true,
+          "ignoreTemplateLiterals": true
+        }
+      ],
+      "no-eq-null": "error",
+      "eqeqeq": "error",
+      "no-else-return": "error",
+      "prefer-arrow-callback": "error",
+      "no-confusing-arrow": [
+        "error",
+        {
+          "allowParens": true
+        }
+      ],
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ],
+      "no-console": "warn",
+      "no-unused-vars": [
+        "error",
+        {
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ],
+      "no-unused-expressions": "warn",
+      "no-useless-escape": "warn",
+      "no-constant-condition": "off",
+      "no-multiple-empty-lines": [
+        "error",
+        {
+          "max": 2,
+          "maxEOF": 1
+        }
+      ],
+      "no-var": "error",
+      "object-shorthand": [
+        "error",
+        "always"
+      ],
+      "prefer-const": "error",
+      "prefer-rest-params": "error",
+      "no-useless-concat": "error",
+      "no-template-curly-in-string": "error",
+      "require-jsdoc": "warn",
+      "rest-spread-spacing": [
+        "error",
+        "never"
+      ],
+      "symbol-description": "error",
+      "array-callback-return": "error",
+      "consistent-return": "error",
+      "no-lone-blocks": "error",
+      "linebreak-style": [
+        "warn",
+        "unix"
+      ],
+      "brace-style": [
+        2,
+        "1tbs",
+        {
+          "allowSingleLine": true
+        }
+      ],
+      "quotes": [
+        "warn",
+        "single",
+        {
+          "avoidEscape": true,
+          "allowTemplateLiterals": true
+        }
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "comma-dangle": [
+        "error",
+        {
+          "arrays": "never",
+          "objects": "never",
+          "imports": "never",
+          "exports": "never",
+          "functions": "ignore"
+        }
+      ],
+      "no-trailing-spaces": "error",
+      "spaced-comment": [
+        "warn",
+        "always",
+        {
+          "line": {
+            "markers": [
+              "/",
+              "*"
+            ],
+            "exceptions": [
+              "-",
+              "+",
+              "*",
+              "#"
+            ]
+          },
+          "block": {
+            "markers": [
+              "!"
+            ],
+            "exceptions": [
+              "-",
+              "+",
+              "*",
+              "#"
+            ],
+            "balanced": true
+          }
+        }
+      ],
+      "eol-last": [
+        "error",
+        "never"
+      ]
+    }
+  }
+}

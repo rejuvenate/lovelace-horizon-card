@@ -3,10 +3,9 @@
   "dawn": "Gryning",
   "dusk": "Skymning",
   "elevation": "Elevation",
+  "moonrise": "Månuppgång",
+  "moonset": "Månnedgång",
   "noon": "Middag",
   "sunrise": "Soluppgång",
-  "sunset": "Solnedgång",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Solnedgång"
 }

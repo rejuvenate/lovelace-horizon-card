@@ -1,35 +1,62 @@
 import { css } from 'lit'
 
 export default css`
-  .horizon-card {
-    --horizon-card-primary: var(--primary-text-color, #000000);
-    --horizon-card-secondary: var(--secondary-text-color, #828282);
-    --horizon-card-accent: #d7d7d7;
+  :host {
+    --hc-primary: var(--primary-text-color);
+    --hc-secondary: var(--secondary-text-color);
 
-    --horizon-card-lines: var(--horizon-card-accent);
-    --horizon-card-field-name-color: var(--horizon-card-secondary);
-    --horizon-card-field-value-color: var(--horizon-card-primary);
+    --hc-field-name-color: var(--hc-secondary);
+    --hc-field-value-color: var(--hc-primary);
 
-    --horizon-card-stop-invisible: rgb(0,0,0,0);
-    --horizon-card-stop-sun-color: #f9d05e;
-    --horizon-card-stop-dawn-color: #393b78;
-    --horizon-card-stop-day-color: #8ebeeb;
-    --horizon-card-stop-dusk-color: #393b78;
+    --hc-day-color: #8ebeeb;
+    --hc-night-color: #393b78;
 
-    padding: 0.5rem;
-    font-family: var(--primary-font-family);
+    --hc-accent: #d7d7d7;
+    --hc-lines: var(--hc-accent);
+
+    --hc-sun-hue: 44;
+    --hc-sun-saturation: 93%;
+    --hc-sun-lightness: 67%;
+    --hc-sun-hue-reduce: 0;
+    --hc-sun-saturation-reduce: 0%;
+    --hc-sun-lightness-reduce: 0%;
+    --hc-sun-color: hsl(
+      calc(var(--hc-sun-hue) - var(--hc-sun-hue-reduce)),
+      calc(var(--hc-sun-saturation) - var(--hc-sun-saturation-reduce)),
+      calc(var(--hc-sun-lightness) - var(--hc-sun-lightness-reduce))
+    );
+
+    --hc-moon-hue: 52;
+    --hc-moon-saturation: 77%;
+    --hc-moon-lightness: 57%;
+    --hc-moon-saturation-reduce: 0%;
+    --hc-moon-lightness-reduce: 0%;
+    --hc-moon-color: hsl(
+      var(--hc-moon-hue),
+      calc(var(--hc-moon-saturation) - var(--hc-moon-saturation-reduce)),
+      calc(var(--hc-moon-lightness) - var(--hc-moon-lightness-reduce))
+    );
+    --hc-moon-shadow-color: #eeeeee;
+    --hc-moon-spot-color: rgba(170, 170, 170, 0.1);
   }
 
-  .horizon-card.horizon-card-dark {
-    --horizon-card-primary: #ffffff;
-    --horizon-card-secondary: #828282;
-    --horizon-card-accent: #464646;
+  :host(.horizon-card-dark) {
+    --hc-accent: #464646;
+    --hc-moon-saturation: 80%;
+    --hc-moon-lightness: 74%;
+    --hc-moon-shadow-color: #272727;
+  }
+
+  .horizon-card {
+    padding: 0.5em;
+    font-family: var(--primary-font-family);
   }
 
   .horizon-card-field-row {
     display: flex;
     justify-content: space-around;
-    margin-top: 1rem;
+    margin-top: 1em;
+    margin-bottom: -0.3em;
   }
 
   .horizon-card-text-container {
@@ -39,95 +66,71 @@ export default css`
   }
 
   .horizon-card-field-name {
-    color: var(--horizon-card-field-name-color);
+    color: var(--hc-field-name-color);
   }
 
   .horizon-card-field-value {
-    color: var(--horizon-card-field-value-color);
-    font-size: 1.3em;
+    color: var(--hc-field-value-color);
+    font-size: 1.2em;
     line-height: 1.1em;
+    text-align: center;
+  }
+
+  .horizon-card-field-value-moon-phase {
+    font-size: inherit;
+  }
+
+  .horizon-card-field-moon-phase {
+    --mdc-icon-size: 2em;
+    color: var(--primary-color);
+  }
+
+  .horizon-card-field-value-secondary {
+    font-size: 0.7em;
+  }
+
+  .horizon-card-sun-value:before {
+    content: "☉";
+    padding-right: 0.5em;
+  }
+
+  .horizon-card-moon-value:before {
+    content: "☽";
+    padding-right: 0.5em;
   }
 
   .horizon-card-header {
     display: flex;
     justify-content: space-around;
-    margin-top: 1rem;
-    margin-bottom: -1rem;
+    margin-top: 1em;
+    margin-bottom: -0.3em;
   }
 
   .horizon-card-header .horizon-card-text-container {
-    font-size: 1.3rem;
+    font-size: 1.2em;
   }
 
   .horizon-card-footer {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
   }
 
   .horizon-card-title {
-    margin: 1rem 1rem 2rem 1rem;
-    font-size: 1.5rem;
-    color: var(--horizon-card-primary);
+    margin: 1em 1em 1em 1em;
+    font-size: 1.5em;
+    color: var(--hc-primary);
   }
 
   .horizon-card-graph {
-    shape-rendering="geometricPrecision";
-    margin: 1rem 0 1rem 0;
+    margin: 1em 0.5em 1em 0.5em;
   }
 
-  .horizon-card-graph .sunInitialStop {
-    stop-color: var(--horizon-card-stop-sun-color);
+  .horizon-card-graph .dawn {
+    fill: var(--hc-night-color);
+    stroke: var(--hc-night-color);
   }
 
-  .horizon-card-graph .sunMiddleStop {
-    stop-color: var(--horizon-card-stop-sun-color);
-  }
-
-  .horizon-card-graph .sunEndStop {
-    stop-color: var(--horizon-card-stop-invisible);
-  }
-
-  .horizon-card-graph .dawnInitialStop {
-    stop-color: var(--horizon-card-stop-dawn-color);
-  }
-
-  .horizon-card-graph .dawnMiddleStop {
-    stop-color: var(--horizon-card-stop-dawn-color);
-  }
-
-  .horizon-card-graph .dawnEndStop {
-    stop-color: var(--horizon-card-stop-invisible);
-  }
-
-  .horizon-card-graph .dayInitialStop {
-    stop-color: var(--horizon-card-stop-day-color);
-  }
-
-  .horizon-card-graph .dayMiddleStop {
-    stop-color: var(--horizon-card-stop-day-color);
-  }
-
-  .horizon-card-graph .dayEndStop {
-    stop-color: var(--horizon-card-stop-invisible);
-  }
-
-  .horizon-card-graph .duskInitialStop {
-    stop-color: var(--horizon-card-stop-dusk-color);
-  }
-
-  .horizon-card-graph .duskMiddleStop {
-    stop-color: var(--horizon-card-stop-dusk-color);
-  }
-
-  .horizon-card-graph .duskEndStop {
-    stop-color: var(--horizon-card-stop-invisible);
-  }
-
-  .card-config ul {
-    list-style: none;
-    padding: 0 0 0 1.5rem;
-  }
-
-  .card-config li {
-    padding: 0.5rem 0;
+  .horizon-card-graph .day {
+    fill: var(--hc-day-color);
+    stroke: var(--hc-day-color);
   }
 `

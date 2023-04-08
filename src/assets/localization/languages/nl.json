@@ -3,10 +3,9 @@
   "dawn": "Dageraad",
   "dusk": "Schemer",
   "elevation": "Hoogte",
+  "moonrise": "Maanopkomst",
+  "moonset": "Maanondergang",
   "noon": "Middaguur",
   "sunrise": "Zonsopkomst",
-  "sunset": "Zonsondergang",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integration not found"
-  }
+  "sunset": "Zonsondergang"
 }

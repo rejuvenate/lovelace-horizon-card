@@ -3,10 +3,9 @@
   "dawn": "Зора",
   "dusk": "Здрач",
   "elevation": "Височина",
+  "moonrise": "Лунен изгрев",
+  "moonset": "Лунен залез",
   "noon": "Пладне",
   "sunrise": "Изгрев",
-  "sunset": "Залез",
-  "errors": {
-    "SunIntegrationNotFound": "Интеграцията Sun не е намерена"
-  }
+  "sunset": "Залез"
 }

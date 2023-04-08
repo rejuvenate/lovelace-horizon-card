@@ -3,10 +3,9 @@
   "dawn": "Zora",
   "dusk": "Sumrak",
   "elevation": "Visina",
+  "moonrise": "Izlazak mjeseca",
+  "moonset": "Zalazak mjeseca",
   "noon": "Sunčano podne",
   "sunrise": "Izlazak sunca",
-  "sunset": "Zalazak sunca",
-  "errors": {
-    "SunIntegrationNotFound": "Sun integracija nije pronađena"
-  }
+  "sunset": "Zalazak sunca"
 }

@@ -1,71 +1,95 @@
+import { NumberFormat, TimeFormat } from 'custom-card-helpers'
+
+import {Constants} from '../../../src/constants'
 import { HelperFunctions } from '../../../src/utils/HelperFunctions'
 import { I18N } from '../../../src/utils/I18N'
-import { CustomSnapshotSerializer, TemplateResultTestHelper } from '../../helpers/TestHelpers'
-
-jest.mock('../../../src/utils/I18N', () => require('../../mocks/I18N'))
-
-expect.addSnapshotSerializer(new CustomSnapshotSerializer())
+import { TemplateResultTestHelper } from '../../helpers/TestHelpers'
 
 describe('HelperFunctions', () => {
-  describe('nothing', () => {
-    it('returns an empty template result', async () => {
-      const element = window.document.createElement('test-element') as TemplateResultTestHelper<typeof HelperFunctions.nothing>
-      element.templateResultFunction = HelperFunctions.nothing
-      window.document.body.appendChild(element)
-      await element.updateComplete
-
-      expect(element.shadowRoot!.innerHTML).toMatchSnapshot()
-    })
-  })
+  const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language,
+    (key) => key)
 
   describe('renderFieldElement', () => {
     it('returns a field element template when the provided value is undefined', async () => {
-      const i18 = new I18N('es', false)
+      const renderFun = () => HelperFunctions.renderFieldElement(i18n, 'sunrise', undefined)
 
-      const element = window.document.createElement('test-element') as TemplateResultTestHelper<typeof HelperFunctions.renderFieldElement>
-      element.templateResultFunction = HelperFunctions.renderFieldElement
-      element.templateResultFunctionData = [i18, 'sunrise', undefined]
-      window.document.body.appendChild(element)
-      await element.updateComplete
+      const html = await TemplateResultTestHelper.renderFunction(renderFun)
 
-      expect(element.shadowRoot!.innerHTML).toMatchSnapshot()
+      expect(html).toMatchSnapshot()
     })
 
-    it('returns a field element template when the provided value is a date', async () => {
-      const i18 = new I18N('es', false)
-      const date = new Date('2021-06-07T01:37:17.812Z')
+    it('returns a field element template when the provided value is a date for 24h clock', async () => {
+      const i18n = new I18N('en', 'UTC', TimeFormat.twenty_four, NumberFormat.language,
+        (key) => key)
 
-      const element = window.document.createElement('test-element') as TemplateResultTestHelper<typeof HelperFunctions.renderFieldElement>
-      element.templateResultFunction = HelperFunctions.renderFieldElement
-      element.templateResultFunctionData = [i18, 'sunrise', date]
-      window.document.body.appendChild(element)
-      await element.updateComplete
+      const date = new Date('2021-06-07T21:37:17.812Z')
 
-      expect(element.shadowRoot!.innerHTML).toMatchSnapshot()
+      const renderFun = () => HelperFunctions.renderFieldElement(i18n, 'sunrise', date)
+
+      const html = await TemplateResultTestHelper.renderFunction(renderFun)
+
+      expect(html).toMatchSnapshot()
+    })
+
+    it('returns a field element template when the provided value is a date for 12h clock with post-am/pm', async () => {
+      const i18n = new I18N('en', 'UTC', TimeFormat.am_pm, NumberFormat.language,
+        (key) => key)
+
+      const date = new Date('2021-06-07T21:37:17.812Z')
+
+      const renderFun = () => HelperFunctions.renderFieldElement(i18n, 'sunrise', date)
+
+      const html = await TemplateResultTestHelper.renderFunction(renderFun)
+
+      expect(html).toMatchSnapshot()
+    })
+
+    it('returns a field element template when the provided value is a date for 12 clock with pre-am/pm', async () => {
+      const i18n = new I18N('tr', 'UTC', TimeFormat.am_pm, NumberFormat.language,
+        (key) => key)
+
+      const date = new Date('2021-06-07T21:37:17.812Z')
+
+      const renderFun = () => HelperFunctions.renderFieldElement(i18n, 'sunrise', date)
+
+      const html = await TemplateResultTestHelper.renderFunction(renderFun)
+
+      expect(html).toMatchSnapshot()
     })
 
     it('returns a field element template when the provided value is a string', async () => {
-      const i18 = new I18N('es', false)
+      const renderFun = () => HelperFunctions.renderFieldElement(i18n, 'sunrise', 'test')
 
-      const element = window.document.createElement('test-element') as TemplateResultTestHelper<typeof HelperFunctions.renderFieldElement>
-      element.templateResultFunction = HelperFunctions.renderFieldElement
-      element.templateResultFunctionData = [i18, 'sunrise', 'test']
-      window.document.body.appendChild(element)
-      await element.updateComplete
+      const html = await TemplateResultTestHelper.renderFunction(renderFun)
 
-      expect(element.shadowRoot!.innerHTML).toMatchSnapshot()
+      expect(html).toMatchSnapshot()
     })
 
     it('returns a field element template when the provided value is a number', async () => {
-      const i18 = new I18N('es', false)
+      const renderFun = () => HelperFunctions.renderFieldElement(i18n, 'sunrise', 9)
 
-      const element = window.document.createElement('test-element') as TemplateResultTestHelper<typeof HelperFunctions.renderFieldElement>
-      element.templateResultFunction = HelperFunctions.renderFieldElement
-      element.templateResultFunctionData = [i18, 'sunrise', 9]
-      window.document.body.appendChild(element)
-      await element.updateComplete
+      const html = await TemplateResultTestHelper.renderFunction(renderFun)
 
-      expect(element.shadowRoot!.innerHTML).toMatchSnapshot()
+      expect(html).toMatchSnapshot()
+    })
+
+    it('returns a field element template when the provided value is a TMoonPhase', async () => {
+      const renderFun = () => HelperFunctions.renderMoonElement(i18n, Constants.MOON_PHASES.fullMoon, 0)
+
+      const html = await TemplateResultTestHelper.renderFunction(renderFun)
+
+      expect(html).toMatchSnapshot()
+    })
+
+    it('returns a field element template when Moon integration is missing', async () => {
+      // When Moon integration is missing hass.localize() returns an empty string
+      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language,
+        () => '')
+      const renderFun = () => HelperFunctions.renderMoonElement(i18n, Constants.MOON_PHASES.fullMoon, 0)
+
+      const html = await TemplateResultTestHelper.renderFunction(renderFun)
+
+      expect(html).toMatchSnapshot()
     })
   })
 
@@ -78,78 +102,6 @@ describe('HelperFunctions', () => {
     it('returns false the provided language is not supported', () => {
       const result = HelperFunctions.isValidLanguage('notSupported')
       expect(result).toBe(false)
-    })
-  })
-
-  describe('startOfDay', () => {
-    it('returns the beginning of the day for the provided now', () => {
-      const result = HelperFunctions.startOfDay(new Date(0))
-      expect(result.getHours()).toBe(0)
-      expect(result.getMinutes()).toBe(0)
-      expect(result.getSeconds()).toBe(0)
-      expect(result.getMilliseconds()).toBe(0)
-    })
-  })
-
-  describe('endOfDay', () => {
-    it('returns the end of the day for the provided now', () => {
-      const result = HelperFunctions.endOfDay(new Date(0))
-      expect(result.getHours()).toBe(23)
-      expect(result.getMinutes()).toBe(59)
-      expect(result.getSeconds()).toBe(59)
-      expect(result.getMilliseconds()).toBe(999)
-    })
-  })
-
-  describe('findSectionPosition', () => {
-    it('returns the correct section position when it has just started', () => {
-      const timeSinceSectionStarted = 0
-      const timeWhenSectionFinishes = 400
-      const sectionSize = 150
-      const result = HelperFunctions.findSectionPosition(timeSinceSectionStarted, timeWhenSectionFinishes, sectionSize)
-      expect(result).toBe(0)
-    })
-
-    it('returns the correct section position when it has just finished', () => {
-      const timeSinceSectionStarted = 400
-      const timeWhenSectionFinishes = 400
-      const sectionSize = 150
-      const result = HelperFunctions.findSectionPosition(timeSinceSectionStarted, timeWhenSectionFinishes, sectionSize)
-      expect(result).toBe(150)
-    })
-
-    it('returns the correct section position when it has finished', () => {
-      const timeSinceSectionStarted = 600
-      const timeWhenSectionFinishes = 400
-      const sectionSize = 150
-      const result = HelperFunctions.findSectionPosition(timeSinceSectionStarted, timeWhenSectionFinishes, sectionSize)
-      expect(result).toBe(150)
-    })
-  })
-
-  describe('findSunProgress', () => {
-    it('returns the correct sun progress when the sun position is lower than the start position', () => {
-      const sunPosition = 0
-      const startPosition = 50
-      const endPosition = 100
-      const result = HelperFunctions.findSunProgress(sunPosition, startPosition, endPosition)
-      expect(result).toBe(0)
-    })
-
-    it('returns the correct sun progress when the sun position is higher than the end position', () => {
-      const sunPosition = 200
-      const startPosition = 0
-      const endPosition = 50
-      const result = HelperFunctions.findSunProgress(sunPosition, startPosition, endPosition)
-      expect(result).toBe(100)
-    })
-
-    it('returns the correct sun progress when the sun position is between the start and the end position', () => {
-      const sunPosition = 20
-      const startPosition = 0
-      const endPosition = 100
-      const result = HelperFunctions.findSunProgress(sunPosition, startPosition, endPosition)
-      expect(result).toBe(20)
     })
   })
 
@@ -185,6 +137,76 @@ describe('HelperFunctions', () => {
     it('returns the correct value when the value is higher than max', () => {
       const result = HelperFunctions.clamp(40, 50, 60)
       expect(result).toBe(50)
+    })
+  })
+
+  describe('noonAtTimeZone', () => {
+    let consoleErrorSpy: jest.SpyInstance
+    beforeAll(() => {
+      consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation()
+    })
+
+    afterEach(() => {
+      consoleErrorSpy.mockClear()
+    })
+
+    afterAll(() => {
+      consoleErrorSpy.mockRestore()
+    })
+
+    it('returns noon in the requested time zone', () => {
+      const date = new Date('2023-04-13T23:10:45.532Z')
+      const result = HelperFunctions.noonAtTimeZone(date, 'Europe/Sofia')
+
+      expect(result).toEqual(new Date('2023-04-14T12:00:00+03:00'))
+      expect(consoleErrorSpy).not.toHaveBeenCalled()
+    })
+
+    it('returns noon in local timezone if an error occurs', () => {
+      const date = new Date('2023-04-13T23:10:45.532Z')
+      const result = HelperFunctions.noonAtTimeZone(date, 'Europe/XXX')
+
+      // We can only verify the time - the date will be +/- 1 according to the actual time zone
+      expect(result.getHours()).toEqual(12)
+      expect(result.getMinutes()).toEqual(0)
+      expect(result.getSeconds()).toEqual(0)
+      expect(result.getMilliseconds()).toEqual(0)
+      expect(consoleErrorSpy).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('midnightAtTimeZone', () => {
+    let consoleErrorSpy: jest.SpyInstance
+    beforeAll(() => {
+      consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation()
+    })
+
+    afterEach(() => {
+      consoleErrorSpy.mockClear()
+    })
+
+    afterAll(() => {
+      consoleErrorSpy.mockRestore()
+    })
+
+    it('returns midnight in the requested time zone', () => {
+      const date = new Date('2023-04-13T23:10:45.532Z')
+      const result = HelperFunctions.midnightAtTimeZone(date, 'Europe/Sofia')
+
+      expect(result).toEqual(new Date('2023-04-14T00:00:00+03:00'))
+      expect(consoleErrorSpy).not.toHaveBeenCalled()
+    })
+
+    it('returns midnight in local timezone if an error occurs', () => {
+      const date = new Date('2023-04-13T23:10:45.532Z')
+      const result = HelperFunctions.midnightAtTimeZone(date, 'Europe/XXX')
+
+      // We can only verify the time - the date will be +/- 1 according to the actual time zone
+      expect(result.getHours()).toEqual(0)
+      expect(result.getMinutes()).toEqual(0)
+      expect(result.getSeconds()).toEqual(0)
+      expect(result.getMilliseconds()).toEqual(0)
+      expect(consoleErrorSpy).toHaveBeenCalledTimes(1)
     })
   })
 })
