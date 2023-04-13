@@ -104,7 +104,7 @@ export class HorizonCardEditorContent extends EventUtils<THorizonCardEditorConte
       >
         <paper-radio-button name="default">Default</paper-radio-button>
         <paper-radio-button name="true">12 hours</paper-radio-button>
-        <paper-radio-button name="false">24 hourse</paper-radio-button>
+        <paper-radio-button name="false">24 hours</paper-radio-button>
       </paper-radio-group>
     `
   }
