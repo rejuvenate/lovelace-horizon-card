@@ -42,6 +42,10 @@ export class HorizonCard extends LitElement {
     this.processLastHass()
   }
 
+  public getCardSize (): number {
+		return 6
+	}
+
   static getConfigElement (): HTMLElement {
     return document.createElement(HorizonCardEditor.cardType)
   }
