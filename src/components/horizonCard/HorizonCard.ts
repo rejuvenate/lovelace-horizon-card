@@ -49,13 +49,19 @@ export class HorizonCard extends LitElement {
   public getCardSize (): number {
 		let height = 4 // Smallest possible card (only graph) is roughly 200px
 
-    // Each element of card (header, content, footer) adds roughly 50px to the height
+    // Each element of card (title, header, content, footer) adds roughly 50px to the height
+    if(this.config.title && this.config.title.length > 0) {
+      height += 1
+    }
+
     if(this.config.fields?.sunrise || this.config.fields?.sunset) {
       height += 1
     }
+
     if(this.config.fields?.dawn || this.config.fields?.noon || this.config.fields?.dusk) {
       height += 1
     }
+
     if(this.config.fields?.azimuth || this.config.fields?.elevation) {
       height += 1
     }
