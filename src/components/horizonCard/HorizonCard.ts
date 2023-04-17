@@ -41,8 +41,26 @@ export class HorizonCard extends LitElement {
     this.processLastHass()
   }
 
+  /**
+   * called by HASS to properly distribute card in lovelace view. It should return height
+   * of the card as a number where 1 is equivalent of 50 pixels.
+   * @see https://developers.home-assistant.io/docs/frontend/custom-ui/custom-card/#api
+   */
   public getCardSize (): number {
-		return 6
+		let height = 4 // Smallest possible card (only graph) is roughly 200px
+
+    // Each element of card (header, content, footer) adds roughly 50px to the height
+    if(this.config.fields?.sunrise || this.config.fields?.sunset) {
+      height += 1
+    }
+    if(this.config.fields?.dawn || this.config.fields?.noon || this.config.fields?.dusk) {
+      height += 1
+    }
+    if(this.config.fields?.azimuth || this.config.fields?.elevation) {
+      height += 1
+    }
+
+    return height
 	}
 
   // Visual editor disabled because it's broken, see https://developers.home-assistant.io/blog/2022/02/18/paper-elements/
