@@ -7,7 +7,6 @@ import { Constants } from '../../constants'
 import { EHorizonCardErrors, IHorizonCardConfig, THorizonCardData, THorizonCardTimes, TSunInfo } from '../../types'
 import { HelperFunctions } from '../../utils/HelperFunctions'
 import { I18N } from '../../utils/I18N'
-import { HorizonCardEditor } from '../horizonCardEditor'
 import { HorizonErrorContent } from '../HorizonErrorContent'
 import { HorizonCardContent } from './HorizonCardContent'
 
@@ -46,9 +45,10 @@ export class HorizonCard extends LitElement {
 		return 6
 	}
 
-  static getConfigElement (): HTMLElement {
-    return document.createElement(HorizonCardEditor.cardType)
-  }
+  // Visual editor disabled because it's broken, see https://developers.home-assistant.io/blog/2022/02/18/paper-elements/
+  // static getConfigElement (): HTMLElement {
+  //   return document.createElement(HorizonCardEditor.cardType)
+  // }
 
   // called by HASS whenever config changes
   public setConfig (config: IHorizonCardConfig): void {

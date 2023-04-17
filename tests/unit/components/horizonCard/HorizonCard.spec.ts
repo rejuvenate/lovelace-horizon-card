@@ -2,7 +2,6 @@ import { HomeAssistant } from 'custom-card-helpers'
 import { css, CSSResult } from 'lit'
 
 import { HorizonCard } from '../../../../src/components/horizonCard'
-import { HorizonCardEditor } from '../../../../src/components/horizonCardEditor'
 import { Constants } from '../../../../src/constants'
 import { EHorizonCardErrors, IHorizonCardConfig, THorizonCardData } from '../../../../src/types'
 import { CustomSnapshotSerializer, TemplateResultTestHelper } from '../../../helpers/TestHelpers'
@@ -73,17 +72,18 @@ describe('HorizonCard', () => {
     })
   })
 
-  describe('getConfigElement', () => {
-    it('creates and return a horizon card config element', () => {
-      const expectedElement = document.createElement('div')
-      const createElementSpy = jest.spyOn(document, 'createElement').mockReturnValueOnce(expectedElement)
-      const result = HorizonCard.getConfigElement()
-
-      expect(result).toEqual(expectedElement)
-      expect(createElementSpy).toHaveBeenCalledTimes(1)
-      expect(createElementSpy).toHaveBeenCalledWith(HorizonCardEditor.cardType)
-    })
-  })
+  // Visual editor disabled because it's broken, see https://developers.home-assistant.io/blog/2022/02/18/paper-elements/
+  // describe('getConfigElement', () => {
+  //   it('creates and return a horizon card config element', () => {
+  //     const expectedElement = document.createElement('div')
+  //     const createElementSpy = jest.spyOn(document, 'createElement').mockReturnValueOnce(expectedElement)
+  //     const result = HorizonCard.getConfigElement()
+  //
+  //     expect(result).toEqual(expectedElement)
+  //     expect(createElementSpy).toHaveBeenCalledTimes(1)
+  //     expect(createElementSpy).toHaveBeenCalledWith(HorizonCardEditor.cardType)
+  //   })
+  // })
 
   describe('setConfig', () => {
     it('overrides old config with new values', () => {
