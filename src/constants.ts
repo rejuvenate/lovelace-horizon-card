@@ -1,3 +1,4 @@
+import ms from './assets/localization/languages/ms.json'
 import bg from './assets/localization/languages/bg.json'
 import ca from './assets/localization/languages/ca.json'
 import cs from './assets/localization/languages/cs.json'
