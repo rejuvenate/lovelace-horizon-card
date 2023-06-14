@@ -120,6 +120,7 @@ Supported options for the `language` setting:
 - `hu` Hungarian
 - `is` Icelandic
 - `ja` Japanese
+- `ko` Korean
 - `it` Italian
 - `lt` Lithuanian
 - `nb` Norwegian (Bokmål)
