@@ -87,7 +87,7 @@ export class Constants {
   }
 
   static readonly LOCALIZATION_LANGUAGES: Record<string, THorizonCardI18NKeys> = {
-    bg, ca, cs, da, de, en, es, et, fi, fr, he, hu, is, it, ja, lt, nb, nl, nn, pl, 'pt-BR': ptBR, ro, ru, sk, sl, sv, tr, uk, 'zh-Hans': zh_Hans, 'zh-Hant': zh_Hant
+    bg, ca, cs, da, de, en, es, et, fi, fr, he, hu, is, it, ja, lt, ms, nb, nl, nn, pl, 'pt-BR': ptBR, ro, ru, sk, sl, sv, tr, uk, 'zh-Hans': zh_Hans, 'zh-Hant': zh_Hant
   }
 
   static readonly FALLBACK_LOCALIZATION = en
