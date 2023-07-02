@@ -122,6 +122,7 @@ Supported options for the `language` setting:
 - `ja` Japanese
 - `it` Italian
 - `lt` Lithuanian
+- `ms` Malay
 - `nb` Norwegian (Bokmål)
 - `nl` Dutch
 - `nn` Norwegian (Nynorsk)
