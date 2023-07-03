@@ -117,12 +117,14 @@ Supported options for the `language` setting:
 - `fi` Finnish
 - `fr` French
 - `he` Hebrew
+- `hr` Croatian
 - `hu` Hungarian
 - `is` Icelandic
 - `ja` Japanese
 - `ko` Korean
 - `it` Italian
 - `lt` Lithuanian
+- `ms` Malay
 - `nb` Norwegian (Bokmål)
 - `nl` Dutch
 - `nn` Norwegian (Nynorsk)

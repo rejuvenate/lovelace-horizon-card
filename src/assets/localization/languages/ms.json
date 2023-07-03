@@ -1,0 +1,13 @@
+{
+    "azimuth": "Azimuth",
+    "dawn": "Fajar",
+    "dusk": "Senja",
+    "elevation": "Ketinggian",
+    "noon": "Tengahari",
+    "sunrise": "Fajar",
+    "sunset": "Senja",
+    "errors": {
+      "SunIntegrationNotFound": "Integrasi Sun tidak ditemui."
+    }
+  }
+  
