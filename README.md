@@ -117,6 +117,7 @@ Supported options for the `language` setting:
 - `fi` Finnish
 - `fr` French
 - `he` Hebrew
+- `hr` Croatian
 - `hu` Hungarian
 - `is` Icelandic
 - `ja` Japanese
