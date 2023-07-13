@@ -12,10 +12,13 @@ Consider joining us!
 
 The Horizon Card tracks the position of the Sun and the Moon over the horizon and shows the times of various Sun and Moon events, as well as their current azimuth and elevation, in a visually appealing and easy-to-read format.
 
-<p align="center">
-  <img width="400" alt="Light mode preview" src="https://user-images.githubusercontent.com/6829526/118412152-54d93900-b690-11eb-8b2b-e87b4cbcca7f.png"/>
-  <img width="400" alt="Dark mode preview" src="https://user-images.githubusercontent.com/6829526/118412162-64f11880-b690-11eb-9bd7-b8c6c7d8efd8.png"/>
-</p>
+Light theme default look       |  Dark theme default look
+:-----------------------------:|:-----------------------------:
+![](images/default-light.png)  |  ![](images/default-dark.png)
+
+Light theme full look          |  Dark theme full look
+:-----------------------------:|:-----------------------------:
+![](images/full-light.png)     |  ![](images/full-dark.png)
 
 ### How it works
 
