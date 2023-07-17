@@ -1,11 +1,11 @@
 {
-  "azimuth": "Azimuth",
+  "azimuth": "Azimut",
   "dawn": "Aurora",
   "dusk": "Crepuscolo",
   "elevation": "Elevazione",
-  "moonrise": "Sorgere della luna",
-  "moonset": "Tramonto della luna",
-  "noon": "Mezzogiorno solare",
+  "moonrise": "Levata",
+  "moonset": "Calata",
+  "noon": "Mezzogiorno",
   "sunrise": "Alba",
   "sunset": "Tramonto"
 }
