@@ -42,7 +42,7 @@ Please ensure you have the [Sun integration](https://www.home-assistant.io/integ
 ### HACS
 
 1. Make sure the [HACS](https://github.com/custom-components/hacs) component is installed and working.
-1. Search for "Horizon Card" or `lovelace-horizon-card` in HACS and install thelatest version.
+1. Search for "Horizon Card" or `lovelace-horizon-card` in HACS and install the latest version.
 
 ### Manual Installation
 
