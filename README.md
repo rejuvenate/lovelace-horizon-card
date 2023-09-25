@@ -37,19 +37,23 @@ If showing the moon phase is enabled, the icon will be rotated to match the appr
 
 ## Installation
 
-Please ensure you have the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup.
+Please ensure you have [HACS](https://hacs.xyz/) and the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup. 
 
-### HACS
+If you have My Home Assistant configured, simply click here:
+
+[![Open your Home Assistant instance and open the lovelace-horizon-card project inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=rejuvenate&repository=lovelace-horizon-card)
+
+Otherwise follow these steps:
 
 1. Make sure the [HACS](https://github.com/custom-components/hacs) component is installed and working.
 1. Search for "Horizon Card" or `lovelace-horizon-card` in HACS and install the latest version.
 
 ### Manual Installation
 
+Installation via HACS is recommended, but a manual setup is supported.
+
 <details>
 <summary>Show detailed instructions</summary>
-
-Installation via HACS is recommended, but a manual setup is supported.
 
 1. Download the latest [lovelace-horizon-card.js](https://github.com/rejuvenate/lovelace-horizon-card/releases/latest/download/lovelace-horizon-card.js) file.
 1. If necessary, create a `www` folder in your configuration folder (where `configuration.yaml` is found).
