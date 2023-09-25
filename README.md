@@ -42,15 +42,7 @@ Please ensure you have the [Sun integration](https://www.home-assistant.io/integ
 ### HACS
 
 1. Make sure the [HACS](https://github.com/custom-components/hacs) component is installed and working.
-1. Add the project repository `https://github.com/rejuvenate/lovelace-horizon-card` as a custom repository to HACS, see: https://hacs.xyz/docs/faq/custom_repositories
-
-   <picture>
-     <source media="(prefers-color-scheme: light)" srcset="https://github.com/Mqxx/GitHub-Markdown/blob/main/blockquotes/badge/light-theme/info.svg">
-     <img alt="Info" src="https://github.com/Mqxx/GitHub-Markdown/blob/main/blockquotes/badge/dark-theme/info.svg">
-   </picture><br>
-   Addition to the HACS default repository is pending (see: https://github.com/hacs/default/pull/1958).
-   This step won't be necessary afterwards.
-1. Search for `lovelace-horizon-card` in HACS and install it under the "Lovelace" category.
+1. Search for "Horizon Card" or `lovelace-horizon-card` in HACS and install thelatest version.
 
 ### Manual Installation
 
