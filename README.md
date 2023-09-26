@@ -14,11 +14,11 @@ The Horizon Card tracks the position of the Sun and the Moon over the horizon an
 
 Light theme default look       |  Dark theme default look
 :-----------------------------:|:-----------------------------:
-![](images/default-light.png)  |  ![](images/default-dark.png)
+![](https://github.com/rejuvenate/lovelace-horizon-card/blob/main/images/default-light.png) | ![](https://github.com/rejuvenate/lovelace-horizon-card/blob/main/images/default-dark.png)
 
 Light theme full look          |  Dark theme full look
 :-----------------------------:|:-----------------------------:
-![](images/full-light.png)     |  ![](images/full-dark.png)
+![](https://github.com/rejuvenate/lovelace-horizon-card/blob/main/images/full-light.png) | ![](https://github.com/rejuvenate/lovelace-horizon-card/blob/main/images/full-dark.png)
 
 ### How it works
 
