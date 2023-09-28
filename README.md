@@ -155,6 +155,7 @@ Supported options for the `language` setting:
 - `et` Estonian
 - `fi` Finnish
 - `fr` French
+- `gl` Galician
 - `he` Hebrew
 - `hr` Croatian
 - `hu` Hungarian
