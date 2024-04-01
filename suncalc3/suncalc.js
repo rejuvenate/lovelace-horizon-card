@@ -164,7 +164,6 @@
  * @property {Date} [highest] - Date of the highest position, only avalílable if set and rise is not NaN
  */
 
-(function () {
     'use strict';
     // sun calculations are based on http://aa.quae.nl/en/reken/zonpositie.html formulas
 
@@ -1236,16 +1235,4 @@
         };
     };
 
-    // export as Node module / AMD module / browser variable
-    if (typeof exports === 'object' && typeof module !== 'undefined') {
-        module.exports = SunCalc;
-        // @ts-ignore
-    } else if (typeof define === 'function' && define.amd) {
-        // @ts-ignore
-        define(SunCalc);
-    } else {
-        // @ts-ignore
-        window.SunCalc = SunCalc;
-    }
-
-})();
+    export default SunCalc;
