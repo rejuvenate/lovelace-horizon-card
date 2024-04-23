@@ -150,9 +150,11 @@ Supported options for the `language` setting:
 - `cs` Czech
 - `da` Danish
 - `de` German
+- `el` Greek
 - `en` English
 - `es` Spanish
 - `et` Estonian
+- `fa` Persian
 - `fi` Finnish
 - `fr` French
 - `gl` Galician

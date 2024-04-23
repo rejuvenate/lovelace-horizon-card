@@ -1,11 +1,11 @@
 {
   "azimuth": "方位角",
   "dawn": "明け方",
-  "dusk": "夕",
-  "elevation": "仰俯角",
+  "dusk": "夕方",
+  "elevation": "高度",
   "moonrise": "月の出",
   "moonset": "月の入り",
-  "noon": "太陽の正午",
-  "sunrise": "日出",
-  "sunset": "日沒"
+  "noon": "南中",
+  "sunrise": "日の出",
+  "sunset": "日没"
 }
