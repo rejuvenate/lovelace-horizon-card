@@ -37,7 +37,7 @@ If showing the moon phase is enabled, the icon will be rotated to match the appr
 
 ## Installation
 
-Please ensure you have [HACS](https://hacs.xyz/) and the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup. 
+Please ensure you have [HACS](https://hacs.xyz/) and the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup.
 
 If you have My Home Assistant configured, simply click here:
 
@@ -154,7 +154,6 @@ Supported options for the `language` setting:
 - `en` English
 - `es` Spanish
 - `et` Estonian
-- `fa` Persian
 - `fi` Finnish
 - `fr` French
 - `gl` Galician
