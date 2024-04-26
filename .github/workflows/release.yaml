@@ -40,6 +40,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Test
+        run: npm run test
+
       - name: Set app version (Unix)
         run: npm version ${{ github.event.inputs.release_version }} --no-git-tag-version
 
