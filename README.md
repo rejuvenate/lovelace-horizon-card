@@ -1,4 +1,4 @@
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
 # Lovelace Horizon Card
 
@@ -14,11 +14,11 @@ The Horizon Card tracks the position of the Sun and the Moon over the horizon an
 
 Light theme default look       |  Dark theme default look
 :-----------------------------:|:-----------------------------:
-![](images/default-light.png)  |  ![](images/default-dark.png)
+![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/default-light.png) | ![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/default-dark.png)
 
 Light theme full look          |  Dark theme full look
 :-----------------------------:|:-----------------------------:
-![](images/full-light.png)     |  ![](images/full-dark.png)
+![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/full-light.png) | ![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/full-dark.png)
 
 ### How it works
 
@@ -37,27 +37,23 @@ If showing the moon phase is enabled, the icon will be rotated to match the appr
 
 ## Installation
 
-Please ensure you have the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup.
+Please ensure you have [HACS](https://hacs.xyz/) and the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup. 
 
-### HACS
+If you have My Home Assistant configured, simply click here:
+
+[![Open your Home Assistant instance and open the lovelace-horizon-card project inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=rejuvenate&repository=lovelace-horizon-card)
+
+Otherwise follow these steps:
 
 1. Make sure the [HACS](https://github.com/custom-components/hacs) component is installed and working.
-1. Add the project repository `https://github.com/rejuvenate/lovelace-horizon-card` as a custom repository to HACS, see: https://hacs.xyz/docs/faq/custom_repositories
-
-   <picture>
-     <source media="(prefers-color-scheme: light)" srcset="https://github.com/Mqxx/GitHub-Markdown/blob/main/blockquotes/badge/light-theme/info.svg">
-     <img alt="Info" src="https://github.com/Mqxx/GitHub-Markdown/blob/main/blockquotes/badge/dark-theme/info.svg">
-   </picture><br>
-   Addition to the HACS default repository is pending (see: https://github.com/hacs/default/pull/1958).
-   This step won't be necessary afterwards.
-1. Search for `lovelace-horizon-card` in HACS and install it under the "Lovelace" category.
+1. Search for "Horizon Card" or `lovelace-horizon-card` in HACS and install the latest version.
 
 ### Manual Installation
 
+Installation via HACS is recommended, but a manual setup is supported.
+
 <details>
 <summary>Show detailed instructions</summary>
-
-Installation via HACS is recommended, but a manual setup is supported.
 
 1. Download the latest [lovelace-horizon-card.js](https://github.com/rejuvenate/lovelace-horizon-card/releases/latest/download/lovelace-horizon-card.js) file.
 1. If necessary, create a `www` folder in your configuration folder (where `configuration.yaml` is found).
@@ -154,11 +150,14 @@ Supported options for the `language` setting:
 - `cs` Czech
 - `da` Danish
 - `de` German
+- `el` Greek
 - `en` English
 - `es` Spanish
 - `et` Estonian
+- `fa` Persian
 - `fi` Finnish
 - `fr` French
+- `gl` Galician
 - `he` Hebrew
 - `hr` Croatian
 - `hu` Hungarian

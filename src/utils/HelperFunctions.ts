@@ -29,7 +29,7 @@ export class HelperFunctions {
       return nothing
     }
 
-    let moon_phase_localized: unknown = i18n.localize(`component.sensor.state.moon__phase.${phase.state}`)
+    let moon_phase_localized: unknown = i18n.localize(`component.entity.sensor.phase.state.${phase.state}`)
     if (!moon_phase_localized) {
       moon_phase_localized = html`<span title="Install Moon integration to get localized Moon phase name">${phase.state} (!)</span>`
     }
