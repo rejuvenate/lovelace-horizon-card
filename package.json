@@ -51,7 +51,7 @@
   "dependencies": {
     "custom-card-helpers": "^1.8.0",
     "lit": "^2.7.2",
-    "suncalc3": "link:suncalc3"
+    "suncalc3": "^2.0.5"
   },
   "resolutions": {
     "@formatjs/intl-utils": "https://registry.yarnpkg.com/@favware/skip-dependency/-/skip-dependency-1.2.1.tgz"
