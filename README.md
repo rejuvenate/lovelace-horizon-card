@@ -170,6 +170,7 @@ Supported options for the `language` setting:
 - `nl` Dutch
 - `nn` Norwegian (Nynorsk)
 - `pl` Polish
+- `pt` Portuguese (Portugal)
 - `pt-BR` Portuguese (Brazil)
 - `ro` Romanian
 - `ru` Russian
