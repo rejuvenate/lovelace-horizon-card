@@ -7,7 +7,6 @@ import el from './assets/localization/languages/el.json'
 import en from './assets/localization/languages/en.json'
 import es from './assets/localization/languages/es.json'
 import et from './assets/localization/languages/et.json'
-import fa from './assets/localization/languages/fa.json'
 import fi from './assets/localization/languages/fi.json'
 import fr from './assets/localization/languages/fr.json'
 import gl from './assets/localization/languages/gl.json'
@@ -24,6 +23,7 @@ import nb from './assets/localization/languages/nb.json'
 import nl from './assets/localization/languages/nl.json'
 import nn from './assets/localization/languages/nn.json'
 import pl from './assets/localization/languages/pl.json'
+import pt from './assets/localization/languages/pt.json'
 import ptBR from './assets/localization/languages/pt-BR.json'
 import ro from './assets/localization/languages/ro.json'
 import ru from './assets/localization/languages/ru.json'
@@ -146,6 +146,6 @@ export class Constants {
   static readonly MOON_RADIUS = 14
 
   static readonly LOCALIZATION_LANGUAGES: Record<string, THorizonCardI18NKeys> = {
-    bg, ca, cs, da, de, el, en, es, et, fa, fi, fr, gl, he, hr, hu, is, it, ja, ko, lt, ms, nb, nl, nn, pl, 'pt-BR': ptBR, ro, ru, sk, sl, sv, tr, uk, 'zh-Hans': zh_Hans, 'zh-Hant': zh_Hant
+    bg, ca, cs, da, de, el, en, es, et, fi, fr, gl, he, hr, hu, is, it, ja, ko, lt, ms, nb, nl, nn, pl, pt, 'pt-BR': ptBR, ro, ru, sk, sl, sv, tr, uk, 'zh-Hans': zh_Hans, 'zh-Hant': zh_Hant
   }
 }
