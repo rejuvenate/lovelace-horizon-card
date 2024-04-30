@@ -43,7 +43,7 @@
     "jest-environment-jsdom": "29.5.0",
     "jest-serializer-html": "^7.1.0",
     "rollup": "^3.19.1",
-    "rollup-plugin-serve": "^2.0.2",
+    "rollup-plugin-serve": "^3.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "ts-jest": "29.1.0",
     "typescript": "^5.0.4"
