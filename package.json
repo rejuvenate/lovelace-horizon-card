@@ -46,7 +46,7 @@
     "rollup-plugin-serve": "^3.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "ts-jest": "29.1.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "custom-card-helpers": "^1.8.0",
