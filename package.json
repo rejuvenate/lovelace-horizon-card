@@ -45,7 +45,7 @@
     "rollup": "^3.19.1",
     "rollup-plugin-serve": "^3.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
-    "ts-jest": "29.1.0",
+    "ts-jest": "29.1.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {
