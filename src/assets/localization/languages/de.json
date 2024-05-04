@@ -2,10 +2,10 @@
   "azimuth": "Azimut",
   "dawn": "Morgendämmerung",
   "dusk": "Abenddämmerung",
-  "elevation": "Zenitwinkel",
+  "elevation": "Höhenwinkel",
   "moonrise": "Mondaufgang",
   "moonset": "Monduntergang",
-  "noon": "Zenit",
+  "noon": "Mittag",
   "sunrise": "Sonnenaufgang",
   "sunset": "Sonnenuntergang"
 }
