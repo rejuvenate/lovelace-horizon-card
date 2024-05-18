@@ -1,6 +1,7 @@
 import { NumberFormat, TimeFormat } from 'custom-card-helpers'
 
 import { HorizonCardFooter } from '../../../../src/components/horizonCard'
+import { Constants } from '../../../../src/constants'
 import { IHorizonCardConfig, THorizonCardData } from '../../../../src/types'
 import { I18N } from '../../../../src/utils/I18N'
 import { TemplateResultTestHelper } from '../../../helpers/TestHelpers'
@@ -61,7 +62,7 @@ describe('HorizonCardFooter', () => {
     if (field.startsWith('moon_')) {
       const name = field.substring('moon_'.length)
       if (name === 'phase') {
-        data.moonData[name] = 'full_moon'
+        data.moonData[name] = Constants.MOON_PHASES.fullMoon
         data.moonData['phaseRotation'] = 0
       } else {
         data.moonData[name] = 0

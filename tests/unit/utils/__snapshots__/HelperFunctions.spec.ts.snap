@@ -25,7 +25,7 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
     </ha-icon>
   </div>
   <div class="horizon-card-field-value horizon-card-field-value-moon-phase">
-    component.sensor.state.moon__phase.full_moon
+    component.moon.entity.sensor.phase.state.full_moon
   </div>
 </div>
 `;
