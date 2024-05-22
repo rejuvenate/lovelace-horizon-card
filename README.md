@@ -179,6 +179,7 @@ Supported options for the `language` setting:
 - `sv` Swedish
 - `tr` Turkish
 - `uk` Ukrainian
+- - `Ur` Urdu
 - `zh-Hans` Chinese, simplified
 - `zh-Hant` Chinese, traditional
 
