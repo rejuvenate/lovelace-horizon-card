@@ -7,7 +7,7 @@ A [Home Assistant Dashboard Card](https://www.home-assistant.io/dashboards/) ava
 
 Lovelace Horizon Card is a fork of the original [home-assistant-sun-card](https://github.com/AitorDB/home-assistant-sun-card) project by [@AitorDB](https://github.com/AitorDB) to continue the great work and distribute the responsibility of supporting and advancing the project among a team of people.
 
-Consider joining us!
+Consider joining us! Click [here to fork](https://github.com/rejuvenate/lovelace-horizon-card/fork)
 
 ## Introduction
 
