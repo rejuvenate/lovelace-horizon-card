@@ -120,6 +120,7 @@ In general, you should not need to set any of these as they override Home Assist
 | longitude     | _number_                                     | Longitude used for calculations                                                                                               | Home Assistant longitude                                    |
 | elevation     | _number_                                     | Elevation (above sea) used for calculations                                                                                   | Home Assistant elevation                                    |
 | time_zone     | _string_                                     | Time zone (IANA) used for calculations and time presentation                                                                  | Home Assistant time zone                                    |
+| no_card       | _boolean_                                    | Disable card background                                                                                                       | `false`                                                     |
 | now           | _Date_                                       | Overrides the current moment shown on the card                                                                                | Current time                                                |
 | debug_level   | _number_                                     | Sets debug level, `0` (no debug), `1` and `2`                                                                                 | `0`                                                         |
 
@@ -228,6 +229,7 @@ latitude: 42.55
 longitude: 23.25
 elevation: 1500
 time_zone: Europe/Sofia
+no_card: false
 now: 2023-07-06T00:30:05+0300
 debug_level: 0
 ```
