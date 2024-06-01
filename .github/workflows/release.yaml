@@ -47,7 +47,7 @@ jobs:
       - uses: rymndhng/release-on-push-action@master
         id: release
         with:
-          bump_version_scheme: minor
+          bump_version_scheme: norelease
           use_github_release_notes: true
 
       - name: Log Release Version
