@@ -21,6 +21,7 @@ export class HorizonCardFooter {
   private readonly azimuthExtraClasses: string[]
   private readonly elevations
   private readonly elevationExtraClasses: string[]
+  private readonly southern_flip: boolean
 
   constructor (config: IHorizonCardConfig, data: THorizonCardData, i18n: I18N) {
     this.data = data
@@ -56,22 +57,28 @@ export class HorizonCardFooter {
     } else {
       this.elevationExtraClasses = []
     }
+
+    this.southern_flip = config.southern_flip!
   }
 
   public render (): TemplateResult {
+    const dawn = this.fields.dawn
+      ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dawn, this.sunTimes.dawn)
+      : nothing
+    const dusk = this.fields.dusk
+      ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dusk, this.sunTimes.dusk)
+      : nothing
+    const left = this.southern_flip ? dusk : dawn
+    const right = this.southern_flip ? dawn : dusk
     return html`
       <div class="horizon-card-footer">
         ${
           this.renderRow(
-            this.fields.dawn
-              ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dawn, this.sunTimes.dawn)
-              : nothing,
+            left,
             this.fields.noon
               ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Noon, this.sunTimes.noon)
               : nothing,
-            this.fields.dusk
-              ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dusk, this.sunTimes.dusk)
-              : nothing
+            right
           )
         }
         ${

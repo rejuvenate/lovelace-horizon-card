@@ -9,6 +9,7 @@ export class HorizonCardHeader {
   private readonly times: TSunTimes
   private readonly fields: THorizonCardFields
   private readonly i18n: I18N
+  private readonly southern_flip: boolean;
 
   constructor (config: IHorizonCardConfig, data: THorizonCardData, i18n: I18N) {
     this.title = config.title
@@ -16,6 +17,7 @@ export class HorizonCardHeader {
     this.fields = config.fields!
     this.times = data.sunData.times
     this.i18n = i18n
+    this.southern_flip = config.southern_flip!
   }
 
   public render (): TemplateResult {
@@ -29,21 +31,16 @@ export class HorizonCardHeader {
     return html`<div class="horizon-card-title">${ this.title }</div>`
   }
 
-  private renderHeader (): TemplateResult {
-    return html`
-      <div class="horizon-card-header">
-        ${
-          this.fields.sunrise
-            ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Sunrise, this.times.sunrise)
-            : nothing
-        }
-        ${
-          this.fields.sunset
-            ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Sunset, this.times.sunset)
-            : nothing
-        }
-      </div>
-    `
+  private renderHeader(): TemplateResult {
+    const sunrise = this.fields.sunrise
+      ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Sunrise, this.times.sunrise)
+      : nothing
+    const sunset = this.fields.sunset
+      ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Sunset, this.times.sunset)
+      : nothing
+    const left = this.southern_flip ? sunset : sunrise
+    const right = this.southern_flip ? sunrise : sunset
+    return html`<div class="horizon-card-header">${left}${right}</div>`
   }
 
   private showTitle (): boolean {
