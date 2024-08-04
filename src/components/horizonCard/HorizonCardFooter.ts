@@ -68,17 +68,27 @@ export class HorizonCardFooter {
     const dusk = this.fields.dusk
       ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dusk, this.sunTimes.dusk)
       : nothing
-    const left = this.southern_flip ? dusk : dawn
-    const right = this.southern_flip ? dawn : dusk
+    const sunLeft = this.southern_flip ? dusk : dawn
+    const sunRight = this.southern_flip ? dawn : dusk
+
+    const moonrise = this.fields.moonrise
+      ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Moonrise, this.moonTimes.moonrise)
+      : nothing
+    const moonset = this.fields.moonset
+      ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Moonset, this.moonTimes.moonset)
+      : nothing
+    const moonLeft = this.southern_flip ? moonset : moonrise
+    const moonRight = this.southern_flip ? moonrise : moonset
+
     return html`
       <div class="horizon-card-footer">
         ${
           this.renderRow(
-            left,
+            sunLeft,
             this.fields.noon
               ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Noon, this.sunTimes.noon)
               : nothing,
-            right
+            sunRight
           )
         }
         ${
@@ -95,15 +105,11 @@ export class HorizonCardFooter {
         }
         ${
           this.renderRow(
-            this.fields.moonrise
-              ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Moonrise, this.moonTimes.moonrise)
-              : nothing,
+            moonLeft,
             this.fields.moon_phase
               ? HelperFunctions.renderMoonElement(this.i18n, this.data.moonData.phase, this.data.moonData.phaseRotation)
               : nothing,
-            this.fields.moonset
-              ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Moonset, this.moonTimes.moonset)
-              : nothing
+            moonRight
           )
         }
       </div>
