@@ -97,14 +97,14 @@ Installation via HACS is recommended, but a manual setup is supported.
 
 ### General options
 
-| Name                | Accepted values                 | Description                                       | Default                                                        |
-| ------------------- | ------------------------------- | ------------------------------------------------- | -------------------------------------------------------------- |
-| title               | _string_                        | Card title                                        | Doesn't display a title by default                             |
-| moon                | _boolean_                       | Shows the Moon together with the Sun              | `true`                                                         |
-| refresh_period      | _number_                        | Refresh period between updates, in seconds        | `60`                                                           |
-| fields              | See [below](#visibility-fields) | Fine-tuned control over visible fields            |                                                                |
-| southern_flip       | _boolean_                       | Draws the graph and accompanying times in the opposite direction         | `true` in the Southern hemisphere, `false` in the Northern one |
-| moon_phase_rotation | _number_                        | Angle in degrees for rotating the moon phase icon | Determined from the latitude                                   |
+| Name                | Accepted values                 | Description                                                      | Default                                                        |
+| ------------------- | ------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------- |
+| title               | _string_                        | Card title                                                       | Doesn't display a title by default                             |
+| moon                | _boolean_                       | Shows the Moon together with the Sun                             | `true`                                                         |
+| refresh_period      | _number_                        | Refresh period between updates, in seconds                       | `60`                                                           |
+| fields              | See [below](#visibility-fields) | Fine-tuned control over visible fields                           |                                                                |
+| southern_flip       | _boolean_                       | Draws the graph and accompanying times in the opposite direction | `true` in the Southern hemisphere, `false` in the Northern one |
+| moon_phase_rotation | _number_                        | Angle in degrees for rotating the moon phase icon                | Determined from the latitude                                   |
 
 _Example: [here](#example-config)_
 
