@@ -28,7 +28,7 @@ The current view shows a period of 24 hours centered around the local solar noon
 
 In the Northern hemisphere, East is on the left, South is in the middle (when the Sun is in its highest position), and West is on the right. You are facing South and the Sun travels left-to-right.
 
-In the Southern hemisphere, West is on the left, North is in the middle (when the Sun is in its highest position), and East is on the right. You are facing North and the Sun travels right-to-left. You can disable the direction flip by setting `southern_flip: false`.
+In the Southern hemisphere, West is on the left, North is in the middle (when the Sun is in its highest position), and East is on the right. You are facing North and the Sun travels right-to-left. You can disable the direction flip by setting `southern_flip: false`. This will also affect the sunset/sunrise, dawn/dusk, and moonrise/moonset times shown on the card.
 
 The elevation of the Sun follows a predetermined curve that approximates the actual elevation, while the elevation of the Moon affects its vertical position in the graph. The scale for the Moon elevation is logarithmic, so lower elevations will appear higher (above horizon) or lower (below horizon).
 
@@ -95,14 +95,14 @@ Installation via HACS is recommended, but a manual setup is supported.
 
 ### General options
 
-| Name                | Accepted values | Description                                       | Default                                                        |
-|---------------------|-----------------|---------------------------------------------------|----------------------------------------------------------------|
-| title               | *string*        | Card title                                        | Doesn't display a title by default                             |
-| moon                | *boolean*       | Shows the Moon together with the Sun              | `true`                                                         |
-| refresh_period      | *number*        | Refresh period between updates, in seconds        | 60                                                             |
-| fields              | See below       | Fine-tuned control over visible fields            |                                                                |
-| southern_flip       | *boolean*       | Draws the graph in the opposite direction         | `true` in the Southern hemisphere, `false` in the Northern one |
-| moon_phase_rotation | *number*        | Angle in degrees for rotating the moon phase icon | Determined from the latitude                                   |
+| Name                | Accepted values | Description                                                      | Default                                                        |
+| ------------------- | --------------- | ---------------------------------------------------------------- | -------------------------------------------------------------- |
+| title               | *string*        | Card title                                                       | Doesn't display a title by default                             |
+| moon                | *boolean*       | Shows the Moon together with the Sun                             | `true`                                                         |
+| refresh_period      | *number*        | Refresh period between updates, in seconds                       | 60                                                             |
+| fields              | See below       | Fine-tuned control over visible fields                           |                                                                |
+| southern_flip       | *boolean*       | Draws the graph and accompanying times in the opposite direction | `true` in the Southern hemisphere, `false` in the Northern one |
+| moon_phase_rotation | *number*        | Angle in degrees for rotating the moon phase icon                | Determined from the latitude                                   |
 
 ### Advanced options
 
