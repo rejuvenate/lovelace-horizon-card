@@ -1,24 +1,25 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
+
 # Lovelace Horizon Card
 
-A [Home Assistant Dashboard Card](https://www.home-assistant.io/dashboards/) available through the [Home Assistant Community Store](https://hacs.xyz) and inspired by Google Weather.
+A [Home Assistant Dashboard Card](https://www.home-assistant.io/dashboards/) available through the [Home Assistant Community Store](https://hacs.xyz) and inspired by Google Weather (pre 2024 version).
 
 Lovelace Horizon Card is a fork of the original [home-assistant-sun-card](https://github.com/AitorDB/home-assistant-sun-card) project by [@AitorDB](https://github.com/AitorDB) to continue the great work and distribute the responsibility of supporting and advancing the project among a team of people.
 
-Consider joining us!
+Consider joining us! Click [here to fork](https://github.com/rejuvenate/lovelace-horizon-card/fork)
 
 ## Introduction
 
 The Horizon Card tracks the position of the Sun and the Moon over the horizon and shows the times of various Sun and Moon events, as well as their current azimuth and elevation, in a visually appealing and easy-to-read format.
 
-Light theme default look       |  Dark theme default look
-:-----------------------------:|:-----------------------------:
-![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/default-light.png) | ![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/default-dark.png)
+|                                       Light theme default look                                        |                                       Dark theme default look                                        |
+| :---------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------: |
+| ![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/default-light.png) | ![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/default-dark.png) |
 
-Light theme full look          |  Dark theme full look
-:-----------------------------:|:-----------------------------:
-![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/full-light.png) | ![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/full-dark.png)
+|                                       Light theme full look                                        |                                       Dark theme full look                                        |
+| :------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: |
+| ![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/full-light.png) | ![](https://raw.githubusercontent.com/rejuvenate/lovelace-horizon-card/main/images/full-dark.png) |
 
 ### How it works
 
@@ -34,10 +35,9 @@ The elevation of the Sun follows a predetermined curve that approximates the act
 
 If showing the moon phase is enabled, the icon will be rotated to match the approximate view for your latitude. You can disable this by setting `moon_phase_rotation: 0` or set a different angle to match your location or preferences.
 
-
 ## Installation
 
-Please ensure you have [HACS](https://hacs.xyz/) and the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup.
+Please ensure you have [HACS](https://hacs.xyz/), the [Sun integration](https://www.home-assistant.io/integrations/sun/) and the [Moon Integration](https://www.home-assistant.io/integrations/moon/) (_for the moon info_) enabled in your Home Assistant setup.
 
 If you have My Home Assistant configured, simply click here:
 
@@ -59,11 +59,13 @@ Installation via HACS is recommended, but a manual setup is supported.
 1. If necessary, create a `www` folder in your configuration folder (where `configuration.yaml` is found).
 1. Copy the downloaded file into your `www` folder.
 1. Add the resources, depending on whether you manage your Lovelace resources via the UI or YAML:
-   1. **UI:** Go to [![My Home Assistant](https://my.home-assistant.io/badges/lovelace_resources.svg)](https://my.home-assistant.io/redirect/lovelace_resources) and click **Add resource** *(or navigate to Settings -> Dashboards -> Resources -> Add Resource)* and enter:
+
+   1. **UI:** Go to [![My Home Assistant](https://my.home-assistant.io/badges/lovelace_resources.svg)](https://my.home-assistant.io/redirect/lovelace_resources) and click **Add resource** _(or navigate to Settings -> Dashboards -> Resources -> Add Resource)_ and enter:
 
       **URL**: `/local/lovelace-horizon-card.js`
 
       **Type**: JavaScript Module
+
    1. **YAML:** Add the configuration to your `ui-lovelace.yaml`:
 
       ```yaml
@@ -89,57 +91,64 @@ Installation via HACS is recommended, but a manual setup is supported.
 
 1. Add a new card with `type: custom:horizon-card` to your cards list and include any additional configuration from the Config section below.
 
-> Note: If you encounter an error like *Custom element doesn't exist*, clear the cache and reload the page.
+> Note: If you encounter an error like _Custom element doesn't exist_, clear the cache and reload the page.
 
 ## Configuration
 
 ### General options
 
-| Name                | Accepted values | Description                                                      | Default                                                        |
-| ------------------- | --------------- | ---------------------------------------------------------------- | -------------------------------------------------------------- |
-| title               | *string*        | Card title                                                       | Doesn't display a title by default                             |
-| moon                | *boolean*       | Shows the Moon together with the Sun                             | `true`                                                         |
-| refresh_period      | *number*        | Refresh period between updates, in seconds                       | 60                                                             |
-| fields              | See below       | Fine-tuned control over visible fields                           |                                                                |
-| southern_flip       | *boolean*       | Draws the graph and accompanying times in the opposite direction | `true` in the Southern hemisphere, `false` in the Northern one |
-| moon_phase_rotation | *number*        | Angle in degrees for rotating the moon phase icon                | Determined from the latitude                                   |
+| Name                | Accepted values                 | Description                                       | Default                                                        |
+| ------------------- | ------------------------------- | ------------------------------------------------- | -------------------------------------------------------------- |
+| title               | _string_                        | Card title                                        | Doesn't display a title by default                             |
+| moon                | _boolean_                       | Shows the Moon together with the Sun              | `true`                                                         |
+| refresh_period      | _number_                        | Refresh period between updates, in seconds        | `60`                                                           |
+| fields              | See [below](#visibility-fields) | Fine-tuned control over visible fields            |                                                                |
+| southern_flip       | _boolean_                       | Draws the graph and accompanying times in the opposite direction         | `true` in the Southern hemisphere, `false` in the Northern one |
+| moon_phase_rotation | _number_                        | Angle in degrees for rotating the moon phase icon | Determined from the latitude                                   |
+
+_Example: [here](#example-config)_
 
 ### Advanced options
 
 In general, you should not need to set any of these as they override Home Assistant's settings or set debug options.
 
-| Name      | Accepted values                              | Description                                                                    | Default                                             |
-|-----------|----------------------------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------|
-| language  | See below                                    | Changes card language                                                          | Home Assistant language or English if not supported |
-| time_format | `language`, `12`, `24`                       | Set to `12` or `24` to force 12/24 hour clock                                  | `language` - uses default for configured language   |
-| number_format | `language`, `comma_decimal`, `decimal_comma` | Set to `comma_decimal` or `decimal_comma` to force 123.45/123,45 number format | `language` - uses default for configured language   |
-| latitude  | *number*                                     | Latitude used for calculations                                                 | Home Assistant's latitude                           |
-| longitude | *number*                                     | Longitude used for calculations                                                | Home Assistant's longitude                          |
-| elevation | *number*                                     | Elevation (above sea) used for calculations                                    | Home Assistant's elevation                          |
-| time_zone | *string*                                     | Time zone (IANA) used for calculations and time presentation                   | Home Assistant's time zone                          |
-| now       | *Date*                                       | Overrides the current moment shown on the card                                 | None, i.e., always show the current moment          |
-| debug_level | *number*                                     | Sets debug level, 0 and up                                                     | 0, i.e., no debug                                   |
+| Name          | Accepted values                              | Description                                                                                                                   | Default                                                     |
+| ------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| language      | See [below](#languages)                      | Changes card language                                                                                                         | Home Assistant profile language or English if not supported |
+| time_format   | `language`, `12`, `24`                       | Set to `12` or `24` to force 12/24 hour clock, `language` follow the language representation                                  | `language`                                                  |
+| number_format | `language`, `comma_decimal`, `decimal_comma` | Set to `comma_decimal` or `decimal_comma` to force 123.45/123,45 number format, `language` follow the language representation | `language`                                                  |
+| latitude      | _number_                                     | Latitude used for calculations                                                                                                | Home Assistant latitude                                     |
+| longitude     | _number_                                     | Longitude used for calculations                                                                                               | Home Assistant longitude                                    |
+| elevation     | _number_                                     | Elevation (above sea) used for calculations                                                                                   | Home Assistant elevation                                    |
+| time_zone     | _string_                                     | Time zone (IANA) used for calculations and time presentation                                                                  | Home Assistant time zone                                    |
+| no_card       | _boolean_                                    | Disable card background                                                                                                       | `false`                                                     |
+| now           | _Date_                                       | Overrides the current moment shown on the card                                                                                | Current time                                                |
+| debug_level   | _number_                                     | Sets debug level, `0` (no debug), `1` and `2`                                                                                 | `0`                                                         |
+
+_Example: [here](#example-config)_
 
 ### Visibility Fields
 
 Supported settings inside the `fields` setting:
 
-| Name           | Accepted values | Description                 | Default                  |
-|----------------|-----------------|-----------------------------|--------------------------|
-| sunrise        | *boolean*       | Show sunrise time           | `true`                   |
-| sunset         | *boolean*       | Show sunset time            | `true`                   |
-| dawn           | *boolean*       | Show dawn time              | `true`                   |
-| noon           | *boolean*       | Show solar noon time        | `true`                   |
-| dusk           | *boolean*       | Show dusk time              | `true`                   |
-| azimuth        | *boolean*       | Show Sun and Moon azimuth   | `false`                  |
-| sun_azimuth    | *boolean*       | Show Sun azimuth            | the value of `azimuth`   |
-| moon_azimuth   | *boolean*       | Show Moon azimuth           | the value of `azimuth`   |
-| elevation      | *boolean*       | Show Sun and Moon elevation | `false`                  |
-| sun_elevation  | *boolean*       | Show Sun elevation          | the value of `elevation` |
-| moon_elevation | *boolean*       | Show Moon elevation         | the value of `elevation` |
-| moonrise       | *boolean*       | Show moonrise time          | `false`                  |
-| moonset        | *boolean*       | Show moonset time           | `false`                  |
-| moon_phase     | *boolean*       | Show the Moon phase         | `false`                  |
+| Name           | Accepted values | Description                 | Default              |
+| -------------- | --------------- | --------------------------- | -------------------- |
+| sunrise        | _boolean_       | Show sunrise time           | `true`               |
+| sunset         | _boolean_       | Show sunset time            | `true`               |
+| dawn           | _boolean_       | Show dawn time              | `true`               |
+| noon           | _boolean_       | Show solar noon time        | `true`               |
+| dusk           | _boolean_       | Show dusk time              | `true`               |
+| azimuth        | _boolean_       | Show Sun and Moon azimuth   | `false`              |
+| sun_azimuth    | _boolean_       | Show Sun azimuth            | Value of `azimuth`   |
+| moon_azimuth   | _boolean_       | Show Moon azimuth           | Value of `azimuth`   |
+| elevation      | _boolean_       | Show Sun and Moon elevation | `false`              |
+| sun_elevation  | _boolean_       | Show Sun elevation          | Value of `elevation` |
+| moon_elevation | _boolean_       | Show Moon elevation         | Value of `elevation` |
+| moonrise       | _boolean_       | Show moonrise time          | `false`              |
+| moonset        | _boolean_       | Show moonset time           | `false`              |
+| moon_phase     | _boolean_       | Show the Moon phase         | `false`              |
+
+_Example: [here](#example-config)_
 
 ### Languages
 
@@ -182,6 +191,8 @@ Supported options for the `language` setting:
 - `zh-Hans` Chinese, simplified
 - `zh-Hant` Chinese, traditional
 
+_Example: [here](#example-config)_
+
 ### Caveats
 
 The Moon phase name (if the field `moon_phase` is enabled) is obtained via the [Moon integration](https://www.home-assistant.io/integrations/moon/). If the integration is not installed, the card will still show the Moon phase as a human-readable constant followed by `(!)`, e.g., `waning_gibbuous (!)`. Due to the way Home Assistant works, the localized Moon phase name will always be in Home Assistant's language and not in the language set for the card via the `language` option.
@@ -219,6 +230,7 @@ latitude: 42.55
 longitude: 23.25
 elevation: 1500
 time_zone: Europe/Sofia
+no_card: false
 now: 2023-07-06T00:30:05+0300
 debug_level: 0
 ```
