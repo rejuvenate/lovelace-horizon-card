@@ -235,3 +235,17 @@ no_card: false
 now: 2023-07-06T00:30:05+0300
 debug_level: 0
 ```
+
+
+## Development
+
+### Prepare the environment
+
+1. Install [`nvm`](https://github.com/nvm-sh/nvm) and run `nvm install && nvm use` to use the right Node.js version
+2. Enable [corepack](https://github.com/nodejs/corepack). Run `corepack enable`
+3. Install dependencies, run `yarn install`
+
+
+### Build the project
+
+Run `yarn build`
