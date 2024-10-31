@@ -5,7 +5,7 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     project: "./tsconfig.json"
   },
-  plugins: ["@typescript-eslint", "import", "simple-import-sort"],
+  plugins: ["@typescript-eslint", "@stylistic/js", "import", "simple-import-sort"],
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -42,7 +42,6 @@ module.exports = {
     "@typescript-eslint/no-floating-promises": ["error", { ignoreVoid: true }],
     "@typescript-eslint/no-use-before-define": ["error", { functions: false }],
     "@typescript-eslint/no-throw-literal": "off",
-    "@typescript-eslint/lines-between-class-members": ["error", { exceptAfterSingleLine: true }],
     "@typescript-eslint/no-empty-function": ["off"],
     "@typescript-eslint/ban-ts-comment": ["warn"],
     "@typescript-eslint/naming-convention": [
@@ -59,6 +58,7 @@ module.exports = {
         }
       }
     ],
+    "@stylistic/js/lines-between-class-members": ["error", "always", { exceptAfterSingleLine: true }],
     "jsx-a11y/click-events-have-key-events": "off",
     "react/require-default-props": "off",
     "no-underscore-dangle": ["error", { allowAfterThis: true }],
@@ -79,5 +79,14 @@ module.exports = {
         message: "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["tests/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/no-require-imports": "off"
+      }
+    }
+  ]
+
 };

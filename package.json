@@ -1,12 +1,13 @@
 {
   "name": "lovelace-horizon-card",
   "version": "1.1.0",
+  "packageManager": "yarn@4.5.1",
   "description": "Successor to Sun Card - Visualize the position of the sun over the horizon",
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
     "dev": "rollup -c rollup.config.dev.mjs --watch",
-    "build": "rimraf dist && yarn lint && yarn rollup",
+    "build": "rm -fr dist && yarn lint && yarn rollup",
     "lint": "eslint src tests",
     "rollup": "rollup -c",
     "test": "jest"
@@ -33,9 +34,10 @@
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@stylistic/eslint-plugin-js": "^2.9.0",
     "@types/jest": "29.5.0",
-    "@typescript-eslint/eslint-plugin": "^5.54.1",
-    "@typescript-eslint/parser": "^5.54.1",
+    "@typescript-eslint/eslint-plugin": "^8.12.2",
+    "@typescript-eslint/parser": "^8.12.2",
     "eslint": "^8.36.0",
     "eslint-plugin-import": "^2.23.2",
     "eslint-plugin-simple-import-sort": "10.0.0",
@@ -46,7 +48,7 @@
     "rollup-plugin-serve": "^2.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "ts-jest": "29.1.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "custom-card-helpers": "^1.8.0",
