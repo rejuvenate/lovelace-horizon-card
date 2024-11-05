@@ -1,12 +1,13 @@
 {
   "name": "lovelace-horizon-card",
   "version": "1.1.0",
+  "packageManager": "yarn@4.5.1",
   "description": "Successor to Sun Card - Visualize the position of the sun over the horizon",
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
     "dev": "rollup -c rollup.config.dev.mjs --watch",
-    "build": "rimraf dist && yarn lint && yarn rollup",
+    "build": "rm -fr dist && yarn lint && yarn rollup",
     "lint": "eslint src tests",
     "rollup": "rollup -c",
     "test": "jest"
@@ -54,9 +55,9 @@
     "suncalc3": "link:suncalc3"
   },
   "resolutions": {
-    "@formatjs/intl-utils": "https://registry.yarnpkg.com/@favware/skip-dependency/-/skip-dependency-1.2.1.tgz"
+    "@formatjs/intl-utils": "npm:empty-npm-package@1.0.0"
   },
   "resolutionsComments": {
-    "@formatjs/intl-utils": "Outdated, producing a warning at build, unused by us, brought by custom-card-helpers => skip it"
+    "@formatjs/intl-utils": "Outdated, producing a warning at build (https://rollupjs.org/troubleshooting/#error-this-is-undefined), unused by us, brought by custom-card-helpers => skip it"
   }
 }
