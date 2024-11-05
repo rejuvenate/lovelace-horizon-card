@@ -5392,7 +5392,7 @@ __metadata:
     rollup: "npm:^3.19.1"
     rollup-plugin-serve: "npm:^2.0.2"
     rollup-plugin-typescript2: "npm:^0.34.1"
-    suncalc3: "link:suncalc3"
+    suncalc3: "npm:^2.0.5"
     ts-jest: "npm:29.1.0"
     typescript: "npm:^5.0.4"
   languageName: unknown
@@ -6656,11 +6656,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"suncalc3@link:suncalc3::locator=lovelace-horizon-card%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "suncalc3@link:suncalc3::locator=lovelace-horizon-card%40workspace%3A."
+"suncalc3@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "suncalc3@npm:2.0.5"
+  checksum: 10c0/2c9ed89481657ddb395b01c01149ac1b908c2344ec993da4ef4d74bdbb49f85bba70401fd2265b0a754b606e5a7faca1852c47d0e3a52b2aab3008058adfddc5
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "superstruct@npm:^0.15.3":
   version: 0.15.5

@@ -52,7 +52,7 @@
   "dependencies": {
     "custom-card-helpers": "^1.8.0",
     "lit": "^2.7.2",
-    "suncalc3": "link:suncalc3"
+    "suncalc3": "patch:suncalc3@npm%3A2.0.5#~/.yarn/patches/suncalc3-npm-2.0.5-9cdae05f76.patch"
   },
   "resolutions": {
     "@formatjs/intl-utils": "npm:empty-npm-package@1.0.0"
