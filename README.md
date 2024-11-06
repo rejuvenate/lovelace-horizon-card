@@ -236,7 +236,6 @@ now: 2023-07-06T00:30:05+0300
 debug_level: 0
 ```
 
-
 ## Development
 
 ### Prepare the environment
@@ -245,7 +244,29 @@ debug_level: 0
 2. Enable [corepack](https://github.com/nodejs/corepack). Run `corepack enable`
 3. Install dependencies, run `yarn install`
 
+### Run tests
+
+Run `yarn test`
 
 ### Build the project
 
 Run `yarn build`
+
+### Load in a test bed
+
+1. Run `yarn dev`, keep it running in a terminal
+2. Open the URL `http://<your-ip-address>:5000`
+
+The test bed provides common scenarios to test your changes. You can tweak those scenarios and change the card config editting `/dev/dev.js`
+
+### Load in a Home Assistant instance
+
+If you have Horizon Card installed, it is recommended to disable it before loading it in development mode.
+
+1. Run `yarn dev`, keep it running in a terminal
+2. Go to [https://my.home-assistant.io/redirect/lovelace_dashboards/]. Alternatively, go to Settings > Dashboards
+3. Open the three dots menu > Resources
+4. Add a new resource. The URL is `http://<your-ip-address>/lovelace-horizon-card.js`, type `JavaScript module`.
+5. Add a new Dashboard, add the Horizon card.
+
+Every time you change the code, refresh the Dashboard and the changes should be visible.

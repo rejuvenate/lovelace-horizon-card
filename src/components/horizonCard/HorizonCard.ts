@@ -85,6 +85,56 @@ export class HorizonCard extends LitElement {
     return height
 	}
 
+  public getLayoutOptions () {
+    // Measuring different card elements with DevTools, these are the height of each section in pixels, when the card has a width of 480px.
+    const height = {
+      graph: 187.08,
+      title: 41,
+      sunrise_sunset: 42.17,
+      dawn_noon_dusk: 48.3,
+      single_azimuth_elevation: 48.3,
+      both_azimuth_elevation: 66.78,
+      moonrise_moonrise_moonphase: 48.3
+    }
+
+    // Per the documentation in https://developers.home-assistant.io/docs/frontend/custom-ui/custom-card/#sizing-in-sections-view, each row
+    // has a height of 56px and the gap between rows is 8px. So we compute the card height based on the elements being displayed, and then
+    // convert it to rows using the formula `size = 56*num_rows + 8*(num_rows-1)`, which can be expressed as `num_rows = (size + 8)/64`
+
+    let size = height.graph
+    const fieldConfig = this.expandedFieldConfig()
+
+    if (this.config.title && this.config.title.length > 0) {
+      size += height.title
+    }
+
+    if (fieldConfig.sunrise || fieldConfig.sunset) {
+      size += height.sunrise_sunset
+    }
+
+    if (fieldConfig.dawn || fieldConfig.noon || fieldConfig.dusk) {
+      size += height.dawn_noon_dusk
+    }
+
+    if ((fieldConfig.sun_azimuth && fieldConfig.moon_azimuth) || (fieldConfig.sun_elevation || fieldConfig.moon_elevation)) {
+      size += height.both_azimuth_elevation
+    } else if (fieldConfig.sun_azimuth || fieldConfig.moon_azimuth || fieldConfig.sun_elevation || fieldConfig.moon_elevation) {
+      size += height.single_azimuth_elevation
+    }
+
+    if (fieldConfig.moonrise || fieldConfig.moon_phase || fieldConfig.moonset) {
+      size += height.moonrise_moonrise_moonphase
+    }
+
+    const rows = Math.ceil((8+size)/64)
+    return {
+      grid_rows: rows,
+      grid_columns: 4,
+      grid_min_columns: 4,
+      grid_min_rows: rows,
+    }
+  }
+
   // called by HASS whenever config changes
   public setConfig (config: IHorizonCardConfig): void {
     if (config.language && !HelperFunctions.isValidLanguage(config.language)) {
