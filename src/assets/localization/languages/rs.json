@@ -1,0 +1,11 @@
+{
+  "azimuth": "Azimut",
+  "dawn": "Zora",
+  "dusk": "Sumrak",
+  "elevation": "Visina",
+  "moonrise": "Izlazak meseca",
+  "moonset": "Zalazak meseca",
+  "noon": "Sunčano podne",
+  "sunrise": "Izlazak sunca",
+  "sunset": "Zalazak sunca"
+}

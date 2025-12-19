@@ -182,6 +182,7 @@ Supported options for the `language` setting:
 - `pt` Portuguese (Portugal)
 - `pt-BR` Portuguese (Brazil)
 - `ro` Romanian
+- `rs` Serbian
 - `ru` Russian
 - `sk` Slovak
 - `sl` Slovenian
