@@ -1,6 +1,6 @@
 import { html, TemplateResult } from 'lit'
 
-import { IHorizonCardConfig,THorizonCardData } from '../../types'
+import type { IHorizonCardConfig, THorizonCardData } from '../../types'
 import { I18N } from '../../utils/I18N'
 import { HorizonCardFooter } from './HorizonCardFooter'
 import { HorizonCardGraph } from './HorizonCardGraph'

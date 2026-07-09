@@ -5,8 +5,8 @@ import { default as SunCalc } from 'suncalc3'
 
 import cardStyles from '../../cardStyles'
 import { Constants } from '../../constants'
-import {
-  EHorizonCardErrors,
+import { EHorizonCardErrors } from '../../types'
+import type {
   IHorizonCardConfig,
   THorizonCardFields,
   TMoonData,
@@ -26,13 +26,13 @@ export class HorizonCard extends LitElement {
   static readonly cardDescription = 'Custom card that display a graph to track the sun position and related events'
 
   @state()
-  private config!: IHorizonCardConfig
+  private accessor config!: IHorizonCardConfig
 
   @state()
-  private data = Constants.DEFAULT_CARD_DATA
+  private accessor data = Constants.DEFAULT_CARD_DATA
 
   @state()
-  private error: EHorizonCardErrors | undefined
+  private accessor error: EHorizonCardErrors | undefined
 
   private lastHass!: HomeAssistant
 

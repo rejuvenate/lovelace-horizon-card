@@ -1,7 +1,7 @@
 import { html, nothing, TemplateResult } from 'lit'
 
-import {
-  EHorizonCardI18NKeys,
+import { EHorizonCardI18NKeys } from '../../types'
+import type {
   IHorizonCardConfig,
   THorizonCardData,
   THorizonCardFields,
