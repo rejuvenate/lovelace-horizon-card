@@ -1,5 +1,6 @@
-import { HomeAssistant } from 'custom-card-helpers'
-import { html, LitElement, TemplateResult } from 'lit'
+import type { HomeAssistant } from 'custom-card-helpers'
+import type { TemplateResult } from 'lit'
+import { html, LitElement } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 
 @customElement('test-element')

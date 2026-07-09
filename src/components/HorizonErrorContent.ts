@@ -1,7 +1,8 @@
-import { html, TemplateResult } from 'lit'
+import type { TemplateResult } from 'lit'
+import { html } from 'lit'
 
-import { EHorizonCardErrors } from '../types'
-import { I18N } from '../utils/I18N'
+import type { EHorizonCardErrors } from '../types'
+import type { I18N } from '../utils/I18N'
 
 export class HorizonErrorContent {
   private readonly i18n: I18N

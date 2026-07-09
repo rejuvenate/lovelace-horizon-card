@@ -1,11 +1,14 @@
-import { HomeAssistant, round } from 'custom-card-helpers'
-import { CSSResult, html, LitElement, TemplateResult } from 'lit'
+import type { HomeAssistant } from 'custom-card-helpers'
+import { round } from 'custom-card-helpers'
+import type { CSSResult, TemplateResult } from 'lit'
+import { html, LitElement } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import { default as SunCalc } from 'suncalc3'
 
 import cardStyles from '../../cardStyles'
 import { Constants } from '../../constants'
 import type {
+  EHorizonCardErrors,
   IHorizonCardConfig,
   THorizonCardData,
   THorizonCardFields,
@@ -14,7 +17,6 @@ import type {
   TSunPosition,
   TSunTimes
 } from '../../types'
-import { EHorizonCardErrors } from '../../types'
 import { HelperFunctions } from '../../utils/HelperFunctions'
 import { I18N } from '../../utils/I18N'
 import { HorizonErrorContent } from '../HorizonErrorContent'

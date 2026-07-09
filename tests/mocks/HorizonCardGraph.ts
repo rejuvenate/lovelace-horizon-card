@@ -1,4 +1,5 @@
-import { html, TemplateResult } from 'lit'
+import type { TemplateResult } from 'lit'
+import { html } from 'lit'
 
 export class HorizonCardGraph {
   public render (): TemplateResult {

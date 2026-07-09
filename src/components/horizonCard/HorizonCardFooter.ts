@@ -1,4 +1,5 @@
-import { html, nothing, TemplateResult } from 'lit'
+import type { TemplateResult } from 'lit'
+import { html, nothing } from 'lit'
 
 import type {
   IHorizonCardConfig,
@@ -9,7 +10,7 @@ import type {
 } from '../../types'
 import { EHorizonCardI18NKeys } from '../../types'
 import { HelperFunctions } from '../../utils/HelperFunctions'
-import { I18N } from '../../utils/I18N'
+import type { I18N } from '../../utils/I18N'
 
 export class HorizonCardFooter {
   private readonly data: THorizonCardData

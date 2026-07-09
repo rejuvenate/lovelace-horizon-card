@@ -1,7 +1,7 @@
 import { NumberFormat, TimeFormat } from 'custom-card-helpers'
 
 import { HorizonCardContent } from '../../../../src/components/horizonCard'
-import { IHorizonCardConfig, THorizonCardData } from '../../../../src/types'
+import type { IHorizonCardConfig, THorizonCardData } from '../../../../src/types'
 import { I18N } from '../../../../src/utils/I18N'
 import { TemplateResultTestHelper } from '../../../helpers/TestHelpers'
 

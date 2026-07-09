@@ -1,9 +1,10 @@
-import { HomeAssistant, NumberFormat, TimeFormat } from 'custom-card-helpers'
+import type { HomeAssistant} from 'custom-card-helpers'
+import { NumberFormat, TimeFormat } from 'custom-card-helpers'
 import { css, CSSResult } from 'lit'
 
 import { HorizonCard } from '../../../../src/components/horizonCard'
 import { Constants } from '../../../../src/constants'
-import { EHorizonCardErrors, IHorizonCardConfig, THorizonCardData, TMoonData, TSunTimes } from '../../../../src/types'
+import type { EHorizonCardErrors, IHorizonCardConfig, THorizonCardData, TMoonData, TSunTimes } from '../../../../src/types'
 import { I18N } from '../../../../src/utils/I18N'
 import { SaneHomeAssistant, TemplateResultTestHelper } from '../../../helpers/TestHelpers'
 import { default as SunCalcMock } from '../../../mocks/SunCalc'

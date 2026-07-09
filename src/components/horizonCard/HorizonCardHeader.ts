@@ -1,9 +1,10 @@
-import { html, nothing, TemplateResult } from 'lit'
+import type { TemplateResult } from 'lit'
+import { html, nothing } from 'lit'
 
 import type { IHorizonCardConfig, THorizonCardData, THorizonCardFields, TSunTimes } from '../../types'
 import { EHorizonCardI18NKeys } from '../../types'
 import { HelperFunctions } from '../../utils/HelperFunctions'
-import { I18N } from '../../utils/I18N'
+import type { I18N } from '../../utils/I18N'
 
 export class HorizonCardHeader {
   private readonly title?: string
