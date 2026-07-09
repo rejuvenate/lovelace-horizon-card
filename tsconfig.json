@@ -16,6 +16,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
+    "useDefineForClassFields": false,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "./src/types/custom",

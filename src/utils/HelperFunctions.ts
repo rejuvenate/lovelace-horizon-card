@@ -1,8 +1,8 @@
 import { html, nothing, TemplateResult } from 'lit'
 
 import { Constants } from '../constants'
-import { EHorizonCardI18NKeys } from '../types'
 import type { TMoonPhase } from '../types'
+import { EHorizonCardI18NKeys } from '../types'
 import { I18N } from './I18N'
 
 type FieldValue = Date | number | string | undefined

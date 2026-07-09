@@ -1,6 +1,5 @@
 import { html, nothing, TemplateResult } from 'lit'
 
-import { EHorizonCardI18NKeys } from '../../types'
 import type {
   IHorizonCardConfig,
   THorizonCardData,
@@ -8,6 +7,7 @@ import type {
   TMoonTimes,
   TSunTimes
 } from '../../types'
+import { EHorizonCardI18NKeys } from '../../types'
 import { HelperFunctions } from '../../utils/HelperFunctions'
 import { I18N } from '../../utils/I18N'
 

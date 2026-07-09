@@ -5,15 +5,16 @@ import { default as SunCalc } from 'suncalc3'
 
 import cardStyles from '../../cardStyles'
 import { Constants } from '../../constants'
-import { EHorizonCardErrors } from '../../types'
 import type {
   IHorizonCardConfig,
+  THorizonCardData,
   THorizonCardFields,
   TMoonData,
   TMoonPosition,
   TSunPosition,
   TSunTimes
 } from '../../types'
+import { EHorizonCardErrors } from '../../types'
 import { HelperFunctions } from '../../utils/HelperFunctions'
 import { I18N } from '../../utils/I18N'
 import { HorizonErrorContent } from '../HorizonErrorContent'
@@ -26,19 +27,24 @@ export class HorizonCard extends LitElement {
   static readonly cardDescription = 'Custom card that display a graph to track the sun position and related events'
 
   @state()
-  private accessor config!: IHorizonCardConfig
+  private declare config: IHorizonCardConfig
 
   @state()
-  private accessor data = Constants.DEFAULT_CARD_DATA
+  private declare data: THorizonCardData
 
   @state()
-  private accessor error: EHorizonCardErrors | undefined
+  private declare error: EHorizonCardErrors | undefined
 
   private lastHass!: HomeAssistant
 
   private hasCalculated = false
 
   private wasDisconnected = false
+
+  constructor () {
+    super()
+    this.data = Constants.DEFAULT_CARD_DATA
+  }
 
   static get styles (): CSSResult {
     return cardStyles
