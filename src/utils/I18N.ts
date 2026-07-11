@@ -1,7 +1,8 @@
-import { formatNumber, FrontendLocaleData, LocalizeFunc, NumberFormat, TimeFormat } from 'custom-card-helpers'
+import type { FrontendLocaleData, LocalizeFunc, NumberFormat, TimeFormat } from 'custom-card-helpers'
+import { formatNumber } from 'custom-card-helpers'
 
 import { Constants } from '../constants'
-import { THorizonCardI18NKeys } from '../types'
+import type { THorizonCardI18NKeys } from '../types'
 
 export class I18N {
   private readonly localization: THorizonCardI18NKeys

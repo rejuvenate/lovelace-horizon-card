@@ -16,6 +16,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
+    "useDefineForClassFields": false,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "./src/types/custom",
@@ -24,8 +25,7 @@
     "rootDir": ".",
     "allowJs": true,
     "removeComments": true,
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*",

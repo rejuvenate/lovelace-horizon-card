@@ -45,6 +45,13 @@ module.exports = {
     "@typescript-eslint/lines-between-class-members": ["error", { exceptAfterSingleLine: true }],
     "@typescript-eslint/no-empty-function": ["off"],
     "@typescript-eslint/ban-ts-comment": ["warn"],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        prefer: "type-imports",
+        fixStyle: "separate-type-imports"
+      }
+    ],
     "@typescript-eslint/naming-convention": [
       "error",
       {

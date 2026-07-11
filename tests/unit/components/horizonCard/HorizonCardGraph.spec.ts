@@ -1,6 +1,6 @@
 import { HorizonCardGraph } from '../../../../src/components/horizonCard'
 import { Constants } from '../../../../src/constants'
-import { IHorizonCardConfig, THorizonCardData } from '../../../../src/types'
+import type { IHorizonCardConfig, THorizonCardData } from '../../../../src/types'
 import { TemplateResultTestHelper } from '../../../helpers/TestHelpers'
 
 describe('HorizonCardGraph', () => {

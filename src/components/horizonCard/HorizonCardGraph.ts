@@ -1,7 +1,15 @@
-import { html, nothing, svg, TemplateResult } from 'lit'
+import type { TemplateResult } from 'lit'
+import { html, nothing, svg } from 'lit'
 
 import { Constants } from '../../constants'
-import { IHorizonCardConfig, THorizonCardData, TMoonData, TMoonPosition, TSunData, TSunPosition } from '../../types'
+import type {
+  IHorizonCardConfig,
+  THorizonCardData,
+  TMoonData,
+  TMoonPosition,
+  TSunData,
+  TSunPosition
+} from '../../types'
 
 export class HorizonCardGraph {
   private readonly config: IHorizonCardConfig

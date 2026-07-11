@@ -1,13 +1,16 @@
-import { HomeAssistant, round } from 'custom-card-helpers'
-import { CSSResult, html, LitElement, TemplateResult } from 'lit'
+import type { HomeAssistant } from 'custom-card-helpers'
+import { round } from 'custom-card-helpers'
+import type { CSSResult, TemplateResult } from 'lit'
+import { html, LitElement } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import { default as SunCalc } from 'suncalc3'
 
 import cardStyles from '../../cardStyles'
 import { Constants } from '../../constants'
-import {
+import type {
   EHorizonCardErrors,
   IHorizonCardConfig,
+  THorizonCardData,
   THorizonCardFields,
   TMoonData,
   TMoonPosition,
@@ -26,19 +29,24 @@ export class HorizonCard extends LitElement {
   static readonly cardDescription = 'Custom card that display a graph to track the sun position and related events'
 
   @state()
-  private config!: IHorizonCardConfig
+  private declare config: IHorizonCardConfig
 
   @state()
-  private data = Constants.DEFAULT_CARD_DATA
+  private declare data: THorizonCardData
 
   @state()
-  private error: EHorizonCardErrors | undefined
+  private declare error: EHorizonCardErrors | undefined
 
   private lastHass!: HomeAssistant
 
   private hasCalculated = false
 
   private wasDisconnected = false
+
+  constructor () {
+    super()
+    this.data = Constants.DEFAULT_CARD_DATA
+  }
 
   static get styles (): CSSResult {
     return cardStyles

@@ -1,4 +1,4 @@
-import { LovelaceCardConfig, NumberFormat, TimeFormat } from 'custom-card-helpers'
+import type { LovelaceCardConfig, NumberFormat, TimeFormat } from 'custom-card-helpers'
 
 export type THorizonCardFields = {
   sunrise?: boolean
