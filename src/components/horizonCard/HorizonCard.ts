@@ -93,6 +93,62 @@ export class HorizonCard extends LitElement {
     return height
 	}
 
+  /**
+   * Called by HASS to size the card in the Sections view grid. The grid has 12 columns;
+   * a cell is 56px tall with an 8px gap, so rows = ceil((pxHeight + 8) / 64).
+   * @see https://developers.home-assistant.io/docs/frontend/custom-ui/custom-card/#sizing-in-sections-view
+   */
+  public getGridOptions (): { rows: number, columns: number, min_rows: number, min_columns: number } {
+    const rows = this.computeGridRows()
+    // The row model is calibrated at full (12-column) width. min_columns lets the card
+    // be narrowed to half width; at narrower widths reflowed content may need slightly
+    // more height than reported (a cosmetic clip, never on the default full-width layout).
+    return { rows, columns: 12, min_rows: rows, min_columns: 6 }
+  }
+
+  private computeGridRows (): number {
+    // Section pixel heights measured at ~480px card width (see PR #158).
+    const height = {
+      graph: 187.08,
+      title: 41,
+      sunrise_sunset: 42.17,
+      dawn_noon_dusk: 48.3,
+      single_azimuth_elevation: 48.3,
+      both_azimuth_elevation: 66.78,
+      // Bumped from PR #158's 48.3: the Playwright visual tests showed the busiest
+      // moon config renders one grid row taller than the raw model, so this keeps
+      // getGridOptions() from ever under-reporting rows (which would clip the card).
+      moon_row: 58
+    }
+
+    let size = height.graph
+    const fieldConfig = this.expandedFieldConfig()
+
+    if (this.config?.title && this.config.title.length > 0) {
+      size += height.title
+    }
+
+    if (fieldConfig.sunrise || fieldConfig.sunset) {
+      size += height.sunrise_sunset
+    }
+
+    if (fieldConfig.dawn || fieldConfig.noon || fieldConfig.dusk) {
+      size += height.dawn_noon_dusk
+    }
+
+    if ((fieldConfig.sun_azimuth && fieldConfig.moon_azimuth) || (fieldConfig.sun_elevation && fieldConfig.moon_elevation)) {
+      size += height.both_azimuth_elevation
+    } else if (fieldConfig.sun_azimuth || fieldConfig.moon_azimuth || fieldConfig.sun_elevation || fieldConfig.moon_elevation) {
+      size += height.single_azimuth_elevation
+    }
+
+    if (fieldConfig.moonrise || fieldConfig.moon_phase || fieldConfig.moonset) {
+      size += height.moon_row
+    }
+
+    return Math.ceil((size + 8) / 64)
+  }
+
   // called by HASS whenever config changes
   public setConfig (config: IHorizonCardConfig): void {
     if (config.language && !HelperFunctions.isValidLanguage(config.language)) {
