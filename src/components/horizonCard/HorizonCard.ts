@@ -98,8 +98,11 @@ export class HorizonCard extends LitElement {
    * a cell is 56px tall with an 8px gap, so rows = ceil((pxHeight + 8) / 64).
    * @see https://developers.home-assistant.io/docs/frontend/custom-ui/custom-card/#sizing-in-sections-view
    */
-  public getGridOptions () {
+  public getGridOptions (): { rows: number, columns: number, min_rows: number, min_columns: number } {
     const rows = this.computeGridRows()
+    // The row model is calibrated at full (12-column) width. min_columns lets the card
+    // be narrowed to half width; at narrower widths reflowed content may need slightly
+    // more height than reported (a cosmetic clip, never on the default full-width layout).
     return { rows, columns: 12, min_rows: rows, min_columns: 6 }
   }
 
@@ -133,7 +136,7 @@ export class HorizonCard extends LitElement {
       size += height.dawn_noon_dusk
     }
 
-    if ((fieldConfig.sun_azimuth && fieldConfig.moon_azimuth) || (fieldConfig.sun_elevation || fieldConfig.moon_elevation)) {
+    if ((fieldConfig.sun_azimuth && fieldConfig.moon_azimuth) || (fieldConfig.sun_elevation && fieldConfig.moon_elevation)) {
       size += height.both_azimuth_elevation
     } else if (fieldConfig.sun_azimuth || fieldConfig.moon_azimuth || fieldConfig.sun_elevation || fieldConfig.moon_elevation) {
       size += height.single_azimuth_elevation

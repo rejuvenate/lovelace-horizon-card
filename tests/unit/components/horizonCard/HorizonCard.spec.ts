@@ -636,7 +636,7 @@ describe('HorizonCard', () => {
       if (resolved.dawn || resolved.noon || resolved.dusk) {
         size += heightModel.dawn_noon_dusk
       }
-      if ((resolved.sun_azimuth && resolved.moon_azimuth) || (resolved.sun_elevation || resolved.moon_elevation)) {
+      if ((resolved.sun_azimuth && resolved.moon_azimuth) || (resolved.sun_elevation && resolved.moon_elevation)) {
         size += heightModel.both_azimuth_elevation
       } else if (resolved.sun_azimuth || resolved.moon_azimuth || resolved.sun_elevation || resolved.moon_elevation) {
         size += heightModel.single_azimuth_elevation
@@ -691,6 +691,20 @@ describe('HorizonCard', () => {
             moonrise: true, moonset: true, moon_phase: true }
         } as IHorizonCardConfig,
         resolved: { moonrise: true, moon_phase: true, moonset: true }
+      },
+      {
+        name: 'single elevation only (exercises the shorter azimuth/elevation row)',
+        config: {
+          fields: { sunrise: false, sunset: false, dawn: false, noon: false, dusk: false, sun_elevation: true }
+        } as IHorizonCardConfig,
+        resolved: { sun_elevation: true }
+      },
+      {
+        name: 'single azimuth only (exercises the shorter azimuth/elevation row)',
+        config: {
+          fields: { sunrise: false, sunset: false, dawn: false, noon: false, dusk: false, sun_azimuth: true }
+        } as IHorizonCardConfig,
+        resolved: { sun_azimuth: true }
       }
     ]
 
