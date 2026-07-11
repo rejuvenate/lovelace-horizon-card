@@ -275,11 +275,155 @@ describe('HorizonCard', () => {
     })
   })
 
-  describe('disconnectedCallback', () => {
-    it('sets wasDisconnected', async () => {
-      expect(horizonCard['wasDisconnected']).toEqual(false)
+  describe('connectedCallback', () => {
+    it('re-arms the calculation loop after a disconnect', () => {
+      // No config is set so the follow-up Lit update short-circuits and leaks
+      // no timers; connectedCallback must still reset the calculation flag.
       horizonCard.disconnectedCallback()
-      expect(horizonCard['wasDisconnected']).toEqual(true)
+      horizonCard['hasCalculated'] = true
+
+      const requestUpdateSpy = jest.spyOn(horizonCard, 'requestUpdate')
+      horizonCard.connectedCallback()
+
+      expect(horizonCard['hasCalculated']).toEqual(false)
+      expect(requestUpdateSpy).toHaveBeenCalled()
+    })
+
+    it('registers the visibility change listener', () => {
+      const addEventListenerSpy = jest.spyOn(document, 'addEventListener')
+
+      horizonCard.connectedCallback()
+
+      expect(addEventListenerSpy).toHaveBeenCalledWith('visibilitychange', horizonCard['onVisibilityChange'])
+    })
+  })
+
+  describe('disconnectedCallback', () => {
+    it('clears the refresh timer and removes the visibility change listener', () => {
+      const clearTimeoutSpy = jest.spyOn(window, 'clearTimeout')
+      const removeEventListenerSpy = jest.spyOn(document, 'removeEventListener')
+
+      horizonCard.disconnectedCallback()
+
+      expect(clearTimeoutSpy).toHaveBeenCalled()
+      expect(removeEventListenerSpy).toHaveBeenCalledWith('visibilitychange', horizonCard['onVisibilityChange'])
+    })
+  })
+
+  describe('scheduleRefresh', () => {
+    it('schedules a refresh timer when the refresh period is positive', () => {
+      horizonCard.setConfig({} as IHorizonCardConfig)
+      horizonCard.hass = SaneHomeAssistant
+
+      horizonCard['scheduleRefresh']()
+
+      expect(horizonCard['refreshTimer']).toBeDefined()
+    })
+
+    it('does not schedule a refresh timer when the refresh period is 0', () => {
+      horizonCard.setConfig({ refresh_period: 0 } as IHorizonCardConfig)
+      horizonCard.hass = SaneHomeAssistant
+
+      horizonCard['scheduleRefresh']()
+
+      expect(horizonCard['refreshTimer']).toBeUndefined()
+    })
+  })
+
+  describe('set hass self-heal', () => {
+    it('recomputes when the refresh period has elapsed', () => {
+      horizonCard.setConfig({} as IHorizonCardConfig)
+      horizonCard['hasCalculated'] = true
+      horizonCard['lastComputeTimestamp'] = 0
+
+      const requestUpdateSpy = jest.spyOn(horizonCard, 'requestUpdate')
+      horizonCard.hass = SaneHomeAssistant
+
+      expect(horizonCard['hasCalculated']).toEqual(false)
+      expect(requestUpdateSpy).toHaveBeenCalled()
+    })
+
+    it('does not recompute when the data is still fresh', () => {
+      horizonCard.setConfig({} as IHorizonCardConfig)
+      horizonCard['hasCalculated'] = true
+      horizonCard['lastComputeTimestamp'] = Date.now()
+
+      const requestUpdateSpy = jest.spyOn(horizonCard, 'requestUpdate')
+      horizonCard.hass = SaneHomeAssistant
+
+      expect(horizonCard['hasCalculated']).toEqual(true)
+      expect(requestUpdateSpy).not.toHaveBeenCalled()
+    })
+
+    it('does not recompute when refresh_period is 0', () => {
+      horizonCard.setConfig({ refresh_period: 0 } as IHorizonCardConfig)
+      horizonCard['hasCalculated'] = true
+      horizonCard['lastComputeTimestamp'] = 0
+
+      const requestUpdateSpy = jest.spyOn(horizonCard, 'requestUpdate')
+      horizonCard.hass = SaneHomeAssistant
+
+      expect(horizonCard['hasCalculated']).toEqual(true)
+      expect(requestUpdateSpy).not.toHaveBeenCalled()
+    })
+
+    it('does not recompute when no config has been set', () => {
+      horizonCard['hasCalculated'] = true
+      horizonCard['lastComputeTimestamp'] = 0
+
+      const requestUpdateSpy = jest.spyOn(horizonCard, 'requestUpdate')
+      horizonCard.hass = SaneHomeAssistant
+
+      expect(horizonCard['hasCalculated']).toEqual(true)
+      expect(requestUpdateSpy).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('onVisibilityChange', () => {
+    const setVisibilityState = (value: string) => {
+      Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => value })
+    }
+
+    it('recomputes when becoming visible and the data is stale', () => {
+      setVisibilityState('visible')
+      horizonCard.setConfig({} as IHorizonCardConfig)
+      horizonCard.hass = SaneHomeAssistant
+      horizonCard['hasCalculated'] = true
+      horizonCard['lastComputeTimestamp'] = 0
+
+      const requestUpdateSpy = jest.spyOn(horizonCard, 'requestUpdate')
+      horizonCard['onVisibilityChange']()
+
+      expect(horizonCard['hasCalculated']).toEqual(false)
+      expect(requestUpdateSpy).toHaveBeenCalled()
+    })
+
+    it('does not recompute when the document is hidden', () => {
+      setVisibilityState('hidden')
+      horizonCard.setConfig({} as IHorizonCardConfig)
+      horizonCard.hass = SaneHomeAssistant
+      horizonCard['hasCalculated'] = true
+      horizonCard['lastComputeTimestamp'] = 0
+
+      const requestUpdateSpy = jest.spyOn(horizonCard, 'requestUpdate')
+      horizonCard['onVisibilityChange']()
+
+      expect(horizonCard['hasCalculated']).toEqual(true)
+      expect(requestUpdateSpy).not.toHaveBeenCalled()
+    })
+
+    it('does not recompute when visible but the data is still fresh', () => {
+      setVisibilityState('visible')
+      horizonCard.setConfig({} as IHorizonCardConfig)
+      horizonCard.hass = SaneHomeAssistant
+      horizonCard['hasCalculated'] = true
+      horizonCard['lastComputeTimestamp'] = Date.now()
+
+      const requestUpdateSpy = jest.spyOn(horizonCard, 'requestUpdate')
+      horizonCard['onVisibilityChange']()
+
+      expect(horizonCard['hasCalculated']).toEqual(true)
+      expect(requestUpdateSpy).not.toHaveBeenCalled()
     })
   })
 
