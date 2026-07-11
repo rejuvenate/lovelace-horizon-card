@@ -112,7 +112,10 @@ export class HorizonCard extends LitElement {
       dawn_noon_dusk: 48.3,
       single_azimuth_elevation: 48.3,
       both_azimuth_elevation: 66.78,
-      moon_row: 48.3
+      // Bumped from PR #158's 48.3: the Playwright visual tests showed the busiest
+      // moon config renders one grid row taller than the raw model, so this keeps
+      // getGridOptions() from ever under-reporting rows (which would clip the card).
+      moon_row: 58
     }
 
     let size = height.graph

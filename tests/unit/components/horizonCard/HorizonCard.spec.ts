@@ -620,7 +620,8 @@ describe('HorizonCard', () => {
       dawn_noon_dusk: 48.3,
       single_azimuth_elevation: 48.3,
       both_azimuth_elevation: 66.78,
-      moon_row: 48.3
+      // Kept in sync with computeGridRows() in HorizonCard.ts (bumped to 58 per visual tests).
+      moon_row: 58
     }
 
     // resolved represents the per-field booleans as returned by expandedFieldConfig(), plus a title flag

@@ -16,11 +16,9 @@ const CONTAINER_WIDTH = 492
 // 56px tall with an 8px gap, so rows = ceil((pxHeight + 8) / 64).
 const rowsForHeight = (heightPx: number): number => Math.ceil((heightPx + 8) / 64)
 
-// Allowed difference, in grid rows, between the model's estimate and the card
-// as actually rendered. Rendering is sub-pixel and font-dependent (the graph
-// SVG scales with width and the field rows use em-based spacing), so a
-// one-row tolerance keeps the check meaningful without being brittle.
-const ROW_TOLERANCE = 1
+// Invariant: getGridOptions() must never UNDER-report rows, or the card would be
+// clipped in the Sections grid. Over-reporting (a little extra whitespace) is
+// acceptable, so we assert modelRows >= the rows the card actually renders into.
 
 const cases: { name: string, config: Record<string, unknown> }[] = [
   {
@@ -70,7 +68,7 @@ test.describe('getGridOptions height model', () => {
         description: `height=${measuredHeight.toFixed(2)}px measuredRows=${measuredRows} modelRows=${modelRows}`
       })
 
-      expect(Math.abs(measuredRows - modelRows)).toBeLessThanOrEqual(ROW_TOLERANCE)
+      expect(modelRows).toBeGreaterThanOrEqual(measuredRows)
 
       await expect(page.locator('#container')).toHaveScreenshot(`${name}.png`)
     })
