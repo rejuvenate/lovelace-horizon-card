@@ -609,6 +609,114 @@ describe('HorizonCard', () => {
     })
   })
 
+  describe('getGridOptions', () => {
+    // Note: don't set hass for these tests, getGridOptions() is called after setConfig() but before hass is set.
+    // The expected row count is derived from the same section pixel-height model used by the implementation so
+    // that these tests pin the behavior (12-column grid, 56px cell + 8px gap => rows = ceil((height + 8) / 64)).
+    const heightModel = {
+      graph: 187.08,
+      title: 41,
+      sunrise_sunset: 42.17,
+      dawn_noon_dusk: 48.3,
+      single_azimuth_elevation: 48.3,
+      both_azimuth_elevation: 66.78,
+      moon_row: 48.3
+    }
+
+    // resolved represents the per-field booleans as returned by expandedFieldConfig(), plus a title flag
+    const expectedRows = (resolved: Record<string, boolean>): number => {
+      let size = heightModel.graph
+      if (resolved.title) {
+        size += heightModel.title
+      }
+      if (resolved.sunrise || resolved.sunset) {
+        size += heightModel.sunrise_sunset
+      }
+      if (resolved.dawn || resolved.noon || resolved.dusk) {
+        size += heightModel.dawn_noon_dusk
+      }
+      if ((resolved.sun_azimuth && resolved.moon_azimuth) || (resolved.sun_elevation || resolved.moon_elevation)) {
+        size += heightModel.both_azimuth_elevation
+      } else if (resolved.sun_azimuth || resolved.moon_azimuth || resolved.sun_elevation || resolved.moon_elevation) {
+        size += heightModel.single_azimuth_elevation
+      }
+      if (resolved.moonrise || resolved.moon_phase || resolved.moonset) {
+        size += heightModel.moon_row
+      }
+      return Math.ceil((size + 8) / 64)
+    }
+
+    const cases: { name: string, config: IHorizonCardConfig, resolved: Record<string, boolean> }[] = [
+      {
+        name: 'graph-only (all default fields disabled)',
+        config: {
+          fields: { sunrise: false, sunset: false, dawn: false, noon: false, dusk: false }
+        } as IHorizonCardConfig,
+        resolved: {}
+      },
+      {
+        name: 'default fields',
+        config: {} as IHorizonCardConfig,
+        resolved: { sunrise: true, sunset: true, dawn: true, noon: true, dusk: true }
+      },
+      {
+        name: 'default fields with a title',
+        config: { title: 'Fancy Card' } as IHorizonCardConfig,
+        resolved: { title: true, sunrise: true, sunset: true, dawn: true, noon: true, dusk: true }
+      },
+      {
+        name: 'sunrise/sunset only',
+        config: {
+          fields: { dawn: false, noon: false, dusk: false }
+        } as IHorizonCardConfig,
+        resolved: { sunrise: true, sunset: true }
+      },
+      {
+        name: 'all fields including moon and a title',
+        config: {
+          title: 'Fancy Card',
+          fields: { azimuth: true, elevation: true, moonrise: true, moonset: true, moon_phase: true }
+        } as IHorizonCardConfig,
+        resolved: {
+          title: true, sunrise: true, sunset: true, dawn: true, noon: true, dusk: true,
+          sun_azimuth: true, moon_azimuth: true, sun_elevation: true, moon_elevation: true,
+          moonrise: true, moon_phase: true, moonset: true
+        }
+      },
+      {
+        name: 'moon fields only',
+        config: {
+          fields: { sunrise: false, sunset: false, dawn: false, noon: false, dusk: false,
+            moonrise: true, moonset: true, moon_phase: true }
+        } as IHorizonCardConfig,
+        resolved: { moonrise: true, moon_phase: true, moonset: true }
+      }
+    ]
+
+    for (const { name, config, resolved } of cases) {
+      it(`returns the expected grid options for ${name}`, () => {
+        horizonCard.setConfig(config)
+
+        const rows = expectedRows(resolved)
+        expect(horizonCard.getGridOptions()).toEqual({
+          rows,
+          columns: 12,
+          min_rows: rows,
+          min_columns: 6
+        })
+      })
+    }
+
+    it('always reports a 12-column grid with a 6-column minimum and min_rows equal to rows', () => {
+      horizonCard.setConfig({} as IHorizonCardConfig)
+
+      const gridOptions = horizonCard.getGridOptions()
+      expect(gridOptions.columns).toEqual(12)
+      expect(gridOptions.min_columns).toEqual(6)
+      expect(gridOptions.min_rows).toEqual(gridOptions.rows)
+    })
+  })
+
   describe('refreshPeriod', () => {
     it('uses default refresh period when not present in config', () => {
       horizonCard.setConfig({} as IHorizonCardConfig)
