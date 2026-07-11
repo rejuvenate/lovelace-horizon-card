@@ -55,6 +55,11 @@ describe('HorizonCard', () => {
     horizonCard.attachShadow({ mode: 'open' })
   })
 
+  afterEach(() => {
+    jest.clearAllTimers()
+    jest.restoreAllMocks()
+  })
+
   describe('set hass', () => {
     it('updates lastHass property', () => {
       expect(horizonCard['lastHass']).toBeUndefined()
