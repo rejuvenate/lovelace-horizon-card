@@ -753,19 +753,19 @@ describe('HorizonCard', () => {
     })
   })
 
-  describe('refreshPeriod', () => {
-    it('uses default refresh period when not present in config', () => {
+  describe('refreshPeriodMs', () => {
+    it('uses default refresh period in milliseconds when not present in config', () => {
       horizonCard.setConfig({} as IHorizonCardConfig)
       horizonCard.hass = SaneHomeAssistant
-      expect(horizonCard['refreshPeriod']()).toEqual(Constants.DEFAULT_REFRESH_PERIOD)
+      expect(horizonCard['refreshPeriodMs']()).toEqual(Constants.DEFAULT_REFRESH_PERIOD * 1000)
     })
 
-    it('uses refresh period from config', () => {
+    it('converts the refresh period from config seconds to milliseconds', () => {
       horizonCard.setConfig({
         refresh_period: 77
       } as IHorizonCardConfig)
       horizonCard.hass = SaneHomeAssistant
-      expect(horizonCard['refreshPeriod']()).toEqual(77)
+      expect(horizonCard['refreshPeriodMs']()).toEqual(77000)
     })
   })
 

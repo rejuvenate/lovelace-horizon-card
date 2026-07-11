@@ -52,7 +52,7 @@ export class HorizonCard extends LitElement {
     if (document.visibilityState !== 'visible') {
       return
     }
-    const p = this.refreshPeriod()
+    const p = this.refreshPeriodMs()
     if (p > 0 && Date.now() - this.lastComputeTimestamp >= p) {
       this.hasCalculated = false
       this.requestUpdate()
@@ -75,7 +75,7 @@ export class HorizonCard extends LitElement {
     if (!this.config) {
       return
     }
-    const p = this.refreshPeriod()
+    const p = this.refreshPeriodMs()
     if (p > 0 && Date.now() - this.lastComputeTimestamp >= p) {
       this.hasCalculated = false
       this.requestUpdate()
@@ -202,13 +202,13 @@ export class HorizonCard extends LitElement {
 
   private scheduleRefresh (): void {
     window.clearTimeout(this.refreshTimer)
-    if (this.refreshPeriod() > 0) {
+    if (this.refreshPeriodMs() > 0) {
       this.refreshTimer = window.setTimeout(() => {
         this.debug('refresh via setTimeout()', 2)
         if (this.hasCalculated) {
           this.calculateStatePartial()
         }
-      }, this.refreshPeriod())
+      }, this.refreshPeriodMs())
     }
   }
 
@@ -457,8 +457,8 @@ export class HorizonCard extends LitElement {
     return this.config.now !== undefined ? new Date(this.config.now) : new Date()
   }
 
-  private refreshPeriod (): number {
-    return this.config.refresh_period ?? Constants.DEFAULT_REFRESH_PERIOD
+  private refreshPeriodMs (): number {
+    return (this.config?.refresh_period ?? Constants.DEFAULT_REFRESH_PERIOD) * 1000
   }
 
   private debugLevel (): number {

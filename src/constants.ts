@@ -47,7 +47,8 @@ import type {
 export class Constants {
   static readonly FALLBACK_LOCALIZATION = en
 
-  static readonly DEFAULT_REFRESH_PERIOD = 20 * 1000
+  // Refresh period in seconds
+  static readonly DEFAULT_REFRESH_PERIOD = 20
 
   // 24 hours in milliseconds
   static readonly MS_24_HOURS = 24 * 60 * 60 * 1000
