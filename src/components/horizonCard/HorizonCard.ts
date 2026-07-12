@@ -563,8 +563,11 @@ export class HorizonCard extends LitElement {
   private i18n (config: IHorizonCardConfig) {
     let display_time_zone
 
+    // An explicit card `time_zone` always wins, for both computation and display.
+    if (this.config.time_zone !== undefined) {
+      display_time_zone = this.config.time_zone
     // Since 2023.7, HA can show times in the local (for the browser) TZ or the server TZ.
-    if (this.lastHass.locale['time_zone'] === 'local') {
+    } else if (this.lastHass.locale['time_zone'] === 'local') {
       display_time_zone = Intl.DateTimeFormat().resolvedOptions().timeZone
     } else {
       // 'server' or missing value (older HA version)
