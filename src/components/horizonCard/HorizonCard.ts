@@ -41,7 +41,23 @@ export class HorizonCard extends LitElement {
 
   private hasCalculated = false
 
-  private wasDisconnected = false
+  private refreshTimer?: number
+
+  private lastComputeTimestamp = 0
+
+  private readonly onVisibilityChange = () => {
+    if (!this.config) {
+      return
+    }
+    if (document.visibilityState !== 'visible') {
+      return
+    }
+    const p = this.refreshPeriodMs()
+    if (p > 0 && Date.now() - this.lastComputeTimestamp >= p) {
+      this.hasCalculated = false
+      this.requestUpdate()
+    }
+  }
 
   constructor () {
     super()
@@ -55,6 +71,15 @@ export class HorizonCard extends LitElement {
   set hass (hass: HomeAssistant) {
     this.debug(() => `set hass :: ${hass.locale.language} :: ${hass.locale.time_format}`, 2)
     this.lastHass = hass
+
+    if (!this.config) {
+      return
+    }
+    const p = this.refreshPeriodMs()
+    if (p > 0 && Date.now() - this.lastComputeTimestamp >= p) {
+      this.hasCalculated = false
+      this.requestUpdate()
+    }
   }
 
   /**
@@ -210,23 +235,37 @@ export class HorizonCard extends LitElement {
       this.calculateStatePartial()
     } else if (this.data.partial) {
       this.calculateStateFinal()
-      const refreshPeriod = this.refreshPeriod()
-      if (refreshPeriod > 0) {
-        window.setTimeout(() => {
-          if (!this.wasDisconnected) {
-            this.debug('refresh via setTimeout()', 2)
-            if (this.hasCalculated) {
-              this.calculateStatePartial()
-            }
-          }
-        }, refreshPeriod)
-      }
+      this.scheduleRefresh()
     }
   }
 
+  override connectedCallback () {
+    super.connectedCallback()
+    // Lit does not re-render on reconnect, so re-arm the calculation loop
+    // unconditionally to immediately refresh when the view is shown again.
+    this.hasCalculated = false
+    this.requestUpdate()
+    document.addEventListener('visibilitychange', this.onVisibilityChange)
+    this.debug('connectedCallback()', 2)
+  }
+
   override disconnectedCallback () {
-    this.wasDisconnected = true
+    super.disconnectedCallback()
+    window.clearTimeout(this.refreshTimer)
+    document.removeEventListener('visibilitychange', this.onVisibilityChange)
     this.debug('disconnectedCallback()', 2)
+  }
+
+  private scheduleRefresh (): void {
+    window.clearTimeout(this.refreshTimer)
+    if (this.refreshPeriodMs() > 0) {
+      this.refreshTimer = window.setTimeout(() => {
+        this.debug('refresh via setTimeout()', 2)
+        if (this.hasCalculated) {
+          this.calculateStatePartial()
+        }
+      }, this.refreshPeriodMs())
+    }
   }
 
   private calculateStateFinal () {
@@ -239,6 +278,8 @@ export class HorizonCard extends LitElement {
   }
 
   private calculateStatePartial () {
+    this.lastComputeTimestamp = Date.now()
+
     const now = this.now()
     const latitude = this.latitude()
     const longitude = this.longitude()
@@ -472,8 +513,8 @@ export class HorizonCard extends LitElement {
     return this.config.now !== undefined ? new Date(this.config.now) : new Date()
   }
 
-  private refreshPeriod (): number {
-    return this.config.refresh_period ?? Constants.DEFAULT_REFRESH_PERIOD
+  private refreshPeriodMs (): number {
+    return (this.config?.refresh_period ?? Constants.DEFAULT_REFRESH_PERIOD) * 1000
   }
 
   private debugLevel (): number {
