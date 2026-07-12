@@ -10,7 +10,8 @@
     "build": "rm -fr dist && yarn lint && yarn rollup",
     "lint": "eslint src tests",
     "rollup": "rollup -c",
-    "test": "jest"
+    "test": "jest",
+    "test:visual": "playwright test"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "@babel/plugin-syntax-decorators": "^7.21.0",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.21.0",
+    "@playwright/test": "1.49.0",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
