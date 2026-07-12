@@ -573,6 +573,7 @@ describe('HorizonCard', () => {
       horizonCard.setConfig({ type: HorizonCard.cardType, time_zone: 'Europe/Sofia' } as IHorizonCardConfig)
       const hass = {
         ...SaneHomeAssistant,
+        locale: { ...SaneHomeAssistant.locale }
       }
       hass.locale['time_zone'] = 'local'
       horizonCard.hass = hass
@@ -582,21 +583,24 @@ describe('HorizonCard', () => {
     })
 
     it('uses the explicit config time zone over the server time zone', () => {
-      horizonCard.setConfig({ type: HorizonCard.cardType, time_zone: 'Europe/Sofia' } as IHorizonCardConfig)
+      // Distinct from the argument's 'Europe/Sofia' to prove the branch reads the raw config.
+      horizonCard.setConfig({ type: HorizonCard.cardType, time_zone: 'Asia/Tokyo' } as IHorizonCardConfig)
       const hass = {
         ...SaneHomeAssistant,
+        locale: { ...SaneHomeAssistant.locale }
       }
       hass.locale['time_zone'] = 'server'
       horizonCard.hass = hass
 
       horizonCard['i18n'](config)
-      expect(I18N).toBeCalledWith('es', 'Europe/Sofia', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
+      expect(I18N).toBeCalledWith('es', 'Asia/Tokyo', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
     })
 
     it('uses the local browser time zone when config has no time zone', () => {
       horizonCard.setConfig({ type: HorizonCard.cardType } as IHorizonCardConfig)
       const hass = {
         ...SaneHomeAssistant,
+        locale: { ...SaneHomeAssistant.locale }
       }
       hass.locale['time_zone'] = 'local'
       horizonCard.hass = hass
@@ -609,6 +613,7 @@ describe('HorizonCard', () => {
       horizonCard.setConfig({ type: HorizonCard.cardType } as IHorizonCardConfig)
       const hass = {
         ...SaneHomeAssistant,
+        locale: { ...SaneHomeAssistant.locale }
       }
       // 'server' or a missing value (older HA version) both take this branch.
       hass.locale['time_zone'] = 'server'
