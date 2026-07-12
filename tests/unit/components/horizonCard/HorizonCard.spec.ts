@@ -5,6 +5,7 @@ import { css, CSSResult } from 'lit'
 import { HorizonCard } from '../../../../src/components/horizonCard'
 import { Constants } from '../../../../src/constants'
 import type { EHorizonCardErrors, IHorizonCardConfig, THorizonCardData, TMoonData, TSunTimes } from '../../../../src/types'
+import { HelperFunctions } from '../../../../src/utils/HelperFunctions'
 import { I18N } from '../../../../src/utils/I18N'
 import { SaneHomeAssistant, TemplateResultTestHelper } from '../../../helpers/TestHelpers'
 import { default as SunCalcMock } from '../../../mocks/SunCalc'
@@ -1006,6 +1007,126 @@ describe('HorizonCard', () => {
         sunrise: new Date('2023-04-05T06:30:00Z'),
         sunset: new Date('2023-04-05T18:30:00Z')
       })
+    })
+  })
+
+  describe('longitude-derived computation reference', () => {
+    const now = new Date('2023-04-05T13:00:00Z')
+
+    describe('scoped (explicit longitude, no time_zone)', () => {
+      beforeEach(() => {
+        horizonCard.hass = SaneHomeAssistant
+        horizonCard.setConfig({ type: HorizonCard.cardType, latitude: 40, longitude: 175 } as IHorizonCardConfig)
+        jest.spyOn(horizonCard as any, 'now').mockReturnValue(now)
+      })
+
+      it('reads sun times from noonAtLongitude, not noonAtTimeZone', () => {
+        const noonAtLongitudeSpy = jest.spyOn(HelperFunctions, 'noonAtLongitude')
+        const noonAtTimeZoneSpy = jest.spyOn(HelperFunctions, 'noonAtTimeZone')
+
+        horizonCard['readSunTimes'](now, 40, 175, 0)
+
+        expect(noonAtLongitudeSpy).toHaveBeenCalled()
+        expect(noonAtTimeZoneSpy).not.toHaveBeenCalled()
+      })
+
+      it('reads moon times from midnightAtLongitude, not midnightAtTimeZone', () => {
+        const midnightAtLongitudeSpy = jest.spyOn(HelperFunctions, 'midnightAtLongitude')
+        const midnightAtTimeZoneSpy = jest.spyOn(HelperFunctions, 'midnightAtTimeZone')
+
+        horizonCard['computeMoonData'](now, 40, 175)
+
+        expect(midnightAtLongitudeSpy).toHaveBeenCalled()
+        expect(midnightAtTimeZoneSpy).not.toHaveBeenCalled()
+      })
+    })
+
+    describe('non-scoped (unchanged behaviour)', () => {
+      it('uses noonAtTimeZone for the HA default location (no config longitude)', () => {
+        horizonCard.hass = SaneHomeAssistant
+        horizonCard.setConfig({} as IHorizonCardConfig)
+        jest.spyOn(horizonCard as any, 'now').mockReturnValue(now)
+
+        const noonAtLongitudeSpy = jest.spyOn(HelperFunctions, 'noonAtLongitude')
+        const noonAtTimeZoneSpy = jest.spyOn(HelperFunctions, 'noonAtTimeZone')
+
+        horizonCard['readSunTimes'](now, 0, 0, 0)
+
+        expect(noonAtTimeZoneSpy).toHaveBeenCalled()
+        expect(noonAtLongitudeSpy).not.toHaveBeenCalled()
+      })
+
+      it('uses noonAtTimeZone when both longitude and time_zone are set', () => {
+        horizonCard.hass = SaneHomeAssistant
+        horizonCard.setConfig({
+          type: HorizonCard.cardType, latitude: 40, longitude: 175, time_zone: 'UTC'
+        } as IHorizonCardConfig)
+        jest.spyOn(horizonCard as any, 'now').mockReturnValue(now)
+
+        const noonAtLongitudeSpy = jest.spyOn(HelperFunctions, 'noonAtLongitude')
+        const noonAtTimeZoneSpy = jest.spyOn(HelperFunctions, 'noonAtTimeZone')
+
+        horizonCard['readSunTimes'](now, 40, 175, 0)
+
+        expect(noonAtTimeZoneSpy).toHaveBeenCalled()
+        expect(noonAtLongitudeSpy).not.toHaveBeenCalled()
+      })
+
+      it('uses midnightAtTimeZone for the moon when both longitude and time_zone are set', () => {
+        horizonCard.hass = SaneHomeAssistant
+        horizonCard.setConfig({
+          type: HorizonCard.cardType, latitude: 40, longitude: 175, time_zone: 'UTC'
+        } as IHorizonCardConfig)
+        jest.spyOn(horizonCard as any, 'now').mockReturnValue(now)
+
+        const midnightAtLongitudeSpy = jest.spyOn(HelperFunctions, 'midnightAtLongitude')
+        const midnightAtTimeZoneSpy = jest.spyOn(HelperFunctions, 'midnightAtTimeZone')
+
+        horizonCard['computeMoonData'](now, 40, 175)
+
+        expect(midnightAtTimeZoneSpy).toHaveBeenCalled()
+        expect(midnightAtLongitudeSpy).not.toHaveBeenCalled()
+      })
+    })
+
+    it('selects a different solar day than the time zone path for a far-mismatched longitude', () => {
+      // End-to-end discrimination with the real (patched) suncalc, no helper spy. A far-east
+      // longitude paired with a UTC time zone puts `now` (~solar midnight) on the opposite side
+      // of the solar-day boundary, so the longitude path and the time-zone path return sun times
+      // for different solar days. A mild longitude would show no difference.
+      const actual = jest.requireActual('suncalc3')
+      const realSunCalc = actual.default ?? actual
+      jest.spyOn(SunCalcMock, 'getSunTimes')
+        .mockImplementation((...args: unknown[]) => realSunCalc.getSunTimes(...args))
+
+      const solarMidnight = new Date('2023-04-05T13:00:00Z')
+      const hass = {
+        ...SaneHomeAssistant,
+        config: { ...SaneHomeAssistant.config, time_zone: 'UTC' }
+      } as any
+
+      // Longitude path: explicit longitude, no time_zone.
+      horizonCard.hass = hass
+      horizonCard.setConfig({ type: HorizonCard.cardType, latitude: 40, longitude: 175 } as IHorizonCardConfig)
+      jest.spyOn(horizonCard as any, 'now').mockReturnValue(solarMidnight)
+      const longitudePath = horizonCard['readSunTimes'](solarMidnight, 40, 175, 0)
+
+      // Time-zone path: same location, but an explicit UTC time_zone.
+      const tzCard = new HorizonCard()
+      tzCard.attachShadow({ mode: 'open' })
+      tzCard.hass = hass
+      tzCard.setConfig({
+        type: HorizonCard.cardType, latitude: 40, longitude: 175, time_zone: 'UTC'
+      } as IHorizonCardConfig)
+      jest.spyOn(tzCard as any, 'now').mockReturnValue(solarMidnight)
+      const tzPath = tzCard['readSunTimes'](solarMidnight, 40, 175, 0)
+
+      expect(longitudePath.sunrise).toBeDefined()
+      expect(longitudePath.sunset).toBeDefined()
+      expect(tzPath.sunrise).toBeDefined()
+      expect(tzPath.sunset).toBeDefined()
+      expect(longitudePath.sunrise!.getTime()).not.toEqual(tzPath.sunrise!.getTime())
+      expect(longitudePath.sunset!.getTime()).not.toEqual(tzPath.sunset!.getTime())
     })
   })
 

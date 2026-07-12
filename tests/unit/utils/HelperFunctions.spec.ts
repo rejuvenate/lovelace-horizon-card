@@ -209,4 +209,60 @@ describe('HelperFunctions', () => {
       expect(consoleErrorSpy).toHaveBeenCalledTimes(1)
     })
   })
+
+  describe('noonAtLongitude', () => {
+    // Mean-solar-time reference: 15°/h, east positive, DST-free. Reference chosen at UTC noon so
+    // the solar day for 0/±90 does not shift, while ±180 lands on the adjacent solar day.
+    const date = new Date('2023-04-14T12:00:00.000Z')
+
+    it('returns solar noon at the prime meridian equal to UTC noon', () => {
+      const result = HelperFunctions.noonAtLongitude(date, 0)
+      expect(result).toEqual(new Date('2023-04-14T12:00:00.000Z'))
+      expect(result).toEqual(HelperFunctions.noonAtTimeZone(date, 'UTC'))
+    })
+
+    it('returns solar noon shifted 6 hours earlier at 90° east', () => {
+      const result = HelperFunctions.noonAtLongitude(date, 90)
+      expect(result).toEqual(new Date('2023-04-14T06:00:00.000Z'))
+    })
+
+    it('returns solar noon shifted 6 hours later at 90° west', () => {
+      const result = HelperFunctions.noonAtLongitude(date, -90)
+      expect(result).toEqual(new Date('2023-04-14T18:00:00.000Z'))
+    })
+
+    it('returns solar noon on the adjacent solar day at the antimeridian', () => {
+      const east = HelperFunctions.noonAtLongitude(date, 180)
+      const west = HelperFunctions.noonAtLongitude(date, -180)
+      expect(east).toEqual(new Date('2023-04-15T00:00:00.000Z'))
+      expect(west).toEqual(new Date('2023-04-15T00:00:00.000Z'))
+    })
+  })
+
+  describe('midnightAtLongitude', () => {
+    const date = new Date('2023-04-14T12:00:00.000Z')
+
+    it('returns solar midnight at the prime meridian equal to UTC midnight', () => {
+      const result = HelperFunctions.midnightAtLongitude(date, 0)
+      expect(result).toEqual(new Date('2023-04-14T00:00:00.000Z'))
+      expect(result).toEqual(HelperFunctions.midnightAtTimeZone(date, 'UTC'))
+    })
+
+    it('returns solar midnight shifted 6 hours earlier at 90° east', () => {
+      const result = HelperFunctions.midnightAtLongitude(date, 90)
+      expect(result).toEqual(new Date('2023-04-13T18:00:00.000Z'))
+    })
+
+    it('returns solar midnight shifted 6 hours later at 90° west', () => {
+      const result = HelperFunctions.midnightAtLongitude(date, -90)
+      expect(result).toEqual(new Date('2023-04-14T06:00:00.000Z'))
+    })
+
+    it('returns solar midnight on the adjacent solar day at the antimeridian', () => {
+      const east = HelperFunctions.midnightAtLongitude(date, 180)
+      const west = HelperFunctions.midnightAtLongitude(date, -180)
+      expect(east).toEqual(new Date('2023-04-14T12:00:00.000Z'))
+      expect(west).toEqual(new Date('2023-04-14T12:00:00.000Z'))
+    })
+  })
 })
