@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizon Card visual test harness</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    /* The card container is sized to a fixed pixel width so the responsive
+       graph SVG renders at a stable size across runs. Default is 492px which
+       corresponds to a full-width (12 column) card in the HA Sections view. */
+    #container {
+      width: 492px;
+      box-sizing: border-box;
+    }
+
+    horizon-card {
+      display: block;
+      width: 100%;
+      /* Approximate the theme variables Home Assistant provides so text is
+         rendered (and measured) with realistic colors. */
+      --primary-text-color: #212121;
+      --secondary-text-color: #727272;
+      --primary-color: rgb(3, 169, 244);
+      font-family: sans-serif;
+      font-size: 16px;
+    }
+
+    /* Minimal stand-ins for the Home Assistant custom elements the card uses.
+       ha-card is a plain block wrapper; ha-icon reserves the icon box so the
+       moon-phase row keeps a realistic height. */
+    ha-card {
+      display: block;
+      background: #ffffff;
+    }
+
+    ha-icon {
+      display: inline-block;
+      width: var(--mdc-icon-size, 24px);
+      height: var(--mdc-icon-size, 24px);
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <horizon-card id="card"></horizon-card>
+  </div>
+
+  <script>
+    // Minimal ha-icon so the moon-phase row has a stable height.
+    if (!customElements.get('ha-icon')) {
+      customElements.define('ha-icon', class extends HTMLElement {})
+    }
+    // Minimal ha-card wrapper (the real one is a themed container).
+    if (!customElements.get('ha-card')) {
+      customElements.define('ha-card', class extends HTMLElement {})
+    }
+  </script>
+  <script src="../../dist/lovelace-horizon-card.js"></script>
+  <script>
+    // A fixed, deterministic mock so renders (and screenshots) are stable.
+    const MOCK_HASS = {
+      language: 'en',
+      locale: {
+        language: 'en',
+        time_format: '24',
+        number_format: 'language',
+        time_zone: 'server'
+      },
+      themes: {
+        darkMode: false
+      },
+      config: {
+        latitude: 52.5,
+        longitude: 13.4,
+        elevation: 0,
+        time_zone: 'Europe/Berlin'
+      },
+      localize: (key) => key
+    }
+
+    // Set the container width (defaults to 492px, a full-width 12-column card).
+    window.setContainerWidth = (width) => {
+      document.getElementById('container').style.width = `${width}px`
+    }
+
+    // Render the card with the given field/title config and wait until the
+    // two-phase calculation has settled. Returns the resolved config used.
+    window.renderCard = async (config) => {
+      const card = document.getElementById('card')
+
+      const fullConfig = {
+        type: 'horizon-card',
+        // Deterministic time/place so the drawing (and screenshots) are stable.
+        now: '2023-04-05T13:00:00Z',
+        latitude: 52.5,
+        longitude: 13.4,
+        elevation: 0,
+        time_zone: 'Europe/Berlin',
+        dark_mode: false,
+        // Never schedule a refresh, so nothing animates while we measure.
+        refresh_period: 0,
+        ...config
+      }
+
+      card.hass = MOCK_HASS
+      card.setConfig(fullConfig)
+
+      // Wait for the initial render, then let the partial -> final calculation
+      // settle (each state change triggers another update cycle).
+      await card.updateComplete
+      for (let i = 0; i < 20; i++) {
+        await new Promise((resolve) => requestAnimationFrame(() => resolve()))
+        await card.updateComplete
+        if (card.data && card.data.partial === false) {
+          break
+        }
+      }
+      // One more frame so layout is fully flushed before measuring.
+      await new Promise((resolve) => requestAnimationFrame(() => resolve()))
+
+      return fullConfig
+    }
+
+    // Expose getGridOptions() as computed by the card itself.
+    window.getGridOptions = () => document.getElementById('card').getGridOptions()
+
+    // Measure the actual rendered height of the card element.
+    window.measureCardHeight = () => document.getElementById('card').getBoundingClientRect().height
+  </script>
+</body>
+</html>

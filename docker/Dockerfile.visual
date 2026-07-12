@@ -1,0 +1,29 @@
+# Playwright-capable environment for the visual regression tests.
+# Builds the bundle and runs the Playwright specs entirely inside the
+# container so the host never needs local browsers, node or yarn.
+#
+#   docker build -f docker/Dockerfile.visual -t horizon-card-visual .
+#   docker run --rm horizon-card-visual                                  # yarn test:visual
+#   docker run --rm horizon-card-visual sh -lc "yarn test:visual --update-snapshots"
+#
+# The image tag matches the @playwright/test version in package.json so the
+# preinstalled browsers line up with the client library.
+# syntax=docker/dockerfile:1
+FROM mcr.microsoft.com/playwright:v1.49.0-jammy
+
+# Yarn 4 is pinned via package.json "packageManager"; corepack provisions it.
+RUN corepack enable
+
+WORKDIR /app
+
+# --- dependency layer (cached unless manifests or patches change) ---
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn/ .yarn/
+RUN yarn install --immutable
+
+# --- source + build the bundle the harness loads ---
+COPY . .
+RUN yarn build
+
+# Default: run the visual regression suite against the committed baselines.
+CMD ["sh", "-lc", "yarn test:visual"]

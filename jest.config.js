@@ -3,6 +3,8 @@ module.exports = {
   transformIgnorePatterns: ['node_modules/?!(lit-html)'],
   preset: 'ts-jest/presets/js-with-ts',
   testEnvironment: 'jsdom',
+  // Playwright visual tests live under tests/visual and are run via `yarn test:visual`, not jest.
+  testPathIgnorePatterns: ['/node_modules/', '/tests/visual/'],
   coverageReporters: ['json-summary', 'text', 'lcov'],
   collectCoverage: true,
   collectCoverageFrom: [

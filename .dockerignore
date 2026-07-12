@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+.git
+.omc
+.DS_Store
+*.log
+npm-debug.log*
+.yarn/cache
+.yarn/install-state.gz
