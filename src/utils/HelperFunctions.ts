@@ -130,6 +130,23 @@ export class HelperFunctions {
     return tzDate
   }
 
+  public static noonAtLongitude (date: Date, longitude: number): Date {
+    return HelperFunctions.solarTimeAtLongitude(date, 12, longitude)
+  }
+
+  public static midnightAtLongitude (date: Date, longitude: number): Date {
+    return HelperFunctions.solarTimeAtLongitude(date, 0, longitude)
+  }
+
+  // Mean-solar-time reference (DST-free; 15°/h, east positive). Returns "hour:00 mean-solar-time
+  // of the local solar day that `date` falls on", mirroring noonAtTimeZone's semantics so the
+  // day-selection logic in readSunTimes keeps working. Only the solar day matters, so no rounding.
+  private static solarTimeAtLongitude (date: Date, hour: number, longitude: number): Date {
+    const offsetMs = (longitude / 15) * 3600000
+    const local = new Date(date.getTime() + offsetMs)
+    return new Date(Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), local.getUTCDate(), hour) - offsetMs)
+  }
+
   private static getTimeInTimeZone (date: Date, time: string, timeZone: string) {
     const formatter = new Intl.DateTimeFormat('fr-CA',
       { timeZone: timeZone, timeZoneName: 'longOffset' })

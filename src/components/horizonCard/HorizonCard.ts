@@ -321,9 +321,13 @@ export class HorizonCard extends LitElement {
 
   private readSunTimes (now: Date, latitude: number, longitude: number, elevation: number): TSunTimes {
     const nowDayBefore = new Date(now.getTime() - Constants.MS_24_HOURS)
-    const sunTimesNow = SunCalc.getSunTimes(HelperFunctions.noonAtTimeZone(now, this.timeZone()),
+    const sunTimesNow = SunCalc.getSunTimes(this.useLongitudeForComputation()
+      ? HelperFunctions.noonAtLongitude(now, longitude)
+      : HelperFunctions.noonAtTimeZone(now, this.timeZone()),
       latitude, longitude, elevation, false, false, true)
-    const sunTimesDayBefore = SunCalc.getSunTimes(HelperFunctions.noonAtTimeZone(nowDayBefore, this.timeZone()),
+    const sunTimesDayBefore = SunCalc.getSunTimes(this.useLongitudeForComputation()
+      ? HelperFunctions.noonAtLongitude(nowDayBefore, longitude)
+      : HelperFunctions.noonAtTimeZone(nowDayBefore, this.timeZone()),
       latitude, longitude, elevation, false, false, true)
 
     const noonDelta = now.getTime() - sunTimesDayBefore.solarNoon.value.getTime()
@@ -437,7 +441,9 @@ export class HorizonCard extends LitElement {
     const azimuth = this.roundDegree(moonRawData.azimuthDegrees)
     const elevation = this.roundDegree(moonRawData.altitudeDegrees)
 
-    const moonRawTimes = SunCalc.getMoonTimes(HelperFunctions.midnightAtTimeZone(now, this.timeZone()),
+    const moonRawTimes = SunCalc.getMoonTimes(this.useLongitudeForComputation()
+      ? HelperFunctions.midnightAtLongitude(now, lon)
+      : HelperFunctions.midnightAtTimeZone(now, this.timeZone()),
       lat, lon, false, true)
 
     const moonPhase = Constants.MOON_PHASES[moonRawData.illumination.phase.id]
@@ -507,6 +513,14 @@ export class HorizonCard extends LitElement {
 
   private timeZone (): string {
     return this.config.time_zone ?? this.lastHass.config.time_zone
+  }
+
+  // Two independent axes: longitude drives the computation reference, time_zone drives display.
+  // Anchor the computation day to the location's solar day only when the user set an explicit
+  // longitude without a time_zone. Reads raw config (not the accessors, which always fall back
+  // to HA values) so every other setup stays byte-identical to before.
+  private useLongitudeForComputation (): boolean {
+    return this.config.longitude !== undefined && this.config.time_zone === undefined
   }
 
   private now (): Date {
