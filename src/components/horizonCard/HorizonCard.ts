@@ -504,7 +504,10 @@ export class HorizonCard extends LitElement {
   }
 
   private elevation (): number {
-    return this.config.elevation ?? this.lastHass.config.elevation
+    // suncalc3 computes the horizon dip as -2.076 * sqrt(elevation) / 60, which is NaN for a
+    // negative elevation. Clamp to sea level so below-sea-level locations (e.g. the Netherlands)
+    // still get valid sun times instead of a blank card. See #101.
+    return Math.max(0, this.config.elevation ?? this.lastHass.config.elevation)
   }
 
   private southernFlip (): boolean {
