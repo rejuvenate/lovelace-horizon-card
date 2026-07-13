@@ -7,10 +7,11 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "rollup -c rollup.config.dev.mjs --watch",
-    "build": "rm -fr dist && yarn lint && yarn rollup",
+    "i18n:generate": "node scripts/generate-i18n-index.mjs",
+    "build": "yarn i18n:generate && rm -fr dist && yarn lint && yarn rollup",
     "lint": "eslint src tests",
     "rollup": "rollup -c",
-    "test": "jest",
+    "test": "yarn i18n:generate && jest",
     "test:visual": "playwright test"
   },
   "repository": {
