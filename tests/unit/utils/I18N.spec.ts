@@ -3,6 +3,24 @@ import { NumberFormat, TimeFormat } from 'custom-card-helpers'
 import { Constants } from '../../../src/constants'
 import { I18N } from '../../../src/utils/I18N'
 
+// Some locales (e.g. Persian) render digits and the decimal separator in their own
+// numeral system (۰-۹, ٫) via Intl. That is correct output for those users, but the
+// digit/format assertions below are written against Western-Arabic (ASCII) numerals.
+// Normalize any locale's native digits and decimal separator back to ASCII before
+// matching, so newly added languages don't require per-language regex tweaking.
+const normalizeNumerals = (value: string, language: string): string => {
+  const fmt = new Intl.NumberFormat(language)
+  let out = value
+  for (let digit = 0; digit <= 9; digit++) {
+    out = out.split(fmt.format(digit)).join(String(digit))
+  }
+  const decimalSeparator = fmt.formatToParts(1.1).find((part) => part.type === 'decimal')?.value
+  if (decimalSeparator) {
+    out = out.split(decimalSeparator).join('.')
+  }
+  return out
+}
+
 describe('I18N', () => {
   const localize = (key) => key
   describe('constructor', () => {
@@ -60,7 +78,7 @@ describe('I18N', () => {
           const result = i18n.formatDateAsTime(date)
 
           const timeRegex = /0?0[:.]35|12[:.]35/
-          expect(result).toMatch(timeRegex)
+          expect(normalizeNumerals(result, language)).toMatch(timeRegex)
         })
       }
       it(`formats time correctly with different languages for 12h vs 24h clock [${language}]`, () => {
@@ -71,7 +89,7 @@ describe('I18N', () => {
         const result_24 = i18n_24.formatDateAsTime(date)
         expect(result_12).not.toEqual(result_24)
         const timeRegex = /^\d{1,2}[:.]\d{2}$/
-        expect(result_24).toMatch(timeRegex)
+        expect(normalizeNumerals(result_24, language)).toMatch(timeRegex)
       })
     }
   })
@@ -88,7 +106,7 @@ describe('I18N', () => {
           const result = i18n.formatDecimal(decimal)
 
           const timeRegex = /123[,.]45/g
-          expect(result).toMatch(timeRegex)
+          expect(normalizeNumerals(result, language)).toMatch(timeRegex)
         })
       }
       it(`formats decimals correctly with different languages for decimal point vs decimal comma [${language}]`, () => {
