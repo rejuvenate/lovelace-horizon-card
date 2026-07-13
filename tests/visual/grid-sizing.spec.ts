@@ -48,6 +48,27 @@ const cases: { name: string, config: Record<string, unknown> }[] = [
         moonrise: true, moonset: true, moon_phase: true
       }
     }
+  },
+  {
+    // Guard for #82: southern_flip must mirror the moon disc geometrically
+    // (about the viewBox centre), exactly like the sun. This is the only
+    // visual coverage for the flipped-moon position.
+    name: 'southern-flip-with-moon',
+    config: {
+      southern_flip: true,
+      fields: { azimuth: true, elevation: true, moonrise: true, moonset: true, moon_phase: true }
+    }
+  },
+  {
+    // Guard for #142: in deep winter at a high latitude the sun curve is
+    // strongly compressed (scaleY << 1); the moon disc must compress with it
+    // and stay inside the frame instead of detaching/clipping.
+    name: 'winter-high-latitude-with-moon',
+    config: {
+      now: '2023-12-21T13:00:00Z',
+      latitude: 65,
+      fields: { azimuth: true, elevation: true, moonrise: true, moonset: true, moon_phase: true }
+    }
   }
 ]
 

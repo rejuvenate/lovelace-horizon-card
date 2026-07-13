@@ -295,7 +295,7 @@ export class HorizonCard extends LitElement {
     const sunPosition = this.computeSunPosition(times, this.isWinterDarkness(latitude, times.now))
 
     const moonData = this.computeMoonData(times.now, latitude, longitude)
-    const moonPosition = this.computeMoonPosition(moonData)
+    const moonPosition = this.computeMoonPosition(moonData, sunPosition.scaleY)
 
     const hueReduce = HelperFunctions.rangeScale(-10, 10, elevation, 15)
     const saturationReduce = HelperFunctions.rangeScale(-23, 10, elevation, 50)
@@ -472,21 +472,23 @@ export class HorizonCard extends LitElement {
     }
   }
 
-  private computeMoonPosition (moonData: TMoonData): TMoonPosition {
+  private computeMoonPosition (moonData: TMoonData, scaleY = 1): TMoonPosition {
     // East to West goes left to right (or right to left, if southern-flipped!), like the Sun.
     // The canvas is 550 units wide, minus 5 units (padding)
     // and minus Constants.MOON_RADIUS on either side to keep the moon inside.
     // Left is 0 degrees, 180 degrees is in the middle.
+    // The southern flip is the same geometric mirror (about the 550-wide viewBox) the Sun uses.
     const availableSpanX = 550 - 2 * (Constants.MOON_RADIUS + 5)
-    const calcAzimuth = this.southernFlip() ? (moonData.azimuth + 180) % 360 : moonData.azimuth
-    const x = 5 + Constants.MOON_RADIUS + availableSpanX * calcAzimuth/360
+    const x0 = 5 + Constants.MOON_RADIUS + availableSpanX * moonData.azimuth/360
+    const x = this.southernFlip() ? 550 - x0 : x0
 
     const yLimit = Constants.HORIZON_Y - Constants.MOON_RADIUS
     const calcElevation = Math.abs(moonData.elevation) / 2 + 1
     const maxLog = 90 / 2 + 1
 
-    // The Moon's elevation scaled logarithmically to appear higher/lower from the drawn horizon
-    const offset = yLimit * Math.log(calcElevation) / Math.log(maxLog) * Math.sign(moonData.elevation)
+    // The Moon's elevation scaled logarithmically to appear higher/lower from the drawn horizon,
+    // compressed by the sun curve's scaleY so it stays inside the frame in deep winter.
+    const offset = yLimit * Math.log(calcElevation) / Math.log(maxLog) * Math.sign(moonData.elevation) * scaleY
     const y = Constants.HORIZON_Y - offset
 
     return {

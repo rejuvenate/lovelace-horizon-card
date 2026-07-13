@@ -1315,7 +1315,7 @@ describe('HorizonCard', () => {
       },
       moonPosition: {
         x: 403,
-        y: 14
+        y: 28.875
       }
     }
 
@@ -1638,8 +1638,31 @@ describe('HorizonCard', () => {
         elevation: 60
       } as TMoonData
       const result = horizonCard['computeMoonPosition'](moonData)
-      expect(result.x).toEqual(19)
+      expect(result.x).toEqual(275)
       expect(result.y).toBeCloseTo(21.215, 2)
+    })
+
+    it('moon at 45 azimuth and 90 elevation with southern flip', () => {
+      horizonCard.setConfig({
+        southern_flip: true
+      } as IHorizonCardConfig)
+      const moonData = {
+        azimuth: 45,
+        elevation: 90
+      } as TMoonData
+      const result = horizonCard['computeMoonPosition'](moonData)
+      expect(result.x).toEqual(467)
+      expect(result.y).toEqual(14)
+    })
+
+    it('moon at 270 azimuth and 90 elevation with winter scaleY compression', () => {
+      const moonData = {
+        azimuth: 270,
+        elevation: 90
+      } as TMoonData
+      const result = horizonCard['computeMoonPosition'](moonData, 0.5)
+      expect(result.x).toEqual(403)
+      expect(result.y).toEqual(49)
     })
   })
 
