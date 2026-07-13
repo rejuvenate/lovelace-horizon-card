@@ -9,7 +9,7 @@
 # The image tag matches the @playwright/test version in package.json so the
 # preinstalled browsers line up with the client library.
 # syntax=docker/dockerfile:1
-FROM mcr.microsoft.com/playwright:v1.49.0-jammy
+FROM mcr.microsoft.com/playwright:v1.61.1-jammy
 
 # Yarn 4 is pinned via package.json "packageManager"; corepack provisions it.
 RUN corepack enable
