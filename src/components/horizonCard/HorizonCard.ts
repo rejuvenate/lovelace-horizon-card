@@ -29,13 +29,13 @@ export class HorizonCard extends LitElement {
   static readonly cardDescription = 'Custom card that display a graph to track the sun position and related events'
 
   @state()
-  private declare config: IHorizonCardConfig
+  private accessor config!: IHorizonCardConfig
 
   @state()
-  private declare data: THorizonCardData
+  private accessor data!: THorizonCardData
 
   @state()
-  private declare error: EHorizonCardErrors | undefined
+  private accessor error: EHorizonCardErrors | undefined
 
   private lastHass!: HomeAssistant
 
