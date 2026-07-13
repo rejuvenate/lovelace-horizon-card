@@ -18,7 +18,7 @@ export class TemplateResultTestHelper extends LitElement {
   }
 
   @state()
-  templateResultFunction?: () => TemplateResult
+  accessor templateResultFunction: (() => TemplateResult) | undefined
 
   render (): TemplateResult {
     return this.templateResultFunction?.() ?? html`<span>No function assigned</span>`

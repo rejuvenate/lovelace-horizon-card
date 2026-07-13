@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2022",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
@@ -15,8 +15,7 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "./src/types/custom",
