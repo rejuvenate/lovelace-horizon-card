@@ -128,9 +128,6 @@
       return fullConfig
     }
 
-    // Expose getGridOptions() as computed by the card itself.
-    window.getGridOptions = () => document.getElementById('card').getGridOptions()
-
     // Measure the actual rendered height of the card element.
     window.measureCardHeight = () => document.getElementById('card').getBoundingClientRect().height
   </script>
