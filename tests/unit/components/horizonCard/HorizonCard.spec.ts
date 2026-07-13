@@ -1035,6 +1035,54 @@ describe('HorizonCard', () => {
     })
   })
 
+  describe('elevation clamping (issue #101)', () => {
+    // The mock SunCalc ignores the elevation argument entirely, so it can't reproduce the NaN
+    // path suncalc3 hits for a negative elevation. Delegate to the real (patched) suncalc, as
+    // done above for the longitude-derived computation reference tests.
+    beforeEach(() => {
+      const actual = jest.requireActual('suncalc3')
+      const realSunCalc = actual.default ?? actual
+      jest.spyOn(SunCalcMock, 'getSunTimes')
+        .mockImplementation((...args: unknown[]) => realSunCalc.getSunTimes(...args))
+    })
+
+    it('returns valid sun times for a below-sea-level elevation instead of NaN/blank', () => {
+      const now = new Date('2023-04-05T13:00:00Z')
+      horizonCard.hass = SaneHomeAssistant
+      horizonCard.setConfig({
+        type: HorizonCard.cardType, latitude: 52.1, longitude: 5.1, elevation: -2
+      } as IHorizonCardConfig)
+      jest.spyOn(horizonCard as any, 'now').mockReturnValue(now)
+
+      expect(horizonCard['elevation']()).toEqual(0)
+
+      const result = horizonCard['readSunTimes'](now, 52.1, 5.1, horizonCard['elevation']())
+
+      expect(result.dawn).toBeDefined()
+      expect(result.sunrise).toBeDefined()
+      expect(result.sunset).toBeDefined()
+      expect(result.dusk).toBeDefined()
+    })
+
+    it('still returns valid sun times for a normal positive elevation (no regression)', () => {
+      const now = new Date('2023-04-05T13:00:00Z')
+      horizonCard.hass = SaneHomeAssistant
+      horizonCard.setConfig({
+        type: HorizonCard.cardType, latitude: 52.1, longitude: 5.1, elevation: 10
+      } as IHorizonCardConfig)
+      jest.spyOn(horizonCard as any, 'now').mockReturnValue(now)
+
+      expect(horizonCard['elevation']()).toEqual(10)
+
+      const result = horizonCard['readSunTimes'](now, 52.1, 5.1, horizonCard['elevation']())
+
+      expect(result.dawn).toBeDefined()
+      expect(result.sunrise).toBeDefined()
+      expect(result.sunset).toBeDefined()
+      expect(result.dusk).toBeDefined()
+    })
+  })
+
   describe('longitude-derived computation reference', () => {
     const now = new Date('2023-04-05T13:00:00Z')
 
