@@ -580,7 +580,7 @@ describe('HorizonCard', () => {
       horizonCard.hass = hass
 
       horizonCard['i18n'](config)
-      expect(I18N).toBeCalledWith('es', 'Europe/Sofia', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
+      expect(I18N).toHaveBeenCalledWith('es', 'Europe/Sofia', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
     })
 
     it('uses the explicit config time zone over the server time zone', () => {
@@ -594,7 +594,7 @@ describe('HorizonCard', () => {
       horizonCard.hass = hass
 
       horizonCard['i18n'](config)
-      expect(I18N).toBeCalledWith('es', 'Asia/Tokyo', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
+      expect(I18N).toHaveBeenCalledWith('es', 'Asia/Tokyo', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
     })
 
     it('uses the local browser time zone when config has no time zone', () => {
@@ -607,7 +607,7 @@ describe('HorizonCard', () => {
       horizonCard.hass = hass
 
       horizonCard['i18n'](config)
-      expect(I18N).toBeCalledWith('es', 'UTC', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
+      expect(I18N).toHaveBeenCalledWith('es', 'UTC', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
     })
 
     it('uses the server time zone when config has no time zone', () => {
@@ -621,7 +621,7 @@ describe('HorizonCard', () => {
       horizonCard.hass = hass
 
       horizonCard['i18n'](config)
-      expect(I18N).toBeCalledWith('es', 'Europe/Sofia', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
+      expect(I18N).toHaveBeenCalledWith('es', 'Europe/Sofia', TimeFormat.language, NumberFormat.language, SaneHomeAssistant.localize)
     })
   })
 
