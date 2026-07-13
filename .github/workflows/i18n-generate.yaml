@@ -1,0 +1,48 @@
+name: Regenerate localization
+
+# Keeps languages.generated.ts and the README language list in sync with the JSON files
+# in src/assets/localization/languages/ so that contributing a translation is just adding a
+# <code>.json — no need to run anything locally. Runs on same-repo PRs (commits back to the
+# PR branch) and on pushes to main (catches fork PRs, which can't be pushed to).
+
+on:
+  pull_request:
+    paths:
+      - 'src/assets/localization/languages/**'
+      - 'scripts/generate-i18n-index.mjs'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/assets/localization/languages/**'
+      - 'scripts/generate-i18n-index.mjs'
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    # Fork PRs get a read-only token and can't be pushed to; they are regenerated on main
+    # after merge by the push trigger above.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      # The generator only uses Node built-ins, so no dependency install is needed.
+      - name: Regenerate localization index and README
+        run: node scripts/generate-i18n-index.mjs
+
+      - name: Commit regenerated files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: regenerate localization index [skip ci]'
+          file_pattern: 'src/assets/localization/languages.generated.ts README.md'

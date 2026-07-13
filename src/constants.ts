@@ -1,42 +1,5 @@
-import bg from './assets/localization/languages/bg.json'
-import ca from './assets/localization/languages/ca.json'
-import cs from './assets/localization/languages/cs.json'
-import da from './assets/localization/languages/da.json'
-import de from './assets/localization/languages/de.json'
-import el from './assets/localization/languages/el.json'
+import { localizationLanguages } from './assets/localization/languages.generated'
 import en from './assets/localization/languages/en.json'
-import es from './assets/localization/languages/es.json'
-import et from './assets/localization/languages/et.json'
-import fa from './assets/localization/languages/fa.json'
-import fi from './assets/localization/languages/fi.json'
-import fr from './assets/localization/languages/fr.json'
-import gl from './assets/localization/languages/gl.json'
-import he from './assets/localization/languages/he.json'
-import hr from './assets/localization/languages/hr.json'
-import hu from './assets/localization/languages/hu.json'
-import is from './assets/localization/languages/is.json'
-import it from './assets/localization/languages/it.json'
-import ja from './assets/localization/languages/ja.json'
-import ko from './assets/localization/languages/ko.json'
-import lt from './assets/localization/languages/lt.json'
-import ms from './assets/localization/languages/ms.json'
-import nb from './assets/localization/languages/nb.json'
-import nl from './assets/localization/languages/nl.json'
-import nn from './assets/localization/languages/nn.json'
-import pl from './assets/localization/languages/pl.json'
-import pt from './assets/localization/languages/pt.json'
-import ptBR from './assets/localization/languages/pt-BR.json'
-import ro from './assets/localization/languages/ro.json'
-import rs from './assets/localization/languages/rs.json'
-import ru from './assets/localization/languages/ru.json'
-import sk from './assets/localization/languages/sk.json'
-import sl from './assets/localization/languages/sl.json'
-import sv from './assets/localization/languages/sv.json'
-import tr from './assets/localization/languages/tr.json'
-import uk from './assets/localization/languages/uk.json'
-import ur from './assets/localization/languages/ur.json'
-import zh_Hans from './assets/localization/languages/zh-Hans.json'
-import zh_Hant from './assets/localization/languages/zh-Hant.json'
 import type {
   IHorizonCardConfig,
   SunCalcMoonPhase,
@@ -149,7 +112,9 @@ export class Constants {
 
   static readonly MOON_RADIUS = 14
 
-  static readonly LOCALIZATION_LANGUAGES: Record<string, THorizonCardI18NKeys> = {
-    bg, ca, cs, da, de, el, en, es, et, fa, fi, fr, gl, he, hr, hu, is, it, ja, ko, lt, ms, nb, nl, nn, pl, pt, 'pt-BR': ptBR, ro, rs, ru, sk, sl, sv, tr, uk, ur, 'zh-Hans': zh_Hans, 'zh-Hant': zh_Hant
-  }
+  // Generated from the JSON files in assets/localization/languages (see languages.generated.ts
+  // and scripts/generate-i18n-index.mjs). To add a language, just add a <code>.json (with a
+  // "languageName") to that folder — the index and README are regenerated automatically as
+  // part of the pull request, so there is nothing to run and no manual edit here.
+  static readonly LOCALIZATION_LANGUAGES: Record<string, THorizonCardI18NKeys> = localizationLanguages
 }

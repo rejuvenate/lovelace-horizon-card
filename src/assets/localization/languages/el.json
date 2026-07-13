@@ -1,11 +1,12 @@
 {
-    "azimuth": "Αζιμούθιο",
-    "dawn": "Αυγή",
-    "dusk": "Σούρουπο",
-    "elevation": "Υψόμετρο",
-    "moonrise": "Aνατολή σελήνης",
-    "moonset": "Δύση σελήνης",
-    "noon": "Μεσημέρι",
-    "sunrise": "Ανατολή",
-    "sunset": "Δύση"
+  "languageName": "Greek",
+  "azimuth": "Αζιμούθιο",
+  "dawn": "Αυγή",
+  "dusk": "Σούρουπο",
+  "elevation": "Υψόμετρο",
+  "moonrise": "Aνατολή σελήνης",
+  "moonset": "Δύση σελήνης",
+  "noon": "Μεσημέρι",
+  "sunrise": "Ανατολή",
+  "sunset": "Δύση"
 }
