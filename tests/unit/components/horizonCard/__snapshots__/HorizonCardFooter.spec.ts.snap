@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HorizonCardFooter render should not render the dawn field when it is not present in the config but data for it is provided 1`] = `
 <div class="horizon-card-footer">

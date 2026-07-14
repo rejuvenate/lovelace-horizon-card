@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HorizonCard render renders an error if error is present on data 1`] = `
 <div class="horizon-card-error">
