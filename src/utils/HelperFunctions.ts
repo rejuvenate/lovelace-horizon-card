@@ -31,9 +31,13 @@ export class HelperFunctions {
       return nothing
     }
 
+    // Prefer Home Assistant's Moon integration string (localized in HA's language). When it
+    // is absent (integration not installed, or no HA-side localization for the key), fall back
+    // to the card's own phase name — keyed by the HA state string — which is localized in the
+    // card's language when available and English otherwise, instead of a raw `state (!)`.
     let moon_phase_localized: unknown = i18n.localize(`component.moon.entity.sensor.phase.state.${phase.state}`)
     if (!moon_phase_localized) {
-      moon_phase_localized = html`<span title="Install Moon integration to get localized Moon phase name">${phase.state} (!)</span>`
+      moon_phase_localized = i18n.tr(phase.state)
     }
 
     return html`
