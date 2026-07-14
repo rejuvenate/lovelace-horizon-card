@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HorizonCardGraph render does not render the moon when not configured so 1`] = `
 <div class="horizon-card-graph">
