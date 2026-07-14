@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HorizonCardHeader render does not render the sunrise field when it is not present in the data and it is disabled on the config 1`] = `
 <div class="horizon-card-header">
