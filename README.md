@@ -176,6 +176,7 @@ Supported options for the `language` setting:
 - `ja` Japanese
 - `ko` Korean
 - `lt` Lithuanian
+- `lv` Latvian
 - `ms` Malay
 - `nb` Norwegian (Bokmål)
 - `nl` Dutch

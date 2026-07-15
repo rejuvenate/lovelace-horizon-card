@@ -24,6 +24,7 @@ import it from './languages/it.json'
 import ja from './languages/ja.json'
 import ko from './languages/ko.json'
 import lt from './languages/lt.json'
+import lv from './languages/lv.json'
 import ms from './languages/ms.json'
 import nb from './languages/nb.json'
 import nl from './languages/nl.json'
@@ -43,4 +44,4 @@ import ur from './languages/ur.json'
 import zh_Hans from './languages/zh-Hans.json'
 import zh_Hant from './languages/zh-Hant.json'
 
-export const localizationLanguages: Record<string, THorizonCardI18NKeys> = { bg, ca, cs, da, de, el, en, es, et, fa, fi, fr, gl, he, hr, hu, is, it, ja, ko, lt, ms, nb, nl, nn, pl, pt, 'pt-BR': pt_BR, ro, rs, ru, sk, sl, sv, tr, uk, ur, 'zh-Hans': zh_Hans, 'zh-Hant': zh_Hant }
+export const localizationLanguages: Record<string, THorizonCardI18NKeys> = { bg, ca, cs, da, de, el, en, es, et, fa, fi, fr, gl, he, hr, hu, is, it, ja, ko, lt, lv, ms, nb, nl, nn, pl, pt, 'pt-BR': pt_BR, ro, rs, ru, sk, sl, sv, tr, uk, ur, 'zh-Hans': zh_Hans, 'zh-Hant': zh_Hant }
