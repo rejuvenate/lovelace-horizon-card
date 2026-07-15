@@ -351,6 +351,13 @@ export class HorizonCard extends LitElement {
 
   private computeSunPosition (times: TSunTimes, canBeWinterDarkness: boolean,
                               previousScaleY?: number | undefined): TSunPosition {
+    if (this.config?.graph === false) {
+      // The graph is not rendered, so its geometry is never drawn and the #sun-path
+      // SVG element does not exist. Skip the path-based position calculation, which
+      // would otherwise read getTotalLength() off a null element.
+      return Constants.DEFAULT_CARD_DATA.sunPosition
+    }
+
     // Sun position along the curve
     const sunPosition = this.findPointOnCurve(times.now, times.noon)
 

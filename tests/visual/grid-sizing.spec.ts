@@ -65,6 +65,19 @@ const cases: { name: string, config: Record<string, unknown> }[] = [
       latitude: 65,
       fields: { azimuth: true, elevation: true, moonrise: true, moonset: true, moon_phase: true }
     }
+  },
+  {
+    // Guard for `graph: false` (#179/#204): a values-only card must render its
+    // fields with no graph and no leftover whitespace — and must NOT throw from
+    // the sun-path geometry lookup, whose SVG element no longer exists.
+    name: 'values-only-no-graph',
+    config: {
+      graph: false,
+      fields: {
+        sunrise: false, sunset: false, dawn: true, noon: true, dusk: true,
+        azimuth: true, elevation: true, moonrise: true, moonset: true, moon_phase: true
+      }
+    }
   }
 ]
 

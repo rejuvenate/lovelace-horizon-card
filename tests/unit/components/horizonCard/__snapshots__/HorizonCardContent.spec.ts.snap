@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`HorizonCardContent render does not render the graph when graph is false 1`] = `
+<ha-card>
+  <div class="horizon-card">
+    <div class="horizon-card-header">
+      HORIZON CARD HEADER
+    </div>
+    <div class="horizon-card-footer">
+      HORIZON CARD FOOTER
+    </div>
+  </div>
+</ha-card>
+`;
+
 exports[`HorizonCardContent render renders the card content 1`] = `
 <ha-card>
   <div class="horizon-card">
