@@ -8,5 +8,13 @@
   "moonset": "Západ mesiaca",
   "noon": "Slnečné poludnie",
   "sunrise": "Východ slnka",
-  "sunset": "Západ slnka"
+  "sunset": "Západ slnka",
+  "new_moon": "Nov",
+  "waxing_crescent": "Dorastajúci kosáčik",
+  "first_quarter": "Prvá štvrť",
+  "waxing_gibbous": "Dorastajúci Mesiac",
+  "full_moon": "Spln",
+  "waning_gibbous": "Cúvajúci Mesiac",
+  "last_quarter": "Posledná štvrť",
+  "waning_crescent": "Cúvajúci kosáčik"
 }

@@ -8,5 +8,13 @@
   "moonset": "Tunglsetur",
   "noon": "Sólarhádegi",
   "sunrise": "Sólarupprás",
-  "sunset": "Sólsetur"
+  "sunset": "Sólsetur",
+  "new_moon": "Nýtt tungl",
+  "waxing_crescent": "Sigðmána",
+  "first_quarter": "Fyrsta kvartil",
+  "waxing_gibbous": "Vaxandi gleiðmána",
+  "full_moon": "Fullt tungl",
+  "waning_gibbous": "Minnkandi gleiðmána",
+  "last_quarter": "Síðasta kvartil",
+  "waning_crescent": "Minnkandi sigðmána"
 }

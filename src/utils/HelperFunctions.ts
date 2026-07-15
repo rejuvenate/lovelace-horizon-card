@@ -31,14 +31,10 @@ export class HelperFunctions {
       return nothing
     }
 
-    // Prefer Home Assistant's Moon integration string (localized in HA's language). When it
-    // is absent (integration not installed, or no HA-side localization for the key), fall back
-    // to the card's own phase name — keyed by the HA state string — which is localized in the
-    // card's language when available and English otherwise, instead of a raw `state (!)`.
-    let moon_phase_localized: unknown = i18n.localize(`component.moon.entity.sensor.phase.state.${phase.state}`)
-    if (!moon_phase_localized) {
-      moon_phase_localized = i18n.tr(phase.state)
-    }
+    // The Moon phase name is a card label like any other: the card computes the phase itself and
+    // renders the name from its own translations in the card's `language` (English fallback for
+    // phrases not yet translated).
+    const moon_phase_localized = i18n.tr(phase.state)
 
     return html`
       <div class="horizon-card-text-container">

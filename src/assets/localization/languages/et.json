@@ -8,5 +8,13 @@
   "moonset": "Kuuloojang",
   "noon": "Keskpäev",
   "sunrise": "Päikesetõus",
-  "sunset": "Päikeseloojang"
+  "sunset": "Päikeseloojang",
+  "new_moon": "Kuu loomine",
+  "waxing_crescent": "Noorkuu",
+  "first_quarter": "Esimene veerand",
+  "waxing_gibbous": "Kasvav kuu",
+  "full_moon": "Täiskuu",
+  "waning_gibbous": "Kahanev kuu",
+  "last_quarter": "Viimane veerand",
+  "waning_crescent": "Vanakuu"
 }

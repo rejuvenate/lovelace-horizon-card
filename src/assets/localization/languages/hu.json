@@ -8,5 +8,13 @@
   "moonset": "Holdnyugta",
   "noon": "Dél",
   "sunrise": "Napkelte",
-  "sunset": "Napnyugta"
+  "sunset": "Napnyugta",
+  "new_moon": "Újhold",
+  "waxing_crescent": "Növekvő sarló",
+  "first_quarter": "Első negyed",
+  "waxing_gibbous": "Növekvő hold",
+  "full_moon": "Telihold",
+  "waning_gibbous": "Fogyó hold",
+  "last_quarter": "Utolsó negyed",
+  "waning_crescent": "Fogyó sarló"
 }

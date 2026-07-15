@@ -8,5 +8,13 @@
   "moonset": "Zachód księżyca",
   "noon": "Górowanie",
   "sunrise": "Wschód",
-  "sunset": "Zachód"
+  "sunset": "Zachód",
+  "new_moon": "Nów",
+  "waxing_crescent": "Sierp przybywający",
+  "first_quarter": "Pierwsza kwadra",
+  "waxing_gibbous": "Garb przybywający",
+  "full_moon": "Pełnia",
+  "waning_gibbous": "Garb ubywający",
+  "last_quarter": "Ostatnia kwadra",
+  "waning_crescent": "Sierp ubywający"
 }

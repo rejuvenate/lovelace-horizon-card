@@ -8,5 +8,13 @@
   "moonset": "월몰",
   "noon": "태양 정오",
   "sunrise": "해돋이",
-  "sunset": "해넘이"
+  "sunset": "해넘이",
+  "new_moon": "신월",
+  "waxing_crescent": "초승달",
+  "first_quarter": "상현달",
+  "waxing_gibbous": "차오르는 볼록달",
+  "full_moon": "보름달",
+  "waning_gibbous": "기우는 볼록달",
+  "last_quarter": "하현달",
+  "waning_crescent": "그믐달"
 }

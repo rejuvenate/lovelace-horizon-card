@@ -8,5 +8,13 @@
   "moonset": "Lunin zahod",
   "noon": "Sončno poldne",
   "sunrise": "Sončni vzhod",
-  "sunset": "Sončni zahod"
+  "sunset": "Sončni zahod",
+  "new_moon": "Mlaj",
+  "waxing_crescent": "Rastoči srp",
+  "first_quarter": "Prvi krajec",
+  "waxing_gibbous": "Rastoča luna",
+  "full_moon": "Ščip",
+  "waning_gibbous": "Upadajoča luna",
+  "last_quarter": "Zadnji krajec",
+  "waning_crescent": "Upadajoči srp"
 }

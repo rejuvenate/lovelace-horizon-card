@@ -8,5 +8,13 @@
   "moonset": "Захід місяця",
   "noon": "Зеніт",
   "sunrise": "Схід",
-  "sunset": "Захід"
+  "sunset": "Захід",
+  "new_moon": "Молодик",
+  "waxing_crescent": "Зростаючий серп",
+  "first_quarter": "Перша чверть",
+  "waxing_gibbous": "Зростаючий Місяць",
+  "full_moon": "Повний Місяць",
+  "waning_gibbous": "Спадаючий Місяць",
+  "last_quarter": "Остання чверть",
+  "waning_crescent": "Старий Місяць"
 }

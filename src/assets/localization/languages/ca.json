@@ -8,5 +8,13 @@
   "moonset": "Posta de lluna",
   "noon": "Migdia solar",
   "sunrise": "Sortida del sol",
-  "sunset": "Posta del sol"
+  "sunset": "Posta del sol",
+  "new_moon": "Lluna nova",
+  "waxing_crescent": "Lluna creixent",
+  "first_quarter": "Quart creixent",
+  "waxing_gibbous": "Lluna creixent gibosa",
+  "full_moon": "Lluna plena",
+  "waning_gibbous": "Lluna minvant gibosa",
+  "last_quarter": "Quart minvant",
+  "waning_crescent": "Lluna minvant"
 }

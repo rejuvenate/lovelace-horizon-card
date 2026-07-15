@@ -8,5 +8,13 @@
   "moonset": "Δύση σελήνης",
   "noon": "Μεσημέρι",
   "sunrise": "Ανατολή",
-  "sunset": "Δύση"
+  "sunset": "Δύση",
+  "new_moon": "Νέα Σελήνη",
+  "waxing_crescent": "Αύξων Μηνίσκος",
+  "first_quarter": "Πρώτο Τέταρτο",
+  "waxing_gibbous": "Αύξων Αμφίκυρτος",
+  "full_moon": "Πανσέληνος",
+  "waning_gibbous": "Φθίνων Αμφίκυρτος",
+  "last_quarter": "Τελευταίο Τέταρτο",
+  "waning_crescent": "Φθίνων Μηνίσκος"
 }

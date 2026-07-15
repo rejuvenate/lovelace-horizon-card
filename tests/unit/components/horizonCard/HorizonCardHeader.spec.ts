@@ -8,7 +8,7 @@ import { TemplateResultTestHelper } from '../../../helpers/TestHelpers'
 jest.mock('../../../../src/utils/I18N', () => require('../../../mocks/I18N'))
 
 describe('HorizonCardHeader', () => {
-  const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language, (key) => key)
+  const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language)
 
   describe('render', () => {
     it('renders the title if it is present in the configuration', async () => {

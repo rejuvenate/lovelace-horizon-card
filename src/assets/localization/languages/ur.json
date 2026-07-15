@@ -8,5 +8,13 @@
   "moonset": "غروب قمر",
   "noon": "دوپہر",
   "sunrise": "طلوع آفتاب",
-  "sunset": "غروب آفتاب"
+  "sunset": "غروب آفتاب",
+  "new_moon": "نیا چاند",
+  "waxing_crescent": "بڑھتا ہوا ہلال",
+  "first_quarter": "پہلا چوتھائی",
+  "waxing_gibbous": "بڑھتا ہوا محدب",
+  "full_moon": "بدر",
+  "waning_gibbous": "گھٹتا ہوا محدب",
+  "last_quarter": "تیسرا چوتھائی",
+  "waning_crescent": "گھٹتا ہوا ہلال"
 }

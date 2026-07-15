@@ -196,7 +196,7 @@ exports[`HorizonCardFooter render should render the moon_phase field when it is 
         </ha-icon>
       </div>
       <div class="horizon-card-field-value horizon-card-field-value-moon-phase">
-        component.moon.entity.sensor.phase.state.full_moon
+        full_moon
       </div>
     </div>
   </div>

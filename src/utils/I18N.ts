@@ -1,4 +1,4 @@
-import type { FrontendLocaleData, LocalizeFunc, NumberFormat, TimeFormat } from 'custom-card-helpers'
+import type { FrontendLocaleData, NumberFormat, TimeFormat } from 'custom-card-helpers'
 import { formatNumber } from 'custom-card-helpers'
 
 import { Constants } from '../constants'
@@ -8,10 +8,8 @@ export class I18N {
   private readonly localization: THorizonCardI18NKeys
   private readonly dateFormatter: Intl.DateTimeFormat
   private readonly locale: FrontendLocaleData
-  private readonly localizeFunc: LocalizeFunc
 
-  constructor (language: string, timeZone: string, timeFormat: TimeFormat, numberFormat: NumberFormat,
-               localizeFunc: LocalizeFunc) {
+  constructor (language: string, timeZone: string, timeFormat: TimeFormat, numberFormat: NumberFormat) {
     this.localization = I18N.matchLanguageToLocalization(language)
 
     this.dateFormatter = I18N.createDateFormatter(language, timeZone, timeFormat)
@@ -21,8 +19,6 @@ export class I18N {
       time_format: timeFormat,
       number_format: numberFormat
     }
-
-    this.localizeFunc = localizeFunc
   }
 
   public formatDateAsTime (date: Date): string {
@@ -50,10 +46,6 @@ export class I18N {
     // give ugly string for developers who misstype
     return this.localization[translationKey] ?? Constants.FALLBACK_LOCALIZATION[translationKey]
       ?? `Translation key '${translationKey}' doesn't have a valid translation`
-  }
-
-  public localize (key: string): string {
-    return this.localizeFunc(key)
   }
 
   private static matchLanguageToLocalization (language: string) {

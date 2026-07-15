@@ -8,5 +8,13 @@
   "moonset": "Закат луны",
   "noon": "Зенит",
   "sunrise": "Восход",
-  "sunset": "Закат"
+  "sunset": "Закат",
+  "new_moon": "Новолуние",
+  "waxing_crescent": "Растущий серп",
+  "first_quarter": "Первая четверть",
+  "waxing_gibbous": "Растущая Луна",
+  "full_moon": "Полнолуние",
+  "waning_gibbous": "Убывающая Луна",
+  "last_quarter": "Последняя четверть",
+  "waning_crescent": "Убывающий серп"
 }

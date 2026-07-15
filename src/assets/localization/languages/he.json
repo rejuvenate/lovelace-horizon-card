@@ -8,5 +8,13 @@
   "moonset": "שקיעה ירח",
   "noon": "אמצע היום",
   "sunrise": "זריחה",
-  "sunset": "שקיעה"
+  "sunset": "שקיעה",
+  "new_moon": "מולד הירח",
+  "waxing_crescent": "סהר מתמלא",
+  "first_quarter": "רבע ראשון",
+  "waxing_gibbous": "לקראת מילוא",
+  "full_moon": "ירח מלא",
+  "waning_gibbous": "אחרי מילוא",
+  "last_quarter": "רבע אחרון",
+  "waning_crescent": "סהר מחסיר"
 }

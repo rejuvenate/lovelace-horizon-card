@@ -8,5 +8,13 @@
   "moonset": "Mėnulio leidimasis",
   "noon": "Vidurdienis",
   "sunrise": "Saulėtekis",
-  "sunset": "Saulėlydis"
+  "sunset": "Saulėlydis",
+  "new_moon": "Jaunatis",
+  "waxing_crescent": "Jaunas mėnulis",
+  "first_quarter": "Priešpilnis",
+  "waxing_gibbous": "Pilnėjantis mėnulis",
+  "full_moon": "Pilnatis",
+  "waning_gibbous": "Dylantis mėnulis",
+  "last_quarter": "Delčia",
+  "waning_crescent": "Senas mėnulis"
 }

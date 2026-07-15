@@ -29,7 +29,7 @@ describe('HorizonErrorContent', () => {
     it('prints a console error message', () => {
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation()
 
-      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language, (key) => key)
+      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language)
       const horizonErrorContent = new HorizonErrorContent(MockErrors.MOCK_ERROR as unknown as EHorizonCardErrors, i18n)
       horizonErrorContent.render()
 
@@ -37,7 +37,7 @@ describe('HorizonErrorContent', () => {
     })
 
     it('returns a valid error template result', async () => {
-      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language, (key) => key)
+      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language)
       const horizonErrorContent = new HorizonErrorContent(MockErrors.MOCK_ERROR as unknown as EHorizonCardErrors, i18n)
 
       const html = await TemplateResultTestHelper.renderElement(horizonErrorContent)

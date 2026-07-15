@@ -8,5 +8,13 @@
   "moonset": "Kuunlasku",
   "noon": "Keskipäivä",
   "sunrise": "Auringonnousu",
-  "sunset": "Auringonlasku"
+  "sunset": "Auringonlasku",
+  "new_moon": "Uusikuu",
+  "waxing_crescent": "Kasvava sirppi",
+  "first_quarter": "Ensimmäinen neljännes",
+  "waxing_gibbous": "Kasvava kupera",
+  "full_moon": "Täysikuu",
+  "waning_gibbous": "Vähenevä kupera",
+  "last_quarter": "Viimeinen neljännes",
+  "waning_crescent": "Vähenevä sirppi"
 }

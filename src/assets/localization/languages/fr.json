@@ -8,5 +8,13 @@
   "moonset": "Coucher de lune",
   "noon": "Midi solaire",
   "sunrise": "Lever du soleil",
-  "sunset": "Coucher du soleil"
+  "sunset": "Coucher du soleil",
+  "new_moon": "Nouvelle lune",
+  "waxing_crescent": "Premier croissant",
+  "first_quarter": "Premier quartier",
+  "waxing_gibbous": "Lune gibbeuse croissante",
+  "full_moon": "Pleine lune",
+  "waning_gibbous": "Lune gibbeuse décroissante",
+  "last_quarter": "Dernier quartier",
+  "waning_crescent": "Dernier croissant"
 }

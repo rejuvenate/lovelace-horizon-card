@@ -8,5 +8,13 @@
   "moonset": "غروب ماه",
   "noon": "ظهر",
   "sunrise": "طلوع آفتاب",
-  "sunset": "غروب آفتاب"
+  "sunset": "غروب آفتاب",
+  "new_moon": "ماه نو",
+  "waxing_crescent": "هلال افزاینده",
+  "first_quarter": "تربیع اول",
+  "waxing_gibbous": "محدب افزاینده",
+  "full_moon": "ماه کامل",
+  "waning_gibbous": "محدب کاهنده",
+  "last_quarter": "تربیع سوم",
+  "waning_crescent": "هلال کاهنده"
 }

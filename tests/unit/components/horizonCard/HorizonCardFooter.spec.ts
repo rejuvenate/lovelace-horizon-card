@@ -77,7 +77,7 @@ describe('HorizonCardFooter', () => {
     return data
   }
 
-  const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language, (key) => key)
+  const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language)
 
   describe('render', () => {
     for (const field of allFields) {

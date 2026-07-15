@@ -10,8 +10,4 @@ export class I18N {
   public tr (translationKey: string): string {
     return translationKey
   }
-
-  public localize (key: string): string {
-    return key
-  }
 }

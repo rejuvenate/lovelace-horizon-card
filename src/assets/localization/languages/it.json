@@ -8,5 +8,13 @@
   "moonset": "Calata",
   "noon": "Mezzogiorno",
   "sunrise": "Alba",
-  "sunset": "Tramonto"
+  "sunset": "Tramonto",
+  "new_moon": "Luna nuova",
+  "waxing_crescent": "Luna crescente",
+  "first_quarter": "Primo quarto",
+  "waxing_gibbous": "Luna gibbosa crescente",
+  "full_moon": "Luna piena",
+  "waning_gibbous": "Luna gibbosa calante",
+  "last_quarter": "Ultimo quarto",
+  "waning_crescent": "Luna calante"
 }
