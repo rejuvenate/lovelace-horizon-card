@@ -1,0 +1,20 @@
+{
+  "languageName": "Latvian",
+  "azimuth": "Azimuts",
+  "dawn": "Rītausma",
+  "dusk": "Krēsla",
+  "elevation": "Augstums",
+  "moonrise": "Mēness lēkts",
+  "moonset": "Mēness riets",
+  "noon": "Saules kulminācija",
+  "sunrise": "Saullēkts",
+  "sunset": "Saulriets",
+  "new_moon": "Jauns mēness",
+  "waxing_crescent": "Augošais sirpis",
+  "first_quarter": "Pirmais ceturksnis",
+  "waxing_gibbous": "Augošais mēness",
+  "full_moon": "Pilnmēness",
+  "waning_gibbous": "Dilstošais mēness",
+  "last_quarter": "Pēdējais ceturksnis",
+  "waning_crescent": "Dilstošais sirpis"
+}
