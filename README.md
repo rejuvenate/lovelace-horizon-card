@@ -121,7 +121,6 @@ In general, you should not need to set any of these as they override Home Assist
 | longitude     | _number_                                     | Longitude used for calculations                                                                                               | Home Assistant longitude                                    |
 | elevation     | _number_                                     | Elevation (above sea) used for calculations                                                                                   | Home Assistant elevation                                    |
 | time_zone     | _string_                                     | Time zone (IANA) used for calculations and time presentation                                                                  | Home Assistant time zone                                    |
-| no_card       | _boolean_                                    | Disable card background                                                                                                       | `false`                                                     |
 | now           | _Date_                                       | Overrides the current moment shown on the card                                                                                | Current time                                                |
 | debug_level   | _number_                                     | Sets debug level, `0` (no debug), `1` and `2`                                                                                 | `0`                                                         |
 
@@ -234,11 +233,51 @@ latitude: 42.55
 longitude: 23.25
 elevation: 1500
 time_zone: Europe/Sofia
-no_card: false
 now: 2023-07-06T00:30:05+0300
 debug_level: 0
 ```
 
+### Card background and embedding
+
+The card renders inside Home Assistant's standard `ha-card`, so its background, border and shadow follow your theme. There is no card-specific option to switch them off — use Home Assistant's normal styling mechanisms instead, e.g. a theme or [card-mod](https://github.com/thomasloven/lovelace-card-mod).
+
+**Make the card transparent** (remove its background, border and shadow), for example to blend it into a dashboard:
+
+```yaml
+type: custom:horizon-card
+card_mod:
+  style: |
+    ha-card {
+      --ha-card-background: none;
+      --ha-card-box-shadow: none;
+      --ha-card-border-width: 0;
+    }
+```
+
+**Graph only, edge to edge** — additionally collapse the card's inner padding and margins so the graph fills the width with no whitespace below (handy inside a `vertical-stack`):
+
+```yaml
+type: custom:horizon-card
+moon: true
+fields:
+  sunrise: false
+  sunset: false
+  dawn: false
+  noon: false
+  dusk: false
+card_mod:
+  style: |
+    ha-card {
+      --ha-card-background: none;
+      --ha-card-box-shadow: none;
+      --ha-card-border-width: 0;
+    }
+    .horizon-card { padding: 0; }
+    .horizon-card-graph { margin: 0; }
+    .horizon-card-footer { margin-bottom: 0; }
+```
+
+The `--ha-card-*` custom properties are Home Assistant's standard card variables (a theme can set them too); the `.horizon-card*` selectors target the card's internal layout.
 
 ## Development
 
