@@ -24,5 +24,20 @@ describe('HorizonCardContent', () => {
 
       expect(html).toMatchSnapshot()
     })
+
+    it('does not render the graph when graph is false', async () => {
+      const config: IHorizonCardConfig = {
+        type: 'horizon-card',
+        language: 'en',
+        graph: false
+      }
+
+      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language)
+      const horizonCardContent = new HorizonCardContent(config, {} as THorizonCardData, i18n)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardContent)
+
+      expect(html).toMatchSnapshot()
+    })
   })
 })

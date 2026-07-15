@@ -1,5 +1,5 @@
 import type { TemplateResult } from 'lit'
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 
 import type { IHorizonCardConfig, THorizonCardData } from '../../types'
 import type { I18N } from '../../utils/I18N'
@@ -23,7 +23,7 @@ export class HorizonCardContent {
       <ha-card>
         <div class="horizon-card">
           ${ this.renderHeader() }
-          ${ this.renderGraph() }
+          ${ this.config.graph !== false ? this.renderGraph() : nothing }
           ${ this.renderFooter() }
         </div>
       </ha-card>
