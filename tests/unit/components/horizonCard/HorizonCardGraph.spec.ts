@@ -72,6 +72,18 @@ describe('HorizonCardGraph', () => {
 
       expect(html).toMatchSnapshot()
     })
+
+    it(`does not render the sun when not configured so`, async () => {
+      const config = {
+        sun: false
+      } as IHorizonCardConfig
+
+      const horizonCardGraph = new HorizonCardGraph(config, Constants.DEFAULT_CARD_DATA)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardGraph)
+
+      expect(html).toMatchSnapshot()
+    })
   })
 
   it(`renders the graph flipped horizontally when configured so`, async () => {

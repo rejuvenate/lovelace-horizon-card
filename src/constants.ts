@@ -36,6 +36,7 @@ export class Constants {
   static readonly DEFAULT_CONFIG: IHorizonCardConfig = {
     type: 'horizon-card',
     moon: true,
+    sun: true,
     graph: true,
     debug_level: 0,
     refresh_period: Constants.DEFAULT_REFRESH_PERIOD,
