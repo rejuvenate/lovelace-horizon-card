@@ -8,5 +8,13 @@
   "moonset": "Apus lunii",
   "noon": "Zenit",
   "sunrise": "Răsărit",
-  "sunset": "Apus"
+  "sunset": "Apus",
+  "new_moon": "Lună nouă",
+  "waxing_crescent": "Lună crescătoare",
+  "first_quarter": "Primul pătrar",
+  "waxing_gibbous": "Lună gibboasă crescătoare",
+  "full_moon": "Lună plină",
+  "waning_gibbous": "Lună gibboasă descrescătoare",
+  "last_quarter": "Ultimul pătrar",
+  "waning_crescent": "Lună descrescătoare"
 }

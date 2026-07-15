@@ -8,5 +8,13 @@
   "moonset": "Månenedgang",
   "noon": "Middag",
   "sunrise": "Solopgang",
-  "sunset": "Solnedgang"
+  "sunset": "Solnedgang",
+  "new_moon": "Nymåne",
+  "waxing_crescent": "Tiltagende halvmåne",
+  "first_quarter": "Første kvarter",
+  "waxing_gibbous": "Tiltagende måne",
+  "full_moon": "Fuldmåne",
+  "waning_gibbous": "Aftagende måne",
+  "last_quarter": "Sidste kvarter",
+  "waning_crescent": "Aftagende halvmåne"
 }

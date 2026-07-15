@@ -39,6 +39,5 @@ export const SaneHomeAssistant = {
   },
   themes: {
     darkMode: true
-  },
-  localize: (key) => key
+  }
 } as unknown as HomeAssistant

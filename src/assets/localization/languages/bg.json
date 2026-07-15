@@ -8,5 +8,13 @@
   "moonset": "Лунен залез",
   "noon": "Пладне",
   "sunrise": "Изгрев",
-  "sunset": "Залез"
+  "sunset": "Залез",
+  "new_moon": "Новолуние",
+  "waxing_crescent": "Изгряващ полумесец",
+  "first_quarter": "Първа четвърт",
+  "waxing_gibbous": "Растяща луна",
+  "full_moon": "Пълнолуние",
+  "waning_gibbous": "Намаляваща луна",
+  "last_quarter": "Последна четвърт",
+  "waning_crescent": "Залязващ полумесец"
 }

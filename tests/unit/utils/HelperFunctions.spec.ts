@@ -6,8 +6,7 @@ import { I18N } from '../../../src/utils/I18N'
 import { TemplateResultTestHelper } from '../../helpers/TestHelpers'
 
 describe('HelperFunctions', () => {
-  const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language,
-    (key) => key)
+  const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language)
 
   describe('renderFieldElement', () => {
     it('returns a field element template when the provided value is undefined', async () => {
@@ -19,8 +18,7 @@ describe('HelperFunctions', () => {
     })
 
     it('returns a field element template when the provided value is a date for 24h clock', async () => {
-      const i18n = new I18N('en', 'UTC', TimeFormat.twenty_four, NumberFormat.language,
-        (key) => key)
+      const i18n = new I18N('en', 'UTC', TimeFormat.twenty_four, NumberFormat.language)
 
       const date = new Date('2021-06-07T21:37:17.812Z')
 
@@ -32,8 +30,7 @@ describe('HelperFunctions', () => {
     })
 
     it('returns a field element template when the provided value is a date for 12h clock with post-am/pm', async () => {
-      const i18n = new I18N('en', 'UTC', TimeFormat.am_pm, NumberFormat.language,
-        (key) => key)
+      const i18n = new I18N('en', 'UTC', TimeFormat.am_pm, NumberFormat.language)
 
       const date = new Date('2021-06-07T21:37:17.812Z')
 
@@ -45,8 +42,7 @@ describe('HelperFunctions', () => {
     })
 
     it('returns a field element template when the provided value is a date for 12 clock with pre-am/pm', async () => {
-      const i18n = new I18N('tr', 'UTC', TimeFormat.am_pm, NumberFormat.language,
-        (key) => key)
+      const i18n = new I18N('tr', 'UTC', TimeFormat.am_pm, NumberFormat.language)
 
       const date = new Date('2021-06-07T21:37:17.812Z')
 
@@ -73,7 +69,7 @@ describe('HelperFunctions', () => {
       expect(html).toMatchSnapshot()
     })
 
-    it('returns a field element template when the provided value is a TMoonPhase', async () => {
+    it('renders the moon phase name in the card language (English)', async () => {
       const renderFun = () => HelperFunctions.renderMoonElement(i18n, Constants.MOON_PHASES.fullMoon, 0)
 
       const html = await TemplateResultTestHelper.renderFunction(renderFun)
@@ -81,11 +77,9 @@ describe('HelperFunctions', () => {
       expect(html).toMatchSnapshot()
     })
 
-    it('returns a field element template when Moon integration is missing', async () => {
-      // When Moon integration is missing hass.localize() returns an empty string
-      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language,
-        () => '')
-      const renderFun = () => HelperFunctions.renderMoonElement(i18n, Constants.MOON_PHASES.fullMoon, 0)
+    it('renders the moon phase name translated in the card language', async () => {
+      const deI18n = new I18N('de', 'UTC', TimeFormat.language, NumberFormat.language)
+      const renderFun = () => HelperFunctions.renderMoonElement(deI18n, Constants.MOON_PHASES.fullMoon, 0)
 
       const html = await TemplateResultTestHelper.renderFunction(renderFun)
 

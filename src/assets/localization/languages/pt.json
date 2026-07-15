@@ -8,5 +8,13 @@
   "moonset": "Amanhecer",
   "noon": "Meio dia",
   "sunrise": "Nascer do sol",
-  "sunset": "Pôr do sol"
+  "sunset": "Pôr do sol",
+  "new_moon": "Lua nova",
+  "waxing_crescent": "Lua crescente",
+  "first_quarter": "Quarto crescente",
+  "waxing_gibbous": "Lua crescente gibosa",
+  "full_moon": "Lua cheia",
+  "waning_gibbous": "Lua minguante gibosa",
+  "last_quarter": "Quarto minguante",
+  "waning_crescent": "Lua minguante"
 }

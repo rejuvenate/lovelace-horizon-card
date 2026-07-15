@@ -8,5 +8,13 @@
   "moonset": "月の入り",
   "noon": "南中",
   "sunrise": "日の出",
-  "sunset": "日没"
+  "sunset": "日没",
+  "new_moon": "新月",
+  "waxing_crescent": "三日月",
+  "first_quarter": "上弦の月",
+  "waxing_gibbous": "十三夜の月",
+  "full_moon": "満月",
+  "waning_gibbous": "十六夜の月",
+  "last_quarter": "下弦の月",
+  "waning_crescent": "有明の月"
 }

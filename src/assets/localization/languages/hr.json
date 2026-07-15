@@ -8,5 +8,13 @@
   "moonset": "Zalazak mjeseca",
   "noon": "Sunčano podne",
   "sunrise": "Izlazak sunca",
-  "sunset": "Zalazak sunca"
+  "sunset": "Zalazak sunca",
+  "new_moon": "Mladi Mjesec",
+  "waxing_crescent": "Rastući polumjesec",
+  "first_quarter": "Prva četvrt",
+  "waxing_gibbous": "Rastući ispupčeni Mjesec",
+  "full_moon": "Pun Mjesec",
+  "waning_gibbous": "Opadajući ispupčeni Mjesec",
+  "last_quarter": "Posljednja četvrt",
+  "waning_crescent": "Opadajući polumjesec"
 }

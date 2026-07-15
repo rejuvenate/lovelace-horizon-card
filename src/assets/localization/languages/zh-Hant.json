@@ -8,5 +8,13 @@
   "moonset": "月落",
   "noon": "日正當中",
   "sunrise": "日昇",
-  "sunset": "日落"
+  "sunset": "日落",
+  "new_moon": "新月",
+  "waxing_crescent": "蛾眉月",
+  "first_quarter": "上弦月",
+  "waxing_gibbous": "盈凸月",
+  "full_moon": "滿月",
+  "waning_gibbous": "虧凸月",
+  "last_quarter": "下弦月",
+  "waning_crescent": "殘月"
 }

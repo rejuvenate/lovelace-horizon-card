@@ -37,7 +37,7 @@ If showing the moon phase is enabled, the icon will be rotated to match the appr
 
 ## Installation
 
-Please ensure you have [HACS](https://hacs.xyz/), the [Sun integration](https://www.home-assistant.io/integrations/sun/) and the [Moon Integration](https://www.home-assistant.io/integrations/moon/) (_for the moon info_) enabled in your Home Assistant setup.
+Please ensure you have [HACS](https://hacs.xyz/) and the [Sun integration](https://www.home-assistant.io/integrations/sun/) enabled in your Home Assistant setup.
 
 If you have My Home Assistant configured, simply click here:
 
@@ -199,10 +199,6 @@ Supported options for the `language` setting:
 > **Contributing a translation?** Just add a `<code>.json` file under [`src/assets/localization/languages/`](src/assets/localization/languages/) — copy `en.json`, translate the values, and set `languageName`. The list above and the internal index are regenerated automatically when you open a pull request, so there is nothing else to run or edit.
 
 _Example: [here](#example-config)_
-
-### Caveats
-
-The Moon phase name (if the field `moon_phase` is enabled) is obtained via the [Moon integration](https://www.home-assistant.io/integrations/moon/), localized in Home Assistant's language. If the integration is not installed, the card falls back to its own phase name (e.g. `Full moon`), shown in the card's `language` when that translation exists and in English otherwise. Note that when the Moon integration _is_ installed, its name always follows Home Assistant's language rather than the card's `language` option.
 
 ### Example config
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`HelperFunctions renderFieldElement returns a field element template when Moon integration is missing 1`] = `
+exports[`HelperFunctions renderFieldElement renders the moon phase name in the card language (English) 1`] = `
 <div class="horizon-card-text-container">
   <div class="horizon-card-field-moon-phase"
        style="transform: rotate(0deg)"
@@ -14,7 +14,7 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
 </div>
 `;
 
-exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a TMoonPhase 1`] = `
+exports[`HelperFunctions renderFieldElement renders the moon phase name translated in the card language 1`] = `
 <div class="horizon-card-text-container">
   <div class="horizon-card-field-moon-phase"
        style="transform: rotate(0deg)"
@@ -23,7 +23,7 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
     </ha-icon>
   </div>
   <div class="horizon-card-field-value horizon-card-field-value-moon-phase">
-    component.moon.entity.sensor.phase.state.full_moon
+    Vollmond
   </div>
 </div>
 `;

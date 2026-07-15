@@ -8,5 +8,13 @@
   "moonset": "Monduntergang",
   "noon": "Mittag",
   "sunrise": "Sonnenaufgang",
-  "sunset": "Sonnenuntergang"
+  "sunset": "Sonnenuntergang",
+  "new_moon": "Neumond",
+  "waxing_crescent": "Zunehmende Sichel",
+  "first_quarter": "Erstes Viertel",
+  "waxing_gibbous": "Zunehmender Dreiviertelmond",
+  "full_moon": "Vollmond",
+  "waning_gibbous": "Abnehmender Dreiviertelmond",
+  "last_quarter": "Letztes Viertel",
+  "waning_crescent": "Abnehmende Sichel"
 }

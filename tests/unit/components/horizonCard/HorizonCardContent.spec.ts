@@ -17,7 +17,7 @@ describe('HorizonCardContent', () => {
         language: 'en'
       }
 
-      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language, (key) => key)
+      const i18n = new I18N('en', 'UTC', TimeFormat.language, NumberFormat.language)
       const horizonCardContent = new HorizonCardContent(config, {} as THorizonCardData, i18n)
 
       const html = await TemplateResultTestHelper.renderElement(horizonCardContent)

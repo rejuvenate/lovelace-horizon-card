@@ -552,7 +552,7 @@ export class HorizonCard extends LitElement {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return new I18N(config.language!, display_time_zone, config.time_format!, config.number_format!, this.lastHass.localize)
+    return new I18N(config.language!, display_time_zone, config.time_format!, config.number_format!)
   }
 
   private roundDegree (value: number) {

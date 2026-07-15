@@ -8,5 +8,13 @@
   "moonset": "Ayın batışı",
   "noon": "Öğle",
   "sunrise": "Gündoğumu",
-  "sunset": "Günbatımı"
+  "sunset": "Günbatımı",
+  "new_moon": "Yeni ay",
+  "waxing_crescent": "Büyüyen hilal",
+  "first_quarter": "İlk dördün",
+  "waxing_gibbous": "Büyüyen şişkin ay",
+  "full_moon": "Dolunay",
+  "waning_gibbous": "Küçülen şişkin ay",
+  "last_quarter": "Son dördün",
+  "waning_crescent": "Küçülen hilal"
 }

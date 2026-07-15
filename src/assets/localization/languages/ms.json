@@ -8,5 +8,13 @@
   "moonset": "Bulan terbenam",
   "noon": "Tengahari",
   "sunrise": "Matahari terbit",
-  "sunset": "Matahari terbenam"
+  "sunset": "Matahari terbenam",
+  "new_moon": "Anak bulan",
+  "waxing_crescent": "Bulan sabit",
+  "first_quarter": "Perbani awal",
+  "waxing_gibbous": "Bulan bunting pelanduk",
+  "full_moon": "Bulan purnama",
+  "waning_gibbous": "Bulan bincul akhir",
+  "last_quarter": "Perbani akhir",
+  "waning_crescent": "Hilal akhir"
 }
