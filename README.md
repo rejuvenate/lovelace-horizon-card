@@ -202,7 +202,7 @@ _Example: [here](#example-config)_
 
 ### Caveats
 
-The Moon phase name (if the field `moon_phase` is enabled) is obtained via the [Moon integration](https://www.home-assistant.io/integrations/moon/). If the integration is not installed, the card will still show the Moon phase as a human-readable constant followed by `(!)`, e.g., `waning_gibbuous (!)`. Due to the way Home Assistant works, the localized Moon phase name will always be in Home Assistant's language and not in the language set for the card via the `language` option.
+The Moon phase name (if the field `moon_phase` is enabled) is obtained via the [Moon integration](https://www.home-assistant.io/integrations/moon/), localized in Home Assistant's language. If the integration is not installed, the card falls back to its own phase name (e.g. `Full moon`), shown in the card's `language` when that translation exists and in English otherwise. Note that when the Moon integration _is_ installed, its name always follows Home Assistant's language rather than the card's `language` option.
 
 ### Example config
 
