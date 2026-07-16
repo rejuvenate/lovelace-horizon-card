@@ -41,7 +41,7 @@ export interface IHorizonCardConfig extends LovelaceCardConfig {
   refresh_period?: number
   debug_level?: number
 
-  fields?: THorizonCardFields
+  fields?: THorizonCardFields | false
 }
 
 export type TSunTimes = {

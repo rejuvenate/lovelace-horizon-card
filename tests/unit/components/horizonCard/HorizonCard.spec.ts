@@ -174,6 +174,24 @@ describe('HorizonCard', () => {
         })
       }
     }
+
+    it('hides all fields when fields is set to false', () => {
+      const config = {
+        type: HorizonCard.cardType,
+        fields: false
+      } as IHorizonCardConfig
+
+      horizonCard.setConfig(config)
+      horizonCard.hass = SaneHomeAssistant
+      const expandedConfig = horizonCard['expandedConfig']()
+      const allFields = ['sunrise', 'sunset', 'dawn', 'noon', 'dusk',
+        'azimuth', 'sun_azimuth', 'moon_azimuth',
+        'elevation', 'sun_elevation', 'moon_elevation',
+        'moonrise', 'moonset', 'moon_phase']
+      for (const field of allFields) {
+        expect(expandedConfig.fields?.[field]).toEqual(false)
+      }
+    })
   })
 
   describe('render', () => {

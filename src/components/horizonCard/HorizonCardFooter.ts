@@ -30,8 +30,7 @@ export class HorizonCardFooter {
     this.i18n = i18n
     this.sunTimes = data.sunData.times
     this.moonTimes = data.moonData.times
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.fields = config.fields!
+    this.fields = config.fields as THorizonCardFields
 
     this.azimuths = []
     if (this.fields.sun_azimuth) {
@@ -62,7 +61,7 @@ export class HorizonCardFooter {
     this.southern_flip = config.southern_flip!
   }
 
-  public render (): TemplateResult {
+  public render (): TemplateResult | typeof nothing {
     const dawn = this.fields.dawn
       ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Dawn, this.sunTimes.dawn)
       : nothing
@@ -81,38 +80,40 @@ export class HorizonCardFooter {
     const moonLeft = this.southern_flip ? moonset : moonrise
     const moonRight = this.southern_flip ? moonrise : moonset
 
+    const sunRow = this.renderRow(
+      sunLeft,
+      this.fields.noon
+        ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Noon, this.sunTimes.noon)
+        : nothing,
+      sunRight
+    )
+    const azimuthElevationRow = this.renderRow(
+      this.fields.sun_azimuth || this.fields.moon_azimuth
+        ? HelperFunctions.renderFieldElements(this.i18n, EHorizonCardI18NKeys.Azimuth, this.azimuths,
+          this.azimuthExtraClasses)
+        : nothing,
+      this.fields.sun_elevation || this.fields.moon_elevation
+        ? HelperFunctions.renderFieldElements(this.i18n, EHorizonCardI18NKeys.Elevation, this.elevations,
+          this.elevationExtraClasses)
+        : nothing
+    )
+    const moonRow = this.renderRow(
+      moonLeft,
+      this.fields.moon_phase
+        ? HelperFunctions.renderMoonElement(this.i18n, this.data.moonData.phase, this.data.moonData.phaseRotation)
+        : nothing,
+      moonRight
+    )
+
+    if (sunRow === nothing && azimuthElevationRow === nothing && moonRow === nothing) {
+      return nothing
+    }
+
     return html`
       <div class="horizon-card-footer">
-        ${
-          this.renderRow(
-            sunLeft,
-            this.fields.noon
-              ? HelperFunctions.renderFieldElement(this.i18n, EHorizonCardI18NKeys.Noon, this.sunTimes.noon)
-              : nothing,
-            sunRight
-          )
-        }
-        ${
-          this.renderRow(
-            this.fields.sun_azimuth || this.fields.moon_azimuth
-              ? HelperFunctions.renderFieldElements(this.i18n, EHorizonCardI18NKeys.Azimuth, this.azimuths,
-                this.azimuthExtraClasses)
-              : nothing,
-            this.fields.sun_elevation || this.fields.moon_elevation
-              ? HelperFunctions.renderFieldElements(this.i18n, EHorizonCardI18NKeys.Elevation, this.elevations,
-                this.elevationExtraClasses)
-              : nothing
-          )
-        }
-        ${
-          this.renderRow(
-            moonLeft,
-            this.fields.moon_phase
-              ? HelperFunctions.renderMoonElement(this.i18n, this.data.moonData.phase, this.data.moonData.phaseRotation)
-              : nothing,
-            moonRight
-          )
-        }
+        ${sunRow}
+        ${azimuthElevationRow}
+        ${moonRow}
       </div>
     `
   }

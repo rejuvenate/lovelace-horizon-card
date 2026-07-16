@@ -149,6 +149,8 @@ Supported settings inside the `fields` setting:
 | moonset        | _boolean_       | Show moonset time           | `false`              |
 | moon_phase     | _boolean_       | Show the Moon phase         | `false`              |
 
+To hide **all** fields at once, set `fields: false` (instead of an object) — handy for a graph-only card.
+
 _Example: [here](#example-config)_
 
 ### Languages

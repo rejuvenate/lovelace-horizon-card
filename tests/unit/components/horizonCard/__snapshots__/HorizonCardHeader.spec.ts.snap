@@ -1,9 +1,6 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`HorizonCardHeader render does not render the sunrise field when it is not present in the data and it is disabled on the config 1`] = `
-<div class="horizon-card-header">
-</div>
-`;
+exports[`HorizonCardHeader render does not render the sunrise field when it is not present in the data and it is disabled on the config 1`] = ``;
 
 exports[`HorizonCardHeader render does not render the sunrise field when it is not present in the data but it is activated on the config 1`] = `
 <div class="horizon-card-header">
@@ -18,15 +15,9 @@ exports[`HorizonCardHeader render does not render the sunrise field when it is n
 </div>
 `;
 
-exports[`HorizonCardHeader render does not render the sunrise field when it is present in the data but it is disabled on the config 1`] = `
-<div class="horizon-card-header">
-</div>
-`;
+exports[`HorizonCardHeader render does not render the sunrise field when it is present in the data but it is disabled on the config 1`] = ``;
 
-exports[`HorizonCardHeader render does not render the sunset field when it is not present in the data and it is disabled on the config 1`] = `
-<div class="horizon-card-header">
-</div>
-`;
+exports[`HorizonCardHeader render does not render the sunset field when it is not present in the data and it is disabled on the config 1`] = ``;
 
 exports[`HorizonCardHeader render does not render the sunset field when it is not present in the data but it is activated on the config 1`] = `
 <div class="horizon-card-header">
@@ -41,15 +32,9 @@ exports[`HorizonCardHeader render does not render the sunset field when it is no
 </div>
 `;
 
-exports[`HorizonCardHeader render does not render the sunset field when it is present in the data but it is disabled on the config 1`] = `
-<div class="horizon-card-header">
-</div>
-`;
+exports[`HorizonCardHeader render does not render the sunset field when it is present in the data but it is disabled on the config 1`] = ``;
 
-exports[`HorizonCardHeader render does not render the title if it is not present in the configuration 1`] = `
-<div class="horizon-card-header">
-</div>
-`;
+exports[`HorizonCardHeader render does not render the title if it is not present in the configuration 1`] = ``;
 
 exports[`HorizonCardHeader render renders the sunrise field when it is present in the data and it is activated on the config 1`] = `
 <div class="horizon-card-header">
@@ -80,7 +65,5 @@ exports[`HorizonCardHeader render renders the sunset field when it is present in
 exports[`HorizonCardHeader render renders the title if it is present in the configuration 1`] = `
 <div class="horizon-card-title">
   test
-</div>
-<div class="horizon-card-header">
 </div>
 `;

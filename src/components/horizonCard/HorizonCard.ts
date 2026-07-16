@@ -506,6 +506,16 @@ export class HorizonCard extends LitElement {
   }
 
   private expandedFieldConfig (): THorizonCardFields {
+    if (this.config.fields === false) {
+      // `fields: false` hides every field at once.
+      return {
+        sunrise: false, sunset: false, dawn: false, noon: false, dusk: false,
+        azimuth: false, sun_azimuth: false, moon_azimuth: false,
+        elevation: false, sun_elevation: false, moon_elevation: false,
+        moonrise: false, moonset: false, moon_phase: false
+      }
+    }
+
     const fieldConfig = {
       ...Constants.DEFAULT_CONFIG.fields,
       ...this.config.fields
@@ -520,7 +530,7 @@ export class HorizonCard extends LitElement {
     return fieldConfig
   }
 
-  private expandedConfig (): IHorizonCardConfig {
+  private expandedConfig (): IHorizonCardConfig & { fields: THorizonCardFields } {
     const config = {
       ...Constants.DEFAULT_CONFIG,
       ...this.config,
