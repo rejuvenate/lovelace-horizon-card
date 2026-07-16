@@ -121,5 +121,16 @@ describe('HorizonCardFooter', () => {
         expect(html).toMatchSnapshot()
       })
     }
+
+    it('renders nothing when no fields are configured', async () => {
+      const config = { fields: { ...falseFields } } as IHorizonCardConfig
+      const data = emptyData() as unknown as THorizonCardData
+
+      const horizonCardFooter = new HorizonCardFooter(config, data, i18n)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardFooter)
+
+      expect(html).toMatchSnapshot()
+    })
   })
 })

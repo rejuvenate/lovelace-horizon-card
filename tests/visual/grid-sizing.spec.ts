@@ -19,7 +19,7 @@ const CONTAINER_WIDTH = 492
 const cases: { name: string, config: Record<string, unknown> }[] = [
   {
     name: 'graph-only',
-    config: { fields: { sunrise: false, sunset: false, dawn: false, noon: false, dusk: false } }
+    config: { fields: false }
   },
   {
     name: 'default-fields',

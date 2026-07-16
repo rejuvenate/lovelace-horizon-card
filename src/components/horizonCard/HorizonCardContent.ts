@@ -38,7 +38,7 @@ export class HorizonCardContent {
     return new HorizonCardGraph(this.config, this.data).render()
   }
 
-  private renderFooter (): TemplateResult {
+  private renderFooter (): TemplateResult | typeof nothing {
     return new HorizonCardFooter(this.config, this.data, this.i18n).render()
   }
 }
