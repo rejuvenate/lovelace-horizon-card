@@ -101,6 +101,7 @@ Installation via HACS is recommended, but a manual setup is supported.
 | ------------------- | ------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------- |
 | title               | _string_                        | Card title                                                       | Doesn't display a title by default                             |
 | moon                | _boolean_                       | Shows the Moon together with the Sun                             | `true`                                                         |
+| sun                 | _boolean_                       | Shows the Sun in the graph                                       | `true`                                                         |
 | graph               | _boolean_                       | Shows the horizon graph                                          | `true`                                                         |
 | refresh_period      | _number_                        | Refresh period between updates, in seconds (`0` disables refresh) | `20`                                                          |
 | fields              | See [below](#visibility-fields) | Fine-tuned control over visible fields                           |                                                                |
@@ -209,6 +210,7 @@ The following YAML configuration illustrates the use of all options.
 type: custom:horizon-card
 title: Example Horizon Card
 moon: true
+sun: true
 graph: true
 refresh_period: 20
 fields:

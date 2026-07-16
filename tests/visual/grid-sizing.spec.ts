@@ -78,6 +78,19 @@ const cases: { name: string, config: Record<string, unknown> }[] = [
         azimuth: true, elevation: true, moonrise: true, moonset: true, moon_phase: true
       }
     }
+  },
+  {
+    // Guard for `sun: false` (#126 "Moon only"): the graph renders the moon over
+    // the horizon with no sun disc, no sun curve, no day/night shading and no
+    // sunrise/sunset markers.
+    name: 'moon-only-no-sun',
+    config: {
+      sun: false,
+      fields: {
+        sunrise: false, sunset: false, dawn: false, noon: false, dusk: false,
+        moonrise: true, moonset: true, moon_phase: true
+      }
+    }
   }
 ]
 

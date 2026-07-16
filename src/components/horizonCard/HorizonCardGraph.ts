@@ -44,6 +44,7 @@ export class HorizonCardGraph {
 
   private renderSvg () {
     const curve = this.sunCurve(this.sunPosition.scaleY)
+    const showSun = this.config.sun !== false
 
     return svg`
       <defs>
@@ -101,6 +102,7 @@ export class HorizonCardGraph {
 
       ${this.debugRect()}
 
+      ${showSun ? svg`
       <!-- Draw the sunrise and sunset markers (the gray vertical lines) -->
       <g transform="scale(${this.southernFlip ? -1 : 1} 1)" transform-origin="center">
         <line x1="${this.sunPosition.sunriseX}" y1="3"
@@ -109,10 +111,11 @@ export class HorizonCardGraph {
         <line x1="${this.sunPosition.sunsetX}"
               y1="3" x2="${this.sunPosition.sunsetX}" y2="72"
               stroke="var(--hc-lines)"/>
-      </g>
+      </g>` : nothing}
 
       <!-- Main group that shifts up or down to center the horizon vertically -->
       <g transform="translate(0 ${this.sunPosition.offsetY}) scale(${this.southernFlip ? -1 : 1} 1)" transform-origin="center">
+        ${showSun ? svg`
         <!-- Draw path of the sun across the sky -->
         <use href="#sun-path"
              fill="none"
@@ -129,7 +132,7 @@ export class HorizonCardGraph {
           d="M${this.sunPosition.sunriseX},0 H${this.sunPosition.x}
             V${this.sunPosition.horizonY} H${this.sunPosition.sunriseX}"
           clip-path="url(#upper-path-mask)"
-          class="day"/>
+          class="day"/>` : nothing}
 
         <!-- Draw the horizon (the gray horizontal lines) -->
         <line x1="5" y1="${this.sunPosition.horizonY}"
@@ -140,13 +143,14 @@ export class HorizonCardGraph {
         <path d="M535 ${this.sunPosition.horizonY - 5} L545 ${this.sunPosition.horizonY} L535 ${this.sunPosition.horizonY + 5}"
               stroke="var(--hc-lines)" fill="none"/>
 
+        ${showSun ? svg`
         <!-- Draw the sun -->
         <circle
           cx="${this.sunPosition.x}"
           cy="${this.sunPosition.y}"
           r="${Constants.SUN_RADIUS}"
           stroke="none"
-          fill="var(--hc-sun-color)"/>
+          fill="var(--hc-sun-color)"/>` : nothing}
 
         ${this.debugSun()}
       </g>
