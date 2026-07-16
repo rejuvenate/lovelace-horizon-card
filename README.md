@@ -245,9 +245,9 @@ debug_level: 0
 
 ### Card background and embedding
 
-The card renders inside Home Assistant's standard `ha-card`, so its background, border and shadow follow your theme. There is no card-specific option to switch them off — use Home Assistant's normal styling mechanisms instead, e.g. a theme or [card-mod](https://github.com/thomasloven/lovelace-card-mod).
+The card renders inside Home Assistant's standard `ha-card`, so its background, border and shadow follow your theme. Restyle it with a theme, [card-mod](https://github.com/thomasloven/lovelace-card-mod) or [Uix](https://github.com/Lint-Free-Technology/uix). The examples use card-mod; for Uix, replace the `card_mod:` key with `uix:`.
 
-**Make the card transparent** (remove its background, border and shadow), for example to blend it into a dashboard:
+**Transparent card** (remove the background, border and shadow, for example to blend into a dashboard):
 
 ```yaml
 type: custom:horizon-card
@@ -260,30 +260,22 @@ card_mod:
     }
 ```
 
-**Graph only, edge to edge** — additionally collapse the card's inner padding and margins so the graph fills the width with no whitespace below (handy inside a `vertical-stack`):
+**Fill the card, edge to edge** (graph only, for example inside a `vertical-stack`): hide the fields with `fields: false` and set the padding to `0`.
 
 ```yaml
 type: custom:horizon-card
-moon: true
-fields:
-  sunrise: false
-  sunset: false
-  dawn: false
-  noon: false
-  dusk: false
+fields: false
 card_mod:
   style: |
     ha-card {
       --ha-card-background: none;
       --ha-card-box-shadow: none;
       --ha-card-border-width: 0;
+      --hc-card-padding: 0;
     }
-    .horizon-card { padding: 0; }
-    .horizon-card-graph { margin: 0; }
-    .horizon-card-footer { margin-bottom: 0; }
 ```
 
-The `--ha-card-*` custom properties are Home Assistant's standard card variables (a theme can set them too); the `.horizon-card*` selectors target the card's internal layout.
+The graph and the fields share the same horizontal margin, so they line up and either can reach the card edge. All spacing is adjustable through variables: `--hc-card-padding` (default `0.5em`), `--hc-graph-margin` (default `1em 0`) and `--hc-footer-margin` (default `1em`, the space below the fields). Set `graph: false` for a values-only card.
 
 ## Development
 

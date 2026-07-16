@@ -48,7 +48,7 @@ export default css`
   }
 
   .horizon-card {
-    padding: 0.5em;
+    padding: var(--hc-card-padding, 0.5em);
     font-family: var(--primary-font-family);
   }
 
@@ -111,7 +111,7 @@ export default css`
   }
 
   .horizon-card-footer {
-    margin-bottom: 1em;
+    margin-bottom: var(--hc-footer-margin, 1em);
   }
 
   .horizon-card-title {
@@ -121,7 +121,7 @@ export default css`
   }
 
   .horizon-card-graph {
-    margin: 1em 0.5em 1em 0.5em;
+    margin: var(--hc-graph-margin, 1em 0);
   }
 
   .horizon-card-graph .dawn {
