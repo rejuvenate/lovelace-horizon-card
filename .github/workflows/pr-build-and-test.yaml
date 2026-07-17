@@ -34,3 +34,10 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Upload built card
+        uses: actions/upload-artifact@v4
+        with:
+          name: lovelace-horizon-card
+          path: dist/lovelace-horizon-card.js
+          if-no-files-found: error
