@@ -20,6 +20,9 @@
 #   Each test is a vertical-stack: a markdown note (what to look at, current vs
 #   target) followed by the card(s). "CURRENT" = how v1.5.3 behaves today.
 #   "TARGET" = what the #204/#219/#220 batch should make possible.
+#   The view uses a dark grey background so each card (and the transparent ones)
+#   stands out. If your HA ignores the view `background:` key, switch to a dark
+#   theme instead.
 # =============================================================================
 
 title: Horizon Card Tests
@@ -28,6 +31,7 @@ views:
     path: horizon-tests
     icon: mdi:white-balance-sunny
     type: masonry
+    background: "#2e2e2e"
     cards:
 
       # ---------------------------------------------------------------------
@@ -341,3 +345,42 @@ views:
           - type: custom:horizon-card
             now: "2023-04-05T22:00:00Z"
             fields: false
+
+      # ---------------------------------------------------------------------
+      # H. Per-field targeting (#219)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## H. Per-field targeting (#219)
+              Every field now has its own class `.horizon-card-field-<name>`, so a
+              single value can be styled without nth-of-type. Here sunrise/sunset
+              are tinted sun-orange, moonrise/moonset moon-blue, and the moon phase
+              icon is recoloured via `--hc-moon-phase-icon-color`.
+          - type: custom:horizon-card
+            title: Field targeting
+            fields:
+              sunrise: true
+              sunset: true
+              dawn: true
+              dusk: true
+              noon: true
+              moonrise: true
+              moonset: true
+              moon_phase: true
+            card_mod:
+              style: |
+                .horizon-card-field-sunrise .horizon-card-field-value,
+                .horizon-card-field-sunset .horizon-card-field-value {
+                  color: #ffb74d;
+                  font-weight: 600;
+                }
+                .horizon-card-field-moonrise .horizon-card-field-value,
+                .horizon-card-field-moonset .horizon-card-field-value {
+                  color: #4fc3f7;
+                  font-weight: 600;
+                }
+                ha-card {
+                  --hc-moon-phase-icon-color: #ff8a65;
+                }
