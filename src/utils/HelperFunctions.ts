@@ -19,7 +19,7 @@ export class HelperFunctions {
 
   public static renderFieldElement (i18n: I18N, translationKey: string, value: FieldValue | TemplateResult[]): TemplateResult {
     return html`
-      <div class="horizon-card-text-container">
+      <div class="horizon-card-text-container horizon-card-field-${translationKey}">
         <div class="horizon-card-field-name">${ i18n.tr(translationKey) }</div>
         ${value instanceof Array ? value : this.valueToHtml(i18n, translationKey, value) }
       </div>
@@ -37,8 +37,8 @@ export class HelperFunctions {
     const moon_phase_localized = i18n.tr(phase.state)
 
     return html`
-      <div class="horizon-card-text-container">
-        <div class="horizon-card-field-moon-phase" style="transform: rotate(${phaseRotation}deg)">
+      <div class="horizon-card-text-container horizon-card-field-moon-phase">
+        <div class="horizon-card-field-moon-phase-icon" style="transform: rotate(${phaseRotation}deg)">
           <ha-icon icon="mdi:${phase.icon}"></ha-icon>
         </div>
         <div class="horizon-card-field-value horizon-card-field-value-moon-phase">${moon_phase_localized}</div>

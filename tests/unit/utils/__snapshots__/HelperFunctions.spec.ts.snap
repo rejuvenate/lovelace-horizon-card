@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`HelperFunctions renderFieldElement renders the moon phase name in the card language (English) 1`] = `
-<div class="horizon-card-text-container">
-  <div class="horizon-card-field-moon-phase"
+<div class="horizon-card-text-container horizon-card-field-moon-phase">
+  <div class="horizon-card-field-moon-phase-icon"
        style="transform: rotate(0deg)"
   >
     <ha-icon icon="mdi:moon-full">
@@ -15,8 +15,8 @@ exports[`HelperFunctions renderFieldElement renders the moon phase name in the c
 `;
 
 exports[`HelperFunctions renderFieldElement renders the moon phase name translated in the card language 1`] = `
-<div class="horizon-card-text-container">
-  <div class="horizon-card-field-moon-phase"
+<div class="horizon-card-text-container horizon-card-field-moon-phase">
+  <div class="horizon-card-field-moon-phase-icon"
        style="transform: rotate(0deg)"
   >
     <ha-icon icon="mdi:moon-full">
@@ -29,7 +29,7 @@ exports[`HelperFunctions renderFieldElement renders the moon phase name translat
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a date for 12 clock with pre-am/pm 1`] = `
-<div class="horizon-card-text-container">
+<div class="horizon-card-text-container horizon-card-field-sunrise">
   <div class="horizon-card-field-name">
     Gündoğumu
   </div>
@@ -43,7 +43,7 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a date for 12h clock with post-am/pm 1`] = `
-<div class="horizon-card-text-container">
+<div class="horizon-card-text-container horizon-card-field-sunrise">
   <div class="horizon-card-field-name">
     Sunrise
   </div>
@@ -57,7 +57,7 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a date for 24h clock 1`] = `
-<div class="horizon-card-text-container">
+<div class="horizon-card-text-container horizon-card-field-sunrise">
   <div class="horizon-card-field-name">
     Sunrise
   </div>
@@ -68,7 +68,7 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a number 1`] = `
-<div class="horizon-card-text-container">
+<div class="horizon-card-text-container horizon-card-field-sunrise">
   <div class="horizon-card-field-name">
     Sunrise
   </div>
@@ -79,7 +79,7 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is a string 1`] = `
-<div class="horizon-card-text-container">
+<div class="horizon-card-text-container horizon-card-field-sunrise">
   <div class="horizon-card-field-name">
     Sunrise
   </div>
@@ -90,7 +90,7 @@ exports[`HelperFunctions renderFieldElement returns a field element template whe
 `;
 
 exports[`HelperFunctions renderFieldElement returns a field element template when the provided value is undefined 1`] = `
-<div class="horizon-card-text-container">
+<div class="horizon-card-text-container horizon-card-field-sunrise">
   <div class="horizon-card-field-name">
     Sunrise
   </div>

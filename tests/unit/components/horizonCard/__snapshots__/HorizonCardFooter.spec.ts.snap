@@ -29,7 +29,7 @@ exports[`HorizonCardFooter render should not render the sun_elevation,moon_eleva
 exports[`HorizonCardFooter render should render the dawn field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-dawn">
       <div class="horizon-card-field-name">
         dawn
       </div>
@@ -44,7 +44,7 @@ exports[`HorizonCardFooter render should render the dawn field as '-' when it is
 exports[`HorizonCardFooter render should render the dawn field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-dawn">
       <div class="horizon-card-field-name">
         dawn
       </div>
@@ -59,7 +59,7 @@ exports[`HorizonCardFooter render should render the dawn field when it is presen
 exports[`HorizonCardFooter render should render the dusk field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-dusk">
       <div class="horizon-card-field-name">
         dusk
       </div>
@@ -74,7 +74,7 @@ exports[`HorizonCardFooter render should render the dusk field as '-' when it is
 exports[`HorizonCardFooter render should render the dusk field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-dusk">
       <div class="horizon-card-field-name">
         dusk
       </div>
@@ -89,7 +89,7 @@ exports[`HorizonCardFooter render should render the dusk field when it is presen
 exports[`HorizonCardFooter render should render the moon_azimuth field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-azimuth">
       <div class="horizon-card-field-name">
         azimuth
       </div>
@@ -104,7 +104,7 @@ exports[`HorizonCardFooter render should render the moon_azimuth field as '-' wh
 exports[`HorizonCardFooter render should render the moon_azimuth field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-azimuth">
       <div class="horizon-card-field-name">
         azimuth
       </div>
@@ -119,7 +119,7 @@ exports[`HorizonCardFooter render should render the moon_azimuth field when it i
 exports[`HorizonCardFooter render should render the moon_elevation field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-elevation">
       <div class="horizon-card-field-name">
         elevation
       </div>
@@ -134,7 +134,7 @@ exports[`HorizonCardFooter render should render the moon_elevation field as '-' 
 exports[`HorizonCardFooter render should render the moon_elevation field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-elevation">
       <div class="horizon-card-field-name">
         elevation
       </div>
@@ -151,8 +151,8 @@ exports[`HorizonCardFooter render should render the moon_phase field as '-' when
 exports[`HorizonCardFooter render should render the moon_phase field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
-      <div class="horizon-card-field-moon-phase"
+    <div class="horizon-card-text-container horizon-card-field-moon-phase">
+      <div class="horizon-card-field-moon-phase-icon"
            style="transform: rotate(0deg)"
       >
         <ha-icon icon="mdi:moon-full">
@@ -169,7 +169,7 @@ exports[`HorizonCardFooter render should render the moon_phase field when it is 
 exports[`HorizonCardFooter render should render the moonrise field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-moonrise">
       <div class="horizon-card-field-name">
         moonrise
       </div>
@@ -184,7 +184,7 @@ exports[`HorizonCardFooter render should render the moonrise field as '-' when i
 exports[`HorizonCardFooter render should render the moonrise field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-moonrise">
       <div class="horizon-card-field-name">
         moonrise
       </div>
@@ -199,7 +199,7 @@ exports[`HorizonCardFooter render should render the moonrise field when it is pr
 exports[`HorizonCardFooter render should render the moonset field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-moonset">
       <div class="horizon-card-field-name">
         moonset
       </div>
@@ -214,7 +214,7 @@ exports[`HorizonCardFooter render should render the moonset field as '-' when it
 exports[`HorizonCardFooter render should render the moonset field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-moonset">
       <div class="horizon-card-field-name">
         moonset
       </div>
@@ -229,7 +229,7 @@ exports[`HorizonCardFooter render should render the moonset field when it is pre
 exports[`HorizonCardFooter render should render the noon field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-noon">
       <div class="horizon-card-field-name">
         noon
       </div>
@@ -244,7 +244,7 @@ exports[`HorizonCardFooter render should render the noon field as '-' when it is
 exports[`HorizonCardFooter render should render the noon field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-noon">
       <div class="horizon-card-field-name">
         noon
       </div>
@@ -259,7 +259,7 @@ exports[`HorizonCardFooter render should render the noon field when it is presen
 exports[`HorizonCardFooter render should render the sun_azimuth field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-azimuth">
       <div class="horizon-card-field-name">
         azimuth
       </div>
@@ -274,7 +274,7 @@ exports[`HorizonCardFooter render should render the sun_azimuth field as '-' whe
 exports[`HorizonCardFooter render should render the sun_azimuth field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-azimuth">
       <div class="horizon-card-field-name">
         azimuth
       </div>
@@ -289,7 +289,7 @@ exports[`HorizonCardFooter render should render the sun_azimuth field when it is
 exports[`HorizonCardFooter render should render the sun_azimuth,moon_azimuth field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-azimuth">
       <div class="horizon-card-field-name">
         azimuth
       </div>
@@ -307,7 +307,7 @@ exports[`HorizonCardFooter render should render the sun_azimuth,moon_azimuth fie
 exports[`HorizonCardFooter render should render the sun_azimuth,moon_azimuth field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-azimuth">
       <div class="horizon-card-field-name">
         azimuth
       </div>
@@ -325,7 +325,7 @@ exports[`HorizonCardFooter render should render the sun_azimuth,moon_azimuth fie
 exports[`HorizonCardFooter render should render the sun_elevation field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-elevation">
       <div class="horizon-card-field-name">
         elevation
       </div>
@@ -340,7 +340,7 @@ exports[`HorizonCardFooter render should render the sun_elevation field as '-' w
 exports[`HorizonCardFooter render should render the sun_elevation field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-elevation">
       <div class="horizon-card-field-name">
         elevation
       </div>
@@ -355,7 +355,7 @@ exports[`HorizonCardFooter render should render the sun_elevation field when it 
 exports[`HorizonCardFooter render should render the sun_elevation,moon_elevation field as '-' when it is present in the config but no data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-elevation">
       <div class="horizon-card-field-name">
         elevation
       </div>
@@ -373,7 +373,7 @@ exports[`HorizonCardFooter render should render the sun_elevation,moon_elevation
 exports[`HorizonCardFooter render should render the sun_elevation,moon_elevation field when it is present in the config and data for it is provided 1`] = `
 <div class="horizon-card-footer">
   <div class="horizon-card-field-row">
-    <div class="horizon-card-text-container">
+    <div class="horizon-card-text-container horizon-card-field-elevation">
       <div class="horizon-card-field-name">
         elevation
       </div>

@@ -4,7 +4,7 @@ exports[`HorizonCardHeader render does not render the sunrise field when it is n
 
 exports[`HorizonCardHeader render does not render the sunrise field when it is not present in the data but it is activated on the config 1`] = `
 <div class="horizon-card-header">
-  <div class="horizon-card-text-container">
+  <div class="horizon-card-text-container horizon-card-field-sunrise">
     <div class="horizon-card-field-name">
       sunrise
     </div>
@@ -21,7 +21,7 @@ exports[`HorizonCardHeader render does not render the sunset field when it is no
 
 exports[`HorizonCardHeader render does not render the sunset field when it is not present in the data but it is activated on the config 1`] = `
 <div class="horizon-card-header">
-  <div class="horizon-card-text-container">
+  <div class="horizon-card-text-container horizon-card-field-sunset">
     <div class="horizon-card-field-name">
       sunset
     </div>
@@ -38,7 +38,7 @@ exports[`HorizonCardHeader render does not render the title if it is not present
 
 exports[`HorizonCardHeader render renders the sunrise field when it is present in the data and it is activated on the config 1`] = `
 <div class="horizon-card-header">
-  <div class="horizon-card-text-container">
+  <div class="horizon-card-text-container horizon-card-field-sunrise">
     <div class="horizon-card-field-name">
       sunrise
     </div>
@@ -51,7 +51,7 @@ exports[`HorizonCardHeader render renders the sunrise field when it is present i
 
 exports[`HorizonCardHeader render renders the sunset field when it is present in the data and it is activated on the config 1`] = `
 <div class="horizon-card-header">
-  <div class="horizon-card-text-container">
+  <div class="horizon-card-text-container horizon-card-field-sunset">
     <div class="horizon-card-field-name">
       sunset
     </div>
