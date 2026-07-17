@@ -103,21 +103,24 @@ export class HorizonCardGraph {
       ${this.debugRect()}
 
       ${showSun ? svg`
-      <!-- Draw the sunrise and sunset markers (the gray vertical lines) -->
-      <g transform="scale(${this.southernFlip ? -1 : 1} 1)" transform-origin="center">
-        <line x1="${this.sunPosition.sunriseX}" y1="3"
+      <!-- Draw the sunrise and sunset lines (the vertical day/night boundaries) -->
+      <g class="horizon-card-sun-lines" transform="scale(${this.southernFlip ? -1 : 1} 1)" transform-origin="center">
+        <line class="horizon-card-sunrise-line"
+              x1="${this.sunPosition.sunriseX}" y1="3"
               x2="${this.sunPosition.sunriseX}" y2="72"
-              stroke="var(--hc-lines)"/>
-        <line x1="${this.sunPosition.sunsetX}"
+              stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"/>
+        <line class="horizon-card-sunset-line"
+              x1="${this.sunPosition.sunsetX}"
               y1="3" x2="${this.sunPosition.sunsetX}" y2="72"
-              stroke="var(--hc-lines)"/>
+              stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"/>
       </g>` : nothing}
 
       <!-- Main group that shifts up or down to center the horizon vertically -->
       <g transform="translate(0 ${this.sunPosition.offsetY}) scale(${this.southernFlip ? -1 : 1} 1)" transform-origin="center">
         ${showSun ? svg`
         <!-- Draw path of the sun across the sky -->
-        <use href="#sun-path"
+        <use class="horizon-card-sun-path"
+             href="#sun-path"
              fill="none"
              stroke="var(--hc-lines)"/>
 
@@ -125,27 +128,29 @@ export class HorizonCardGraph {
         <path
           d="M5,${this.sunPosition.horizonY} H${this.sunPosition.x} V150 H5"
           clip-path="url(#lower-path-mask)"
-          class="dawn"/>
+          class="dawn horizon-card-nighttime"/>
 
         <!-- Draw the above horizon passed area, i.e., the light blue/day part in the middle -->
         <path
           d="M${this.sunPosition.sunriseX},0 H${this.sunPosition.x}
             V${this.sunPosition.horizonY} H${this.sunPosition.sunriseX}"
           clip-path="url(#upper-path-mask)"
-          class="day"/>` : nothing}
+          class="day horizon-card-daytime"/>` : nothing}
 
         <!-- Draw the horizon (the gray horizontal lines) -->
-        <line x1="5" y1="${this.sunPosition.horizonY}"
+        <line class="horizon-card-horizon-line"
+              x1="5" y1="${this.sunPosition.horizonY}"
               x2="545" y2="${this.sunPosition.horizonY}"
               stroke="var(--hc-lines)"/>
 
         <!-- Arrow showing direction of travel -->
-        <path d="M535 ${this.sunPosition.horizonY - 5} L545 ${this.sunPosition.horizonY} L535 ${this.sunPosition.horizonY + 5}"
+        <path class="horizon-card-direction-arrow"
+              d="M535 ${this.sunPosition.horizonY - 5} L545 ${this.sunPosition.horizonY} L535 ${this.sunPosition.horizonY + 5}"
               stroke="var(--hc-lines)" fill="none"/>
 
         ${showSun ? svg`
         <!-- Draw the sun -->
-        <circle
+        <circle class="horizon-card-sun"
           cx="${this.sunPosition.x}"
           cy="${this.sunPosition.y}"
           r="${Constants.SUN_RADIUS}"
@@ -179,6 +184,7 @@ export class HorizonCardGraph {
     const spotFill = 'var(--hc-moon-spot-color)'
     return this.config.moon ?
       svg`<!-- Moon -->
+          <g class="horizon-card-moon">
           <g transform="rotate(${this.moonData.zenithAngle} ${this.moonPosition.x} ${this.moonPosition.y})">
             <!-- Moon shadow -->
             <use href="#moon" fill="var(--hc-moon-shadow-color)"/>
@@ -200,6 +206,7 @@ export class HorizonCardGraph {
           <circle cx="${this.moonPosition.x}" cy="${this.moonPosition.y}"
                   r="${Constants.MOON_RADIUS}" fill="none"
                   stroke="var(--hc-moon-outline-color)" stroke-width="0.7"/>
+          </g>
         ` : nothing
   }
 
