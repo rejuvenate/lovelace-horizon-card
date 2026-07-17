@@ -26,9 +26,9 @@ export default css`
       calc(var(--hc-sun-lightness) - var(--hc-sun-lightness-reduce))
     );
 
-    --hc-moon-hue: 52;
-    --hc-moon-saturation: 77%;
-    --hc-moon-lightness: 57%;
+    --hc-moon-hue: 42;
+    --hc-moon-saturation: 47%;
+    --hc-moon-lightness: 82%;
     --hc-moon-saturation-reduce: 0%;
     --hc-moon-lightness-reduce: 0%;
     --hc-moon-color: hsl(
@@ -36,15 +36,15 @@ export default css`
       calc(var(--hc-moon-saturation) - var(--hc-moon-saturation-reduce)),
       calc(var(--hc-moon-lightness) - var(--hc-moon-lightness-reduce))
     );
-    --hc-moon-shadow-color: #eeeeee;
+    --hc-moon-shadow-color: #5f6b7a;
+    --hc-moon-outline-color: #5f6b7a;
     --hc-moon-spot-color: rgba(170, 170, 170, 0.1);
   }
 
   :host(.horizon-card-dark) {
     --hc-accent: #464646;
-    --hc-moon-saturation: 80%;
-    --hc-moon-lightness: 74%;
-    --hc-moon-shadow-color: #272727;
+    --hc-moon-shadow-color: #3b4653;
+    --hc-moon-outline-color: #6b7789;
   }
 
   .horizon-card {

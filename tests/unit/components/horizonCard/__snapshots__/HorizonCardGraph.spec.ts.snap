@@ -425,6 +425,14 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       >
       </circle>
     </g>
+    <circle fill="none"
+            stroke="var(--hc-moon-outline-color)"
+            stroke-width="0.7"
+            cx="100"
+            cy="25"
+            r="14"
+    >
+    </circle>
   </svg>
 </div>
 `;
@@ -609,6 +617,14 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       >
       </circle>
     </g>
+    <circle fill="none"
+            stroke="var(--hc-moon-outline-color)"
+            stroke-width="0.7"
+            cx="0"
+            cy="0"
+            r="14"
+    >
+    </circle>
   </svg>
 </div>
 `;
