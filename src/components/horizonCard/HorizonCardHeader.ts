@@ -7,29 +7,20 @@ import { HelperFunctions } from '../../utils/HelperFunctions'
 import type { I18N } from '../../utils/I18N'
 
 export class HorizonCardHeader {
-  private readonly title?: string
   private readonly times: TSunTimes
   private readonly fields: THorizonCardFields
   private readonly i18n: I18N
   private readonly southern_flip: boolean
 
   constructor (config: IHorizonCardConfig, data: THorizonCardData, i18n: I18N) {
-    this.title = config.title
     this.fields = config.fields as THorizonCardFields
     this.times = data.sunData.times
     this.i18n = i18n
     this.southern_flip = config.southern_flip!
   }
 
-  public render (): TemplateResult {
-    return html`
-      ${ this.showTitle() ? this.renderTitle() : nothing }
-      ${ this.renderHeader() }
-    `
-  }
-
-  private renderTitle (): TemplateResult {
-    return html`<div class="horizon-card-title">${ this.title }</div>`
+  public render (): TemplateResult | typeof nothing {
+    return this.renderHeader()
   }
 
   private renderHeader (): TemplateResult | typeof nothing {
@@ -47,7 +38,4 @@ export class HorizonCardHeader {
     return html`<div class="horizon-card-header">${left}${right}</div>`
   }
 
-  private showTitle (): boolean {
-    return this.title !== undefined
-  }
 }

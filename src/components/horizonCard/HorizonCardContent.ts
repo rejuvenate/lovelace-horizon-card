@@ -21,7 +21,8 @@ export class HorizonCardContent {
   render (): TemplateResult {
     return html`
       <ha-card>
-        <div class="horizon-card">
+        ${ this.renderCardHeader() }
+        <div class="horizon-card card-content">
           ${ this.renderHeader() }
           ${ this.config.graph !== false ? this.renderGraph() : nothing }
           ${ this.renderFooter() }
@@ -30,7 +31,21 @@ export class HorizonCardContent {
     `
   }
 
-  private renderHeader (): TemplateResult {
+  private renderCardHeader (): TemplateResult | typeof nothing {
+    if (this.config.title === undefined) {
+      return nothing
+    }
+    const icon = this.config.icon
+      ? html`<ha-icon class="icon" icon="${this.config.icon}"></ha-icon>`
+      : nothing
+    return html`
+      <h1 class="card-header">
+        <div class="name">${ icon }${ this.config.title }</div>
+      </h1>
+    `
+  }
+
+  private renderHeader (): TemplateResult | typeof nothing {
     return new HorizonCardHeader(this.config, this.data, this.i18n).render()
   }
 

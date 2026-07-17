@@ -2,7 +2,7 @@
 
 exports[`HorizonCardContent render does not render the graph when graph is false 1`] = `
 <ha-card>
-  <div class="horizon-card">
+  <div class="horizon-card card-content">
     <div class="horizon-card-header">
       HORIZON CARD HEADER
     </div>
@@ -15,7 +15,7 @@ exports[`HorizonCardContent render does not render the graph when graph is false
 
 exports[`HorizonCardContent render renders the card content 1`] = `
 <ha-card>
-  <div class="horizon-card">
+  <div class="horizon-card card-content">
     <div class="horizon-card-header">
       HORIZON CARD HEADER
     </div>
