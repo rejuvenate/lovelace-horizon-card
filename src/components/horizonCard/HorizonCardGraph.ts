@@ -196,6 +196,10 @@ export class HorizonCardGraph {
             <circle cx="${this.moonPosition.x + bigSpotR * 2}" cy="${this.moonPosition.y}" r="${smallSpotR}"
                     stroke="none" fill="${spotFill}"/>
           </g>
+          <!-- Thin outline so the disc stays defined at any phase or background -->
+          <circle cx="${this.moonPosition.x}" cy="${this.moonPosition.y}"
+                  r="${Constants.MOON_RADIUS}" fill="none"
+                  stroke="var(--hc-moon-outline-color)" stroke-width="0.7"/>
         ` : nothing
   }
 
