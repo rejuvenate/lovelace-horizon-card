@@ -1,16 +1,32 @@
 # Manual test dashboards
 
-Lovelace dashboards for verifying the card visually in a real Home Assistant,
-covering cases the automated `unit/` and `visual/` suites cannot: card_mod / uix
+Lovelace dashboards for checking the card visually in a real Home Assistant,
+covering cases the automated `unit/` and `visual/` suites cannot: card_mod / Uix
 styling, embedding, stacks and theme interaction.
 
 ## `styling-and-embedding.yaml`
 
-Reproduces the styling and embedding cases raised in #204, #219 and #220:
-edge-to-edge graph, sunrise/sunset line styling, title vs `card-header`,
-zero-gap vertical stacks, and a few moon phases.
+A single dashboard view that shows the card's styling, embedding and options:
+
+- **Baselines** the five rendering modes (sun + moon + graph, graph only, values
+  only, moon only, and with a title).
+- **Transparent / frameless card** drop the background, border and shadow through
+  the standard `--ha-card-*` variables so the card blends into the dashboard.
+- **Edge-to-edge graph** a graph-only card whose graph fills the card with no
+  surrounding whitespace.
+- **Zero-gap vertical stack** two graph-only cards stacked flush so they read as
+  one element.
+- **Sunrise / sunset lines** recolour or hide the two day/night boundary lines.
+- **Title / card-header** the title renders as a standard `.card-header`, so theme
+  styling and the `icon:` option apply like any stock card.
+- **Moon phases** the moon disc at several fixed dates.
+- **Per-field targeting** style a single value through its per-field class.
+- **Config options** one card per option so each can be checked on its own: the
+  fields, azimuth/elevation, the display toggles, orientation, time/number/language
+  formatting, location overrides and the advanced options.
+- **Colour palette** the `--hc-*` variables that repaint the graph, the Sun and
+  Moon, and the text.
 
 Load it through a dashboard's **Raw configuration editor** (setup notes, including
-the card resource and card_mod, are in the file header). Cards marked `[TARGET]`
-are expected to work only once the styling batch lands, so the file doubles as an
-acceptance harness for that work.
+the card resource and card_mod, are in the file header). Each card is preceded by
+a markdown note describing what to look for.
