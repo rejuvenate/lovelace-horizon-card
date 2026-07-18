@@ -89,7 +89,7 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
       <line class="horizon-card-sunrise-line"
             y1="3"
             y2="72"
-            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
+            stroke="var(--hc-sunrise-color)"
             x1="0"
             x2="0"
       >
@@ -97,7 +97,7 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
       <line class="horizon-card-sunset-line"
             y1="3"
             y2="72"
-            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
+            stroke="var(--hc-sunset-color)"
             x1="0"
             x2="0"
       >
@@ -109,7 +109,7 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
       <use class="horizon-card-sun-path"
            href="#sun-path"
            fill="none"
-           stroke="var(--hc-lines)"
+           stroke="var(--hc-sun-path-color)"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
@@ -126,13 +126,13 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-horizon-color)"
             y1="0"
             y2="0"
       >
       </line>
       <path class="horizon-card-direction-arrow"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-arrow-color)"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
@@ -238,13 +238,13 @@ exports[`HorizonCardGraph render does not render the sun when not configured so 
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-horizon-color)"
             y1="0"
             y2="0"
       >
       </line>
       <path class="horizon-card-direction-arrow"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-arrow-color)"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
@@ -343,7 +343,7 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       <line class="horizon-card-sunrise-line"
             y1="3"
             y2="72"
-            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
+            stroke="var(--hc-sunrise-color)"
             x1="200"
             x2="200"
       >
@@ -351,7 +351,7 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       <line class="horizon-card-sunset-line"
             y1="3"
             y2="72"
-            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
+            stroke="var(--hc-sunset-color)"
             x1="400"
             x2="400"
       >
@@ -363,7 +363,7 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       <use class="horizon-card-sun-path"
            href="#sun-path"
            fill="none"
-           stroke="var(--hc-lines)"
+           stroke="var(--hc-sun-path-color)"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
@@ -380,13 +380,13 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-horizon-color)"
             y1="84"
             y2="84"
       >
       </line>
       <path class="horizon-card-direction-arrow"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-arrow-color)"
             fill="none"
             d="M535 79 L545 84 L535 89"
       >
@@ -544,7 +544,7 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       <line class="horizon-card-sunrise-line"
             y1="3"
             y2="72"
-            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
+            stroke="var(--hc-sunrise-color)"
             x1="0"
             x2="0"
       >
@@ -552,7 +552,7 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       <line class="horizon-card-sunset-line"
             y1="3"
             y2="72"
-            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
+            stroke="var(--hc-sunset-color)"
             x1="0"
             x2="0"
       >
@@ -564,7 +564,7 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       <use class="horizon-card-sun-path"
            href="#sun-path"
            fill="none"
-           stroke="var(--hc-lines)"
+           stroke="var(--hc-sun-path-color)"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
@@ -581,13 +581,13 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-horizon-color)"
             y1="0"
             y2="0"
       >
       </line>
       <path class="horizon-card-direction-arrow"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-arrow-color)"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
@@ -745,7 +745,7 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
       <line class="horizon-card-sunrise-line"
             y1="3"
             y2="72"
-            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
+            stroke="var(--hc-sunrise-color)"
             x1="0"
             x2="0"
       >
@@ -753,7 +753,7 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
       <line class="horizon-card-sunset-line"
             y1="3"
             y2="72"
-            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
+            stroke="var(--hc-sunset-color)"
             x1="0"
             x2="0"
       >
@@ -765,7 +765,7 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
       <use class="horizon-card-sun-path"
            href="#sun-path"
            fill="none"
-           stroke="var(--hc-lines)"
+           stroke="var(--hc-sun-path-color)"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
@@ -782,13 +782,13 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-horizon-color)"
             y1="0"
             y2="0"
       >
       </line>
       <path class="horizon-card-direction-arrow"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-arrow-color)"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >

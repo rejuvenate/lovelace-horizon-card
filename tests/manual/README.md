@@ -1,7 +1,7 @@
 # Manual test dashboards
 
 Lovelace dashboards for checking the card visually in a real Home Assistant,
-covering cases the automated `unit/` and `visual/` suites cannot: card_mod / Uix
+covering cases the automated `unit/` and `visual/` suites cannot: Uix / card-mod
 styling, embedding, stacks and theme interaction.
 
 ## `styling-and-embedding.yaml`
@@ -28,5 +28,5 @@ A single dashboard view that shows the card's styling, embedding and options:
   Moon, and the text.
 
 Load it through a dashboard's **Raw configuration editor** (setup notes, including
-the card resource and card_mod, are in the file header). Each card is preceded by
+the card resource and Uix, are in the file header). Each card is preceded by
 a markdown note describing what to look for.

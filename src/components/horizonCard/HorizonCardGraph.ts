@@ -108,11 +108,11 @@ export class HorizonCardGraph {
         <line class="horizon-card-sunrise-line"
               x1="${this.sunPosition.sunriseX}" y1="3"
               x2="${this.sunPosition.sunriseX}" y2="72"
-              stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"/>
+              stroke="var(--hc-sunrise-color)"/>
         <line class="horizon-card-sunset-line"
               x1="${this.sunPosition.sunsetX}"
               y1="3" x2="${this.sunPosition.sunsetX}" y2="72"
-              stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"/>
+              stroke="var(--hc-sunset-color)"/>
       </g>` : nothing}
 
       <!-- Main group that shifts up or down to center the horizon vertically -->
@@ -122,7 +122,7 @@ export class HorizonCardGraph {
         <use class="horizon-card-sun-path"
              href="#sun-path"
              fill="none"
-             stroke="var(--hc-lines)"/>
+             stroke="var(--hc-sun-path-color)"/>
 
         <!-- Draw the below horizon passed area, i.e., the dark blue/night part on either side -->
         <path
@@ -141,12 +141,12 @@ export class HorizonCardGraph {
         <line class="horizon-card-horizon-line"
               x1="5" y1="${this.sunPosition.horizonY}"
               x2="545" y2="${this.sunPosition.horizonY}"
-              stroke="var(--hc-lines)"/>
+              stroke="var(--hc-horizon-color)"/>
 
         <!-- Arrow showing direction of travel -->
         <path class="horizon-card-direction-arrow"
               d="M535 ${this.sunPosition.horizonY - 5} L545 ${this.sunPosition.horizonY} L535 ${this.sunPosition.horizonY + 5}"
-              stroke="var(--hc-lines)" fill="none"/>
+              stroke="var(--hc-arrow-color)" fill="none"/>
 
         ${showSun ? svg`
         <!-- Draw the sun -->

@@ -12,8 +12,8 @@
 #      yarn build) and add dist/lovelace-horizon-card.js under
 #      Settings > Dashboards > ... > Resources (type: module), or install the
 #      card via HACS.
-#   2. Install card_mod (github.com/thomasloven/lovelace-card-mod) via HACS.
-#      Every card_mod: block below works the same with uix: - just swap the key.
+#   2. Install Uix (github.com/Lint-Free-Technology/uix) via HACS. Every uix:
+#      block below works the same with card_mod: - just swap the key.
 #   3. New dashboard > three-dots > Edit > three-dots > "Raw configuration
 #      editor" > paste this whole file > Save.
 #
@@ -86,7 +86,7 @@ views:
               Standard HA frame variables only. The card drops its background, border and shadow and blends into the dashboard, so only the graph and fields remain over the grey view.
           - type: custom:horizon-card
             fields: false
-            card_mod:
+            uix:
               style: |
                 ha-card {
                   --ha-card-background: none;
@@ -106,7 +106,7 @@ views:
               A graph-only card (`fields: false`) with the card padding and the graph margin removed, so the graph fills the card and meets its border on all four sides. The faint inset on the left and right is the graph's own drawing margin inside the SVG, not card padding. The frame is kept here so you can see the graph reach it.
           - type: custom:horizon-card
             fields: false
-            card_mod:
+            uix:
               style: |
                 .horizon-card {
                   padding: 0;
@@ -126,7 +126,7 @@ views:
 
               Two graph-only cards stacked with the gap removed, so they read as one connected element. Watch the seam between them and the whitespace around the pair.
           - type: vertical-stack
-            card_mod:
+            uix:
               style: |
                 #root {
                   gap: 0 !important;
@@ -134,7 +134,7 @@ views:
             cards:
               - type: custom:horizon-card
                 fields: false
-                card_mod:
+                uix:
                   style: |
                     ha-card {
                       --ha-card-box-shadow: none;
@@ -148,7 +148,7 @@ views:
                     }
               - type: custom:horizon-card
                 fields: false
-                card_mod:
+                uix:
                   style: |
                     ha-card {
                       --ha-card-box-shadow: none;
@@ -170,36 +170,34 @@ views:
             content: |
               ## E. Sunrise / sunset lines
 
-              The two vertical lines mark sunrise and sunset (the day/night boundary). They have their own colour variable and per-line classes, so they can be restyled without touching the sun path, horizon or arrow.
+              The two vertical lines mark sunrise and sunset (the day/night boundary). They have dedicated colour variables (`--hc-sunrise-color`, `--hc-sunset-color`) and per-line classes, so they can be restyled without touching the sun path, horizon or arrow.
           - type: markdown
             content: |
               **E1** both lines recoloured through `--hc-sunrise-sunset-color: red`. Only the two boundary lines turn red; the sun path, horizon line and arrow keep their colour.
           - type: custom:horizon-card
             fields: false
-            card_mod:
+            uix:
               style: |
                 ha-card {
                   --hc-sunrise-sunset-color: red;
                 }
           - type: markdown
             content: |
-              **E2** each line coloured on its own through `.horizon-card-sunrise-line` and `.horizon-card-sunset-line`: the sunrise line takes the sun's above-horizon colour, the sunset line its below-horizon colour.
+              **E2** each line coloured on its own through its dedicated variable, set straight on `ha-card`: `--hc-sunrise-color` takes the sun's above-horizon colour, `--hc-sunset-color` its below-horizon colour.
           - type: custom:horizon-card
             fields: false
-            card_mod:
+            uix:
               style: |
-                .horizon-card-sunrise-line {
-                  stroke: var(--state-sun-above_horizon-color);
-                }
-                .horizon-card-sunset-line {
-                  stroke: var(--state-sun-below_horizon-color);
+                ha-card {
+                  --hc-sunrise-color: var(--state-sun-above_horizon-color);
+                  --hc-sunset-color: var(--state-sun-below_horizon-color);
                 }
           - type: markdown
             content: |
               **E3** both lines hidden through the same classes (`stroke: transparent`). The day/night boundary lines disappear while everything else stays.
           - type: custom:horizon-card
             fields: false
-            card_mod:
+            uix:
               style: |
                 .horizon-card-sunrise-line,
                 .horizon-card-sunset-line {
@@ -234,7 +232,7 @@ views:
             title: Horizon
             icon: mdi:weather-sunny
             fields: false
-            card_mod:
+            uix:
               style: |
                 .card-header {
                   background: var(--secondary-background-color);
@@ -290,7 +288,7 @@ views:
               moonrise: true
               moonset: true
               moon_phase: true
-            card_mod:
+            uix:
               style: |
                 .horizon-card-field-sunrise .horizon-card-field-value,
                 .horizon-card-field-sunset .horizon-card-field-value {
@@ -552,23 +550,26 @@ views:
 
               Every colour is a CSS variable set on `ha-card`, so a theme or card-mod can repaint any part of the card. The defaults follow the Home Assistant theme.
           - type: markdown
-            content: "**P1** graph colours: `--hc-day-color`, `--hc-night-color`, `--hc-lines` (Sun path, horizon and arrow) and `--hc-sunrise-sunset-color`."
+            content: "**P1** graph colours, each with its own variable: `--hc-day-color`, `--hc-night-color`, `--hc-sun-path-color`, `--hc-horizon-color`, `--hc-arrow-color`, `--hc-sunrise-color` and `--hc-sunset-color` (`--hc-lines` still recolours the sun path, horizon and arrow together)."
           - type: custom:horizon-card
             fields: false
-            card_mod:
+            uix:
               style: |
                 ha-card {
                   --hc-day-color: #7fc8a9;
                   --hc-night-color: #2b2d42;
-                  --hc-lines: #b0b0b0;
-                  --hc-sunrise-sunset-color: #ffd166;
+                  --hc-sun-path-color: #b0b0b0;
+                  --hc-horizon-color: #8d8d8d;
+                  --hc-arrow-color: #8d8d8d;
+                  --hc-sunrise-color: #ffd166;
+                  --hc-sunset-color: #f4a259;
                 }
           - type: markdown
             content: "**P2** Sun and Moon: `--hc-sun-color`, `--hc-moon-color`, `--hc-moon-shadow-color`, `--hc-moon-outline-color` and `--hc-moon-spot-color`. Both colours can also be tuned through their `--hc-sun-hue/saturation/lightness` and `--hc-moon-*` parts."
           - type: custom:horizon-card
             fields: false
             now: "2023-03-29T18:00:00Z"
-            card_mod:
+            uix:
               style: |
                 ha-card {
                   --hc-sun-color: #ff7043;
@@ -588,7 +589,7 @@ views:
               noon: false
               dusk: false
               moon_phase: true
-            card_mod:
+            uix:
               style: |
                 ha-card {
                   --hc-field-name-color: #9aa0a6;

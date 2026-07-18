@@ -247,13 +247,13 @@ debug_level: 0
 
 ### Card background and embedding
 
-The card renders inside Home Assistant's standard `ha-card`, so its background, border and shadow follow your theme, and the title uses the standard `card-header`. Restyle it with a theme, [card-mod](https://github.com/thomasloven/lovelace-card-mod) or [Uix](https://github.com/Lint-Free-Technology/uix). The examples use card-mod; for Uix, replace the `card_mod:` key with `uix:`.
+The card renders inside Home Assistant's standard `ha-card`, so its background, border and shadow follow your theme, and the title uses the standard `card-header`. Restyle it with a theme, [Uix](https://github.com/Lint-Free-Technology/uix) or [card-mod](https://github.com/thomasloven/lovelace-card-mod). The examples use Uix (the recommended option, and a drop-in replacement for card-mod); for card-mod, replace the `uix:` key with `card_mod:`.
 
 **Transparent card** (remove the background, border and shadow, for example to blend into a dashboard):
 
 ```yaml
 type: custom:horizon-card
-card_mod:
+uix:
   style: |
     ha-card {
       --ha-card-background: none;
@@ -264,7 +264,7 @@ card_mod:
 
 Set `graph: false` for a values-only card, or `fields: false` for a graph-only one.
 
-For finer control (an edge-to-edge graph, recolouring individual elements or styling a single field), every drawn element has a stable CSS class and every colour is an `--hc-*` variable that card-mod or Uix can target. The names are in the card's source, and [`tests/manual/styling-and-embedding.yaml`](tests/manual/styling-and-embedding.yaml) has a worked example for each case.
+For finer control (an edge-to-edge graph, recolouring individual elements or styling a single field), every drawn element has a stable CSS class and every colour is an `--hc-*` variable. The colours can be set straight in a Home Assistant theme, which is the fastest option since the card picks them up as it loads, or targeted with Uix or card-mod. The names are in the card's source, and [`tests/manual/styling-and-embedding.yaml`](tests/manual/styling-and-embedding.yaml) has a worked example for each case.
 
 ## Development
 

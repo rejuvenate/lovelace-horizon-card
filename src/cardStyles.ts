@@ -15,6 +15,11 @@ export default css`
     --hc-accent: #d7d7d7;
     --hc-lines: var(--hc-accent);
     --hc-sunrise-sunset-color: #e6e6e6;
+    --hc-sunrise-color: var(--hc-sunrise-sunset-color);
+    --hc-sunset-color: var(--hc-sunrise-sunset-color);
+    --hc-sun-path-color: var(--hc-lines);
+    --hc-horizon-color: var(--hc-lines);
+    --hc-arrow-color: var(--hc-lines);
 
     --hc-sun-hue: 44;
     --hc-sun-saturation: 93%;
