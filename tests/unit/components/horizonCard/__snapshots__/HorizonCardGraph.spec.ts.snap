@@ -82,19 +82,22 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
         </use>
       </mask>
     </defs>
-    <g transform-origin="center"
+    <g class="horizon-card-sun-lines"
+       transform-origin="center"
        transform="scale(1 1)"
     >
-      <line y1="3"
+      <line class="horizon-card-sunrise-line"
+            y1="3"
             y2="72"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
             x1="0"
             x2="0"
       >
       </line>
-      <line y1="3"
+      <line class="horizon-card-sunset-line"
+            y1="3"
             y2="72"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
             x1="0"
             x2="0"
       >
@@ -103,35 +106,39 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
     <g transform-origin="center"
        transform="translate(0 0) scale(1 1)"
     >
-      <use href="#sun-path"
+      <use class="horizon-card-sun-path"
+           href="#sun-path"
            fill="none"
            stroke="var(--hc-lines)"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
-            class="dawn"
+            class="dawn horizon-card-nighttime"
             d="M5,0 H0 V150 H5"
       >
       </path>
       <path clip-path="url(#upper-path-mask)"
-            class="day"
+            class="day horizon-card-daytime"
             d="M0,0 H0
             V0 H0"
       >
       </path>
-      <line x1="5"
+      <line class="horizon-card-horizon-line"
+            x1="5"
             x2="545"
             stroke="var(--hc-lines)"
             y1="0"
             y2="0"
       >
       </line>
-      <path stroke="var(--hc-lines)"
+      <path class="horizon-card-direction-arrow"
+            stroke="var(--hc-lines)"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
       </path>
-      <circle stroke="none"
+      <circle class="horizon-card-sun"
+              stroke="none"
               fill="var(--hc-sun-color)"
               cx="0"
               cy="0"
@@ -228,14 +235,16 @@ exports[`HorizonCardGraph render does not render the sun when not configured so 
     <g transform-origin="center"
        transform="translate(0 0) scale(1 1)"
     >
-      <line x1="5"
+      <line class="horizon-card-horizon-line"
+            x1="5"
             x2="545"
             stroke="var(--hc-lines)"
             y1="0"
             y2="0"
       >
       </line>
-      <path stroke="var(--hc-lines)"
+      <path class="horizon-card-direction-arrow"
+            stroke="var(--hc-lines)"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
@@ -327,19 +336,22 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
         </use>
       </mask>
     </defs>
-    <g transform-origin="center"
+    <g class="horizon-card-sun-lines"
+       transform-origin="center"
        transform="scale(1 1)"
     >
-      <line y1="3"
+      <line class="horizon-card-sunrise-line"
+            y1="3"
             y2="72"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
             x1="200"
             x2="200"
       >
       </line>
-      <line y1="3"
+      <line class="horizon-card-sunset-line"
+            y1="3"
             y2="72"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
             x1="400"
             x2="400"
       >
@@ -348,35 +360,39 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
     <g transform-origin="center"
        transform="translate(0 0) scale(1 1)"
     >
-      <use href="#sun-path"
+      <use class="horizon-card-sun-path"
+           href="#sun-path"
            fill="none"
            stroke="var(--hc-lines)"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
-            class="dawn"
+            class="dawn horizon-card-nighttime"
             d="M5,84 H50 V150 H5"
       >
       </path>
       <path clip-path="url(#upper-path-mask)"
-            class="day"
+            class="day horizon-card-daytime"
             d="M200,0 H50
             V84 H200"
       >
       </path>
-      <line x1="5"
+      <line class="horizon-card-horizon-line"
+            x1="5"
             x2="545"
             stroke="var(--hc-lines)"
             y1="84"
             y2="84"
       >
       </line>
-      <path stroke="var(--hc-lines)"
+      <path class="horizon-card-direction-arrow"
+            stroke="var(--hc-lines)"
             fill="none"
             d="M535 79 L545 84 L535 89"
       >
       </path>
-      <circle stroke="none"
+      <circle class="horizon-card-sun"
+              stroke="none"
               fill="var(--hc-sun-color)"
               cx="50"
               cy="50"
@@ -384,55 +400,57 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       >
       </circle>
     </g>
-    <g transform="rotate(0 100 25)">
-      <use href="#moon"
-           fill="var(--hc-moon-shadow-color)"
-      >
-      </use>
-      <use href="#moon"
-           fill="var(--hc-moon-color)"
-           mask="url(#moon-shadow-mask)"
-      >
-      </use>
-    </g>
-    <g transform="rotate( 100 25)">
-      <circle stroke="none"
-              cx="96.5"
-              cy="19.75"
-              r="4.666666666666667"
-              fill="var(--hc-moon-spot-color)"
-      >
-      </circle>
-      <circle stroke="none"
-              cx="105.25"
-              cy="18"
-              r="3.5"
-              fill="var(--hc-moon-spot-color)"
-      >
-      </circle>
-      <circle stroke="none"
-              cx="96.5"
-              cy="28.5"
-              r="3.5"
-              fill="var(--hc-moon-spot-color)"
-      >
-      </circle>
-      <circle stroke="none"
-              cx="107"
+    <g class="horizon-card-moon">
+      <g transform="rotate(0 100 25)">
+        <use href="#moon"
+             fill="var(--hc-moon-shadow-color)"
+        >
+        </use>
+        <use href="#moon"
+             fill="var(--hc-moon-color)"
+             mask="url(#moon-shadow-mask)"
+        >
+        </use>
+      </g>
+      <g transform="rotate( 100 25)">
+        <circle stroke="none"
+                cx="96.5"
+                cy="19.75"
+                r="4.666666666666667"
+                fill="var(--hc-moon-spot-color)"
+        >
+        </circle>
+        <circle stroke="none"
+                cx="105.25"
+                cy="18"
+                r="3.5"
+                fill="var(--hc-moon-spot-color)"
+        >
+        </circle>
+        <circle stroke="none"
+                cx="96.5"
+                cy="28.5"
+                r="3.5"
+                fill="var(--hc-moon-spot-color)"
+        >
+        </circle>
+        <circle stroke="none"
+                cx="107"
+                cy="25"
+                r="2.8"
+                fill="var(--hc-moon-spot-color)"
+        >
+        </circle>
+      </g>
+      <circle fill="none"
+              stroke="var(--hc-moon-outline-color)"
+              stroke-width="0.7"
+              cx="100"
               cy="25"
-              r="2.8"
-              fill="var(--hc-moon-spot-color)"
+              r="14"
       >
       </circle>
     </g>
-    <circle fill="none"
-            stroke="var(--hc-moon-outline-color)"
-            stroke-width="0.7"
-            cx="100"
-            cy="25"
-            r="14"
-    >
-    </circle>
   </svg>
 </div>
 `;
@@ -519,19 +537,22 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
         </use>
       </mask>
     </defs>
-    <g transform-origin="center"
+    <g class="horizon-card-sun-lines"
+       transform-origin="center"
        transform="scale(1 1)"
     >
-      <line y1="3"
+      <line class="horizon-card-sunrise-line"
+            y1="3"
             y2="72"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
             x1="0"
             x2="0"
       >
       </line>
-      <line y1="3"
+      <line class="horizon-card-sunset-line"
+            y1="3"
             y2="72"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
             x1="0"
             x2="0"
       >
@@ -540,35 +561,39 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
     <g transform-origin="center"
        transform="translate(0 0) scale(1 1)"
     >
-      <use href="#sun-path"
+      <use class="horizon-card-sun-path"
+           href="#sun-path"
            fill="none"
            stroke="var(--hc-lines)"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
-            class="dawn"
+            class="dawn horizon-card-nighttime"
             d="M5,0 H0 V150 H5"
       >
       </path>
       <path clip-path="url(#upper-path-mask)"
-            class="day"
+            class="day horizon-card-daytime"
             d="M0,0 H0
             V0 H0"
       >
       </path>
-      <line x1="5"
+      <line class="horizon-card-horizon-line"
+            x1="5"
             x2="545"
             stroke="var(--hc-lines)"
             y1="0"
             y2="0"
       >
       </line>
-      <path stroke="var(--hc-lines)"
+      <path class="horizon-card-direction-arrow"
+            stroke="var(--hc-lines)"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
       </path>
-      <circle stroke="none"
+      <circle class="horizon-card-sun"
+              stroke="none"
               fill="var(--hc-sun-color)"
               cx="0"
               cy="0"
@@ -576,55 +601,57 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       >
       </circle>
     </g>
-    <g transform="rotate(0 0 0)">
-      <use href="#moon"
-           fill="var(--hc-moon-shadow-color)"
-      >
-      </use>
-      <use href="#moon"
-           fill="var(--hc-moon-color)"
-           mask="url(#moon-shadow-mask)"
-      >
-      </use>
-    </g>
-    <g transform="rotate(0 0 0)">
-      <circle stroke="none"
-              cx="-3.5"
-              cy="-5.25"
-              r="4.666666666666667"
-              fill="var(--hc-moon-spot-color)"
-      >
-      </circle>
-      <circle stroke="none"
-              cx="5.25"
-              cy="-7"
-              r="3.5"
-              fill="var(--hc-moon-spot-color)"
-      >
-      </circle>
-      <circle stroke="none"
-              cx="-3.5"
-              cy="3.5"
-              r="3.5"
-              fill="var(--hc-moon-spot-color)"
-      >
-      </circle>
-      <circle stroke="none"
-              cx="7"
+    <g class="horizon-card-moon">
+      <g transform="rotate(0 0 0)">
+        <use href="#moon"
+             fill="var(--hc-moon-shadow-color)"
+        >
+        </use>
+        <use href="#moon"
+             fill="var(--hc-moon-color)"
+             mask="url(#moon-shadow-mask)"
+        >
+        </use>
+      </g>
+      <g transform="rotate(0 0 0)">
+        <circle stroke="none"
+                cx="-3.5"
+                cy="-5.25"
+                r="4.666666666666667"
+                fill="var(--hc-moon-spot-color)"
+        >
+        </circle>
+        <circle stroke="none"
+                cx="5.25"
+                cy="-7"
+                r="3.5"
+                fill="var(--hc-moon-spot-color)"
+        >
+        </circle>
+        <circle stroke="none"
+                cx="-3.5"
+                cy="3.5"
+                r="3.5"
+                fill="var(--hc-moon-spot-color)"
+        >
+        </circle>
+        <circle stroke="none"
+                cx="7"
+                cy="0"
+                r="2.8"
+                fill="var(--hc-moon-spot-color)"
+        >
+        </circle>
+      </g>
+      <circle fill="none"
+              stroke="var(--hc-moon-outline-color)"
+              stroke-width="0.7"
+              cx="0"
               cy="0"
-              r="2.8"
-              fill="var(--hc-moon-spot-color)"
+              r="14"
       >
       </circle>
     </g>
-    <circle fill="none"
-            stroke="var(--hc-moon-outline-color)"
-            stroke-width="0.7"
-            cx="0"
-            cy="0"
-            r="14"
-    >
-    </circle>
   </svg>
 </div>
 `;
@@ -711,19 +738,22 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
         </use>
       </mask>
     </defs>
-    <g transform-origin="center"
+    <g class="horizon-card-sun-lines"
+       transform-origin="center"
        transform="scale(-1 1)"
     >
-      <line y1="3"
+      <line class="horizon-card-sunrise-line"
+            y1="3"
             y2="72"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
             x1="0"
             x2="0"
       >
       </line>
-      <line y1="3"
+      <line class="horizon-card-sunset-line"
+            y1="3"
             y2="72"
-            stroke="var(--hc-lines)"
+            stroke="var(--hc-sunrise-sunset-color, var(--hc-lines))"
             x1="0"
             x2="0"
       >
@@ -732,35 +762,39 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
     <g transform-origin="center"
        transform="translate(0 0) scale(-1 1)"
     >
-      <use href="#sun-path"
+      <use class="horizon-card-sun-path"
+           href="#sun-path"
            fill="none"
            stroke="var(--hc-lines)"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
-            class="dawn"
+            class="dawn horizon-card-nighttime"
             d="M5,0 H0 V150 H5"
       >
       </path>
       <path clip-path="url(#upper-path-mask)"
-            class="day"
+            class="day horizon-card-daytime"
             d="M0,0 H0
             V0 H0"
       >
       </path>
-      <line x1="5"
+      <line class="horizon-card-horizon-line"
+            x1="5"
             x2="545"
             stroke="var(--hc-lines)"
             y1="0"
             y2="0"
       >
       </line>
-      <path stroke="var(--hc-lines)"
+      <path class="horizon-card-direction-arrow"
+            stroke="var(--hc-lines)"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
       </path>
-      <circle stroke="none"
+      <circle class="horizon-card-sun"
+              stroke="none"
               fill="var(--hc-sun-color)"
               cx="0"
               cy="0"

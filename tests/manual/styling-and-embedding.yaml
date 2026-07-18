@@ -1,0 +1,386 @@
+# =============================================================================
+# Horizon Card - styling & embedding test dashboard
+# =============================================================================
+# Reproduces every case Marius raised in #204 / #219 / #220 so they can be
+# verified visually in a real Home Assistant.
+#
+# SETUP
+#   1. Card resource:
+#      - Released behaviour: install horizon-card v1.5.3 via HACS.
+#      - Latest code (merged moon change + whatever you build): build the repo
+#        (docker/run.sh yarn build) and add dist/lovelace-horizon-card.js as a
+#        Lovelace resource (Settings > Dashboards > ... > Resources, type: module).
+#   2. card_mod: install github.com/thomasloven/lovelace-card-mod via HACS.
+#      (Every card_mod: block below works identically with uix: - just swap the
+#      key. Marius's originals were uix:.)
+#   3. New dashboard > three-dots > Edit > three-dots > "Raw configuration
+#      editor" > paste this whole file > Save.
+#
+# READING IT
+#   Each test is a vertical-stack: a markdown note (what to look at, current vs
+#   target) followed by the card(s). "CURRENT" = how v1.5.3 behaves today.
+#   "TARGET" = what the #204/#219/#220 batch should make possible.
+#   The view uses a dark grey background so each card (and the transparent ones)
+#   stands out. If your HA ignores the view `background:` key, switch to a dark
+#   theme instead.
+# =============================================================================
+
+title: Horizon Card Tests
+views:
+  - title: Styling & embedding
+    path: horizon-tests
+    icon: mdi:white-balance-sunny
+    type: masonry
+    background: "#2e2e2e"
+    cards:
+
+      # ---------------------------------------------------------------------
+      # A. Baselines - what each mode looks like
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## A. Baselines
+              The five rendering modes with no styling, for reference.
+          - type: markdown
+            content: "**A1** default (all fields, sun + moon + graph)"
+          - type: custom:horizon-card
+          - type: markdown
+            content: "**A2** graph only (`fields: false`)"
+          - type: custom:horizon-card
+            fields: false
+          - type: markdown
+            content: "**A3** values only (`graph: false`)"
+          - type: custom:horizon-card
+            graph: false
+          - type: markdown
+            content: "**A4** moon only (`sun: false`, sun fields hidden)"
+          - type: custom:horizon-card
+            sun: false
+            fields:
+              sunrise: false
+              sunset: false
+              dawn: false
+              noon: false
+              dusk: false
+              moonrise: true
+              moonset: true
+              moon_phase: true
+          - type: markdown
+            content: "**A5** with a title"
+          - type: custom:horizon-card
+            title: Horizon
+
+      # ---------------------------------------------------------------------
+      # B. Transparent / frameless (standard --ha-card-* only)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## B. Transparent card
+              Standard HA frame variables only. Card should lose its background,
+              border and shadow and blend into the dashboard. This already works.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                ha-card {
+                  --ha-card-background: none;
+                  --ha-card-box-shadow: none;
+                  --ha-card-border-width: 0;
+                }
+
+      # ---------------------------------------------------------------------
+      # C. Edge-to-edge graph only (#204) - the core embedding problem
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## C. Graph-only, edge to edge (#204)
+              Goal: the graph fills the card with no surrounding whitespace.
+              Compare the four attempts below.
+          - type: markdown
+            content: |
+              **C1** plain `fields: false`.
+              CURRENT: graph has visible space around it inside the card.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                ha-card {
+                  --ha-card-background: none;
+                  --ha-card-box-shadow: none;
+                  --ha-card-border-width: 0;
+                }
+          - type: markdown
+            content: |
+              **C2** `--hc-card-padding: 0` only (v1.5.3 variable).
+              CURRENT: horizontal padding goes, but 1em top/bottom gaps remain
+              (graph margin is still `1em 0`). Marius calls this a bug.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                ha-card {
+                  --ha-card-background: none;
+                  --ha-card-box-shadow: none;
+                  --ha-card-border-width: 0;
+                  --hc-card-padding: 0;
+                }
+          - type: markdown
+            content: |
+              **C3** both `--hc-card-padding: 0` + `--hc-graph-margin: 0`.
+              CURRENT: almost flush; a sliver of left/right inset remains (that
+              last bit is the SVG's internal x=5 drawing inset, not CSS).
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                ha-card {
+                  --ha-card-background: none;
+                  --ha-card-box-shadow: none;
+                  --ha-card-border-width: 0;
+                  --hc-card-padding: 0;
+                  --hc-graph-margin: 0;
+                }
+          - type: markdown
+            content: |
+              **C4** Marius's brute-force negative margin on the graph element.
+              CURRENT: overflows to the edges, dimensions "perfect" but hacky.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                ha-card {
+                  --ha-card-background: none;
+                  --ha-card-box-shadow: none;
+                  --ha-card-border-width: 0;
+                }
+                .horizon-card-graph {
+                  margin: -8px -10px !important;
+                }
+          - type: markdown
+            content: |
+              **C5 [TARGET]** standard gesture after the batch (D1 + card-content).
+              On v1.5.3 this does NOT flush yet (padding sits on an inner div).
+              Re-test this one after implementing the batch.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                ha-card {
+                  --ha-card-background: none;
+                  --ha-card-box-shadow: none;
+                  --ha-card-border-width: 0;
+                  padding: 0;
+                }
+
+      # ---------------------------------------------------------------------
+      # D. Stack embedding with zero gap
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## D. Zero-gap vertical stack (#204)
+              Two graph-only cards stacked with the gap removed, so they read as
+              one connected element. Watch the seam and the outer whitespace.
+          - type: vertical-stack
+            card_mod:
+              style: |
+                #root {
+                  gap: 0 !important;
+                }
+            cards:
+              - type: custom:horizon-card
+                fields: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      --ha-card-box-shadow: none;
+                      --ha-card-border-width: 0;
+                      --hc-card-padding: 0;
+                      --hc-graph-margin: 0;
+                    }
+              - type: custom:horizon-card
+                fields: false
+                card_mod:
+                  style: |
+                    ha-card {
+                      --ha-card-box-shadow: none;
+                      --ha-card-border-width: 0;
+                      --hc-card-padding: 0;
+                      --hc-graph-margin: 0;
+                    }
+
+      # ---------------------------------------------------------------------
+      # E. Sunrise / sunset lines (#219)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## E. Sunrise / sunset lines (#219)
+              The two vertical lines at sunrise and sunset (the day/night
+              boundary). Today only the global `--hc-lines` is reachable.
+          - type: markdown
+            content: |
+              **E1** global `--hc-lines: red`.
+              CURRENT: recolours ALL lines (sun path, horizon, arrow too), not
+              just the sunrise/sunset lines.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                ha-card { --hc-lines: red; }
+          - type: markdown
+            content: |
+              **E2** Marius's per-line targeting via `g:nth-of-type()`.
+              CURRENT: works but fragile; sunrise line above-horizon colour,
+              sunset line below-horizon colour.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                g:nth-of-type(1) line:nth-of-type(1) {
+                  --hc-lines: var(--state-sun-above_horizon-color);
+                }
+                g:nth-of-type(1) line:nth-of-type(2) {
+                  --hc-lines: var(--state-sun-below_horizon-color);
+                }
+          - type: markdown
+            content: |
+              **E3** hide the sunrise/sunset lines (transparent), via nth-of-type.
+              CURRENT: only achievable with the fragile selector.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                g:nth-of-type(1) line:nth-of-type(1),
+                g:nth-of-type(1) line:nth-of-type(2) {
+                  --hc-lines: transparent;
+                }
+          - type: markdown
+            content: |
+              **E4 [TARGET]** after the batch adds stable classes:
+              `.horizon-card-sunrise-line { stroke: transparent }` (no
+              nth-of-type). Does nothing on v1.5.3; re-test after the batch.
+          - type: custom:horizon-card
+            fields: false
+            card_mod:
+              style: |
+                .horizon-card-sunrise-line,
+                .horizon-card-sunset-line {
+                  stroke: transparent;
+                }
+
+      # ---------------------------------------------------------------------
+      # F. Title vs card-header (#220)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## F. Title / card-header (#220)
+              The title renders as `.horizon-card-title`, not the standard
+              `.card-header`, so normal header styling and icons don't apply.
+          - type: markdown
+            content: "**F1** title, default styling."
+          - type: custom:horizon-card
+            title: Horizon
+            fields: false
+          - type: markdown
+            content: |
+              **F2** Marius styling `.horizon-card-title` by hand (background,
+              size, padding) to fake a card-header. CURRENT: works but bespoke,
+              and it reintroduced stack gaps for him.
+          - type: custom:horizon-card
+            title: "🌍 Horizon"
+            fields: false
+            card_mod:
+              style: |
+                .horizon-card-title {
+                  background: var(--header-background, var(--secondary-background-color));
+                  font-size: 20px !important;
+                  font-weight: 400;
+                  padding: 8px 12px;
+                  margin: 0 !important;
+                }
+                ha-card {
+                  --hc-card-padding: 0;
+                  --hc-graph-margin: 4px 0 0 0;
+                }
+          - type: markdown
+            content: |
+              **F3 [TARGET]** after switching to a real `.card-header`, standard
+              theme styling and an `icon:` option should just work, like a stock
+              card. Placeholder to re-test after the batch.
+
+      # ---------------------------------------------------------------------
+      # G. Moon phases (visual check of the new shading)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## G. Moon phases
+              Fixed dates so the moon disc can be checked at several phases.
+              (New cream/slate shading + outline only if you built from `main`;
+              HACS v1.5.3 still shows the old gold moon.)
+          - type: markdown
+            content: "**G1** waxing crescent"
+          - type: custom:horizon-card
+            now: "2023-03-27T15:00:00Z"
+            fields: false
+          - type: markdown
+            content: "**G2** first quarter"
+          - type: custom:horizon-card
+            now: "2023-03-29T15:00:00Z"
+            fields: false
+          - type: markdown
+            content: "**G3** full moon (worst case for visibility on light bg)"
+          - type: custom:horizon-card
+            now: "2023-04-05T22:00:00Z"
+            fields: false
+
+      # ---------------------------------------------------------------------
+      # H. Per-field targeting (#219)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## H. Per-field targeting (#219)
+              Every field now has its own class `.horizon-card-field-<name>`, so a
+              single value can be styled without nth-of-type. Here sunrise/sunset
+              are tinted sun-orange, moonrise/moonset moon-blue, and the moon phase
+              icon is recoloured via `--hc-moon-phase-icon-color`.
+          - type: custom:horizon-card
+            title: Field targeting
+            fields:
+              sunrise: true
+              sunset: true
+              dawn: true
+              dusk: true
+              noon: true
+              moonrise: true
+              moonset: true
+              moon_phase: true
+            card_mod:
+              style: |
+                .horizon-card-field-sunrise .horizon-card-field-value,
+                .horizon-card-field-sunset .horizon-card-field-value {
+                  color: #ffb74d;
+                  font-weight: 600;
+                }
+                .horizon-card-field-moonrise .horizon-card-field-value,
+                .horizon-card-field-moonset .horizon-card-field-value {
+                  color: #4fc3f7;
+                  font-weight: 600;
+                }
+                ha-card {
+                  --hc-moon-phase-icon-color: #ff8a65;
+                }

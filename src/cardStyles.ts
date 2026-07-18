@@ -7,12 +7,14 @@ export default css`
 
     --hc-field-name-color: var(--hc-secondary);
     --hc-field-value-color: var(--hc-primary);
+    --hc-moon-phase-icon-color: var(--primary-color);
 
     --hc-day-color: #8ebeeb;
     --hc-night-color: #393b78;
 
     --hc-accent: #d7d7d7;
     --hc-lines: var(--hc-accent);
+    --hc-sunrise-sunset-color: #e6e6e6;
 
     --hc-sun-hue: 44;
     --hc-sun-saturation: 93%;
@@ -43,6 +45,7 @@ export default css`
 
   :host(.horizon-card-dark) {
     --hc-accent: #464646;
+    --hc-sunrise-sunset-color: #5c5c5c;
     --hc-moon-shadow-color: #3b4653;
     --hc-moon-outline-color: #6b7789;
   }
@@ -80,9 +83,9 @@ export default css`
     font-size: inherit;
   }
 
-  .horizon-card-field-moon-phase {
+  .horizon-card-field-moon-phase-icon {
     --mdc-icon-size: 2em;
-    color: var(--primary-color);
+    color: var(--hc-moon-phase-icon-color);
   }
 
   .horizon-card-field-value-secondary {
