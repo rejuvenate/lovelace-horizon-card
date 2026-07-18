@@ -278,3 +278,7 @@ For finer control (an edge-to-edge graph, recolouring individual elements or sty
 ### Build the project
 
 Run `yarn build`
+
+### Pre-releases (beta)
+
+Stable releases are cut by merging to `main` with a `release:*` label. To ship a beta instead, run the **Build & Pre-release (beta)** workflow (Actions tab) from the branch you want, with a semver pre-release tag such as `v2.0.0-beta.1`. It publishes a pre-release, so only HACS users who enable **Show beta versions** on the repository are offered it, and it does not affect the next stable version number.
