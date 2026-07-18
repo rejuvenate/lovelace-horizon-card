@@ -266,6 +266,23 @@ Set `graph: false` for a values-only card, or `fields: false` for a graph-only o
 
 For finer control (an edge-to-edge graph, recolouring individual elements or styling a single field), every drawn element has a stable CSS class and every colour is an `--hc-*` variable. The colours can be set straight in a Home Assistant theme, which is the fastest option since the card picks them up as it loads, or targeted with Uix or card-mod. The names are in the card's source, and [`tests/manual/styling-and-embedding.yaml`](tests/manual/styling-and-embedding.yaml) has a worked example for each case.
 
+**Theming**
+
+Because the `--hc-*` colours are ordinary CSS variables, you can set them from a [Home Assistant theme](https://www.home-assistant.io/integrations/frontend/#defining-themes). Themes are a standard Home Assistant feature, not something specific to this card. List the variables without the leading `--` (Home Assistant adds it):
+
+```yaml
+# configuration.yaml (or a file under your themes/ folder)
+frontend:
+  themes:
+    my_theme:
+      hc-day-color: "#7fc8a9"
+      hc-night-color: "#2b2d42"
+      hc-sun-color: "#ff7043"
+      hc-moon-color: "#cfd8dc"
+```
+
+Select the theme as usual (in your user profile, or per dashboard). The card reads the colours as it loads, so this is the quickest way to recolour it and needs no extra styling integration.
+
 ## Development
 
 ### Prepare the environment
