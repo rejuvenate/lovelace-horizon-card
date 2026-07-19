@@ -7,6 +7,7 @@ export default css`
 
     --hc-field-name-color: var(--hc-secondary);
     --hc-field-value-color: var(--hc-primary);
+    --hc-field-value-secondary-color: var(--hc-field-value-color);
     --hc-moon-phase-icon-color: var(--primary-color);
 
     --hc-daytime-past-color: #8ebeeb;
@@ -100,6 +101,7 @@ export default css`
   }
 
   .horizon-card-field-value-secondary {
+    color: var(--hc-field-value-secondary-color);
     font-size: 0.7em;
   }
 

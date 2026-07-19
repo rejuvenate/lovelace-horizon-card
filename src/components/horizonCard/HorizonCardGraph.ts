@@ -200,12 +200,12 @@ export class HorizonCardGraph {
           <g class="horizon-card-moon">
           <g transform="rotate(${this.moonData.zenithAngle} ${this.moonPosition.x} ${this.moonPosition.y})">
             <!-- Moon shadow -->
-            <use href="#moon" fill="var(--hc-moon-shadow-color)"/>
+            <use class="horizon-card-moon-shadow" href="#moon" fill="var(--hc-moon-shadow-color)"/>
             <!-- Moon proper -->
-            <use href="#moon" fill="var(--hc-moon-color)" mask="url(#moon-shadow-mask)"/>
+            <use class="horizon-card-moon-body" href="#moon" fill="var(--hc-moon-color)" mask="url(#moon-shadow-mask)"/>
           </g>
           <!-- Moon spots to approximate the darker parts -->
-          <g transform="rotate(${this.moonData.parallacticAngle} ${this.moonPosition.x} ${this.moonPosition.y})">
+          <g class="horizon-card-moon-spots" transform="rotate(${this.moonData.parallacticAngle} ${this.moonPosition.x} ${this.moonPosition.y})">
             <circle cx="${this.moonPosition.x - bigSpotR}" cy="${this.moonPosition.y - 1.5 * bigSpotR}" r="${hugeSpotR}"
                     stroke="none" fill="${spotFill}"/>
             <circle cx="${this.moonPosition.x + 1.5 * bigSpotR}" cy="${this.moonPosition.y - 2 * bigSpotR}" r="${bigSpotR}"
@@ -216,7 +216,8 @@ export class HorizonCardGraph {
                     stroke="none" fill="${spotFill}"/>
           </g>
           <!-- Thin outline so the disc stays defined at any phase or background -->
-          <circle cx="${this.moonPosition.x}" cy="${this.moonPosition.y}"
+          <circle class="horizon-card-moon-outline"
+                  cx="${this.moonPosition.x}" cy="${this.moonPosition.y}"
                   r="${Constants.MOON_RADIUS}" fill="none"
                   stroke="var(--hc-moon-outline-color)" stroke-width="0.7"/>
           </g>

@@ -424,17 +424,21 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
     </g>
     <g class="horizon-card-moon">
       <g transform="rotate(0 100 25)">
-        <use href="#moon"
+        <use class="horizon-card-moon-shadow"
+             href="#moon"
              fill="var(--hc-moon-shadow-color)"
         >
         </use>
-        <use href="#moon"
+        <use class="horizon-card-moon-body"
+             href="#moon"
              fill="var(--hc-moon-color)"
              mask="url(#moon-shadow-mask)"
         >
         </use>
       </g>
-      <g transform="rotate( 100 25)">
+      <g class="horizon-card-moon-spots"
+         transform="rotate( 100 25)"
+      >
         <circle stroke="none"
                 cx="96.5"
                 cy="19.75"
@@ -464,7 +468,8 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
         >
         </circle>
       </g>
-      <circle fill="none"
+      <circle class="horizon-card-moon-outline"
+              fill="none"
               stroke="var(--hc-moon-outline-color)"
               stroke-width="0.7"
               cx="100"
@@ -636,17 +641,21 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
     </g>
     <g class="horizon-card-moon">
       <g transform="rotate(0 0 0)">
-        <use href="#moon"
+        <use class="horizon-card-moon-shadow"
+             href="#moon"
              fill="var(--hc-moon-shadow-color)"
         >
         </use>
-        <use href="#moon"
+        <use class="horizon-card-moon-body"
+             href="#moon"
              fill="var(--hc-moon-color)"
              mask="url(#moon-shadow-mask)"
         >
         </use>
       </g>
-      <g transform="rotate(0 0 0)">
+      <g class="horizon-card-moon-spots"
+         transform="rotate(0 0 0)"
+      >
         <circle stroke="none"
                 cx="-3.5"
                 cy="-5.25"
@@ -676,7 +685,8 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
         >
         </circle>
       </g>
-      <circle fill="none"
+      <circle class="horizon-card-moon-outline"
+              fill="none"
               stroke="var(--hc-moon-outline-color)"
               stroke-width="0.7"
               cx="0"
