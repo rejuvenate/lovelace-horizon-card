@@ -113,12 +113,23 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
-            class="dawn horizon-card-nighttime"
+            class="horizon-card-nighttime horizon-card-nighttime-past"
             d="M5,0 H0 V150 H5"
       >
       </path>
+      <path clip-path="url(#lower-path-mask)"
+            class="horizon-card-nighttime horizon-card-nighttime-upcoming"
+            d="M0,0 H545 V150 H0"
+      >
+      </path>
       <path clip-path="url(#upper-path-mask)"
-            class="day horizon-card-daytime"
+            class="horizon-card-daytime horizon-card-daytime-past"
+            d="M0,0 H0
+            V0 H0"
+      >
+      </path>
+      <path clip-path="url(#upper-path-mask)"
+            class="horizon-card-daytime horizon-card-daytime-upcoming"
             d="M0,0 H0
             V0 H0"
       >
@@ -367,14 +378,25 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
-            class="dawn horizon-card-nighttime"
+            class="horizon-card-nighttime horizon-card-nighttime-past"
             d="M5,84 H50 V150 H5"
       >
       </path>
+      <path clip-path="url(#lower-path-mask)"
+            class="horizon-card-nighttime horizon-card-nighttime-upcoming"
+            d="M50,84 H545 V150 H50"
+      >
+      </path>
       <path clip-path="url(#upper-path-mask)"
-            class="day horizon-card-daytime"
+            class="horizon-card-daytime horizon-card-daytime-past"
             d="M200,0 H50
             V84 H200"
+      >
+      </path>
+      <path clip-path="url(#upper-path-mask)"
+            class="horizon-card-daytime horizon-card-daytime-upcoming"
+            d="M50,0 H400
+            V84 H50"
       >
       </path>
       <line class="horizon-card-horizon-line"
@@ -568,12 +590,23 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
-            class="dawn horizon-card-nighttime"
+            class="horizon-card-nighttime horizon-card-nighttime-past"
             d="M5,0 H0 V150 H5"
       >
       </path>
+      <path clip-path="url(#lower-path-mask)"
+            class="horizon-card-nighttime horizon-card-nighttime-upcoming"
+            d="M0,0 H545 V150 H0"
+      >
+      </path>
       <path clip-path="url(#upper-path-mask)"
-            class="day horizon-card-daytime"
+            class="horizon-card-daytime horizon-card-daytime-past"
+            d="M0,0 H0
+            V0 H0"
+      >
+      </path>
+      <path clip-path="url(#upper-path-mask)"
+            class="horizon-card-daytime horizon-card-daytime-upcoming"
             d="M0,0 H0
             V0 H0"
       >
@@ -769,12 +802,23 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
-            class="dawn horizon-card-nighttime"
+            class="horizon-card-nighttime horizon-card-nighttime-past"
             d="M5,0 H0 V150 H5"
       >
       </path>
+      <path clip-path="url(#lower-path-mask)"
+            class="horizon-card-nighttime horizon-card-nighttime-upcoming"
+            d="M0,0 H545 V150 H0"
+      >
+      </path>
       <path clip-path="url(#upper-path-mask)"
-            class="day horizon-card-daytime"
+            class="horizon-card-daytime horizon-card-daytime-past"
+            d="M0,0 H0
+            V0 H0"
+      >
+      </path>
+      <path clip-path="url(#upper-path-mask)"
+            class="horizon-card-daytime horizon-card-daytime-upcoming"
             d="M0,0 H0
             V0 H0"
       >

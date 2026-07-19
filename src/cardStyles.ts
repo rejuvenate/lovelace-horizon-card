@@ -9,8 +9,10 @@ export default css`
     --hc-field-value-color: var(--hc-primary);
     --hc-moon-phase-icon-color: var(--primary-color);
 
-    --hc-day-color: #8ebeeb;
-    --hc-night-color: #393b78;
+    --hc-daytime-past-color: #8ebeeb;
+    --hc-daytime-upcoming-color: transparent;
+    --hc-nighttime-past-color: #393b78;
+    --hc-nighttime-upcoming-color: transparent;
 
     --hc-accent: #d7d7d7;
     --hc-lines: var(--hc-accent);
@@ -130,13 +132,23 @@ export default css`
     margin: 1em 0;
   }
 
-  .horizon-card-graph .dawn {
-    fill: var(--hc-night-color);
-    stroke: var(--hc-night-color);
+  .horizon-card-graph .horizon-card-daytime-past {
+    fill: var(--hc-daytime-past-color);
+    stroke: var(--hc-daytime-past-color);
   }
 
-  .horizon-card-graph .day {
-    fill: var(--hc-day-color);
-    stroke: var(--hc-day-color);
+  .horizon-card-graph .horizon-card-daytime-upcoming {
+    fill: var(--hc-daytime-upcoming-color);
+    stroke: var(--hc-daytime-upcoming-color);
+  }
+
+  .horizon-card-graph .horizon-card-nighttime-past {
+    fill: var(--hc-nighttime-past-color);
+    stroke: var(--hc-nighttime-past-color);
+  }
+
+  .horizon-card-graph .horizon-card-nighttime-upcoming {
+    fill: var(--hc-nighttime-upcoming-color);
+    stroke: var(--hc-nighttime-upcoming-color);
   }
 `

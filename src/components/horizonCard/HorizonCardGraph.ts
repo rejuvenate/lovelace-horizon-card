@@ -124,18 +124,31 @@ export class HorizonCardGraph {
              fill="none"
              stroke="var(--hc-sun-path-color)"/>
 
-        <!-- Draw the below horizon passed area, i.e., the dark blue/night part on either side -->
+        <!-- Night, already passed: below the horizon, behind the sun (left of it) -->
         <path
           d="M5,${this.sunPosition.horizonY} H${this.sunPosition.x} V150 H5"
           clip-path="url(#lower-path-mask)"
-          class="dawn horizon-card-nighttime"/>
+          class="horizon-card-nighttime horizon-card-nighttime-past"/>
 
-        <!-- Draw the above horizon passed area, i.e., the light blue/day part in the middle -->
+        <!-- Night, upcoming: below the horizon, ahead of the sun (right of it) -->
+        <path
+          d="M${this.sunPosition.x},${this.sunPosition.horizonY} H545 V150 H${this.sunPosition.x}"
+          clip-path="url(#lower-path-mask)"
+          class="horizon-card-nighttime horizon-card-nighttime-upcoming"/>
+
+        <!-- Day, already passed: above the horizon, behind the sun (left of it) -->
         <path
           d="M${this.sunPosition.sunriseX},0 H${this.sunPosition.x}
             V${this.sunPosition.horizonY} H${this.sunPosition.sunriseX}"
           clip-path="url(#upper-path-mask)"
-          class="day horizon-card-daytime"/>` : nothing}
+          class="horizon-card-daytime horizon-card-daytime-past"/>
+
+        <!-- Day, upcoming: above the horizon, ahead of the sun (right of it) -->
+        <path
+          d="M${this.sunPosition.x},0 H${this.sunPosition.sunsetX}
+            V${this.sunPosition.horizonY} H${this.sunPosition.x}"
+          clip-path="url(#upper-path-mask)"
+          class="horizon-card-daytime horizon-card-daytime-upcoming"/>` : nothing}
 
         <!-- Draw the horizon (the gray horizontal lines) -->
         <line class="horizon-card-horizon-line"

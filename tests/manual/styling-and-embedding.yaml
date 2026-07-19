@@ -551,14 +551,12 @@ views:
 
               Every colour is a CSS variable set on `ha-card`, so a theme or card-mod can repaint any part of the card. The defaults follow the Home Assistant theme.
           - type: markdown
-            content: "**P1** graph colours, each with its own variable: `--hc-day-color`, `--hc-night-color`, `--hc-sun-path-color`, `--hc-horizon-line-color`, `--hc-time-arrow-color`, `--hc-sunrise-line-color` and `--hc-sunset-line-color` (`--hc-lines` still recolours the sun path, horizon and arrow together)."
+            content: "**P1** line colours, each with its own variable: `--hc-sun-path-color`, `--hc-horizon-line-color`, `--hc-time-arrow-color`, `--hc-sunrise-line-color` and `--hc-sunset-line-color` (`--hc-lines` still recolours the sun path, horizon and arrow together)."
           - type: custom:horizon-card
             fields: false
             uix:
               style: |
                 ha-card {
-                  --hc-day-color: #7fc8a9;
-                  --hc-night-color: #2b2d42;
                   --hc-sun-path-color: #b0b0b0;
                   --hc-horizon-line-color: #8d8d8d;
                   --hc-time-arrow-color: #8d8d8d;
@@ -566,7 +564,20 @@ views:
                   --hc-sunset-line-color: #f4a259;
                 }
           - type: markdown
-            content: "**P2** Sun and Moon: `--hc-sun-color`, `--hc-moon-color`, `--hc-moon-shadow-color`, `--hc-moon-outline-color` and `--hc-moon-spot-color`. Both colours can also be tuned through their `--hc-sun-hue/saturation/lightness` and `--hc-moon-*` parts."
+            content: |
+              **P2** the shaded areas between the sun path and the horizon. Each has a `past` half (behind the sun) and an `upcoming` half (ahead of it): `--hc-daytime-past-color`, `--hc-daytime-upcoming-color`, `--hc-nighttime-past-color`, `--hc-nighttime-upcoming-color`. The two `upcoming` colours are transparent by default; here they are tinted so the area ahead of the sun becomes visible.
+          - type: custom:horizon-card
+            fields: false
+            uix:
+              style: |
+                ha-card {
+                  --hc-daytime-past-color: #8ebeeb;
+                  --hc-daytime-upcoming-color: #cfe8fb;
+                  --hc-nighttime-past-color: #393b78;
+                  --hc-nighttime-upcoming-color: #23244a;
+                }
+          - type: markdown
+            content: "**P3** Sun and Moon: `--hc-sun-color`, `--hc-moon-color`, `--hc-moon-shadow-color`, `--hc-moon-outline-color` and `--hc-moon-spot-color`. Both colours can also be tuned through their `--hc-sun-hue/saturation/lightness` and `--hc-moon-*` parts."
           - type: custom:horizon-card
             fields: false
             now: "2023-03-29T18:00:00Z"
@@ -580,7 +591,7 @@ views:
                   --hc-moon-spot-color: rgba(38, 50, 56, 0.25);
                 }
           - type: markdown
-            content: "**P3** text: `--hc-field-name-color`, `--hc-field-value-color` and `--hc-moon-phase-icon-color`."
+            content: "**P4** text: `--hc-field-name-color`, `--hc-field-value-color` and `--hc-moon-phase-icon-color`."
           - type: custom:horizon-card
             graph: false
             fields:
@@ -607,4 +618,4 @@ views:
             content: |
               ## Q. Stable class hooks
 
-              Every drawn element carries a stable class for card-mod or theme targeting. In the graph: `.horizon-card-graph`, `.horizon-card-sun-path`, `.horizon-card-horizon-line`, `.horizon-card-time-arrow`, `.horizon-card-sunrise-line`, `.horizon-card-sunset-line`, `.horizon-card-daytime`, `.horizon-card-nighttime`, `.horizon-card-sun` and `.horizon-card-moon`. Around the values: `.card-header`, `.horizon-card-header`, `.horizon-card-footer`, `.horizon-card-field-row` and `.horizon-card-field-<name>`. The card wrapper is `.horizon-card` (also `.card-content`).
+              Every drawn element carries a stable class for card-mod or theme targeting. In the graph: `.horizon-card-graph`, `.horizon-card-sun-path`, `.horizon-card-horizon-line`, `.horizon-card-time-arrow`, `.horizon-card-sunrise-line`, `.horizon-card-sunset-line`, `.horizon-card-daytime` and `.horizon-card-nighttime` (each split into `-past` behind the sun and `-upcoming` ahead of it), `.horizon-card-sun` and `.horizon-card-moon`. Around the values: `.card-header`, `.horizon-card-header`, `.horizon-card-footer`, `.horizon-card-field-row` and `.horizon-card-field-<name>`. The card wrapper is `.horizon-card` (also `.card-content`).

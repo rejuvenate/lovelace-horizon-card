@@ -275,8 +275,8 @@ Because the `--hc-*` colours are ordinary CSS variables, you can set them from a
 frontend:
   themes:
     my_theme:
-      hc-day-color: "#7fc8a9"
-      hc-night-color: "#2b2d42"
+      hc-daytime-past-color: "#7fc8a9"
+      hc-nighttime-past-color: "#2b2d42"
       hc-sun-color: "#ff7043"
       hc-moon-color: "#cfd8dc"
 ```
