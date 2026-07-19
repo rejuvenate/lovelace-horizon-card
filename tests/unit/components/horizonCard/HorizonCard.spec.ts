@@ -1235,7 +1235,8 @@ describe('HorizonCard', () => {
       },
       moonPosition: {
         x: 403,
-        y: 28.875
+        y: 28.875,
+        path: ''
       }
     }
 
@@ -1275,6 +1276,38 @@ describe('HorizonCard', () => {
         }
       }
       expect(result).toEqual(expectedFinal)
+    })
+
+    it('computes a sampled moon path when moon_path is enabled', () => {
+      horizonCard.setConfig({
+        moon_path: true,
+        southern_flip: false
+      } as IHorizonCardConfig)
+      horizonCard['calculateStatePartial']()
+      const path = horizonCard['data'].moonPosition.path
+
+      // A connected sampled track: it starts with a move, has drawn segments, and every
+      // sampled coordinate stays inside the 550x150 viewBox.
+      expect(path.startsWith('M')).toBe(true)
+      expect(path).toContain('L')
+      const coords = path.match(/[ML]([\d.]+),([\d.]+)/g) ?? []
+      expect(coords.length).toBeGreaterThan(10)
+      for (const token of coords) {
+        const [x, y] = token.slice(1).split(',').map(Number)
+        expect(x).toBeGreaterThanOrEqual(0)
+        expect(x).toBeLessThanOrEqual(550)
+        expect(y).toBeGreaterThanOrEqual(0)
+        expect(y).toBeLessThanOrEqual(150)
+      }
+    })
+
+    it('omits the moon path when moon_path is disabled', () => {
+      horizonCard.setConfig({
+        southern_flip: false
+      } as IHorizonCardConfig)
+      horizonCard['calculateStatePartial']()
+
+      expect(horizonCard['data'].moonPosition.path).toBe('')
     })
   })
 
@@ -1464,7 +1497,7 @@ describe('HorizonCard', () => {
     })
   })
 
-  describe('computeMoonPosition', () => {
+  describe('moonScreenPosition', () => {
     beforeEach(() => {
       horizonCard.setConfig({
         southern_flip: false
@@ -1476,7 +1509,7 @@ describe('HorizonCard', () => {
         azimuth: 0,
         elevation: 0
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result).toEqual({x: 19, y: 84})
     })
 
@@ -1485,7 +1518,7 @@ describe('HorizonCard', () => {
         azimuth: 0,
         elevation: 0.1
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result.x).toEqual(19)
       expect(result.y).toBeCloseTo(83.107, 2)
     })
@@ -1495,7 +1528,7 @@ describe('HorizonCard', () => {
         azimuth: 30,
         elevation: 1
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result.x).toBeCloseTo(61.667)
       expect(result.y).toBeCloseTo(76.586, 2)
     })
@@ -1505,7 +1538,7 @@ describe('HorizonCard', () => {
         azimuth: 120,
         elevation: -1
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result.x).toBeCloseTo(189.667)
       expect(result.y).toBeCloseTo(91.413, 2)
     })
@@ -1515,7 +1548,7 @@ describe('HorizonCard', () => {
         azimuth: 90,
         elevation: 90
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result).toEqual({x: 147, y: 14})
     })
 
@@ -1524,7 +1557,7 @@ describe('HorizonCard', () => {
         azimuth: 180,
         elevation: 60
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result.x).toEqual(275)
       expect(result.y).toBeCloseTo(21.215, 2)
     })
@@ -1534,7 +1567,7 @@ describe('HorizonCard', () => {
         azimuth: 270,
         elevation: -60
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result.x).toEqual(403)
       expect(result.y).toBeCloseTo(146.784, 2)
     })
@@ -1544,7 +1577,7 @@ describe('HorizonCard', () => {
         azimuth: 359.999,
         elevation: -90
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result.x).toBeCloseTo(531, 2)
       expect(result.y).toEqual(154)
     })
@@ -1557,7 +1590,7 @@ describe('HorizonCard', () => {
         azimuth: 180,
         elevation: 60
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result.x).toEqual(275)
       expect(result.y).toBeCloseTo(21.215, 2)
     })
@@ -1570,7 +1603,7 @@ describe('HorizonCard', () => {
         azimuth: 45,
         elevation: 90
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 1)
       expect(result.x).toEqual(467)
       expect(result.y).toEqual(14)
     })
@@ -1580,7 +1613,7 @@ describe('HorizonCard', () => {
         azimuth: 270,
         elevation: 90
       } as TMoonData
-      const result = horizonCard['computeMoonPosition'](moonData, 0.5)
+      const result = horizonCard['moonScreenPosition'](moonData.azimuth, moonData.elevation, 0.5)
       expect(result.x).toEqual(403)
       expect(result.y).toEqual(49)
     })

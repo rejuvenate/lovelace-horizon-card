@@ -173,6 +173,8 @@ export class HorizonCardGraph {
         ${this.debugSun()}
       </g>
 
+      ${this.moonPath()}
+
       ${this.moon()}
 
       ${this.debugHorizon()}
@@ -188,6 +190,19 @@ export class HorizonCardGraph {
     return `M 5,${sy(146)}
             C 103.334,${sy(146)} 176.666,${sy(20)} 275,${sy(20)}
             S 446.666,${sy(146)} 545,${sy(146)}`
+  }
+
+  private moonPath () {
+    // The Moon's sampled track across the sky (parallel to the sun path, but a real computed
+    // path). Drawn in screen space like the Moon disc so the disc sits exactly on it. The `d`
+    // is empty unless `moon_path` is enabled, so nothing is drawn by default.
+    return this.config.moon_path && this.moonPosition.path
+      ? svg`<!-- Moon path -->
+          <path class="horizon-card-moon-path"
+                d="${this.moonPosition.path}"
+                fill="none"
+                stroke="var(--hc-moon-path-color)"/>`
+      : nothing
   }
 
   private moon () {

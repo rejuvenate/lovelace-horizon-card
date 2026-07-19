@@ -20,6 +20,7 @@ export default css`
     --hc-sunrise-line-color: var(--hc-lines);
     --hc-sunset-line-color: var(--hc-lines);
     --hc-sun-path-color: var(--hc-lines);
+    --hc-moon-path-color: var(--hc-lines);
     --hc-horizon-line-color: var(--hc-lines);
     --hc-time-arrow-color: var(--hc-lines);
 

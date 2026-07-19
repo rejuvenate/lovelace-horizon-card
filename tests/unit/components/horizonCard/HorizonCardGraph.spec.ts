@@ -84,6 +84,46 @@ describe('HorizonCardGraph', () => {
 
       expect(html).toMatchSnapshot()
     })
+
+    it(`renders the moon path when moon_path is enabled`, async () => {
+      const config = {
+        moon_path: true
+      } as IHorizonCardConfig
+
+      const data = {
+        ...Constants.DEFAULT_CARD_DATA,
+        moonPosition: {
+          x: 100,
+          y: 25,
+          path: 'M19.00,84.00 L100.00,25.00 L200.00,40.00'
+        }
+      } as THorizonCardData
+
+      const horizonCardGraph = new HorizonCardGraph(config, data)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardGraph)
+
+      expect(html).toContain('horizon-card-moon-path')
+      expect(html).toContain('M19.00,84.00 L100.00,25.00 L200.00,40.00')
+    })
+
+    it(`does not render the moon path when moon_path is disabled`, async () => {
+      const data = {
+        ...Constants.DEFAULT_CARD_DATA,
+        moonPosition: {
+          x: 100,
+          y: 25,
+          path: 'M19.00,84.00 L100.00,25.00'
+        }
+      } as THorizonCardData
+
+      // moon_path unset: even with a path present in the data, nothing is drawn.
+      const horizonCardGraph = new HorizonCardGraph({} as IHorizonCardConfig, data)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardGraph)
+
+      expect(html).not.toContain('horizon-card-moon-path')
+    })
   })
 
   it(`renders the graph flipped horizontally when configured so`, async () => {
