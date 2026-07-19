@@ -170,27 +170,28 @@ views:
             content: |
               ## E. Sunrise / sunset lines
 
-              The two vertical lines mark sunrise and sunset (the day/night boundary). They have dedicated colour variables (`--hc-sunrise-color`, `--hc-sunset-color`) and per-line classes, so they can be restyled without touching the sun path, horizon or arrow.
+              The two vertical lines mark sunrise and sunset (the day/night boundary). They have dedicated colour variables (`--hc-sunrise-line-color`, `--hc-sunset-line-color`) and per-line classes, so they can be restyled without touching the sun path, horizon or arrow.
           - type: markdown
             content: |
-              **E1** both lines recoloured through `--hc-sunrise-sunset-color: red`. Only the two boundary lines turn red; the sun path, horizon line and arrow keep their colour.
+              **E1** both boundary lines recoloured, by setting `--hc-sunrise-line-color` and `--hc-sunset-line-color` to the same colour. Only the two boundary lines turn red; the sun path, horizon line and arrow keep their colour.
           - type: custom:horizon-card
             fields: false
             uix:
               style: |
                 ha-card {
-                  --hc-sunrise-sunset-color: red;
+                  --hc-sunrise-line-color: red;
+                  --hc-sunset-line-color: red;
                 }
           - type: markdown
             content: |
-              **E2** each line coloured on its own through its dedicated variable, set straight on `ha-card`: `--hc-sunrise-color` takes the sun's above-horizon colour, `--hc-sunset-color` its below-horizon colour.
+              **E2** each line coloured on its own through its dedicated variable, set straight on `ha-card`: `--hc-sunrise-line-color` takes the sun's above-horizon colour, `--hc-sunset-line-color` its below-horizon colour.
           - type: custom:horizon-card
             fields: false
             uix:
               style: |
                 ha-card {
-                  --hc-sunrise-color: var(--state-sun-above_horizon-color);
-                  --hc-sunset-color: var(--state-sun-below_horizon-color);
+                  --hc-sunrise-line-color: var(--state-sun-above_horizon-color);
+                  --hc-sunset-line-color: var(--state-sun-below_horizon-color);
                 }
           - type: markdown
             content: |
@@ -550,7 +551,7 @@ views:
 
               Every colour is a CSS variable set on `ha-card`, so a theme or card-mod can repaint any part of the card. The defaults follow the Home Assistant theme.
           - type: markdown
-            content: "**P1** graph colours, each with its own variable: `--hc-day-color`, `--hc-night-color`, `--hc-sun-path-color`, `--hc-horizon-color`, `--hc-arrow-color`, `--hc-sunrise-color` and `--hc-sunset-color` (`--hc-lines` still recolours the sun path, horizon and arrow together)."
+            content: "**P1** graph colours, each with its own variable: `--hc-day-color`, `--hc-night-color`, `--hc-sun-path-color`, `--hc-horizon-line-color`, `--hc-time-arrow-color`, `--hc-sunrise-line-color` and `--hc-sunset-line-color` (`--hc-lines` still recolours the sun path, horizon and arrow together)."
           - type: custom:horizon-card
             fields: false
             uix:
@@ -559,10 +560,10 @@ views:
                   --hc-day-color: #7fc8a9;
                   --hc-night-color: #2b2d42;
                   --hc-sun-path-color: #b0b0b0;
-                  --hc-horizon-color: #8d8d8d;
-                  --hc-arrow-color: #8d8d8d;
-                  --hc-sunrise-color: #ffd166;
-                  --hc-sunset-color: #f4a259;
+                  --hc-horizon-line-color: #8d8d8d;
+                  --hc-time-arrow-color: #8d8d8d;
+                  --hc-sunrise-line-color: #ffd166;
+                  --hc-sunset-line-color: #f4a259;
                 }
           - type: markdown
             content: "**P2** Sun and Moon: `--hc-sun-color`, `--hc-moon-color`, `--hc-moon-shadow-color`, `--hc-moon-outline-color` and `--hc-moon-spot-color`. Both colours can also be tuned through their `--hc-sun-hue/saturation/lightness` and `--hc-moon-*` parts."
@@ -606,4 +607,4 @@ views:
             content: |
               ## Q. Stable class hooks
 
-              Every drawn element carries a stable class for card-mod or theme targeting. In the graph: `.horizon-card-graph`, `.horizon-card-sun-path`, `.horizon-card-horizon-line`, `.horizon-card-direction-arrow`, `.horizon-card-sunrise-line`, `.horizon-card-sunset-line`, `.horizon-card-daytime`, `.horizon-card-nighttime`, `.horizon-card-sun` and `.horizon-card-moon`. Around the values: `.card-header`, `.horizon-card-header`, `.horizon-card-footer`, `.horizon-card-field-row` and `.horizon-card-field-<name>`. The card wrapper is `.horizon-card` (also `.card-content`).
+              Every drawn element carries a stable class for card-mod or theme targeting. In the graph: `.horizon-card-graph`, `.horizon-card-sun-path`, `.horizon-card-horizon-line`, `.horizon-card-time-arrow`, `.horizon-card-sunrise-line`, `.horizon-card-sunset-line`, `.horizon-card-daytime`, `.horizon-card-nighttime`, `.horizon-card-sun` and `.horizon-card-moon`. Around the values: `.card-header`, `.horizon-card-header`, `.horizon-card-footer`, `.horizon-card-field-row` and `.horizon-card-field-<name>`. The card wrapper is `.horizon-card` (also `.card-content`).

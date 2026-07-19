@@ -14,12 +14,11 @@ export default css`
 
     --hc-accent: #d7d7d7;
     --hc-lines: var(--hc-accent);
-    --hc-sunrise-sunset-color: #e6e6e6;
-    --hc-sunrise-color: var(--hc-sunrise-sunset-color);
-    --hc-sunset-color: var(--hc-sunrise-sunset-color);
+    --hc-sunrise-line-color: var(--hc-lines);
+    --hc-sunset-line-color: var(--hc-lines);
     --hc-sun-path-color: var(--hc-lines);
-    --hc-horizon-color: var(--hc-lines);
-    --hc-arrow-color: var(--hc-lines);
+    --hc-horizon-line-color: var(--hc-lines);
+    --hc-time-arrow-color: var(--hc-lines);
 
     --hc-sun-hue: 44;
     --hc-sun-saturation: 93%;
@@ -50,7 +49,6 @@ export default css`
 
   :host(.horizon-card-dark) {
     --hc-accent: #464646;
-    --hc-sunrise-sunset-color: #5c5c5c;
     --hc-moon-shadow-color: #3b4653;
     --hc-moon-outline-color: #6b7789;
   }

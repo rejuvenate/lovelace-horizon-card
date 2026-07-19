@@ -108,11 +108,11 @@ export class HorizonCardGraph {
         <line class="horizon-card-sunrise-line"
               x1="${this.sunPosition.sunriseX}" y1="3"
               x2="${this.sunPosition.sunriseX}" y2="72"
-              stroke="var(--hc-sunrise-color)"/>
+              stroke="var(--hc-sunrise-line-color)"/>
         <line class="horizon-card-sunset-line"
               x1="${this.sunPosition.sunsetX}"
               y1="3" x2="${this.sunPosition.sunsetX}" y2="72"
-              stroke="var(--hc-sunset-color)"/>
+              stroke="var(--hc-sunset-line-color)"/>
       </g>` : nothing}
 
       <!-- Main group that shifts up or down to center the horizon vertically -->
@@ -141,12 +141,12 @@ export class HorizonCardGraph {
         <line class="horizon-card-horizon-line"
               x1="5" y1="${this.sunPosition.horizonY}"
               x2="545" y2="${this.sunPosition.horizonY}"
-              stroke="var(--hc-horizon-color)"/>
+              stroke="var(--hc-horizon-line-color)"/>
 
-        <!-- Arrow showing direction of travel -->
-        <path class="horizon-card-direction-arrow"
+        <!-- Time arrow: the direction the sun and moon travel across the sky -->
+        <path class="horizon-card-time-arrow"
               d="M535 ${this.sunPosition.horizonY - 5} L545 ${this.sunPosition.horizonY} L535 ${this.sunPosition.horizonY + 5}"
-              stroke="var(--hc-arrow-color)" fill="none"/>
+              stroke="var(--hc-time-arrow-color)" fill="none"/>
 
         ${showSun ? svg`
         <!-- Draw the sun -->
