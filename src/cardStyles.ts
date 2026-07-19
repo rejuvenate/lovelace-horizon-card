@@ -7,14 +7,21 @@ export default css`
 
     --hc-field-name-color: var(--hc-secondary);
     --hc-field-value-color: var(--hc-primary);
+    --hc-field-value-secondary-color: var(--hc-field-value-color);
     --hc-moon-phase-icon-color: var(--primary-color);
 
-    --hc-day-color: #8ebeeb;
-    --hc-night-color: #393b78;
+    --hc-daytime-past-color: #8ebeeb;
+    --hc-daytime-upcoming-color: transparent;
+    --hc-nighttime-past-color: #393b78;
+    --hc-nighttime-upcoming-color: transparent;
 
     --hc-accent: #d7d7d7;
     --hc-lines: var(--hc-accent);
-    --hc-sunrise-sunset-color: #e6e6e6;
+    --hc-sunrise-line-color: var(--hc-lines);
+    --hc-sunset-line-color: var(--hc-lines);
+    --hc-sun-path-color: var(--hc-lines);
+    --hc-horizon-line-color: var(--hc-lines);
+    --hc-time-arrow-color: var(--hc-lines);
 
     --hc-sun-hue: 44;
     --hc-sun-saturation: 93%;
@@ -45,14 +52,19 @@ export default css`
 
   :host(.horizon-card-dark) {
     --hc-accent: #464646;
-    --hc-sunrise-sunset-color: #5c5c5c;
     --hc-moon-shadow-color: #3b4653;
     --hc-moon-outline-color: #6b7789;
   }
 
   .horizon-card {
-    padding: var(--hc-card-padding, 0.5em);
+    padding: 0.5em;
     font-family: var(--primary-font-family);
+  }
+
+  .card-header .name {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
   }
 
   .horizon-card-field-row {
@@ -89,6 +101,7 @@ export default css`
   }
 
   .horizon-card-field-value-secondary {
+    color: var(--hc-field-value-secondary-color);
     font-size: 0.7em;
   }
 
@@ -114,26 +127,43 @@ export default css`
   }
 
   .horizon-card-footer {
-    margin-bottom: var(--hc-footer-margin, 1em);
-  }
-
-  .horizon-card-title {
-    margin: 1em 1em 1em 1em;
-    font-size: 1.5em;
-    color: var(--hc-primary);
+    margin-bottom: 1em;
   }
 
   .horizon-card-graph {
-    margin: var(--hc-graph-margin, 1em 0);
+    margin: 1em 0;
   }
 
-  .horizon-card-graph .dawn {
-    fill: var(--hc-night-color);
-    stroke: var(--hc-night-color);
+  /* The 1em only separates the graph from the field rows above and below it.
+     When the graph is the first or last child (e.g. a graph-only card) that
+     margin is a pure edge gap, so drop it there: the graph then sits flush
+     against the card padding and a single padding override makes it reach the
+     edges, no separate graph-margin override needed (#220). */
+  .horizon-card-graph:first-child {
+    margin-top: 0;
   }
 
-  .horizon-card-graph .day {
-    fill: var(--hc-day-color);
-    stroke: var(--hc-day-color);
+  .horizon-card-graph:last-child {
+    margin-bottom: 0;
+  }
+
+  .horizon-card-graph .horizon-card-daytime-past {
+    fill: var(--hc-daytime-past-color);
+    stroke: var(--hc-daytime-past-color);
+  }
+
+  .horizon-card-graph .horizon-card-daytime-upcoming {
+    fill: var(--hc-daytime-upcoming-color);
+    stroke: var(--hc-daytime-upcoming-color);
+  }
+
+  .horizon-card-graph .horizon-card-nighttime-past {
+    fill: var(--hc-nighttime-past-color);
+    stroke: var(--hc-nighttime-past-color);
+  }
+
+  .horizon-card-graph .horizon-card-nighttime-upcoming {
+    fill: var(--hc-nighttime-upcoming-color);
+    stroke: var(--hc-nighttime-upcoming-color);
   }
 `

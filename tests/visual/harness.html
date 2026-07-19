@@ -57,9 +57,31 @@
     if (!customElements.get('ha-icon')) {
       customElements.define('ha-icon', class extends HTMLElement {})
     }
-    // Minimal ha-card wrapper (the real one is a themed container).
+    // Minimal ha-card that mirrors the real one's slotted .card-header /
+    // .card-content styling, so header/content layout matches Home Assistant.
     if (!customElements.get('ha-card')) {
-      customElements.define('ha-card', class extends HTMLElement {})
+      customElements.define('ha-card', class extends HTMLElement {
+        connectedCallback () {
+          if (this.shadowRoot) return
+          const root = this.attachShadow({ mode: 'open' })
+          root.innerHTML = `
+            <style>
+              :host { display: block; background: #ffffff; }
+              ::slotted(.card-header) {
+                color: var(--ha-card-header-color, var(--primary-text-color));
+                font-family: var(--ha-card-header-font-family, inherit);
+                font-size: var(--ha-card-header-font-size, 24px);
+                font-weight: normal;
+                margin-block: 0;
+                line-height: 1.2em;
+                padding: 12px 16px 16px;
+                display: block;
+              }
+              ::slotted(.card-content) { padding: 16px; }
+            </style>
+            <slot></slot>`
+        }
+      })
     }
   </script>
   <script src="../../dist/lovelace-horizon-card.js"></script>

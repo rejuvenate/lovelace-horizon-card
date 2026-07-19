@@ -100,6 +100,7 @@ Installation via HACS is recommended, but a manual setup is supported.
 | Name                | Accepted values                 | Description                                                      | Default                                                        |
 | ------------------- | ------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------- |
 | title               | _string_                        | Card title                                                       | Doesn't display a title by default                             |
+| icon                | _string_                        | Icon shown before the title in the header (any `mdi:` icon)      | No icon                                                        |
 | moon                | _boolean_                       | Shows the Moon together with the Sun                             | `true`                                                         |
 | sun                 | _boolean_                       | Shows the Sun in the graph                                       | `true`                                                         |
 | graph               | _boolean_                       | Shows the horizon graph                                          | `true`                                                         |
@@ -116,6 +117,7 @@ In general, you should not need to set any of these as they override Home Assist
 
 | Name          | Accepted values                              | Description                                                                                                                   | Default                                                     |
 | ------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| dark_mode     | _boolean_                                    | Forces the card's dark colour palette on or off                                                                              | Follows the Home Assistant theme                            |
 | language      | See [below](#languages)                      | Changes card language                                                                                                         | Home Assistant profile language or English if not supported |
 | time_format   | `language`, `12`, `24`                       | Set to `12` or `24` to force 12/24 hour clock, `language` follow the language representation                                  | `language`                                                  |
 | number_format | `language`, `comma_decimal`, `decimal_comma` | Set to `comma_decimal` or `decimal_comma` to force 123.45/123,45 number format, `language` follow the language representation | `language`                                                  |
@@ -245,13 +247,13 @@ debug_level: 0
 
 ### Card background and embedding
 
-The card renders inside Home Assistant's standard `ha-card`, so its background, border and shadow follow your theme. Restyle it with a theme, [card-mod](https://github.com/thomasloven/lovelace-card-mod) or [Uix](https://github.com/Lint-Free-Technology/uix). The examples use card-mod; for Uix, replace the `card_mod:` key with `uix:`.
+The card renders inside Home Assistant's standard `ha-card`, so its background, border and shadow follow your theme, and the title uses the standard `card-header`. Restyle it with a theme, [Uix](https://github.com/Lint-Free-Technology/uix) or [card-mod](https://github.com/thomasloven/lovelace-card-mod). The examples use Uix (the recommended option, and a drop-in replacement for card-mod); for card-mod, replace the `uix:` key with `card_mod:`.
 
 **Transparent card** (remove the background, border and shadow, for example to blend into a dashboard):
 
 ```yaml
 type: custom:horizon-card
-card_mod:
+uix:
   style: |
     ha-card {
       --ha-card-background: none;
@@ -260,22 +262,26 @@ card_mod:
     }
 ```
 
-**Fill the card, edge to edge** (graph only, for example inside a `vertical-stack`): hide the fields with `fields: false` and set the padding to `0`.
+Set `graph: false` for a values-only card, or `fields: false` for a graph-only one.
+
+For finer control (an edge-to-edge graph, recolouring individual elements or styling a single field), every drawn element has a stable CSS class and every colour is an `--hc-*` variable. The colours can be set straight in a Home Assistant theme, which is the fastest option since the card picks them up as it loads, or targeted with Uix or card-mod. The names are in the card's source, and [`tests/manual/styling-and-embedding.yaml`](tests/manual/styling-and-embedding.yaml) has a worked example for each case.
+
+**Theming**
+
+Because the `--hc-*` colours are ordinary CSS variables, you can set them from a [Home Assistant theme](https://www.home-assistant.io/integrations/frontend/#defining-themes). Themes are a standard Home Assistant feature, not something specific to this card. List the variables without the leading `--` (Home Assistant adds it):
 
 ```yaml
-type: custom:horizon-card
-fields: false
-card_mod:
-  style: |
-    ha-card {
-      --ha-card-background: none;
-      --ha-card-box-shadow: none;
-      --ha-card-border-width: 0;
-      --hc-card-padding: 0;
-    }
+# configuration.yaml (or a file under your themes/ folder)
+frontend:
+  themes:
+    my_theme:
+      hc-daytime-past-color: "#7fc8a9"
+      hc-nighttime-past-color: "#2b2d42"
+      hc-sun-color: "#ff7043"
+      hc-moon-color: "#cfd8dc"
 ```
 
-The graph and the fields share the same horizontal margin, so they line up and either can reach the card edge. All spacing is adjustable through variables: `--hc-card-padding` (default `0.5em`), `--hc-graph-margin` (default `1em 0`) and `--hc-footer-margin` (default `1em`, the space below the fields). Set `graph: false` for a values-only card.
+Select the theme as usual (in your user profile, or per dashboard). The card reads the colours as it loads, so this is the quickest way to recolour it and needs no extra styling integration.
 
 ## Development
 
@@ -289,3 +295,7 @@ The graph and the fields share the same horizontal margin, so they line up and e
 ### Build the project
 
 Run `yarn build`
+
+### Pre-releases (beta)
+
+Stable releases are cut by merging to `main` with a `release:*` label. To ship a beta instead, run the **Build & Pre-release (beta)** workflow (Actions tab) from the branch you want, with a semver pre-release tag such as `v2.0.0-beta.1`. It publishes a pre-release, so only HACS users who enable **Show beta versions** on the repository are offered it, and it does not affect the next stable version number.

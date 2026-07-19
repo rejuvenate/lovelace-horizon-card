@@ -62,8 +62,4 @@ exports[`HorizonCardHeader render renders the sunset field when it is present in
 </div>
 `;
 
-exports[`HorizonCardHeader render renders the title if it is present in the configuration 1`] = `
-<div class="horizon-card-title">
-  test
-</div>
-`;
+exports[`HorizonCardHeader render renders the title if it is present in the configuration 1`] = ``;
