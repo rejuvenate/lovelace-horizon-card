@@ -481,16 +481,31 @@ export class HorizonCard extends LitElement {
       return ''
     }
 
-    // Anchor to the local day (the same reference the moonrise/moonset times use) so the drawn
-    // track only changes from one day to the next, never within a user-relevant timescale.
-    const dayStart = this.useLongitudeForComputation()
-      ? HelperFunctions.midnightAtLongitude(now, lon)
-      : HelperFunctions.midnightAtTimeZone(now, this.timeZone())
+    // Anchor the sampled window at the Moon's lower culmination (its lowest point over the last
+    // 24h), found with a coarse scan. That anti-transit is the natural seam for the arc: it lies
+    // at due north, where the azimuth wraps, and (away from circumpolar latitudes) below the
+    // horizon, so it clips out near the bottom of the frame. Cutting the arc there keeps the
+    // visible part a single continuous line and, since the seam is within the last 24h, the
+    // window always spans `now`, so the Moon disc sits on the track. Cutting at a fixed clock
+    // time instead would slice through the arc whenever the Moon culminates then, e.g. near local
+    // midnight around full moon (when the Moon culminates opposite the Sun), leaving a gap (#225).
+    const nowMs = now.getTime()
+    const coarseStep = Constants.MS_24_HOURS / Constants.MOON_PATH_COARSE_SAMPLES
+    let seam = nowMs - Constants.MS_24_HOURS
+    let minAltitude = Infinity
+    for (let i = 0; i <= Constants.MOON_PATH_COARSE_SAMPLES; i++) {
+      const t = nowMs - Constants.MS_24_HOURS + i * coarseStep
+      const altitude = SunCalc.getMoonPosition(new Date(t), lat, lon).altitudeDegrees
+      if (altitude < minAltitude) {
+        minAltitude = altitude
+        seam = t
+      }
+    }
 
     const stepMs = Constants.MS_24_HOURS / Constants.MOON_PATH_SAMPLES
-    // Half the drawable width. The azimuth wraps 360->0 through due north once a day; that jumps
-    // x across (almost) the whole frame, well above this threshold, so it starts a new sub-path
-    // instead of streaking. A real time-adjacent step never moves the Moon this far.
+    // Half the drawable width. The azimuth wraps 360->0 through due north at the seam; that jumps
+    // x across (almost) the whole frame, so it starts a new sub-path there instead of streaking.
+    // A real time-adjacent step never moves the Moon this far.
     const wrapThreshold = (550 - 2 * (Constants.MOON_RADIUS + 5)) / 2
 
     let d = ''
@@ -498,13 +513,12 @@ export class HorizonCard extends LitElement {
     let previousX: number | undefined
 
     for (let i = 0; i <= Constants.MOON_PATH_SAMPLES; i++) {
-      const sampleTime = new Date(dayStart.getTime() + i * stepMs)
-      const position = SunCalc.getMoonPosition(sampleTime, lat, lon)
+      const position = SunCalc.getMoonPosition(new Date(seam + i * stepMs), lat, lon)
       const { x, y } = this.moonScreenPosition(position.azimuthDegrees, position.altitudeDegrees, scaleY)
 
-      // Draw only where the track is inside the frame. A deep-below-horizon dive (off the bottom)
-      // and the azimuth wrap both break the line: a new sub-path is started rather than a stroke
-      // drawn across the graph.
+      // Draw only where the track is inside the frame. The seam (and any azimuth wrap) fall near
+      // the bottom; a below-frame dive or a wrap break the line into a new sub-path rather than
+      // drawing a stroke across the graph.
       if (y < 0 || y > 150) {
         started = false
         previousX = undefined

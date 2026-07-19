@@ -120,6 +120,11 @@ export class Constants {
   // i.e. every 10 minutes over 24 hours. Dense enough for a smooth line, cheap to compute.
   static readonly MOON_PATH_SAMPLES = 144
 
+  // Coarse scan resolution (every 30 minutes over 24 hours) used to locate the Moon's lower
+  // culmination, the point the sampled track is anchored at. The extremum is broad, so this is
+  // ample to land near the bottom of the arc.
+  static readonly MOON_PATH_COARSE_SAMPLES = 48
+
   // Generated from the JSON files in assets/localization/languages (see languages.generated.ts
   // and scripts/generate-i18n-index.mjs). To add a language, just add a <code>.json (with a
   // "languageName") to that folder — the index and README are regenerated automatically as
