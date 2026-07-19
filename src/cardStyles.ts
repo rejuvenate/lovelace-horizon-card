@@ -134,6 +134,19 @@ export default css`
     margin: 1em 0;
   }
 
+  /* The 1em only separates the graph from the field rows above and below it.
+     When the graph is the first or last child (e.g. a graph-only card) that
+     margin is a pure edge gap, so drop it there: the graph then sits flush
+     against the card padding and a single padding override makes it reach the
+     edges, no separate graph-margin override needed (#220). */
+  .horizon-card-graph:first-child {
+    margin-top: 0;
+  }
+
+  .horizon-card-graph:last-child {
+    margin-bottom: 0;
+  }
+
   .horizon-card-graph .horizon-card-daytime-past {
     fill: var(--hc-daytime-past-color);
     stroke: var(--hc-daytime-past-color);

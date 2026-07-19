@@ -103,29 +103,13 @@ views:
             content: |
               ## C. Graph-only, edge to edge
 
-              Making a graph-only card (`fields: false`) reach the card edges. The frame is kept so you can see the gap.
-          - type: markdown
-            content: |
-              **C1** only the card padding is set to `0`. The graph still carries its own `margin: 1em 0`, so a gap remains above and below it (the card background shows through). Zeroing the padding alone is not enough to sit flush, which is why #220 reads like a bug.
+              A graph-only card (`fields: false`) reaches the card edges with a single override: set the card padding to `0`. The graph's own `1em` margin now collapses automatically when the graph is the only content (#220 fixed), so no separate graph-margin override is needed. The frame is kept so you can see the graph reach it. The faint left/right inset is the graph's own drawing margin inside the SVG, not card padding.
           - type: custom:horizon-card
             fields: false
             uix:
               style: |
                 .card-content {
                   padding: 0;
-                }
-          - type: markdown
-            content: |
-              **C2** the graph margin is zeroed as well, so the graph now reaches all four edges. The faint left/right inset is the graph's own drawing margin inside the SVG, not card padding.
-          - type: custom:horizon-card
-            fields: false
-            uix:
-              style: |
-                .card-content {
-                  padding: 0;
-                }
-                .horizon-card-graph {
-                  margin: 0;
                 }
 
       # ---------------------------------------------------------------------
