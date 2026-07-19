@@ -20,6 +20,22 @@ export default {
     }
   },
 
+  // Sampled by the moon-path computation. Sweeps a full day: the azimuth wraps 0->360 and the
+  // altitude rises above and dips below the horizon, so the path builder's frame-clipping and
+  // azimuth-wrap sub-path break are both exercised.
+  getMoonPosition (date) {
+    const dayMs = 24 * 60 * 60 * 1000
+    const fraction = (date.getTime() % dayMs) / dayMs
+    const azimuthDegrees = fraction * 360
+    const altitudeDegrees = 60 * Math.sin(fraction * 2 * Math.PI - Math.PI / 2)
+    return {
+      azimuthDegrees,
+      altitudeDegrees,
+      azimuth: azimuthDegrees * Math.PI / 180,
+      altitude: altitudeDegrees * Math.PI / 180
+    }
+  },
+
   getMoonData () {
     return {
       azimuthDegrees: 270,

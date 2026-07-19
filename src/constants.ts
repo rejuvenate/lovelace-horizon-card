@@ -36,6 +36,7 @@ export class Constants {
   static readonly DEFAULT_CONFIG: IHorizonCardConfig = {
     type: 'horizon-card',
     moon: true,
+    moon_path: false,
     sun: true,
     graph: true,
     debug_level: 0,
@@ -104,7 +105,8 @@ export class Constants {
     },
     moonPosition: {
       x: 0,
-      y: 0
+      y: 0,
+      path: ''
     }
   }
 
@@ -113,6 +115,15 @@ export class Constants {
   static readonly SUN_RADIUS = 17
 
   static readonly MOON_RADIUS = 14
+
+  // Number of intervals the Moon's daily track is sampled at (one extra point is drawn),
+  // i.e. every 10 minutes over 24 hours. Dense enough for a smooth line, cheap to compute.
+  static readonly MOON_PATH_SAMPLES = 144
+
+  // Coarse scan resolution (every 30 minutes over 24 hours) used to locate the Moon's lower
+  // culmination, the point the sampled track is anchored at. The extremum is broad, so this is
+  // ample to land near the bottom of the arc.
+  static readonly MOON_PATH_COARSE_SAMPLES = 48
 
   // Generated from the JSON files in assets/localization/languages (see languages.generated.ts
   // and scripts/generate-i18n-index.mjs). To add a language, just add a <code>.json (with a

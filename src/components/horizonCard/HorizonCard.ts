@@ -253,7 +253,7 @@ export class HorizonCard extends LitElement {
     const sunPosition = this.computeSunPosition(times, this.isWinterDarkness(latitude, times.now))
 
     const moonData = this.computeMoonData(times.now, latitude, longitude)
-    const moonPosition = this.computeMoonPosition(moonData, sunPosition.scaleY)
+    const moonPosition = this.computeMoonPosition(moonData, times.now, latitude, longitude, sunPosition.scaleY)
 
     const hueReduce = HelperFunctions.rangeScale(-10, 10, elevation, 15)
     const saturationReduce = HelperFunctions.rangeScale(-23, 10, elevation, 50)
@@ -437,29 +437,101 @@ export class HorizonCard extends LitElement {
     }
   }
 
-  private computeMoonPosition (moonData: TMoonData, scaleY = 1): TMoonPosition {
+  private computeMoonPosition (moonData: TMoonData, now: Date, lat: number, lon: number,
+                               scaleY = 1): TMoonPosition {
+    const { x, y } = this.moonScreenPosition(moonData.azimuth, moonData.elevation, scaleY)
+
+    return {
+      x,
+      y,
+      path: this.computeMoonPath(now, lat, lon, scaleY)
+    }
+  }
+
+  // Maps a Moon (azimuth, elevation) onto the graph's screen space. Shared by the Moon disc
+  // and the sampled Moon path so the disc always sits exactly on its own track.
+  private moonScreenPosition (azimuth: number, elevation: number, scaleY: number): { x: number, y: number } {
     // East to West goes left to right (or right to left, if southern-flipped!), like the Sun.
     // The canvas is 550 units wide, minus 5 units (padding)
     // and minus Constants.MOON_RADIUS on either side to keep the moon inside.
     // Left is 0 degrees, 180 degrees is in the middle.
     // The southern flip is the same geometric mirror (about the 550-wide viewBox) the Sun uses.
     const availableSpanX = 550 - 2 * (Constants.MOON_RADIUS + 5)
-    const x0 = 5 + Constants.MOON_RADIUS + availableSpanX * moonData.azimuth/360
+    const x0 = 5 + Constants.MOON_RADIUS + availableSpanX * azimuth/360
     const x = this.southernFlip() ? 550 - x0 : x0
 
     const yLimit = Constants.HORIZON_Y - Constants.MOON_RADIUS
-    const calcElevation = Math.abs(moonData.elevation) / 2 + 1
+    const calcElevation = Math.abs(elevation) / 2 + 1
     const maxLog = 90 / 2 + 1
 
     // The Moon's elevation scaled logarithmically to appear higher/lower from the drawn horizon,
     // compressed by the sun curve's scaleY so it stays inside the frame in deep winter.
-    const offset = yLimit * Math.log(calcElevation) / Math.log(maxLog) * Math.sign(moonData.elevation) * scaleY
+    const offset = yLimit * Math.log(calcElevation) / Math.log(maxLog) * Math.sign(elevation) * scaleY
     const y = Constants.HORIZON_Y - offset
 
-    return {
-      x,
-      y,
+    return { x, y }
+  }
+
+  // Samples the Moon's real position across the local day and connects the points into an SVG
+  // path (the "Mondbahn"). Unlike the Sun's stylised curve this is a computed, sampled track, but
+  // it is drawn with the same structure (a `d` string rendered as one stroked path). Returns an
+  // empty string when the path is not shown, so the default card stays byte-identical.
+  private computeMoonPath (now: Date, lat: number, lon: number, scaleY: number): string {
+    if (this.config.moon_path !== true || this.config.graph === false) {
+      return ''
     }
+
+    // Anchor the sampled window at the Moon's lower culmination (its lowest point over the last
+    // 24h), found with a coarse scan. That anti-transit is the natural seam for the arc: it lies
+    // at due north, where the azimuth wraps, and (away from circumpolar latitudes) below the
+    // horizon, so it clips out near the bottom of the frame. Cutting the arc there keeps the
+    // visible part a single continuous line and, since the seam is within the last 24h, the
+    // window always spans `now`, so the Moon disc sits on the track. Cutting at a fixed clock
+    // time instead would slice through the arc whenever the Moon culminates then, e.g. near local
+    // midnight around full moon (when the Moon culminates opposite the Sun), leaving a gap (#225).
+    const nowMs = now.getTime()
+    const coarseStep = Constants.MS_24_HOURS / Constants.MOON_PATH_COARSE_SAMPLES
+    let seam = nowMs - Constants.MS_24_HOURS
+    let minAltitude = Infinity
+    for (let i = 0; i <= Constants.MOON_PATH_COARSE_SAMPLES; i++) {
+      const t = nowMs - Constants.MS_24_HOURS + i * coarseStep
+      const altitude = SunCalc.getMoonPosition(new Date(t), lat, lon).altitudeDegrees
+      if (altitude < minAltitude) {
+        minAltitude = altitude
+        seam = t
+      }
+    }
+
+    const stepMs = Constants.MS_24_HOURS / Constants.MOON_PATH_SAMPLES
+    // Half the drawable width. The azimuth wraps 360->0 through due north at the seam; that jumps
+    // x across (almost) the whole frame, so it starts a new sub-path there instead of streaking.
+    // A real time-adjacent step never moves the Moon this far.
+    const wrapThreshold = (550 - 2 * (Constants.MOON_RADIUS + 5)) / 2
+
+    let d = ''
+    let started = false
+    let previousX: number | undefined
+
+    for (let i = 0; i <= Constants.MOON_PATH_SAMPLES; i++) {
+      const position = SunCalc.getMoonPosition(new Date(seam + i * stepMs), lat, lon)
+      const { x, y } = this.moonScreenPosition(position.azimuthDegrees, position.altitudeDegrees, scaleY)
+
+      // Draw only where the track is inside the frame. The seam (and any azimuth wrap) fall near
+      // the bottom; a below-frame dive or a wrap break the line into a new sub-path rather than
+      // drawing a stroke across the graph.
+      if (y < 0 || y > 150) {
+        started = false
+        previousX = undefined
+        continue
+      }
+
+      const wrapped = previousX !== undefined && Math.abs(x - previousX) > wrapThreshold
+      d += `${!started || wrapped ? 'M' : 'L'}${x.toFixed(2)},${y.toFixed(2)} `
+      started = true
+      previousX = x
+    }
+
+    return d.trim()
   }
 
   private latitude (): number {

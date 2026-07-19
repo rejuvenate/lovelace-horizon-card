@@ -27,6 +27,7 @@ export interface IHorizonCardConfig extends LovelaceCardConfig {
   title?: string,
   icon?: string,
   moon?: boolean,
+  moon_path?: boolean,
   sun?: boolean,
   graph?: boolean,
   time_format?: TimeFormat
@@ -111,6 +112,9 @@ export type TMoonData = {
 export type TMoonPosition = {
   readonly x: number
   readonly y: number
+  // SVG path `d` describing the Moon's sampled track across the sky for the day,
+  // in the same screen space as (x, y). Empty when the moon path is not shown.
+  readonly path: string
 }
 
 export enum EHorizonCardErrors {

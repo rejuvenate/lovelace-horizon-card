@@ -102,6 +102,7 @@ Installation via HACS is recommended, but a manual setup is supported.
 | title               | _string_                        | Card title                                                       | Doesn't display a title by default                             |
 | icon                | _string_                        | Icon shown before the title in the header (any `mdi:` icon)      | No icon                                                        |
 | moon                | _boolean_                       | Shows the Moon together with the Sun                             | `true`                                                         |
+| moon_path           | _boolean_                       | Draws the Moon's path (its sampled track across the sky) in the graph | `false`                                                   |
 | sun                 | _boolean_                       | Shows the Sun in the graph                                       | `true`                                                         |
 | graph               | _boolean_                       | Shows the horizon graph                                          | `true`                                                         |
 | refresh_period      | _number_                        | Refresh period between updates, in seconds (`0` disables refresh) | `20`                                                          |
@@ -214,6 +215,7 @@ The following YAML configuration illustrates the use of all options.
 type: custom:horizon-card
 title: Example Horizon Card
 moon: true
+moon_path: true
 sun: true
 graph: true
 refresh_period: 20

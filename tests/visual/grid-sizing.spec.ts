@@ -91,6 +91,18 @@ const cases: { name: string, config: Record<string, unknown> }[] = [
         moonrise: true, moonset: true, moon_phase: true
       }
     }
+  },
+  {
+    // Guard for `moon_path: true`: the Moon's sampled track is drawn as a single
+    // stroked path, with the moon disc sitting on it.
+    name: 'moon-path',
+    config: { fields: false, moon_path: true }
+  },
+  {
+    // The moon path must mirror with the rest of the graph under southern_flip,
+    // exactly like the moon disc it lies on.
+    name: 'moon-path-southern-flip',
+    config: { fields: false, moon_path: true, southern_flip: true }
   }
 ]
 
