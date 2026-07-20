@@ -54,11 +54,6 @@ export class HorizonCardGraph {
     // The sunrise/sunset lines hang from the top of the (cropped) frame down towards the horizon,
     // so their top tracks the frame edge instead of a fixed y.
     const lineTop = this.graphFrame.top + Constants.GRAPH_LINE_INSET_TOP
-    // The night shading fills down to the bottom of the frame. It lives inside the offset group,
-    // so convert the frame bottom (screen space) back into that group's coordinates. Without this
-    // it would stop at a fixed y=150 and leave an unshaded strip whenever the frame reaches below
-    // 150 (low latitudes / large scaleY).
-    const nightBottom = this.graphFrame.top + this.graphFrame.height - this.sunPosition.offsetY
 
     return svg`
       <defs>
@@ -140,13 +135,13 @@ export class HorizonCardGraph {
 
         <!-- Night, already passed: below the horizon, behind the sun (left of it) -->
         <path
-          d="M5,${this.sunPosition.horizonY} H${this.sunPosition.x} V${nightBottom} H5"
+          d="M5,${this.sunPosition.horizonY} H${this.sunPosition.x} V150 H5"
           clip-path="url(#lower-path-mask)"
           class="horizon-card-nighttime horizon-card-nighttime-past"/>
 
         <!-- Night, upcoming: below the horizon, ahead of the sun (right of it) -->
         <path
-          d="M${this.sunPosition.x},${this.sunPosition.horizonY} H545 V${nightBottom} H${this.sunPosition.x}"
+          d="M${this.sunPosition.x},${this.sunPosition.horizonY} H545 V150 H${this.sunPosition.x}"
           clip-path="url(#lower-path-mask)"
           class="horizon-card-nighttime horizon-card-nighttime-upcoming"/>
 

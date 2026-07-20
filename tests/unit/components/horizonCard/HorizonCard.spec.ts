@@ -1286,13 +1286,14 @@ describe('HorizonCard', () => {
       }
       expect(result).toEqual(expectedFinal)
 
-      // The fitted frame must enclose the Sun's noon peak and midnight base (± radius).
+      // The fitted frame encloses the Sun's noon peak (minus its radius) on top and at least the
+      // sun curve base on the bottom (offsetY here is -16).
       const scaleY = expectedPartial.sunPosition.scaleY
       expect(result.graphFrame.height).toBeGreaterThan(0)
       expect(result.graphFrame.top)
         .toBeLessThanOrEqual(Constants.SUN_CURVE_TOP * scaleY - 16 - Constants.SUN_RADIUS)
       expect(result.graphFrame.top + result.graphFrame.height)
-        .toBeGreaterThanOrEqual(Constants.SUN_CURVE_BOTTOM * scaleY - 16 + Constants.SUN_RADIUS)
+        .toBeGreaterThanOrEqual(Constants.SUN_CURVE_BOTTOM * scaleY - 16)
     })
   })
 
@@ -1301,10 +1302,12 @@ describe('HorizonCard', () => {
                    min: number, max: number, above: number | undefined, below: number | undefined) =>
       (horizonCard as any)['graphFrameFor'](sunShown, moonShown, scaleY, offsetY, min, max, above, below)
 
-    it('fits the sun curve (± radius) with a small padding when only the sun is shown', () => {
-      // Curve top 20, bottom 146; ± SUN_RADIUS 17; ± GRAPH_EDGE_PADDING 2.
+    it('fits the sun: peak minus radius and padding on top, the curve base on the bottom', () => {
+      // Top: curve top 20 - SUN_RADIUS 17 - GRAPH_EDGE_PADDING 2. Bottom: curve base 146, with no
+      // disc reserve (the midnight disc clips at the edge, and the night shading only reaches the
+      // base anyway).
       expect(frame(true, false, 1, 0, 0, 0, undefined, undefined))
-        .toEqual({ top: 20 - 17 - 2, height: (146 + 17 + 2) - (20 - 17 - 2) })
+        .toEqual({ top: 20 - 17 - 2, height: 146 - (20 - 17 - 2) })
     })
 
     it('keeps the moon fully visible when it culminates above the sun and dips below it', () => {
@@ -1318,9 +1321,10 @@ describe('HorizonCard', () => {
     })
 
     it('fits the moon alone when the sun is hidden', () => {
-      const both = frame(true, true, 1, 0, -60, 60, undefined, undefined)
-      const moonOnly = frame(false, true, 1, 0, -60, 60, undefined, undefined)
-      // Without the sun the frame no longer reserves the sun's high peak or deep nadir.
+      // A shallow moon (-10..30) so the sun's high peak and curve base are the differentiators.
+      const both = frame(true, true, 1, 0, -10, 30, undefined, undefined)
+      const moonOnly = frame(false, true, 1, 0, -10, 30, undefined, undefined)
+      // Without the sun the frame no longer reserves the sun's high peak or its curve base.
       expect(moonOnly.top).toBeGreaterThan(both.top)
       expect(moonOnly.top + moonOnly.height).toBeLessThan(both.top + both.height)
     })
@@ -1386,8 +1390,8 @@ describe('HorizonCard', () => {
       horizonCard.setConfig({ moon: false } as IHorizonCardConfig)
       const frame = (horizonCard as any)['computeGraphFrame'](1, 0)
       expect((horizonCard as any)['computeMoonElevationExtremes']).not.toHaveBeenCalled()
-      // Sun-only fit: curve top 20 - radius 17 - padding 2.
-      expect(frame).toEqual({ top: 20 - 17 - 2, height: (146 + 17 + 2) - (20 - 17 - 2) })
+      // Sun-only fit: top = curve top 20 - radius 17 - padding 2; bottom = curve base 146.
+      expect(frame).toEqual({ top: 20 - 17 - 2, height: 146 - (20 - 17 - 2) })
     })
 
     it('fits the moon alone when the sun is hidden', () => {

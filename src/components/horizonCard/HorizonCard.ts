@@ -498,22 +498,26 @@ export class HorizonCard extends LitElement {
   private graphFrameFor (sunShown: boolean, moonShown: boolean, scaleY: number, offsetY: number,
                          moonElevMin: number, moonElevMax: number,
                          above: number | undefined, below: number | undefined): TGraphFrame {
+    const pad = Constants.GRAPH_EDGE_PADDING
     let top = Infinity
     let bottom = -Infinity
 
     if (sunShown) {
-      top = Math.min(top, Constants.SUN_CURVE_TOP * scaleY + offsetY - Constants.SUN_RADIUS)
-      bottom = Math.max(bottom, Constants.SUN_CURVE_BOTTOM * scaleY + offsetY + Constants.SUN_RADIUS)
+      // Top: show the noon disc in full (as the classic frame did), with a little breathing room.
+      top = Math.min(top, Constants.SUN_CURVE_TOP * scaleY + offsetY - Constants.SUN_RADIUS - pad)
+      // Bottom: only to the sun curve base, with no disc reserve. Below the horizon the night
+      // shading is clipped by the sun path and can only reach that base, so reserving the radius
+      // here would leave an unshaded strip. The midnight disc simply clips at the edge, exactly as
+      // the fixed 0 0 550 150 frame always did.
+      bottom = Math.max(bottom, Constants.SUN_CURVE_BOTTOM * scaleY + offsetY)
     }
     if (moonShown) {
-      top = Math.min(top, this.moonElevationToY(moonElevMax, scaleY) - Constants.MOON_RADIUS)
-      bottom = Math.max(bottom, this.moonElevationToY(moonElevMin, scaleY) + Constants.MOON_RADIUS)
+      // The Moon is a disc (not a shaded area), so it must stay fully visible top and bottom.
+      top = Math.min(top, this.moonElevationToY(moonElevMax, scaleY) - Constants.MOON_RADIUS - pad)
+      bottom = Math.max(bottom, this.moonElevationToY(moonElevMin, scaleY) + Constants.MOON_RADIUS + pad)
     }
 
-    if (Number.isFinite(top) && Number.isFinite(bottom)) {
-      top -= Constants.GRAPH_EDGE_PADDING
-      bottom += Constants.GRAPH_EDGE_PADDING
-    } else {
+    if (!Number.isFinite(top) || !Number.isFinite(bottom)) {
       // Nothing to fit (neither Sun nor Moon shown): keep the classic frame.
       top = 0
       bottom = Constants.GRAPH_CLASSIC_HEIGHT

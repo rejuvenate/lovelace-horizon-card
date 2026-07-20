@@ -103,8 +103,6 @@ describe('HorizonCardGraph', () => {
       expect(html).toContain('viewBox="0 30 550 90"')
       // The sunrise/sunset line tops track the frame top (30 + GRAPH_LINE_INSET_TOP 3).
       expect(html).toContain('y1="33"')
-      // The night shading reaches the frame bottom (top 30 + height 90 - offsetY 0), not a fixed 150.
-      expect(html).toContain('V120')
     })
 
     it(`falls back to the classic viewBox when the data has no frame`, async () => {
