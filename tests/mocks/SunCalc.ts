@@ -20,6 +20,20 @@ export default {
     }
   },
 
+  // Sampled by the graph-frame code to find the Moon's daily elevation extremes. Altitude varies
+  // over the day (crossing above and below the horizon, so min and max differ) and its amplitude
+  // depends on the latitude (peaking at |lat - 20| = 0), so tests can assert against known inputs
+  // and catch swapped lat/lon arguments. Longitude is intentionally ignored.
+  getMoonPosition (date, lat) {
+    const dayMs = 24 * 60 * 60 * 1000
+    const fraction = (date.getTime() % dayMs) / dayMs
+    const amplitude = 90 - Math.abs(lat - 20)
+    return {
+      azimuthDegrees: fraction * 360,
+      altitudeDegrees: amplitude * Math.sin(fraction * 2 * Math.PI - Math.PI / 2)
+    }
+  },
+
   getMoonData () {
     return {
       azimuthDegrees: 270,

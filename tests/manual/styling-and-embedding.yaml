@@ -113,6 +113,41 @@ views:
                 }
 
       # ---------------------------------------------------------------------
+      # C2. Graph height (auto-fit vs fixed crop)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## C2. Graph height
+
+              The graph crops its height to fit the Sun and Moon, so there are no big empty margins and the Moon stays fully visible; the height varies a little by season. Control it with `--hc-graph-above-horizon` / `--hc-graph-below-horizon` (viewBox units, horizon at 84): `auto` fits the content, a number pins that side.
+          - type: markdown
+            content: "**C2a** default (auto): the frame hugs the arc."
+          - type: custom:horizon-card
+            fields: false
+          - type: markdown
+            content: "**C2b** fixed height above and below the horizon."
+          - type: custom:horizon-card
+            fields: false
+            uix:
+              style: |
+                ha-card {
+                  --hc-graph-above-horizon: 55;
+                  --hc-graph-below-horizon: 35;
+                }
+          - type: markdown
+            content: "**C2c** cropping off — the classic fixed frame (`84` above, `66` below)."
+          - type: custom:horizon-card
+            fields: false
+            uix:
+              style: |
+                ha-card {
+                  --hc-graph-above-horizon: 84;
+                  --hc-graph-below-horizon: 66;
+                }
+
+      # ---------------------------------------------------------------------
       # D. Stack embedding with zero gap
       # ---------------------------------------------------------------------
       - type: vertical-stack
