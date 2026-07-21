@@ -264,7 +264,7 @@ uix:
 
 Set `graph: false` for a values-only card, or `fields: false` for a graph-only one.
 
-For finer control (an edge-to-edge graph, recolouring individual elements or styling a single field), every drawn element has a stable CSS class and every colour is an `--hc-*` variable. The colours can be set straight in a Home Assistant theme, which is the fastest option since the card picks them up as it loads, or targeted with Uix or card-mod. The names are in the card's source, and [`tests/manual/styling-and-embedding.yaml`](tests/manual/styling-and-embedding.yaml) has a worked example for each case.
+For finer control (an edge-to-edge graph, recolouring individual elements or styling a single field), every drawn element has a stable CSS class and every colour is an `--hc-*` variable. The colours can be set straight in a Home Assistant theme, which is the fastest option since they apply through the normal CSS cascade, or targeted with Uix or card-mod. The names are in the card's source, and [`tests/manual/styling-and-embedding.yaml`](tests/manual/styling-and-embedding.yaml) has a worked example for each case.
 
 **Theming**
 
@@ -281,7 +281,7 @@ frontend:
       hc-moon-color: "#cfd8dc"
 ```
 
-Select the theme as usual (in your user profile, or per dashboard). The card reads the colours as it loads, so this is the quickest way to recolour it and needs no extra styling integration.
+Select the theme as usual (in your user profile, or per dashboard). The colours are ordinary CSS variables resolved through the normal cascade, so a theme, a card-mod/Uix override on `ha-card`, or a per-element override all take effect (and update live) with no extra styling integration.
 
 ## Development
 

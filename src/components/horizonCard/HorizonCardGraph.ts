@@ -108,11 +108,11 @@ export class HorizonCardGraph {
         <line class="horizon-card-sunrise-line"
               x1="${this.sunPosition.sunriseX}" y1="3"
               x2="${this.sunPosition.sunriseX}" y2="72"
-              stroke="var(--hc-sunrise-line-color)"/>
+              stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"/>
         <line class="horizon-card-sunset-line"
               x1="${this.sunPosition.sunsetX}"
               y1="3" x2="${this.sunPosition.sunsetX}" y2="72"
-              stroke="var(--hc-sunset-line-color)"/>
+              stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"/>
       </g>` : nothing}
 
       <!-- Main group that shifts up or down to center the horizon vertically -->
@@ -122,7 +122,7 @@ export class HorizonCardGraph {
         <use class="horizon-card-sun-path"
              href="#sun-path"
              fill="none"
-             stroke="var(--hc-sun-path-color)"/>
+             stroke="var(--hc-sun-path-color, var(--hc-lines, var(--hc-accent)))"/>
 
         <!-- Night, already passed: below the horizon, behind the sun (left of it) -->
         <path
@@ -154,12 +154,12 @@ export class HorizonCardGraph {
         <line class="horizon-card-horizon-line"
               x1="5" y1="${this.sunPosition.horizonY}"
               x2="545" y2="${this.sunPosition.horizonY}"
-              stroke="var(--hc-horizon-line-color)"/>
+              stroke="var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent)))"/>
 
         <!-- Time arrow: the direction the sun and moon travel across the sky -->
         <path class="horizon-card-time-arrow"
               d="M535 ${this.sunPosition.horizonY - 5} L545 ${this.sunPosition.horizonY} L535 ${this.sunPosition.horizonY + 5}"
-              stroke="var(--hc-time-arrow-color)" fill="none"/>
+              stroke="var(--hc-time-arrow-color, var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent))))" fill="none"/>
 
         ${showSun ? svg`
         <!-- Draw the sun -->
@@ -168,7 +168,7 @@ export class HorizonCardGraph {
           cy="${this.sunPosition.y}"
           r="${Constants.SUN_RADIUS}"
           stroke="none"
-          fill="var(--hc-sun-color)"/>` : nothing}
+          fill="var(--hc-sun-color, var(--_hc-sun-color))"/>` : nothing}
 
         ${this.debugSun()}
       </g>
@@ -194,15 +194,15 @@ export class HorizonCardGraph {
     const smallSpotR = Constants.MOON_RADIUS / 5
     const bigSpotR = Constants.MOON_RADIUS / 4
     const hugeSpotR = Constants.MOON_RADIUS / 3
-    const spotFill = 'var(--hc-moon-spot-color)'
+    const spotFill = 'var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))'
     return this.config.moon ?
       svg`<!-- Moon -->
           <g class="horizon-card-moon">
           <g transform="rotate(${this.moonData.zenithAngle} ${this.moonPosition.x} ${this.moonPosition.y})">
             <!-- Moon shadow -->
-            <use class="horizon-card-moon-shadow" href="#moon" fill="var(--hc-moon-shadow-color)"/>
+            <use class="horizon-card-moon-shadow" href="#moon" fill="var(--hc-moon-shadow-color, var(--_hc-moon-shadow-color))"/>
             <!-- Moon proper -->
-            <use class="horizon-card-moon-body" href="#moon" fill="var(--hc-moon-color)" mask="url(#moon-shadow-mask)"/>
+            <use class="horizon-card-moon-body" href="#moon" fill="var(--hc-moon-color, var(--_hc-moon-color))" mask="url(#moon-shadow-mask)"/>
           </g>
           <!-- Moon spots to approximate the darker parts -->
           <g class="horizon-card-moon-spots" transform="rotate(${this.moonData.parallacticAngle} ${this.moonPosition.x} ${this.moonPosition.y})">
@@ -219,7 +219,7 @@ export class HorizonCardGraph {
           <circle class="horizon-card-moon-outline"
                   cx="${this.moonPosition.x}" cy="${this.moonPosition.y}"
                   r="${Constants.MOON_RADIUS}" fill="none"
-                  stroke="var(--hc-moon-outline-color)" stroke-width="0.7"/>
+                  stroke="var(--hc-moon-outline-color, var(--_hc-moon-outline-color))" stroke-width="0.7"/>
           </g>
         ` : nothing
   }
