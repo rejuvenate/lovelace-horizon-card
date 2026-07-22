@@ -651,3 +651,105 @@ views:
               ## Q. Stable class hooks
 
               Every drawn element carries a stable class for card-mod or theme targeting. In the graph: `.horizon-card-graph`, `.horizon-card-sun-path`, `.horizon-card-horizon-line`, `.horizon-card-time-arrow`, `.horizon-card-sunrise-line`, `.horizon-card-sunset-line`, `.horizon-card-daytime` and `.horizon-card-nighttime` (each split into `-past` behind the sun and `-upcoming` ahead of it), `.horizon-card-sun` and `.horizon-card-moon` (with `-body`, `-shadow`, `-spots` and `-outline` sub-parts). Around the values: `.card-header`, `.horizon-card-header`, `.horizon-card-footer`, `.horizon-card-field-row` and `.horizon-card-field-<name>`. The card wrapper is `.horizon-card` (also `.card-content`).
+
+      # ---------------------------------------------------------------------
+      # R. Common recipes
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## R. Common recipes
+
+              The frequently asked tweaks from the README, next to a default card for comparison. Colours can also live in a theme; the non-colour ones (text case, font size, line width) need Uix or card-mod.
+          - type: markdown
+            content: "**R1** default, for reference."
+          - type: custom:horizon-card
+            fields:
+              azimuth: true
+              elevation: true
+          - type: markdown
+            content: "**R2** title-cased field names (`text-transform: capitalize`)."
+          - type: custom:horizon-card
+            fields:
+              azimuth: true
+              elevation: true
+            uix:
+              style: |
+                .horizon-card-field-name {
+                  text-transform: capitalize;
+                }
+          - type: markdown
+            content: "**R3** larger text (`font-size: 1.2em` on `.horizon-card`)."
+          - type: custom:horizon-card
+            fields:
+              azimuth: true
+              elevation: true
+            uix:
+              style: |
+                .horizon-card {
+                  font-size: 1.2em;
+                }
+          - type: markdown
+            content: "**R4** thicker graph lines (`stroke-width: 2px`), easier to read on dark or e-ink screens."
+          - type: custom:horizon-card
+            fields: false
+            uix:
+              style: |
+                .horizon-card-sun-path,
+                .horizon-card-horizon-line,
+                .horizon-card-sunrise-line,
+                .horizon-card-sunset-line {
+                  stroke-width: 2px;
+                }
+          - type: markdown
+            content: "**R5** sunrise and sunset lines hidden via CSS (their colour set to `transparent`); `sunrise_sunset_lines: false` does the same as an option."
+          - type: custom:horizon-card
+            fields: false
+            uix:
+              style: |
+                ha-card {
+                  --hc-sunrise-line-color: transparent;
+                  --hc-sunset-line-color: transparent;
+                }
+
+      # ---------------------------------------------------------------------
+      # S. Narrow width (small screen)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## S. Narrow width (small screen)
+
+              The card reports `min_columns: 6` and sizes to its content, so in a Sections view it reflows and fills like other cards. On a very narrow column the field row does not wrap, so the values sit close together. These cards are pinned to phone-like widths to check that crowding; resize the window or open it on a phone to see the real grid behaviour.
+          - type: markdown
+            content: "**S1** about a two-column phone width (250px), default fields."
+          - type: custom:horizon-card
+            uix:
+              style: |
+                ha-card {
+                  max-width: 250px;
+                }
+          - type: markdown
+            content: "**S2** the same width with all fields, the busiest case."
+          - type: custom:horizon-card
+            fields:
+              azimuth: true
+              elevation: true
+              moonrise: true
+              moonset: true
+              moon_phase: true
+            uix:
+              style: |
+                ha-card {
+                  max-width: 250px;
+                }
+          - type: markdown
+            content: "**S3** very narrow (180px), where the fields crowd the most."
+          - type: custom:horizon-card
+            uix:
+              style: |
+                ha-card {
+                  max-width: 180px;
+                }
