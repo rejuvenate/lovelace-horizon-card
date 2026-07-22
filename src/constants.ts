@@ -38,6 +38,9 @@ export class Constants {
     moon: true,
     sun: true,
     graph: true,
+    golden_hour: false,
+    blue_hour: false,
+    markers: [],
     debug_level: 0,
     refresh_period: Constants.DEFAULT_REFRESH_PERIOD,
     fields: {
@@ -109,7 +112,9 @@ export class Constants {
     graphFrame: {
       top: 0,
       height: 150 // GRAPH_CLASSIC_HEIGHT, inlined: it is declared after this field
-    }
+    },
+    bands: [],
+    markers: []
   }
 
   static readonly HORIZON_Y = 84

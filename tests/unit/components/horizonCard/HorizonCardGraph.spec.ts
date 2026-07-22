@@ -85,6 +85,39 @@ describe('HorizonCardGraph', () => {
       expect(html).toMatchSnapshot()
     })
 
+    it(`renders golden/blue hour bands and markers supplied in the data`, async () => {
+      const data = {
+        ...Constants.DEFAULT_CARD_DATA,
+        bands: [
+          { x1: 100, x2: 140, kind: 'golden' as const },
+          { x1: 60, x2: 100, kind: 'blue' as const }
+        ],
+        markers: [
+          { x: 300, label: 'Lights on', color: '#4caf50' },
+          { x: 200 }
+        ]
+      } as THorizonCardData
+
+      const horizonCardGraph = new HorizonCardGraph({ sun: true } as IHorizonCardConfig, data)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardGraph)
+
+      expect(html).toContain('horizon-card-golden-hour')
+      expect(html).toContain('horizon-card-blue-hour')
+      expect(html).toContain('horizon-card-marker-line')
+      expect(html).toContain('Lights on')
+      expect(html).toContain('#4caf50')
+    })
+
+    it(`renders no band or marker elements when the data has none`, async () => {
+      const horizonCardGraph = new HorizonCardGraph({ sun: true } as IHorizonCardConfig, Constants.DEFAULT_CARD_DATA)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardGraph)
+
+      expect(html).not.toContain('horizon-card-sun-phases')
+      expect(html).not.toContain('horizon-card-markers')
+    })
+
     it(`crops the viewBox and the sunrise/sunset line tops to the graph frame`, async () => {
       const config = {
         sun: true

@@ -138,6 +138,14 @@ export default css`
     height: auto;
   }
 
+  /* Optional golden/blue-hour bands (#172) and user markers (#160). Colours are set inline via
+     --hc-golden-hour-color / --hc-blue-hour-color / --hc-marker-color; only the label text, which
+     stays upright, needs styling here. */
+  .horizon-card-marker-label {
+    font-size: 8px;
+    dominant-baseline: hanging;
+  }
+
   /* The 1em only separates the graph from the field rows above and below it.
      When the graph is the first or last child (e.g. a graph-only card) that
      margin is a pure edge gap, so drop it there: the graph then sits flush

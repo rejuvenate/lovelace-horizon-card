@@ -4,7 +4,9 @@ import { html, nothing, svg } from 'lit'
 import { Constants } from '../../constants'
 import type {
   IHorizonCardConfig,
+  TGraphBand,
   TGraphFrame,
+  TGraphMarker,
   THorizonCardData,
   TMoonData,
   TMoonPosition,
@@ -19,6 +21,8 @@ export class HorizonCardGraph {
   private readonly moonData: TMoonData
   private readonly moonPosition: TMoonPosition
   private readonly graphFrame: TGraphFrame
+  private readonly bands: readonly TGraphBand[]
+  private readonly markers: readonly TGraphMarker[]
   private readonly southernFlip: boolean
   private readonly debugLevel: number
 
@@ -29,6 +33,8 @@ export class HorizonCardGraph {
     this.moonData = data.moonData
     this.moonPosition = data.moonPosition
     this.graphFrame = data.graphFrame ?? { top: 0, height: Constants.GRAPH_CLASSIC_HEIGHT }
+    this.bands = data.bands ?? []
+    this.markers = data.markers ?? []
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.southernFlip = this.config.southern_flip!
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -182,12 +188,65 @@ export class HorizonCardGraph {
         ${this.debugSun()}
       </g>
 
+      ${this.sunPhaseBands()}
+
+      ${this.graphMarkers()}
+
       ${this.moon()}
 
       ${this.debugHorizon()}
 
       ${this.debugCurve()}
     `
+  }
+
+  private flipX (x: number): number {
+    // The sun lines are drawn inside a scale(-1 1) group with transform-origin at the graph centre.
+    // Annotations carry text that must stay upright, so we mirror their x coordinate directly.
+    return this.southernFlip ? Constants.GRAPH_WIDTH - x : x
+  }
+
+  private sunPhaseBands () {
+    if (this.bands.length === 0) {
+      return nothing
+    }
+    const top = this.graphFrame.top
+    const height = this.graphFrame.height
+    const defaults = { golden: 'rgba(255, 183, 77, 0.25)', blue: 'rgba(79, 115, 191, 0.25)' }
+    return svg`
+      <g class="horizon-card-sun-phases">
+        ${this.bands.map((band) => {
+          const a = this.flipX(band.x1)
+          const b = this.flipX(band.x2)
+          return svg`<rect class="horizon-card-sun-phase horizon-card-${band.kind}-hour"
+                          x="${Math.min(a, b)}" y="${top}"
+                          width="${Math.abs(b - a)}" height="${height}"
+                          fill="var(--hc-${band.kind}-hour-color, ${defaults[band.kind]})"/>`
+        })}
+      </g>`
+  }
+
+  private graphMarkers () {
+    if (this.markers.length === 0) {
+      return nothing
+    }
+    const top = this.graphFrame.top + Constants.GRAPH_LINE_INSET_TOP
+    const bottom = this.graphFrame.top + this.graphFrame.height
+    return svg`
+      <g class="horizon-card-markers">
+        ${this.markers.map((marker) => {
+          const x = this.flipX(marker.x)
+          const stroke = marker.color ?? 'var(--hc-marker-color, var(--hc-accent))'
+          return svg`
+            <g class="horizon-card-marker">
+              <line class="horizon-card-marker-line" x1="${x}" y1="${top}" x2="${x}" y2="${bottom}"
+                    stroke="${stroke}"/>
+              ${marker.label
+                ? svg`<text class="horizon-card-marker-label" x="${x + 2}" y="${top}" fill="${stroke}">${marker.label}</text>`
+                : nothing}
+            </g>`
+        })}
+      </g>`
   }
 
   private sunCurve (scale): string {

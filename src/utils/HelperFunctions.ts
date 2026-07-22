@@ -167,4 +167,25 @@ export class HelperFunctions {
     }
     return result
   }
+
+  // Resolves a marker's configured time (#160) to a Date: a local `HH:MM` on the reference day, or
+  // a full ISO timestamp. Returns undefined for anything it cannot parse.
+  public static parseMarkerTime (value: string, reference: Date): Date | undefined {
+    if (typeof value !== 'string') {
+      return undefined
+    }
+    const hhmm = value.trim().match(/^(\d{1,2}):(\d{2})$/)
+    if (hhmm) {
+      const hours = Number(hhmm[1])
+      const minutes = Number(hhmm[2])
+      if (hours > 23 || minutes > 59) {
+        return undefined
+      }
+      const result = new Date(reference)
+      result.setHours(hours, minutes, 0, 0)
+      return result
+    }
+    const parsed = new Date(value)
+    return isNaN(parsed.getTime()) ? undefined : parsed
+  }
 }

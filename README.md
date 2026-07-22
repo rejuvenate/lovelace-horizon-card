@@ -104,12 +104,37 @@ Installation via HACS is recommended, but a manual setup is supported.
 | moon                | _boolean_                       | Shows the Moon together with the Sun                             | `true`                                                         |
 | sun                 | _boolean_                       | Shows the Sun in the graph                                       | `true`                                                         |
 | graph               | _boolean_                       | Shows the horizon graph                                          | `true`                                                         |
+| golden_hour         | _boolean_                       | Shades the morning and evening golden hour (draft)              | `false`                                                        |
+| blue_hour           | _boolean_                       | Shades the morning and evening blue hour (draft)                | `false`                                                        |
+| markers             | See [below](#markers-and-sun-phases-draft) | Custom vertical time markers on the graph (draft)   | None                                                           |
 | refresh_period      | _number_                        | Refresh period between updates, in seconds (`0` disables refresh) | `20`                                                          |
 | fields              | See [below](#visibility-fields) | Fine-tuned control over visible fields                           |                                                                |
 | southern_flip       | _boolean_                       | Draws the graph and accompanying times in the opposite direction | `true` in the Southern hemisphere, `false` in the Northern one |
 | moon_phase_rotation | _number_                        | Angle in degrees for rotating the moon phase icon                | Determined from the latitude                                   |
 
 _Example: [here](#example-config)_
+
+### Markers and sun phases (draft)
+
+> This is a draft feature and its configuration may still change. Feedback is welcome on [#172](https://github.com/rejuvenate/lovelace-horizon-card/issues/172) and [#160](https://github.com/rejuvenate/lovelace-horizon-card/issues/160).
+
+`golden_hour` and `blue_hour` shade those periods on the graph, morning and evening, using the Sun's real elevation (golden hour roughly -4° to +6°, blue hour -8° to -4°). Their colours are the `--hc-golden-hour-color` and `--hc-blue-hour-color` variables.
+
+`markers` draws your own vertical lines at fixed times. Each entry takes a `time` (a local `HH:MM` on the shown day, or a full ISO timestamp), and optionally a `label` and a `color` (the default is `--hc-marker-color`):
+
+```yaml
+type: custom:horizon-card
+golden_hour: true
+blue_hour: true
+markers:
+  - time: "06:30"
+    label: Wake
+    color: "#4caf50"
+  - time: "22:00"
+    label: Lights off
+```
+
+For now marker times are fixed values only. Driving them from an entity or a template, and marking time ranges rather than single moments, are the open questions in the linked issues.
 
 ### Advanced options
 

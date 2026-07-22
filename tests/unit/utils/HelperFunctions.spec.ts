@@ -259,4 +259,27 @@ describe('HelperFunctions', () => {
       expect(west).toEqual(new Date('2023-04-14T12:00:00.000Z'))
     })
   })
+
+  describe('parseMarkerTime', () => {
+    const reference = new Date('2023-04-13T12:00:00Z')
+
+    it('parses a local HH:MM time onto the reference day', () => {
+      const result = HelperFunctions.parseMarkerTime('06:30', reference)
+      expect(result?.getHours()).toBe(6)
+      expect(result?.getMinutes()).toBe(30)
+      expect(result?.getFullYear()).toBe(reference.getFullYear())
+      expect(result?.getDate()).toBe(reference.getDate())
+    })
+
+    it('parses a full ISO timestamp', () => {
+      const result = HelperFunctions.parseMarkerTime('2023-04-13T09:30:00Z', reference)
+      expect(result).toEqual(new Date('2023-04-13T09:30:00Z'))
+    })
+
+    it('returns undefined for values it cannot parse', () => {
+      expect(HelperFunctions.parseMarkerTime('nonsense', reference)).toBeUndefined()
+      expect(HelperFunctions.parseMarkerTime('25:00', reference)).toBeUndefined()
+      expect(HelperFunctions.parseMarkerTime('12:60', reference)).toBeUndefined()
+    })
+  })
 })
