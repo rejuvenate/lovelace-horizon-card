@@ -2,8 +2,8 @@
 
 exports[`HorizonCardGraph render does not render the moon when not configured so 1`] = `
 <div class="horizon-card-graph">
-  <svg viewbox="0 0 550 150"
-       xmlns="http://www.w3.org/2000/svg"
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewbox="0 0 550 150"
   >
     <defs>
       <path id="sun-path-unscaled"
@@ -87,18 +87,18 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
        transform="scale(1 1)"
     >
       <line class="horizon-card-sunrise-line"
-            y1="3"
             y2="72"
             stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
+            y1="3"
             x2="0"
       >
       </line>
       <line class="horizon-card-sunset-line"
-            y1="3"
             y2="72"
             stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
+            y1="3"
             x2="0"
       >
       </line>
@@ -163,8 +163,8 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
 
 exports[`HorizonCardGraph render does not render the sun when not configured so 1`] = `
 <div class="horizon-card-graph">
-  <svg viewbox="0 0 550 150"
-       xmlns="http://www.w3.org/2000/svg"
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewbox="0 0 550 150"
   >
     <defs>
       <path id="sun-path-unscaled"
@@ -267,8 +267,8 @@ exports[`HorizonCardGraph render does not render the sun when not configured so 
 
 exports[`HorizonCardGraph render renders the graph with the data values when provided 1`] = `
 <div class="horizon-card-graph">
-  <svg viewbox="0 0 550 150"
-       xmlns="http://www.w3.org/2000/svg"
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewbox="0 0 550 150"
   >
     <defs>
       <path id="sun-path-unscaled"
@@ -352,18 +352,18 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
        transform="scale(1 1)"
     >
       <line class="horizon-card-sunrise-line"
-            y1="3"
             y2="72"
             stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="200"
+            y1="3"
             x2="200"
       >
       </line>
       <line class="horizon-card-sunset-line"
-            y1="3"
             y2="72"
             stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="400"
+            y1="3"
             x2="400"
       >
       </line>
@@ -484,8 +484,8 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
 
 exports[`HorizonCardGraph render renders the graph with the default values when data values are not provided 1`] = `
 <div class="horizon-card-graph">
-  <svg viewbox="0 0 550 150"
-       xmlns="http://www.w3.org/2000/svg"
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewbox="0 0 550 150"
   >
     <defs>
       <path id="sun-path-unscaled"
@@ -569,18 +569,18 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
        transform="scale(1 1)"
     >
       <line class="horizon-card-sunrise-line"
-            y1="3"
             y2="72"
             stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
+            y1="3"
             x2="0"
       >
       </line>
       <line class="horizon-card-sunset-line"
-            y1="3"
             y2="72"
             stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
+            y1="3"
             x2="0"
       >
       </line>
@@ -701,8 +701,8 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
 
 exports[`HorizonCardGraph renders the graph flipped horizontally when configured so 1`] = `
 <div class="horizon-card-graph">
-  <svg viewbox="0 0 550 150"
-       xmlns="http://www.w3.org/2000/svg"
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewbox="0 0 550 150"
   >
     <defs>
       <path id="sun-path-unscaled"
@@ -786,18 +786,18 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
        transform="scale(-1 1)"
     >
       <line class="horizon-card-sunrise-line"
-            y1="3"
             y2="72"
             stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
+            y1="3"
             x2="0"
       >
       </line>
       <line class="horizon-card-sunset-line"
-            y1="3"
             y2="72"
             stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
+            y1="3"
             x2="0"
       >
       </line>

@@ -283,6 +283,17 @@ frontend:
 
 Select the theme as usual (in your user profile, or per dashboard). The colours are ordinary CSS variables resolved through the normal cascade, so a theme, a card-mod/Uix override on `ha-card`, or a per-element override all take effect (and update live) with no extra styling integration.
 
+**Graph height**
+
+By default the graph crops its height to fit the Sun and Moon, so there are no large empty margins above or below the arc, and the Moon stays fully visible. The frame follows the sky day by day, so the card height varies a little with the season. Two CSS variables control it (viewBox units, where the horizon sits at 84):
+
+| Variable                   | Default | Description                                              |
+| -------------------------- | ------- | -------------------------------------------------------- |
+| `--hc-graph-above-horizon` | `auto`  | Fixed height above the horizon, or `auto` to fit content |
+| `--hc-graph-below-horizon` | `auto`  | Fixed height below the horizon, or `auto` to fit content |
+
+Set a number to pin one or both sides (for example `--hc-graph-above-horizon: 55`). To turn the fitting off and keep the classic fixed frame, set `--hc-graph-above-horizon: 84` and `--hc-graph-below-horizon: 66`.
+
 ## Development
 
 ### Prepare the environment

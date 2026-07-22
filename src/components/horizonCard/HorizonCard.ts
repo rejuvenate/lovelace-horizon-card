@@ -10,6 +10,7 @@ import { Constants } from '../../constants'
 import type {
   EHorizonCardErrors,
   IHorizonCardConfig,
+  TGraphFrame,
   THorizonCardData,
   THorizonCardFields,
   TMoonData,
@@ -232,7 +233,9 @@ export class HorizonCard extends LitElement {
     const sunInfo = this.computeSunPosition(this.data.sunData.times,
       this.isWinterDarkness(this.data.latitude, this.data.sunData.times.now), this.data.sunPosition.scaleY)
 
-    this.data = { ...this.data, partial: false, sunPosition: sunInfo }
+    const graphFrame = this.computeGraphFrame(sunInfo.scaleY, sunInfo.offsetY)
+
+    this.data = { ...this.data, partial: false, sunPosition: sunInfo, graphFrame }
   }
 
   private calculateStatePartial () {
@@ -273,7 +276,10 @@ export class HorizonCard extends LitElement {
         lightnessReduce
       },
       moonPosition,
-      moonData
+      moonData,
+      // The frame needs the final offsetY, so it is computed in calculateStateFinal; keep the
+      // classic frame here so the partial render is never cropped with a stale offset.
+      graphFrame: Constants.DEFAULT_CARD_DATA.graphFrame
     }
   }
 
@@ -447,19 +453,137 @@ export class HorizonCard extends LitElement {
     const x0 = 5 + Constants.MOON_RADIUS + availableSpanX * moonData.azimuth/360
     const x = this.southernFlip() ? 550 - x0 : x0
 
-    const yLimit = Constants.HORIZON_Y - Constants.MOON_RADIUS
-    const calcElevation = Math.abs(moonData.elevation) / 2 + 1
-    const maxLog = 90 / 2 + 1
-
-    // The Moon's elevation scaled logarithmically to appear higher/lower from the drawn horizon,
-    // compressed by the sun curve's scaleY so it stays inside the frame in deep winter.
-    const offset = yLimit * Math.log(calcElevation) / Math.log(maxLog) * Math.sign(moonData.elevation) * scaleY
-    const y = Constants.HORIZON_Y - offset
-
     return {
       x,
-      y,
+      y: this.moonElevationToY(moonData.elevation, scaleY)
     }
+  }
+
+  // The Moon's elevation mapped to a screen y. Scaled logarithmically so lower elevations appear
+  // higher/lower from the drawn horizon, and compressed by the sun curve's scaleY so it stays
+  // inside the frame in deep winter. Shared by the Moon disc and the daily-extremes frame calc.
+  private moonElevationToY (elevation: number, scaleY: number): number {
+    const yLimit = Constants.HORIZON_Y - Constants.MOON_RADIUS
+    const calcElevation = Math.abs(elevation) / 2 + 1
+    const maxLog = 90 / 2 + 1
+    const offset = yLimit * Math.log(calcElevation) / Math.log(maxLog) * Math.sign(elevation) * scaleY
+    return Constants.HORIZON_Y - offset
+  }
+
+  // Samples the Moon's altitude across the local day to find its lowest and highest points. This
+  // is a self-contained calculation (no drawn moon path) used only to size the graph frame so the
+  // Moon disc always stays fully visible.
+  private computeMoonElevationExtremes (now: Date, lat: number, lon: number): { min: number, max: number } {
+    const dayStart = this.useLongitudeForComputation()
+      ? HelperFunctions.midnightAtLongitude(now, lon)
+      : HelperFunctions.midnightAtTimeZone(now, this.timeZone())
+    const step = Constants.MS_24_HOURS / Constants.MOON_EXTREME_SAMPLES
+
+    let min = Infinity
+    let max = -Infinity
+    // 48 samples over [midnight, midnight + 24h); the +24h point is the next day's midnight, a
+    // near-duplicate of the first, so it is left out.
+    for (let i = 0; i < Constants.MOON_EXTREME_SAMPLES; i++) {
+      const altitude = SunCalc.getMoonPosition(new Date(dayStart.getTime() + i * step), lat, lon).altitudeDegrees
+      min = Math.min(min, altitude)
+      max = Math.max(max, altitude)
+    }
+    return { min, max }
+  }
+
+  // Vertical crop of the graph so the daily extremes of the Sun and Moon (outer edge incl. radius)
+  // touch the frame edges. Pure: given what is shown and the geometry it returns the viewBox top
+  // and height (width is always 550, the horizon stays at HORIZON_Y). `above`/`below` are optional
+  // fixed distances from the horizon (from CSS) that override the fitted extent on that side.
+  private graphFrameFor (sunShown: boolean, moonShown: boolean, scaleY: number, offsetY: number,
+                         moonElevMin: number, moonElevMax: number,
+                         above: number | undefined, below: number | undefined): TGraphFrame {
+    const pad = Constants.GRAPH_EDGE_PADDING
+    let top = Infinity
+    let bottom = -Infinity
+
+    if (sunShown) {
+      // Top: show the noon disc in full (as the classic frame did), with a little breathing room.
+      top = Math.min(top, Constants.SUN_CURVE_TOP * scaleY + offsetY - Constants.SUN_RADIUS - pad)
+      // Bottom: only to the sun curve base, with no disc reserve. Below the horizon the night
+      // shading is clipped by the sun path and can only reach that base, so reserving the radius
+      // here would leave an unshaded strip. The midnight disc simply clips at the edge, exactly as
+      // the fixed 0 0 550 150 frame always did.
+      bottom = Math.max(bottom, Constants.SUN_CURVE_BOTTOM * scaleY + offsetY)
+    }
+    if (moonShown) {
+      // The Moon is a disc (not a shaded area), so it must stay fully visible top and bottom.
+      top = Math.min(top, this.moonElevationToY(moonElevMax, scaleY) - Constants.MOON_RADIUS - pad)
+      bottom = Math.max(bottom, this.moonElevationToY(moonElevMin, scaleY) + Constants.MOON_RADIUS + pad)
+    }
+
+    if (!Number.isFinite(top) || !Number.isFinite(bottom)) {
+      // Nothing to fit (neither Sun nor Moon shown): keep the classic frame.
+      top = 0
+      bottom = Constants.GRAPH_CLASSIC_HEIGHT
+    }
+
+    // Fixed CSS overrides win, measured from the horizon.
+    if (above !== undefined) {
+      top = Constants.HORIZON_Y - above
+    }
+    if (below !== undefined) {
+      bottom = Constants.HORIZON_Y + below
+    }
+
+    // A misconfigured override can invert the bounds; keep a positive height so the SVG stays valid.
+    return { top, height: Math.max(1, bottom - top) }
+  }
+
+  // Reads the fixed graph-crop overrides (viewBox units above/below the horizon) from CSS. Read
+  // from the graph element, not the host, so an override set on `ha-card` via a theme or
+  // card-mod/Uix resolves the same way the graph's colour variables do. Both are `auto` (undefined)
+  // before the graph is rendered.
+  private cropOverrides (): { above: number | undefined, below: number | undefined } {
+    const graph = this.shadowRoot?.querySelector('.horizon-card-graph')
+    if (!(graph instanceof Element)) {
+      return { above: undefined, below: undefined }
+    }
+    const style = getComputedStyle(graph)
+    return {
+      above: HorizonCard.parseCropValue(style.getPropertyValue('--hc-graph-above-horizon')),
+      below: HorizonCard.parseCropValue(style.getPropertyValue('--hc-graph-below-horizon'))
+    }
+  }
+
+  // Parses a graph-crop CSS value into viewBox units, or undefined for `auto`, an empty value, or
+  // anything unparseable (so the fitted extent is used instead).
+  private static parseCropValue (raw: string): number | undefined {
+    const trimmed = raw.trim()
+    if (trimmed === '' || trimmed === 'auto') {
+      return undefined
+    }
+    const value = parseFloat(trimmed)
+    return Number.isFinite(value) ? value : undefined
+  }
+
+  private computeGraphFrame (scaleY: number, offsetY: number): TGraphFrame {
+    // Match the config the graph actually renders from (defaults applied), so the reserved space
+    // and the drawn bodies never disagree.
+    if ((this.config?.graph ?? Constants.DEFAULT_CONFIG.graph) === false) {
+      return Constants.DEFAULT_CARD_DATA.graphFrame
+    }
+    const sunShown = (this.config?.sun ?? Constants.DEFAULT_CONFIG.sun) !== false
+    const moonShown = (this.config?.moon ?? Constants.DEFAULT_CONFIG.moon) !== false
+
+    let min = 0
+    let max = 0
+    if (moonShown) {
+      const extremes = this.computeMoonElevationExtremes(this.data.sunData.times.now,
+        this.data.latitude, this.data.longitude)
+      // Fold in the drawn (now) elevation so the disc is guaranteed inside the frame even if it
+      // sits between two samples near a culmination.
+      min = Math.min(extremes.min, this.data.moonData.elevation)
+      max = Math.max(extremes.max, this.data.moonData.elevation)
+    }
+
+    const overrides = this.cropOverrides()
+    return this.graphFrameFor(sunShown, moonShown, scaleY, offsetY, min, max, overrides.above, overrides.below)
   }
 
   private latitude (): number {

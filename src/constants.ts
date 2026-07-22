@@ -105,6 +105,10 @@ export class Constants {
     moonPosition: {
       x: 0,
       y: 0
+    },
+    graphFrame: {
+      top: 0,
+      height: 150 // GRAPH_CLASSIC_HEIGHT, inlined: it is declared after this field
     }
   }
 
@@ -113,6 +117,26 @@ export class Constants {
   static readonly SUN_RADIUS = 17
 
   static readonly MOON_RADIUS = 14
+
+  // The graph SVG is 550 wide; classically it was a fixed 0 0 550 150 viewBox. The balanced
+  // frame keeps the width and only crops the height/top offset (horizon stays at HORIZON_Y).
+  static readonly GRAPH_WIDTH = 550
+
+  static readonly GRAPH_CLASSIC_HEIGHT = 150
+
+  // Y anchors of the stylised sun curve (see HorizonCardGraph.sunCurve), used to bound the frame.
+  static readonly SUN_CURVE_TOP = 20
+
+  static readonly SUN_CURVE_BOTTOM = 146
+
+  // Breathing room (viewBox units) so an extreme's outer edge is not clipped by anti-aliasing.
+  static readonly GRAPH_EDGE_PADDING = 2
+
+  // Distance of the sunrise/sunset line tops from the (cropped) frame's top edge.
+  static readonly GRAPH_LINE_INSET_TOP = 3
+
+  // Number of samples (every 30 min over 24 h) used to find the Moon's daily elevation extremes.
+  static readonly MOON_EXTREME_SAMPLES = 48
 
   // Generated from the JSON files in assets/localization/languages (see languages.generated.ts
   // and scripts/generate-i18n-index.mjs). To add a language, just add a <code>.json (with a

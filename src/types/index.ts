@@ -113,6 +113,13 @@ export type TMoonPosition = {
   readonly y: number
 }
 
+// Vertical crop of the graph's SVG viewBox. Width is always 550; only the top offset and height
+// change so the daily extremes of Sun and Moon touch the frame edges (the horizon stays at 84).
+export type TGraphFrame = {
+  readonly top: number
+  readonly height: number
+}
+
 export enum EHorizonCardErrors {
 }
 
@@ -124,6 +131,7 @@ export type THorizonCardData = {
   readonly sunData: TSunData
   readonly moonPosition: TMoonPosition
   readonly moonData: TMoonData
+  readonly graphFrame: TGraphFrame
 }
 
 export enum EHorizonCardI18NKeys {

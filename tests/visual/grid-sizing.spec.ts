@@ -91,6 +91,37 @@ const cases: { name: string, config: Record<string, unknown> }[] = [
         moonrise: true, moonset: true, moon_phase: true
       }
     }
+  },
+  {
+    // Guard for the night shading at low latitudes: near the equator scaleY ~ 1, so the fitted
+    // frame reaches below the old fixed y=150 and the night fill must extend to the frame bottom
+    // (no unshaded strip). All other cases are lat 52.5, which never exercises this.
+    name: 'equator-with-moon',
+    config: {
+      latitude: 0,
+      fields: { moonrise: true, moonset: true, moon_phase: true }
+    }
+  },
+  {
+    // Graph-crop override: a fixed extent above/below the horizon (via the CSS variables),
+    // producing a fixed frame regardless of the fitted content. Uses the low winter sun so the
+    // pinned frame stays clean instead of clipping a high summer arc.
+    name: 'graph-crop-fixed',
+    config: {
+      now: '2023-12-21T13:00:00Z',
+      latitude: 65,
+      fields: false,
+      _cssVars: { '--hc-graph-above-horizon': '55', '--hc-graph-below-horizon': '35' }
+    }
+  },
+  {
+    // Cropping disabled: setting the classic 84 above / 66 below reproduces the old fixed
+    // 0 0 550 150 frame.
+    name: 'graph-crop-off',
+    config: {
+      fields: false,
+      _cssVars: { '--hc-graph-above-horizon': '84', '--hc-graph-below-horizon': '66' }
+    }
   }
 ]
 

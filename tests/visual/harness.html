@@ -116,6 +116,16 @@
     window.renderCard = async (config) => {
       const card = document.getElementById('card')
 
+      // Test-only escape hatch: apply CSS custom properties (e.g. the graph-crop overrides) on the
+      // card host. A real theme/card-mod sets them on ha-card; both resolve at the graph element
+      // through inheritance, which is the read path under test. Not a card config key.
+      const { _cssVars, ...cardConfig } = config
+      if (_cssVars) {
+        for (const [prop, value] of Object.entries(_cssVars)) {
+          card.style.setProperty(prop, value)
+        }
+      }
+
       const fullConfig = {
         type: 'horizon-card',
         // Deterministic time/place so the drawing (and screenshots) are stable.
@@ -127,7 +137,7 @@
         dark_mode: false,
         // Never schedule a refresh, so nothing animates while we measure.
         refresh_period: 0,
-        ...config
+        ...cardConfig
       }
 
       card.hass = MOCK_HASS

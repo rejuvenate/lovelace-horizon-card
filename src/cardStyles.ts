@@ -14,6 +14,12 @@ export default css`
 
     --hc-accent: #d7d7d7;
 
+    /* Vertical crop of the graph. By default (auto) it fits the Sun and Moon so no empty margins
+       are left; set a number (viewBox units, 84 above / 66 below = the classic frame) to pin the
+       height above and/or below the horizon instead. */
+    --hc-graph-above-horizon: auto;
+    --hc-graph-below-horizon: auto;
+
     --hc-sun-hue: 44;
     --hc-sun-saturation: 93%;
     --hc-sun-lightness: 67%;
@@ -122,6 +128,14 @@ export default css`
 
   .horizon-card-graph {
     margin: 1em 0;
+  }
+
+  /* The SVG scales to the container width; its height follows the viewBox aspect ratio, so the
+     balanced-frame crop (which changes the viewBox height) changes the rendered card height. */
+  .horizon-card-graph svg {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   /* The 1em only separates the graph from the field rows above and below it.

@@ -4,6 +4,7 @@ import { html, nothing, svg } from 'lit'
 import { Constants } from '../../constants'
 import type {
   IHorizonCardConfig,
+  TGraphFrame,
   THorizonCardData,
   TMoonData,
   TMoonPosition,
@@ -17,6 +18,7 @@ export class HorizonCardGraph {
   private readonly sunPosition: TSunPosition
   private readonly moonData: TMoonData
   private readonly moonPosition: TMoonPosition
+  private readonly graphFrame: TGraphFrame
   private readonly southernFlip: boolean
   private readonly debugLevel: number
 
@@ -26,6 +28,7 @@ export class HorizonCardGraph {
     this.sunPosition = data.sunPosition
     this.moonData = data.moonData
     this.moonPosition = data.moonPosition
+    this.graphFrame = data.graphFrame ?? { top: 0, height: Constants.GRAPH_CLASSIC_HEIGHT }
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.southernFlip = this.config.southern_flip!
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -33,9 +36,12 @@ export class HorizonCardGraph {
   }
 
   public render (): TemplateResult {
+    // Width stays 550; the frame only crops the height/top offset so the Sun and Moon extremes
+    // touch the edges. The SVG scales to the container width, so a shorter frame = a shorter card.
+    const viewBox = `0 ${this.graphFrame.top} ${Constants.GRAPH_WIDTH} ${this.graphFrame.height}`
     return html`
       <div class="horizon-card-graph">
-        <svg viewBox="0 0 550 150" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="${viewBox}" xmlns="http://www.w3.org/2000/svg">
           ${this.renderSvg()}
         </svg>
       </div>
@@ -45,6 +51,9 @@ export class HorizonCardGraph {
   private renderSvg () {
     const curve = this.sunCurve(this.sunPosition.scaleY)
     const showSun = this.config.sun !== false
+    // The sunrise/sunset lines hang from the top of the (cropped) frame down towards the horizon,
+    // so their top tracks the frame edge instead of a fixed y.
+    const lineTop = this.graphFrame.top + Constants.GRAPH_LINE_INSET_TOP
 
     return svg`
       <defs>
@@ -106,12 +115,12 @@ export class HorizonCardGraph {
       <!-- Draw the sunrise and sunset lines (the vertical day/night boundaries) -->
       <g class="horizon-card-sun-lines" transform="scale(${this.southernFlip ? -1 : 1} 1)" transform-origin="center">
         <line class="horizon-card-sunrise-line"
-              x1="${this.sunPosition.sunriseX}" y1="3"
+              x1="${this.sunPosition.sunriseX}" y1="${lineTop}"
               x2="${this.sunPosition.sunriseX}" y2="72"
               stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"/>
         <line class="horizon-card-sunset-line"
               x1="${this.sunPosition.sunsetX}"
-              y1="3" x2="${this.sunPosition.sunsetX}" y2="72"
+              y1="${lineTop}" x2="${this.sunPosition.sunsetX}" y2="72"
               stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"/>
       </g>` : nothing}
 
@@ -183,11 +192,14 @@ export class HorizonCardGraph {
 
   private sunCurve (scale): string {
     // M5,146 C103.334,146 176.666,20 275,20 S446.666,146 545,146
+    // The 146 (base) and 20 (peak) anchors are SUN_CURVE_BOTTOM/TOP; the frame calc reuses them.
     const sy = (y) => y * scale
+    const bottom = Constants.SUN_CURVE_BOTTOM
+    const top = Constants.SUN_CURVE_TOP
 
-    return `M 5,${sy(146)}
-            C 103.334,${sy(146)} 176.666,${sy(20)} 275,${sy(20)}
-            S 446.666,${sy(146)} 545,${sy(146)}`
+    return `M 5,${sy(bottom)}
+            C 103.334,${sy(bottom)} 176.666,${sy(top)} 275,${sy(top)}
+            S 446.666,${sy(bottom)} 545,${sy(bottom)}`
   }
 
   private moon () {
@@ -231,7 +243,8 @@ export class HorizonCardGraph {
 
   private debugRect () {
     return this.debugLevel >= 1 ?
-      svg`<rect x="0" y="0" width="550" height="150" fill="none" stroke="red"/>` : nothing
+      svg`<rect x="0" y="${this.graphFrame.top}" width="${Constants.GRAPH_WIDTH}" height="${this.graphFrame.height}"
+               fill="none" stroke="red"/>` : nothing
   }
 
   private debugHorizon () {

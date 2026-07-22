@@ -1236,6 +1236,11 @@ describe('HorizonCard', () => {
       moonPosition: {
         x: 403,
         y: 28.875
+      },
+      // The partial run keeps the classic frame; calculateStateFinal computes the fitted one.
+      graphFrame: {
+        top: 0,
+        height: 150
       }
     }
 
@@ -1249,6 +1254,9 @@ describe('HorizonCard', () => {
       jest.spyOn(horizonCard as any, 'elevation').mockReturnValue(500)
 
       horizonCard.hass = SaneHomeAssistant
+      // The frame calc reads this.config (sun/moon/graph shown); calculateStateFinal below does
+      // not set one on its own.
+      horizonCard.setConfig({ southern_flip: false } as IHorizonCardConfig)
     })
 
     it('calculateStatePartial', () => {
@@ -1272,9 +1280,162 @@ describe('HorizonCard', () => {
         sunPosition: {
           ...expectedPartial['sunPosition'],
           offsetY: -16
-        }
+        },
+        // Fitted frame; asserted in detail below and in the graphFrameFor suite.
+        graphFrame: result.graphFrame
       }
       expect(result).toEqual(expectedFinal)
+
+      // The fitted frame encloses the Sun's noon peak (minus its radius) on top and at least the
+      // sun curve base on the bottom (offsetY here is -16).
+      const scaleY = expectedPartial.sunPosition.scaleY
+      expect(result.graphFrame.height).toBeGreaterThan(0)
+      expect(result.graphFrame.top)
+        .toBeLessThanOrEqual(Constants.SUN_CURVE_TOP * scaleY - 16 - Constants.SUN_RADIUS)
+      expect(result.graphFrame.top + result.graphFrame.height)
+        .toBeGreaterThanOrEqual(Constants.SUN_CURVE_BOTTOM * scaleY - 16)
+    })
+  })
+
+  describe('graphFrameFor', () => {
+    const frame = (sunShown: boolean, moonShown: boolean, scaleY: number, offsetY: number,
+                   min: number, max: number, above: number | undefined, below: number | undefined) =>
+      (horizonCard as any)['graphFrameFor'](sunShown, moonShown, scaleY, offsetY, min, max, above, below)
+
+    it('fits the sun: peak minus radius and padding on top, the curve base on the bottom', () => {
+      // Top: curve top 20 - SUN_RADIUS 17 - GRAPH_EDGE_PADDING 2. Bottom: curve base 146, with no
+      // disc reserve (the midnight disc clips at the edge, and the night shading only reaches the
+      // base anyway).
+      expect(frame(true, false, 1, 0, 0, 0, undefined, undefined))
+        .toEqual({ top: 20 - 17 - 2, height: 146 - (20 - 17 - 2) })
+    })
+
+    it('keeps the moon fully visible when it culminates above the sun and dips below it', () => {
+      const sunOnly = frame(true, false, 1, 0, 0, 0, undefined, undefined)
+      const withMoon = frame(true, true, 1, 0, -90, 90, undefined, undefined)
+      expect(withMoon.top).toBeLessThan(sunOnly.top)
+      // Moon top at elev 90 = moonElevationToY(90,1) - MOON_RADIUS = 14 - 14 = 0; minus padding 2.
+      expect(withMoon.top).toEqual(0 - 2)
+      // Moon bottom at elev -90 = moonElevationToY(-90,1) + MOON_RADIUS = 154 + 14 = 168; plus padding 2.
+      expect(withMoon.top + withMoon.height).toEqual(168 + 2)
+    })
+
+    it('fits the moon alone when the sun is hidden', () => {
+      // A shallow moon (-10..30) so the sun's high peak and curve base are the differentiators.
+      const both = frame(true, true, 1, 0, -10, 30, undefined, undefined)
+      const moonOnly = frame(false, true, 1, 0, -10, 30, undefined, undefined)
+      // Without the sun the frame no longer reserves the sun's high peak or its curve base.
+      expect(moonOnly.top).toBeGreaterThan(both.top)
+      expect(moonOnly.top + moonOnly.height).toBeLessThan(both.top + both.height)
+    })
+
+    it('falls back to the classic frame when neither sun nor moon is shown', () => {
+      expect(frame(false, false, 1, 0, 0, 0, undefined, undefined)).toEqual({ top: 0, height: 150 })
+    })
+
+    it('honours fixed above/below overrides measured from the horizon', () => {
+      // top = 84 - 70 = 14; bottom = 84 + 30 = 114; height = 100.
+      expect(frame(true, true, 1, 0, -60, 60, 70, 30)).toEqual({ top: 14, height: 100 })
+    })
+
+    it('mixes a fixed side with an auto side', () => {
+      const auto = frame(true, false, 1, 0, 0, 0, undefined, undefined)
+      const mixed = frame(true, false, 1, 0, 0, 0, undefined, 40)
+      expect(mixed.top).toEqual(auto.top)               // top still auto
+      expect(mixed.top + mixed.height).toEqual(84 + 40) // bottom pinned to the override
+    })
+
+    it('keeps a positive height when misconfigured overrides invert the bounds', () => {
+      // above -10 -> top 94, below -20 -> bottom 64: bottom < top, so height floors at 1.
+      expect(frame(true, true, 1, 0, -60, 60, -10, -20).height).toEqual(1)
+    })
+  })
+
+  describe('parseCropValue', () => {
+    const parse = (raw: string) => (HorizonCard as any)['parseCropValue'](raw)
+
+    it('returns undefined for auto, empty or unparseable values', () => {
+      expect(parse('auto')).toBeUndefined()
+      expect(parse('')).toBeUndefined()
+      expect(parse('   ')).toBeUndefined()
+      expect(parse('none')).toBeUndefined()
+    })
+
+    it('parses a number, ignoring surrounding whitespace and trailing units', () => {
+      expect(parse('55')).toEqual(55)
+      expect(parse('  40  ')).toEqual(40)
+      expect(parse('66px')).toEqual(66)
+      expect(parse('0')).toEqual(0)
+    })
+  })
+
+  describe('computeGraphFrame', () => {
+    beforeEach(() => {
+      horizonCard.hass = SaneHomeAssistant
+      // No graph element is rendered in these unit tests, so cropOverrides() resolves to auto.
+      jest.spyOn(horizonCard as any, 'computeMoonElevationExtremes').mockReturnValue({ min: -30, max: 40 })
+      horizonCard['data'] = {
+        ...Constants.DEFAULT_CARD_DATA,
+        sunData: { ...Constants.DEFAULT_CARD_DATA.sunData, times: { now: new Date('2023-04-05T13:00:00Z') } },
+        moonData: { ...Constants.DEFAULT_CARD_DATA.moonData, elevation: 10 }
+      } as any
+    })
+
+    it('returns the classic frame when the graph is hidden', () => {
+      horizonCard.setConfig({ graph: false } as IHorizonCardConfig)
+      expect((horizonCard as any)['computeGraphFrame'](1, 0)).toEqual({ top: 0, height: 150 })
+    })
+
+    it('skips the moon extremes and fits the sun alone when the moon is hidden', () => {
+      horizonCard.setConfig({ moon: false } as IHorizonCardConfig)
+      const frame = (horizonCard as any)['computeGraphFrame'](1, 0)
+      expect((horizonCard as any)['computeMoonElevationExtremes']).not.toHaveBeenCalled()
+      // Sun-only fit: top = curve top 20 - radius 17 - padding 2; bottom = curve base 146.
+      expect(frame).toEqual({ top: 20 - 17 - 2, height: 146 - (20 - 17 - 2) })
+    })
+
+    it('fits the moon alone when the sun is hidden', () => {
+      horizonCard.setConfig({ sun: false } as IHorizonCardConfig)
+      const frame = (horizonCard as any)['computeGraphFrame'](1, 0)
+      expect((horizonCard as any)['computeMoonElevationExtremes']).toHaveBeenCalled()
+      // Moon-only fit does not reserve the sun's high peak.
+      expect(frame.top).toBeGreaterThan(20 - 17 - 2)
+    })
+
+    it('folds the drawn moon elevation into the frame so the disc stays visible between samples', () => {
+      horizonCard.setConfig({ sun: false } as IHorizonCardConfig)
+      // The current elevation (85) is above the sampled max (40) — e.g. a between-samples culmination.
+      horizonCard['data'] = { ...horizonCard['data'],
+        moonData: { ...horizonCard['data'].moonData, elevation: 85 } } as any
+      const frame = (horizonCard as any)['computeGraphFrame'](1, 0)
+      const topFor = (elev: number) => (horizonCard as any)['moonElevationToY'](elev, 1) - 14 - 2
+      // The frame top reflects elevation 85, not the lower sampled max 40.
+      expect(frame.top).toBeCloseTo(topFor(85))
+      expect(frame.top).toBeLessThan(topFor(40))
+    })
+  })
+
+  describe('computeMoonElevationExtremes', () => {
+    beforeEach(() => {
+      horizonCard.hass = SaneHomeAssistant
+    })
+
+    it('samples the local day and returns the latitude-dependent extremes', () => {
+      horizonCard.setConfig({ time_zone: 'UTC' } as IHorizonCardConfig)
+      // Mock amplitude is 90 - |lat - 20| = 58 at lat 52, sampled to its peaks at UTC midnight.
+      const { min, max } = (horizonCard as any)['computeMoonElevationExtremes'](
+        new Date('2023-04-05T13:00:00Z'), 52, 13)
+      expect(max).toBeCloseTo(58)
+      expect(min).toBeCloseTo(-58)
+    })
+
+    it('anchors to the longitude when a longitude is set without a time zone', () => {
+      horizonCard.setConfig({ latitude: 52, longitude: 13 } as IHorizonCardConfig)
+      const { min, max } = (horizonCard as any)['computeMoonElevationExtremes'](
+        new Date('2023-04-05T13:00:00Z'), 52, 13)
+      expect(min).toBeLessThan(0)
+      expect(max).toBeGreaterThan(0)
+      expect(min).toBeLessThan(max)
     })
   })
 
