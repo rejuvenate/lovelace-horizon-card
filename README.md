@@ -103,6 +103,7 @@ Installation via HACS is recommended, but a manual setup is supported.
 | icon                | _string_                        | Icon shown before the title in the header (any `mdi:` icon)      | No icon                                                        |
 | moon                | _boolean_                       | Shows the Moon together with the Sun                             | `true`                                                         |
 | sun                 | _boolean_                       | Shows the Sun in the graph                                       | `true`                                                         |
+| sunrise_sunset_lines | _boolean_                      | Shows the vertical sunrise and sunset lines in the graph         | `true`                                                         |
 | graph               | _boolean_                       | Shows the horizon graph                                          | `true`                                                         |
 | refresh_period      | _number_                        | Refresh period between updates, in seconds (`0` disables refresh) | `20`                                                          |
 | fields              | See [below](#visibility-fields) | Fine-tuned control over visible fields                           |                                                                |

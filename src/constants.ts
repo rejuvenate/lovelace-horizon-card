@@ -37,6 +37,7 @@ export class Constants {
     type: 'horizon-card',
     moon: true,
     sun: true,
+    sunrise_sunset_lines: true,
     graph: true,
     debug_level: 0,
     refresh_period: Constants.DEFAULT_REFRESH_PERIOD,
