@@ -651,3 +651,46 @@ views:
               ## Q. Stable class hooks
 
               Every drawn element carries a stable class for card-mod or theme targeting. In the graph: `.horizon-card-graph`, `.horizon-card-sun-path`, `.horizon-card-horizon-line`, `.horizon-card-time-arrow`, `.horizon-card-sunrise-line`, `.horizon-card-sunset-line`, `.horizon-card-daytime` and `.horizon-card-nighttime` (each split into `-past` behind the sun and `-upcoming` ahead of it), `.horizon-card-sun` and `.horizon-card-moon` (with `-body`, `-shadow`, `-spots` and `-outline` sub-parts). Around the values: `.card-header`, `.horizon-card-header`, `.horizon-card-footer`, `.horizon-card-field-row` and `.horizon-card-field-<name>`. The card wrapper is `.horizon-card` (also `.card-content`).
+
+      # ---------------------------------------------------------------------
+      # R. Golden hour, blue hour and markers (draft)
+      # ---------------------------------------------------------------------
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: |
+              ## R. Golden hour, blue hour and markers (draft)
+
+              Draft feature (#172, #160). `golden_hour` / `blue_hour` shade those periods morning and evening from the Sun's real elevation; `markers` draws custom vertical lines at fixed times with an optional label and colour.
+          - type: markdown
+            content: "**R1** golden + blue hour bands."
+          - type: custom:horizon-card
+            fields: false
+            golden_hour: true
+            blue_hour: true
+          - type: markdown
+            content: "**R2** two custom markers."
+          - type: custom:horizon-card
+            fields: false
+            markers:
+              - time: "06:30"
+                label: Wake
+                color: "#4caf50"
+              - time: "22:00"
+                label: Lights off
+          - type: markdown
+            content: "**R3** everything together, with the colour variables overridden."
+          - type: custom:horizon-card
+            fields: false
+            golden_hour: true
+            blue_hour: true
+            markers:
+              - time: "07:00"
+                label: Alarm
+            uix:
+              style: |
+                ha-card {
+                  --hc-golden-hour-color: rgba(255, 170, 60, 0.35);
+                  --hc-blue-hour-color: rgba(60, 90, 200, 0.30);
+                  --hc-marker-color: #e91e63;
+                }

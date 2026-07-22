@@ -122,6 +122,21 @@ const cases: { name: string, config: Record<string, unknown> }[] = [
       fields: false,
       _cssVars: { '--hc-graph-above-horizon': '84', '--hc-graph-below-horizon': '66' }
     }
+  },
+  {
+    // Golden/blue-hour bands (#172) plus two custom time markers (#160). Draft feature.
+    name: 'sun-phases-and-markers',
+    config: {
+      now: '2023-06-21T12:00:00Z',
+      latitude: 40,
+      fields: false,
+      golden_hour: true,
+      blue_hour: true,
+      markers: [
+        { time: '06:30', label: 'Wake', color: '#4caf50' },
+        { time: '21:15', label: 'Lights' }
+      ]
+    }
   }
 ]
 

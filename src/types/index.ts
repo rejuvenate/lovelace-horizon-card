@@ -29,6 +29,9 @@ export interface IHorizonCardConfig extends LovelaceCardConfig {
   moon?: boolean,
   sun?: boolean,
   graph?: boolean,
+  golden_hour?: boolean,
+  blue_hour?: boolean,
+  markers?: THorizonCardMarker[],
   time_format?: TimeFormat
   number_format?: NumberFormat
 
@@ -45,6 +48,26 @@ export interface IHorizonCardConfig extends LovelaceCardConfig {
   fields?: THorizonCardFields | false
 }
 
+// A user-defined vertical marker on the graph (#160). `time` is a local `HH:MM` on the shown day
+// or a full ISO timestamp; `label` and `color` are optional.
+export type THorizonCardMarker = {
+  time: string
+  label?: string
+  color?: string
+}
+
+// Golden-hour and blue-hour boundary times (#172), from suncalc's elevation-threshold events.
+export type TSunPhaseTimes = {
+  readonly goldenHourDawnStart?: Date
+  readonly goldenHourDawnEnd?: Date
+  readonly goldenHourDuskStart?: Date
+  readonly goldenHourDuskEnd?: Date
+  readonly blueHourDawnStart?: Date
+  readonly blueHourDawnEnd?: Date
+  readonly blueHourDuskStart?: Date
+  readonly blueHourDuskEnd?: Date
+}
+
 export type TSunTimes = {
   now: Date
   dawn?: Date
@@ -53,6 +76,21 @@ export type TSunTimes = {
   noon: Date
   sunrise?: Date
   sunset?: Date
+  phases?: TSunPhaseTimes
+}
+
+// A shaded vertical band on the graph (golden/blue hour), in viewBox x units.
+export type TGraphBand = {
+  readonly x1: number
+  readonly x2: number
+  readonly kind: 'golden' | 'blue'
+}
+
+// A resolved vertical marker on the graph, in viewBox x units.
+export type TGraphMarker = {
+  readonly x: number
+  readonly label?: string
+  readonly color?: string
 }
 
 export type TSunData = {
@@ -132,6 +170,8 @@ export type THorizonCardData = {
   readonly moonPosition: TMoonPosition
   readonly moonData: TMoonData
   readonly graphFrame: TGraphFrame
+  readonly bands: readonly TGraphBand[]
+  readonly markers: readonly TGraphMarker[]
 }
 
 export enum EHorizonCardI18NKeys {

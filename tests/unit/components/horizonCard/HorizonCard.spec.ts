@@ -933,7 +933,17 @@ describe('HorizonCard', () => {
         midnight: new Date('2023-04-06T00:30:00Z'),
         noon: new Date('2023-04-05T12:30:00Z'),
         sunrise: new Date('2023-04-05T06:30:00Z'),
-        sunset: new Date('2023-04-05T18:30:00Z')
+        sunset: new Date('2023-04-05T18:30:00Z'),
+        phases: {
+          goldenHourDawnStart: new Date('2023-04-05T06:10:00Z'),
+          goldenHourDawnEnd: new Date('2023-04-05T07:15:00Z'),
+          goldenHourDuskStart: new Date('2023-04-05T17:45:00Z'),
+          goldenHourDuskEnd: new Date('2023-04-05T18:50:00Z'),
+          blueHourDawnStart: new Date('2023-04-05T05:45:00Z'),
+          blueHourDawnEnd: new Date('2023-04-05T06:10:00Z'),
+          blueHourDuskStart: new Date('2023-04-05T18:50:00Z'),
+          blueHourDuskEnd: new Date('2023-04-05T19:15:00Z')
+        }
       })
     })
 
@@ -950,7 +960,17 @@ describe('HorizonCard', () => {
         midnight: new Date('2023-04-06T00:30:00Z'),
         noon: new Date('2023-04-05T12:30:00Z'),
         sunrise: new Date('2023-04-05T06:30:00Z'),
-        sunset: new Date('2023-04-05T18:30:00Z')
+        sunset: new Date('2023-04-05T18:30:00Z'),
+        phases: {
+          goldenHourDawnStart: new Date('2023-04-05T06:10:00Z'),
+          goldenHourDawnEnd: new Date('2023-04-05T07:15:00Z'),
+          goldenHourDuskStart: new Date('2023-04-05T17:45:00Z'),
+          goldenHourDuskEnd: new Date('2023-04-05T18:50:00Z'),
+          blueHourDawnStart: new Date('2023-04-05T05:45:00Z'),
+          blueHourDawnEnd: new Date('2023-04-05T06:10:00Z'),
+          blueHourDuskStart: new Date('2023-04-05T18:50:00Z'),
+          blueHourDuskEnd: new Date('2023-04-05T19:15:00Z')
+        }
       })
     })
   })
@@ -1203,6 +1223,16 @@ describe('HorizonCard', () => {
           now: new Date('2023-04-05T13:00:00.000Z'),
           sunrise: new Date('2023-04-05T06:30:00.000Z'),
           sunset: new Date('2023-04-05T18:30:00.000Z'),
+          phases: {
+            goldenHourDawnStart: new Date('2023-04-05T06:10:00.000Z'),
+            goldenHourDawnEnd: new Date('2023-04-05T07:15:00.000Z'),
+            goldenHourDuskStart: new Date('2023-04-05T17:45:00.000Z'),
+            goldenHourDuskEnd: new Date('2023-04-05T18:50:00.000Z'),
+            blueHourDawnStart: new Date('2023-04-05T05:45:00.000Z'),
+            blueHourDawnEnd: new Date('2023-04-05T06:10:00.000Z'),
+            blueHourDuskStart: new Date('2023-04-05T18:50:00.000Z'),
+            blueHourDuskEnd: new Date('2023-04-05T19:15:00.000Z')
+          },
         },
         hueReduce: 0,
         saturationReduce: 0,
@@ -1241,7 +1271,9 @@ describe('HorizonCard', () => {
       graphFrame: {
         top: 0,
         height: 150
-      }
+      },
+      bands: [],
+      markers: []
     }
 
     beforeEach(() => {

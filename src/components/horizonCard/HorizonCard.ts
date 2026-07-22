@@ -10,7 +10,9 @@ import { Constants } from '../../constants'
 import type {
   EHorizonCardErrors,
   IHorizonCardConfig,
+  TGraphBand,
   TGraphFrame,
+  TGraphMarker,
   THorizonCardData,
   THorizonCardFields,
   TMoonData,
@@ -235,7 +237,10 @@ export class HorizonCard extends LitElement {
 
     const graphFrame = this.computeGraphFrame(sunInfo.scaleY, sunInfo.offsetY)
 
-    this.data = { ...this.data, partial: false, sunPosition: sunInfo, graphFrame }
+    const bands = this.computeSunPhaseBands(this.data.sunData.times)
+    const markers = this.computeMarkers(this.data.sunData.times)
+
+    this.data = { ...this.data, partial: false, sunPosition: sunInfo, graphFrame, bands, markers }
   }
 
   private calculateStatePartial () {
@@ -279,7 +284,10 @@ export class HorizonCard extends LitElement {
       moonData,
       // The frame needs the final offsetY, so it is computed in calculateStateFinal; keep the
       // classic frame here so the partial render is never cropped with a stale offset.
-      graphFrame: Constants.DEFAULT_CARD_DATA.graphFrame
+      graphFrame: Constants.DEFAULT_CARD_DATA.graphFrame,
+      // Bands and markers are computed against the final geometry in calculateStateFinal.
+      bands: [],
+      markers: []
     }
   }
 
@@ -312,11 +320,71 @@ export class HorizonCard extends LitElement {
       noon: this.validOrUndefined(data['solarNoon']),
       sunrise: this.validOrUndefined(data['sunriseStart']),
       sunset: this.validOrUndefined(data['sunsetEnd']),
+      phases: {
+        goldenHourDawnStart: this.validOrUndefined(data['goldenHourDawnStart']),
+        goldenHourDawnEnd: this.validOrUndefined(data['goldenHourDawnEnd']),
+        goldenHourDuskStart: this.validOrUndefined(data['goldenHourDuskStart']),
+        goldenHourDuskEnd: this.validOrUndefined(data['goldenHourDuskEnd']),
+        blueHourDawnStart: this.validOrUndefined(data['blueHourDawnStart']),
+        blueHourDawnEnd: this.validOrUndefined(data['blueHourDawnEnd']),
+        blueHourDuskStart: this.validOrUndefined(data['blueHourDuskStart']),
+        blueHourDuskEnd: this.validOrUndefined(data['blueHourDuskEnd'])
+      }
     }
   }
 
   private validOrUndefined (event) {
-    return event.valid ? event.value : undefined
+    return event?.valid ? event.value : undefined
+  }
+
+  // Maps a time to its x position on the graph, reusing the same time-to-curve walk as the
+  // sunrise/sunset markers. Returns undefined when the time or solar noon is missing.
+  private rawGraphX (time: Date | undefined, noon: Date | undefined): number | undefined {
+    if (!time || !noon) {
+      return undefined
+    }
+    return this.findPointOnCurve(time, noon).x
+  }
+
+  // Golden-hour and blue-hour bands (#172): each enabled phase becomes a shaded band between its
+  // two elevation-threshold times, mapped to graph x positions.
+  private computeSunPhaseBands (times: TSunTimes): TGraphBand[] {
+    if (this.config?.graph === false) {
+      return []
+    }
+    const phases = times.phases ?? {}
+    const bands: TGraphBand[] = []
+    const addBand = (kind: 'golden' | 'blue', from?: Date, to?: Date) => {
+      const x1 = this.rawGraphX(from, times.noon)
+      const x2 = this.rawGraphX(to, times.noon)
+      if (x1 !== undefined && x2 !== undefined && Math.abs(x2 - x1) > 0.5) {
+        bands.push({ x1: Math.min(x1, x2), x2: Math.max(x1, x2), kind })
+      }
+    }
+    if (this.config?.golden_hour) {
+      addBand('golden', phases.goldenHourDawnStart, phases.goldenHourDawnEnd)
+      addBand('golden', phases.goldenHourDuskStart, phases.goldenHourDuskEnd)
+    }
+    if (this.config?.blue_hour) {
+      addBand('blue', phases.blueHourDawnStart, phases.blueHourDawnEnd)
+      addBand('blue', phases.blueHourDuskStart, phases.blueHourDuskEnd)
+    }
+    return bands
+  }
+
+  // User-defined markers (#160): each configured time is resolved and mapped to a graph x position.
+  private computeMarkers (times: TSunTimes): TGraphMarker[] {
+    if (this.config?.graph === false || !this.config?.markers?.length) {
+      return []
+    }
+    return this.config.markers.flatMap((marker) => {
+      const time = HelperFunctions.parseMarkerTime(marker.time, times.now)
+      const x = this.rawGraphX(time, times.noon)
+      if (x === undefined) {
+        return []
+      }
+      return [{ x, label: marker.label, color: marker.color }]
+    })
   }
 
   private findPointOnCurve (time: Date, noon: Date, useUnscaledPath?: boolean | false) {

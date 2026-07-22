@@ -9,7 +9,15 @@ export default {
       nadir: this.time(now, '00:30:00', 1),
       solarNoon: this.time(now, '12:30:00'),
       sunriseStart: this.time(now, '06:30:00'),
-      sunsetEnd: this.time(now, '18:30:00')
+      sunsetEnd: this.time(now, '18:30:00'),
+      blueHourDawnStart: this.time(now, '05:45:00'),
+      blueHourDawnEnd: this.time(now, '06:10:00'),
+      goldenHourDawnStart: this.time(now, '06:10:00'),
+      goldenHourDawnEnd: this.time(now, '07:15:00'),
+      goldenHourDuskStart: this.time(now, '17:45:00'),
+      goldenHourDuskEnd: this.time(now, '18:50:00'),
+      blueHourDuskStart: this.time(now, '18:50:00'),
+      blueHourDuskEnd: this.time(now, '19:15:00')
     }
   },
 
