@@ -51,6 +51,8 @@ export class HorizonCardGraph {
   private renderSvg () {
     const curve = this.sunCurve(this.sunPosition.scaleY)
     const showSun = this.config.sun !== false
+    // The sunrise/sunset lines can be hidden on their own, but only ever show when the Sun does.
+    const showSunriseSunsetLines = showSun && this.config.sunrise_sunset_lines !== false
     // The sunrise/sunset lines hang from the top of the (cropped) frame down towards the horizon,
     // so their top tracks the frame edge instead of a fixed y.
     const lineTop = this.graphFrame.top + Constants.GRAPH_LINE_INSET_TOP
@@ -111,7 +113,7 @@ export class HorizonCardGraph {
 
       ${this.debugRect()}
 
-      ${showSun ? svg`
+      ${showSunriseSunsetLines ? svg`
       <!-- Draw the sunrise and sunset lines (the vertical day/night boundaries) -->
       <g class="horizon-card-sun-lines" transform="scale(${this.southernFlip ? -1 : 1} 1)" transform-origin="center">
         <line class="horizon-card-sunrise-line"

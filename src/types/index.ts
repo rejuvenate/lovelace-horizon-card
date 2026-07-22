@@ -28,6 +28,7 @@ export interface IHorizonCardConfig extends LovelaceCardConfig {
   icon?: string,
   moon?: boolean,
   sun?: boolean,
+  sunrise_sunset_lines?: boolean,
   graph?: boolean,
   time_format?: TimeFormat
   number_format?: NumberFormat

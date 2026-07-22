@@ -82,7 +82,7 @@ const cases: { name: string, config: Record<string, unknown> }[] = [
   {
     // Guard for `sun: false` (#126 "Moon only"): the graph renders the moon over
     // the horizon with no sun disc, no sun curve, no day/night shading and no
-    // sunrise/sunset markers.
+    // sunrise/sunset lines.
     name: 'moon-only-no-sun',
     config: {
       sun: false,
@@ -121,6 +121,14 @@ const cases: { name: string, config: Record<string, unknown> }[] = [
     config: {
       fields: false,
       _cssVars: { '--hc-graph-above-horizon': '84', '--hc-graph-below-horizon': '66' }
+    }
+  },
+  {
+    // sunrise_sunset_lines: false hides the vertical sunrise/sunset lines; the sun path and shading stay.
+    name: 'graph-sunrise-sunset-lines-off',
+    config: {
+      fields: false,
+      sunrise_sunset_lines: false
     }
   }
 ]

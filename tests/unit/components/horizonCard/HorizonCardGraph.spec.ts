@@ -85,6 +85,32 @@ describe('HorizonCardGraph', () => {
       expect(html).toMatchSnapshot()
     })
 
+    it(`renders the sunrise and sunset lines by default`, async () => {
+      const horizonCardGraph = new HorizonCardGraph({ sun: true } as IHorizonCardConfig, Constants.DEFAULT_CARD_DATA)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardGraph)
+
+      expect(html).toContain('horizon-card-sunrise-line')
+      expect(html).toContain('horizon-card-sunset-line')
+    })
+
+    it(`hides the sunrise and sunset lines when sunrise_sunset_lines is false, keeping the sun path`, async () => {
+      const config = {
+        sun: true,
+        sunrise_sunset_lines: false
+      } as IHorizonCardConfig
+
+      const horizonCardGraph = new HorizonCardGraph(config, Constants.DEFAULT_CARD_DATA)
+
+      const html = await TemplateResultTestHelper.renderElement(horizonCardGraph)
+
+      expect(html).not.toContain('horizon-card-sun-lines')
+      expect(html).not.toContain('horizon-card-sunrise-line')
+      expect(html).not.toContain('horizon-card-sunset-line')
+      // The sun path itself still renders.
+      expect(html).toContain('horizon-card-sun-path')
+    })
+
     it(`crops the viewBox and the sunrise/sunset line tops to the graph frame`, async () => {
       const config = {
         sun: true
