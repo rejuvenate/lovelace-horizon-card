@@ -294,6 +294,82 @@ By default the graph crops its height to fit the Sun and Moon, so there are no l
 
 Set a number to pin one or both sides (for example `--hc-graph-above-horizon: 55`). To turn the fitting off and keep the classic fixed frame, set `--hc-graph-above-horizon: 84` and `--hc-graph-below-horizon: 66`.
 
+**Common recipes**
+
+A few tweaks that come up often. Colours are `--hc-*` variables, so they work in a theme or in Uix/card-mod. Anything that is not a colour (text case, font size, line thickness) is an ordinary CSS property, so it needs Uix or card-mod rather than a theme.
+
+Title-case the field names, so `sunrise` reads as `Sunrise`:
+
+```yaml
+uix:
+  style: |
+    .horizon-card-field-name {
+      text-transform: capitalize;
+    }
+```
+
+Make the text bigger. The card is sized in `em`, so one rule scales all of it:
+
+```yaml
+uix:
+  style: |
+    .horizon-card {
+      font-size: 1.2em;
+    }
+```
+
+Thicker graph lines, which helps on dark themes and low-contrast or e-ink screens. The width is in viewBox units (the graph is 550 wide) and the default is `1`:
+
+```yaml
+uix:
+  style: |
+    .horizon-card-sun-path,
+    .horizon-card-horizon-line,
+    .horizon-card-sunrise-line,
+    .horizon-card-sunset-line {
+      stroke-width: 2px;
+    }
+```
+
+Darken the shadowed side of the Moon. This is a colour, so a theme works too:
+
+```yaml
+# in a theme
+hc-moon-shadow-color: "#111111"
+```
+
+```yaml
+# or on a single card
+uix:
+  style: |
+    ha-card {
+      --hc-moon-shadow-color: #111111;
+    }
+```
+
+Recolour the small Moon-phase icon shown with the fields:
+
+```yaml
+uix:
+  style: |
+    ha-card {
+      --hc-moon-phase-icon-color: #4fc3f7;
+    }
+```
+
+To hide the sunrise and sunset lines outright, use `sunrise_sunset_lines: false`. To do it in CSS instead, for example to switch them off only under one theme, set their colour to transparent:
+
+```yaml
+uix:
+  style: |
+    ha-card {
+      --hc-sunrise-line-color: transparent;
+      --hc-sunset-line-color: transparent;
+    }
+```
+
+Every drawn element has a stable class, all of them listed in [`tests/manual/styling-and-embedding.yaml`](tests/manual/styling-and-embedding.yaml), so you can target any part the same way.
+
 ## Development
 
 ### Prepare the environment
