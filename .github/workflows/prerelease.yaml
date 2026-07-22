@@ -62,6 +62,10 @@ jobs:
       - name: Build
         run: yarn build
 
+      # Replace the __HORIZON_CARD_VERSION__ placeholder (see src/index.ts) with the chosen tag.
+      - name: Stamp the release version into the bundle
+        run: sed -i "s|__HORIZON_CARD_VERSION__|${{ inputs.version }}|g" dist/lovelace-horizon-card.js
+
       - name: Create pre-release
         uses: softprops/action-gh-release@v2
         with:

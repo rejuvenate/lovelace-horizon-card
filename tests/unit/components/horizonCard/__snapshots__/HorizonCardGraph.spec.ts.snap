@@ -88,7 +88,7 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
     >
       <line class="horizon-card-sunrise-line"
             y2="72"
-            stroke="var(--hc-sunrise-line-color)"
+            stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
             y1="3"
             x2="0"
@@ -96,7 +96,7 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
       </line>
       <line class="horizon-card-sunset-line"
             y2="72"
-            stroke="var(--hc-sunset-line-color)"
+            stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
             y1="3"
             x2="0"
@@ -109,7 +109,7 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
       <use class="horizon-card-sun-path"
            href="#sun-path"
            fill="none"
-           stroke="var(--hc-sun-path-color)"
+           stroke="var(--hc-sun-path-color, var(--hc-lines, var(--hc-accent)))"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
@@ -137,20 +137,20 @@ exports[`HorizonCardGraph render does not render the moon when not configured so
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-horizon-line-color)"
+            stroke="var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent)))"
             y1="0"
             y2="0"
       >
       </line>
       <path class="horizon-card-time-arrow"
-            stroke="var(--hc-time-arrow-color)"
+            stroke="var(--hc-time-arrow-color, var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent))))"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
       </path>
       <circle class="horizon-card-sun"
               stroke="none"
-              fill="var(--hc-sun-color)"
+              fill="var(--hc-sun-color, var(--_hc-sun-color))"
               cx="0"
               cy="0"
               r="17"
@@ -249,13 +249,13 @@ exports[`HorizonCardGraph render does not render the sun when not configured so 
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-horizon-line-color)"
+            stroke="var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent)))"
             y1="0"
             y2="0"
       >
       </line>
       <path class="horizon-card-time-arrow"
-            stroke="var(--hc-time-arrow-color)"
+            stroke="var(--hc-time-arrow-color, var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent))))"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
@@ -353,7 +353,7 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
     >
       <line class="horizon-card-sunrise-line"
             y2="72"
-            stroke="var(--hc-sunrise-line-color)"
+            stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="200"
             y1="3"
             x2="200"
@@ -361,7 +361,7 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       </line>
       <line class="horizon-card-sunset-line"
             y2="72"
-            stroke="var(--hc-sunset-line-color)"
+            stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="400"
             y1="3"
             x2="400"
@@ -374,7 +374,7 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       <use class="horizon-card-sun-path"
            href="#sun-path"
            fill="none"
-           stroke="var(--hc-sun-path-color)"
+           stroke="var(--hc-sun-path-color, var(--hc-lines, var(--hc-accent)))"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
@@ -402,20 +402,20 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-horizon-line-color)"
+            stroke="var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent)))"
             y1="84"
             y2="84"
       >
       </line>
       <path class="horizon-card-time-arrow"
-            stroke="var(--hc-time-arrow-color)"
+            stroke="var(--hc-time-arrow-color, var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent))))"
             fill="none"
             d="M535 79 L545 84 L535 89"
       >
       </path>
       <circle class="horizon-card-sun"
               stroke="none"
-              fill="var(--hc-sun-color)"
+              fill="var(--hc-sun-color, var(--_hc-sun-color))"
               cx="50"
               cy="50"
               r="17"
@@ -426,12 +426,12 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
       <g transform="rotate(0 100 25)">
         <use class="horizon-card-moon-shadow"
              href="#moon"
-             fill="var(--hc-moon-shadow-color)"
+             fill="var(--hc-moon-shadow-color, var(--_hc-moon-shadow-color))"
         >
         </use>
         <use class="horizon-card-moon-body"
              href="#moon"
-             fill="var(--hc-moon-color)"
+             fill="var(--hc-moon-color, var(--_hc-moon-color))"
              mask="url(#moon-shadow-mask)"
         >
         </use>
@@ -443,34 +443,34 @@ exports[`HorizonCardGraph render renders the graph with the data values when pro
                 cx="96.5"
                 cy="19.75"
                 r="4.666666666666667"
-                fill="var(--hc-moon-spot-color)"
+                fill="var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))"
         >
         </circle>
         <circle stroke="none"
                 cx="105.25"
                 cy="18"
                 r="3.5"
-                fill="var(--hc-moon-spot-color)"
+                fill="var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))"
         >
         </circle>
         <circle stroke="none"
                 cx="96.5"
                 cy="28.5"
                 r="3.5"
-                fill="var(--hc-moon-spot-color)"
+                fill="var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))"
         >
         </circle>
         <circle stroke="none"
                 cx="107"
                 cy="25"
                 r="2.8"
-                fill="var(--hc-moon-spot-color)"
+                fill="var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))"
         >
         </circle>
       </g>
       <circle class="horizon-card-moon-outline"
               fill="none"
-              stroke="var(--hc-moon-outline-color)"
+              stroke="var(--hc-moon-outline-color, var(--_hc-moon-outline-color))"
               stroke-width="0.7"
               cx="100"
               cy="25"
@@ -570,7 +570,7 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
     >
       <line class="horizon-card-sunrise-line"
             y2="72"
-            stroke="var(--hc-sunrise-line-color)"
+            stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
             y1="3"
             x2="0"
@@ -578,7 +578,7 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       </line>
       <line class="horizon-card-sunset-line"
             y2="72"
-            stroke="var(--hc-sunset-line-color)"
+            stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
             y1="3"
             x2="0"
@@ -591,7 +591,7 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       <use class="horizon-card-sun-path"
            href="#sun-path"
            fill="none"
-           stroke="var(--hc-sun-path-color)"
+           stroke="var(--hc-sun-path-color, var(--hc-lines, var(--hc-accent)))"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
@@ -619,20 +619,20 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-horizon-line-color)"
+            stroke="var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent)))"
             y1="0"
             y2="0"
       >
       </line>
       <path class="horizon-card-time-arrow"
-            stroke="var(--hc-time-arrow-color)"
+            stroke="var(--hc-time-arrow-color, var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent))))"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
       </path>
       <circle class="horizon-card-sun"
               stroke="none"
-              fill="var(--hc-sun-color)"
+              fill="var(--hc-sun-color, var(--_hc-sun-color))"
               cx="0"
               cy="0"
               r="17"
@@ -643,12 +643,12 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
       <g transform="rotate(0 0 0)">
         <use class="horizon-card-moon-shadow"
              href="#moon"
-             fill="var(--hc-moon-shadow-color)"
+             fill="var(--hc-moon-shadow-color, var(--_hc-moon-shadow-color))"
         >
         </use>
         <use class="horizon-card-moon-body"
              href="#moon"
-             fill="var(--hc-moon-color)"
+             fill="var(--hc-moon-color, var(--_hc-moon-color))"
              mask="url(#moon-shadow-mask)"
         >
         </use>
@@ -660,34 +660,34 @@ exports[`HorizonCardGraph render renders the graph with the default values when 
                 cx="-3.5"
                 cy="-5.25"
                 r="4.666666666666667"
-                fill="var(--hc-moon-spot-color)"
+                fill="var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))"
         >
         </circle>
         <circle stroke="none"
                 cx="5.25"
                 cy="-7"
                 r="3.5"
-                fill="var(--hc-moon-spot-color)"
+                fill="var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))"
         >
         </circle>
         <circle stroke="none"
                 cx="-3.5"
                 cy="3.5"
                 r="3.5"
-                fill="var(--hc-moon-spot-color)"
+                fill="var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))"
         >
         </circle>
         <circle stroke="none"
                 cx="7"
                 cy="0"
                 r="2.8"
-                fill="var(--hc-moon-spot-color)"
+                fill="var(--hc-moon-spot-color, rgba(170, 170, 170, 0.1))"
         >
         </circle>
       </g>
       <circle class="horizon-card-moon-outline"
               fill="none"
-              stroke="var(--hc-moon-outline-color)"
+              stroke="var(--hc-moon-outline-color, var(--_hc-moon-outline-color))"
               stroke-width="0.7"
               cx="0"
               cy="0"
@@ -787,7 +787,7 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
     >
       <line class="horizon-card-sunrise-line"
             y2="72"
-            stroke="var(--hc-sunrise-line-color)"
+            stroke="var(--hc-sunrise-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
             y1="3"
             x2="0"
@@ -795,7 +795,7 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
       </line>
       <line class="horizon-card-sunset-line"
             y2="72"
-            stroke="var(--hc-sunset-line-color)"
+            stroke="var(--hc-sunset-line-color, var(--hc-lines, var(--hc-accent)))"
             x1="0"
             y1="3"
             x2="0"
@@ -808,7 +808,7 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
       <use class="horizon-card-sun-path"
            href="#sun-path"
            fill="none"
-           stroke="var(--hc-sun-path-color)"
+           stroke="var(--hc-sun-path-color, var(--hc-lines, var(--hc-accent)))"
       >
       </use>
       <path clip-path="url(#lower-path-mask)"
@@ -836,20 +836,20 @@ exports[`HorizonCardGraph renders the graph flipped horizontally when configured
       <line class="horizon-card-horizon-line"
             x1="5"
             x2="545"
-            stroke="var(--hc-horizon-line-color)"
+            stroke="var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent)))"
             y1="0"
             y2="0"
       >
       </line>
       <path class="horizon-card-time-arrow"
-            stroke="var(--hc-time-arrow-color)"
+            stroke="var(--hc-time-arrow-color, var(--hc-horizon-line-color, var(--hc-lines, var(--hc-accent))))"
             fill="none"
             d="M535 -5 L545 0 L535 5"
       >
       </path>
       <circle class="horizon-card-sun"
               stroke="none"
-              fill="var(--hc-sun-color)"
+              fill="var(--hc-sun-color, var(--_hc-sun-color))"
               cx="0"
               cy="0"
               r="17"

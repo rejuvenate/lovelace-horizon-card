@@ -1,27 +1,18 @@
 import { css } from 'lit'
 
 export default css`
+  /* Theming note: the public --hc-*-color variables are intentionally NOT declared on :host.
+     A declaration on :host wins over a value inherited from an ancestor, which would mask a
+     Home Assistant theme (set on the document root) — only a card-mod/Uix override on ha-card,
+     a descendant, would then work. Instead each colour is consumed at its point of use as
+     var(--hc-…-color, <default>), so a theme (ancestor), card-mod (ha-card), an element-level
+     override AND the default all resolve. Only internal, non-themeable seeds live on :host:
+     the dark-mode-aware --hc-accent and the computed --_hc-* defaults. */
   :host {
     --hc-primary: var(--primary-text-color);
     --hc-secondary: var(--secondary-text-color);
 
-    --hc-field-name-color: var(--hc-secondary);
-    --hc-field-value-color: var(--hc-primary);
-    --hc-field-value-secondary-color: var(--hc-field-value-color);
-    --hc-moon-phase-icon-color: var(--primary-color);
-
-    --hc-daytime-past-color: #8ebeeb;
-    --hc-daytime-upcoming-color: transparent;
-    --hc-nighttime-past-color: #393b78;
-    --hc-nighttime-upcoming-color: transparent;
-
     --hc-accent: #d7d7d7;
-    --hc-lines: var(--hc-accent);
-    --hc-sunrise-line-color: var(--hc-lines);
-    --hc-sunset-line-color: var(--hc-lines);
-    --hc-sun-path-color: var(--hc-lines);
-    --hc-horizon-line-color: var(--hc-lines);
-    --hc-time-arrow-color: var(--hc-lines);
 
     /* Vertical crop of the graph. By default (auto) it fits the Sun and Moon so no empty margins
        are left; set a number (viewBox units, 84 above / 66 below = the classic frame) to pin the
@@ -35,7 +26,7 @@ export default css`
     --hc-sun-hue-reduce: 0;
     --hc-sun-saturation-reduce: 0%;
     --hc-sun-lightness-reduce: 0%;
-    --hc-sun-color: hsl(
+    --_hc-sun-color: hsl(
       calc(var(--hc-sun-hue) - var(--hc-sun-hue-reduce)),
       calc(var(--hc-sun-saturation) - var(--hc-sun-saturation-reduce)),
       calc(var(--hc-sun-lightness) - var(--hc-sun-lightness-reduce))
@@ -46,20 +37,19 @@ export default css`
     --hc-moon-lightness: 82%;
     --hc-moon-saturation-reduce: 0%;
     --hc-moon-lightness-reduce: 0%;
-    --hc-moon-color: hsl(
+    --_hc-moon-color: hsl(
       var(--hc-moon-hue),
       calc(var(--hc-moon-saturation) - var(--hc-moon-saturation-reduce)),
       calc(var(--hc-moon-lightness) - var(--hc-moon-lightness-reduce))
     );
-    --hc-moon-shadow-color: #5f6b7a;
-    --hc-moon-outline-color: #5f6b7a;
-    --hc-moon-spot-color: rgba(170, 170, 170, 0.1);
+    --_hc-moon-shadow-color: #5f6b7a;
+    --_hc-moon-outline-color: #5f6b7a;
   }
 
   :host(.horizon-card-dark) {
     --hc-accent: #464646;
-    --hc-moon-shadow-color: #3b4653;
-    --hc-moon-outline-color: #6b7789;
+    --_hc-moon-shadow-color: #3b4653;
+    --_hc-moon-outline-color: #6b7789;
   }
 
   .horizon-card {
@@ -87,11 +77,11 @@ export default css`
   }
 
   .horizon-card-field-name {
-    color: var(--hc-field-name-color);
+    color: var(--hc-field-name-color, var(--hc-secondary));
   }
 
   .horizon-card-field-value {
-    color: var(--hc-field-value-color);
+    color: var(--hc-field-value-color, var(--hc-primary));
     font-size: 1.2em;
     line-height: 1.1em;
     text-align: center;
@@ -103,11 +93,11 @@ export default css`
 
   .horizon-card-field-moon-phase-icon {
     --mdc-icon-size: 2em;
-    color: var(--hc-moon-phase-icon-color);
+    color: var(--hc-moon-phase-icon-color, var(--primary-color));
   }
 
   .horizon-card-field-value-secondary {
-    color: var(--hc-field-value-secondary-color);
+    color: var(--hc-field-value-secondary-color, var(--hc-field-value-color, var(--hc-primary)));
     font-size: 0.7em;
   }
 
@@ -162,22 +152,22 @@ export default css`
   }
 
   .horizon-card-graph .horizon-card-daytime-past {
-    fill: var(--hc-daytime-past-color);
-    stroke: var(--hc-daytime-past-color);
+    fill: var(--hc-daytime-past-color, #8ebeeb);
+    stroke: var(--hc-daytime-past-color, #8ebeeb);
   }
 
   .horizon-card-graph .horizon-card-daytime-upcoming {
-    fill: var(--hc-daytime-upcoming-color);
-    stroke: var(--hc-daytime-upcoming-color);
+    fill: var(--hc-daytime-upcoming-color, transparent);
+    stroke: var(--hc-daytime-upcoming-color, transparent);
   }
 
   .horizon-card-graph .horizon-card-nighttime-past {
-    fill: var(--hc-nighttime-past-color);
-    stroke: var(--hc-nighttime-past-color);
+    fill: var(--hc-nighttime-past-color, #393b78);
+    stroke: var(--hc-nighttime-past-color, #393b78);
   }
 
   .horizon-card-graph .horizon-card-nighttime-upcoming {
-    fill: var(--hc-nighttime-upcoming-color);
-    stroke: var(--hc-nighttime-upcoming-color);
+    fill: var(--hc-nighttime-upcoming-color, transparent);
+    stroke: var(--hc-nighttime-upcoming-color, transparent);
   }
 `

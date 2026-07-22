@@ -48,6 +48,12 @@ jobs:
           echo "Created tag name: ${{ steps.release.outputs.tag_name }}"
           echo "Created release version: ${{ steps.release.outputs.version }}"
 
+      # The bundle carries a __HORIZON_CARD_VERSION__ placeholder (see src/index.ts). The version is
+      # only known here, after the release action computed the tag, so stamp it in before uploading.
+      - name: Stamp the release version into the bundle
+        if: ${{ steps.release.outputs.version != '' }}
+        run: sed -i "s|__HORIZON_CARD_VERSION__|${{ steps.release.outputs.tag_name }}|g" dist/lovelace-horizon-card.js
+
       - name: Upload JS card file to release
         if: ${{ steps.release.outputs.version != '' }}
         uses: svenstaro/upload-release-action@v2
