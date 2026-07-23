@@ -1,0 +1,8 @@
+# Overlay used by `verify.sh --keep`: publishes the Home Assistant port on the host so you can open
+# http://localhost:8123 and inspect the instance by hand. The headless default does not publish it
+# (the driver reaches HA over the compose network), so it never collides with a Home Assistant you
+# may already be running on 8123.
+services:
+  homeassistant:
+    ports:
+      - '8123:8123'

@@ -1,0 +1,4 @@
+# verify.sh generates config/ fresh each run (HA config + the copied dashboard + the card bundle) and
+# HA writes its runtime state there, so the whole directory is ephemeral. (Screenshot output under
+# out/ is already ignored by the repo-root .gitignore.)
+/config/
