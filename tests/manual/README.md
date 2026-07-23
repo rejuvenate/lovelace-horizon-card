@@ -4,6 +4,17 @@ Lovelace dashboards for checking the card visually in a real Home Assistant,
 covering cases the automated `unit/` and `visual/` suites cannot: Uix / card-mod
 styling, embedding, stacks and theme interaction.
 
+You do not have to load these by hand. [`dev/ha-live/verify.sh`](../../dev/ha-live/README.md) renders
+any of them (or a single card, or the visual editor) in a throwaway real Home Assistant: it brings up
+a pinned Home Assistant in Docker, installs the built card, and screenshots the result. For example:
+
+```bash
+dev/ha-live/verify.sh --dashboard tests/manual/styling-and-embedding.yaml
+```
+
+The screenshots (and a `report.json`) land in `dev/ha-live/out/`, which is git-ignored and
+regenerated on each run.
+
 ## `styling-and-embedding.yaml`
 
 A single dashboard view that shows the card's styling, embedding and options:

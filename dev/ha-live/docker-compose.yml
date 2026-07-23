@@ -1,0 +1,16 @@
+# Real Home Assistant for verifying Lovelace artifacts of this card (dashboards, single cards, the
+# visual editor). Driven by dev/ha-live/verify.sh; not part of CI. Pin an EXACT Home Assistant
+# version (never latest/stable) so behaviour is reproducible; bump it deliberately (or pass
+# --ha-version, which sets HA_IMAGE).
+#
+# `name:` pins the compose project so the network is always `ha-live_default`, which the Playwright
+# driver container joins to reach this service at http://homeassistant:8123. The host port is NOT
+# published here so a Home Assistant you may already run on 8123 is never disturbed; verify.sh
+# --keep adds it via docker-compose.keep.yml for manual inspection.
+name: ha-live
+services:
+  homeassistant:
+    image: ${HA_IMAGE:-ghcr.io/home-assistant/home-assistant:2025.12}
+    container_name: ha-live
+    volumes:
+      - ./config:/config
