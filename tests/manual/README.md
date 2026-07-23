@@ -12,6 +12,9 @@ a pinned Home Assistant in Docker, installs the built card, and screenshots the 
 dev/ha-live/verify.sh --dashboard tests/manual/styling-and-embedding.yaml
 ```
 
+The screenshots (and a `report.json`) land in `dev/ha-live/out/`, which is git-ignored and
+regenerated on each run.
+
 ## `styling-and-embedding.yaml`
 
 A single dashboard view that shows the card's styling, embedding and options:
