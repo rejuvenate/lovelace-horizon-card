@@ -152,3 +152,26 @@ export type THorizonCardI18NErrorKeys = {
 }
 
 export type THorizonCardI18NKeys = { [key in EHorizonCardI18NKeys ]?: string } | { errors: THorizonCardI18NErrorKeys }
+
+// --- Visual editor (ha-form) ---
+
+// The card config as a flat record consumed/produced by <ha-form>: the nested `fields` object is
+// flattened to `field_<name>` keys and the tri-state options are strings. See HorizonCardEditor.
+export type THorizonCardEditorData = Record<string, unknown>
+
+// A localized option for an ha-form `select` selector. ha-form renders the visible text from each
+// option's own `label` (not from computeLabel), so labels are localized here.
+export interface IHaFormSelectOption {
+  readonly value: string
+  readonly label: string
+}
+
+// Minimal shape of an ha-form schema node (leaf selector, `grid`, or `expandable`). ha-form itself
+// is provided by the Home Assistant runtime; we only model the parts we build.
+export interface IHaFormSchemaNode {
+  readonly name?: string
+  readonly type?: 'grid' | 'expandable'
+  readonly title?: string
+  readonly selector?: Record<string, unknown>
+  readonly schema?: readonly IHaFormSchemaNode[]
+}

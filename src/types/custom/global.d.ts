@@ -6,7 +6,8 @@ declare global {
       name: string,
       type: string,
       description: string,
-      preview?: boolean
+      preview?: boolean,
+      documentationURL?: string
     }[]
   }
 

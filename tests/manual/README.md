@@ -41,3 +41,8 @@ A single dashboard view that shows the card's styling, embedding and options:
 Load it through a dashboard's **Raw configuration editor** (setup notes, including
 the card resource and Uix, are in the file header). Each card is preceded by
 a markdown note describing what to look for.
+
+## `editor-in-real-ha.png`
+
+The card's visual editor (`getConfigElement`) rendered in a real Home Assistant, kept as a reference
+for what the grouped form looks like. Reproduce it with `dev/ha-live/verify.sh --editor`.

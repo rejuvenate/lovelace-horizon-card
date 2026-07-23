@@ -83,7 +83,7 @@ Installation via HACS is recommended, but a manual setup is supported.
 ### Using UI
 
 1. Access your dashboard, enter edit mode, and click on **Add card**. You should be able to find **Custom: Horizon Card** in the list.
-2. In the UI editor, customize the card by modifying its configuration as detailed in the Config section below.
+2. The card opens in its visual editor, where every option is available as a form control (see [Visual editor](#visual-editor) below). You can switch to **Show code editor** for raw YAML at any time.
 
 > Note: If **Custom: Horizon Card** doesn't appear, clear the cache and reload the page.
 
@@ -94,6 +94,16 @@ Installation via HACS is recommended, but a manual setup is supported.
 > Note: If you encounter an error like _Custom element doesn't exist_, clear the cache and reload the page.
 
 ## Configuration
+
+### Visual editor
+
+The card ships with a full visual editor. After adding it from the dashboard UI, every option below
+is available as a form control, with the less common ones grouped into collapsible **Fields**,
+**Advanced**, **Location and format** and **Debug** sections. Prefer YAML? Use **Show code editor** in
+the same dialog; the two are interchangeable. The editor writes the same config keys documented
+here, and only the options you actually change from their defaults, so it keeps your YAML tidy.
+Latitude and longitude are set as a pair; clear both fields to go back to using the Home Assistant
+location.
 
 ### General options
 
