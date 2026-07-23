@@ -31,10 +31,6 @@ Load it through a dashboard's **Raw configuration editor** (setup notes, includi
 the card resource and Uix, are in the file header). Each card is preceded by
 a markdown note describing what to look for.
 
-You can also render this whole dashboard (or a single card, or the visual editor) in a real Home
-Assistant automatically with [`dev/ha-live/verify.sh`](../../dev/ha-live/README.md), which brings up
-a throwaway Home Assistant in Docker and screenshots it.
-
 ## `editor-in-real-ha.png`
 
 The card's visual editor (`getConfigElement`) rendered in a real Home Assistant, kept as a reference
