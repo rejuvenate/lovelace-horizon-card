@@ -1,0 +1,15 @@
+# Home Assistant writes its runtime state into this folder. Track only the seed files this harness
+# needs; ignore everything else HA generates (database, logs, the rest of .storage, the built bundle).
+/*
+!/.gitignore
+!/configuration.yaml
+!/.storage/
+!/www/
+
+# .storage: keep only the pre-seeded Lovelace resource registry.
+/.storage/*
+!/.storage/lovelace_resources
+
+# www: the bundle is copied in by build-and-copy.sh and must not be committed.
+/www/*
+!/www/.gitkeep

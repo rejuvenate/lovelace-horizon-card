@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_resources",
+  "data": {
+    "items": [
+      {
+        "id": "horizon_card_editor_verify",
+        "type": "module",
+        "url": "/local/lovelace-horizon-card.js"
+      }
+    ]
+  }
+}

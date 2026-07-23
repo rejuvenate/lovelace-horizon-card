@@ -22,12 +22,26 @@ import { HelperFunctions } from '../../utils/HelperFunctions'
 import { I18N } from '../../utils/I18N'
 import { HorizonErrorContent } from '../HorizonErrorContent'
 import { HorizonCardContent } from './HorizonCardContent'
+import { HORIZON_CARD_EDITOR_TAG } from './HorizonCardEditor'
 
 @customElement('horizon-card')
 export class HorizonCard extends LitElement {
   static readonly cardType = 'horizon-card'
   static readonly cardName = 'Horizon Card'
   static readonly cardDescription = 'Custom card that display a graph to track the sun position and related events'
+  static readonly cardDocumentationURL = 'https://github.com/rejuvenate/lovelace-horizon-card#configuration'
+
+  // Provides the visual editor shown in the Lovelace card editor. Returns the editor custom element
+  // (bundled alongside the card); Home Assistant awaits this and wires up setConfig/hass itself.
+  static async getConfigElement (): Promise<HTMLElement> {
+    return document.createElement(HORIZON_CARD_EDITOR_TAG)
+  }
+
+  // The starter config used when the card is added from the picker. Every option has a default, so an
+  // empty config renders a valid card.
+  static getStubConfig (): Record<string, unknown> {
+    return {}
+  }
 
   @state()
   private accessor config!: IHorizonCardConfig
@@ -716,5 +730,6 @@ window.customCards.push({
   type: HorizonCard.cardType,
   name: HorizonCard.cardName,
   preview: true,
-  description: HorizonCard.cardDescription
+  description: HorizonCard.cardDescription,
+  documentationURL: HorizonCard.cardDocumentationURL
 })

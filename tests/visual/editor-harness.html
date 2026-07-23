@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizon Card editor visual test harness</title>
+  <style>
+    html, body { margin: 0; padding: 0; background: #ffffff; font-family: sans-serif; color: #212121; }
+
+    /* Fixed width so the editor renders at a stable size across runs (approx the HA editor column). */
+    #container { width: 380px; box-sizing: border-box; padding: 12px; }
+
+    /* The card editor renders a single <ha-form>. ha-form is a Home Assistant runtime element, so
+       the harness provides a minimal stub (below) exactly like harness.html stubs ha-card/ha-icon.
+       The stub renders the real editor's schema as native controls so the structure and the
+       config-changed round-trip can be screenshotted and asserted without a full HA instance. */
+    .stub-ha-form { display: flex; flex-direction: column; gap: 8px; }
+    .stub-ha-form .section { border: 1px solid #e0e0e0; border-radius: 6px; padding: 8px 10px; }
+    .stub-ha-form .section-title { font-weight: 600; margin-bottom: 6px; color: #3b5566; }
+    .stub-ha-form .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+    .stub-ha-form .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 26px; }
+    .stub-ha-form .label { font-size: 13px; }
+    .stub-ha-form input[type="text"], .stub-ha-form input[type="number"], .stub-ha-form select { width: 120px; }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <horizon-card-editor id="editor"></horizon-card-editor>
+  </div>
+
+  <script>
+    // Minimal stub of Home Assistant's <ha-form>. Reads .schema (recursing grid/expandable), .data
+    // and .computeLabel, renders one native control per leaf, and dispatches `value-changed` with the
+    // full merged data object — the same contract the real editor reads and emits against.
+    if (!customElements.get('ha-form')) {
+      customElements.define('ha-form', class extends HTMLElement {
+        set schema (v) { this._schema = v; this._render() }
+        get schema () { return this._schema }
+        set data (v) { this._data = v; this._render() }
+        get data () { return this._data }
+        set computeLabel (v) { this._computeLabel = v; this._render() }
+        get computeLabel () { return this._computeLabel }
+
+        _render () {
+          if (!this._schema) { return }
+          this.textContent = ''
+          const root = document.createElement('div')
+          root.className = 'stub-ha-form'
+          this._renderNodes(this._schema, root)
+          this.appendChild(root)
+        }
+
+        _renderNodes (nodes, parent) {
+          for (const node of nodes) {
+            if (node.type === 'expandable') {
+              const section = document.createElement('div')
+              section.className = 'section'
+              const title = document.createElement('div')
+              title.className = 'section-title'
+              title.textContent = node.title || ''
+              section.appendChild(title)
+              this._renderNodes(node.schema, section)
+              parent.appendChild(section)
+            } else if (node.type === 'grid') {
+              const grid = document.createElement('div')
+              grid.className = 'grid'
+              this._renderNodes(node.schema, grid)
+              parent.appendChild(grid)
+            } else if (node.name) {
+              parent.appendChild(this._renderLeaf(node))
+            }
+          }
+        }
+
+        _renderLeaf (node) {
+          const row = document.createElement('label')
+          row.className = 'row'
+          const label = document.createElement('span')
+          label.className = 'label'
+          label.textContent = this._computeLabel ? this._computeLabel(node) : node.name
+          row.appendChild(label)
+
+          const selector = node.selector || {}
+          const value = this._data ? this._data[node.name] : undefined
+          let input
+          if (selector.boolean) {
+            input = document.createElement('input')
+            input.type = 'checkbox'
+            input.checked = Boolean(value)
+            input.addEventListener('change', () => this._emit(node.name, input.checked))
+          } else if (selector.number) {
+            input = document.createElement('input')
+            input.type = 'number'
+            if (value !== undefined && value !== null) { input.value = value }
+            input.addEventListener('input', () =>
+              this._emit(node.name, input.value === '' ? undefined : Number(input.value)))
+          } else if (selector.select) {
+            input = document.createElement('select')
+            for (const option of selector.select.options) {
+              const el = document.createElement('option')
+              el.value = option.value
+              el.textContent = option.label
+              if (option.value === value) { el.selected = true }
+              input.appendChild(el)
+            }
+            input.addEventListener('change', () => this._emit(node.name, input.value))
+          } else {
+            input = document.createElement('input')
+            input.type = 'text'
+            if (value !== undefined && value !== null) { input.value = value }
+            input.addEventListener('input', () => this._emit(node.name, input.value))
+          }
+          input.dataset.name = node.name
+          row.appendChild(input)
+          return row
+        }
+
+        _emit (name, value) {
+          this._data = { ...this._data, [name]: value }
+          this.dispatchEvent(new CustomEvent('value-changed', {
+            bubbles: true, composed: true, detail: { value: this._data }
+          }))
+        }
+      })
+    }
+  </script>
+  <script src="../../dist/lovelace-horizon-card.js"></script>
+  <script>
+    const MOCK_HASS = {
+      language: 'en',
+      locale: { language: 'en', time_format: '24', number_format: 'language', time_zone: 'server' },
+      themes: { darkMode: false },
+      config: { latitude: 52.5, longitude: 13.4, elevation: 0, time_zone: 'Europe/Berlin' }
+    }
+
+    let lastConfig = null
+    const editorEl = document.getElementById('editor')
+    editorEl.addEventListener('config-changed', (ev) => {
+      lastConfig = ev.detail.config
+      // Mimic Home Assistant: it echoes the new config straight back into the editor via setConfig,
+      // which re-renders ha-form from the config. Exercising this path keeps the harness faithful —
+      // a controlled-component bug that only shows up on the echo (e.g. a wiped field) surfaces here.
+      editorEl.setConfig(ev.detail.config)
+    })
+
+    // Render the editor for a given card config and wait until it has settled.
+    window.renderEditor = async (config) => {
+      lastConfig = null
+      const editor = document.getElementById('editor')
+      editor.hass = MOCK_HASS
+      editor.setConfig({ type: 'horizon-card', ...config })
+      await editor.updateComplete
+      await new Promise((resolve) => requestAnimationFrame(() => resolve()))
+      return config
+    }
+
+    // Drive a single form control the way a user would, then let the editor process the change.
+    window.setField = async (name, value) => {
+      const editor = document.getElementById('editor')
+      const form = editor.shadowRoot.querySelector('ha-form')
+      const input = form.querySelector('[data-name="' + name + '"]')
+      if (input.type === 'checkbox') {
+        input.checked = value
+        input.dispatchEvent(new Event('change', { bubbles: true }))
+      } else if (input.tagName === 'SELECT') {
+        input.value = String(value)
+        input.dispatchEvent(new Event('change', { bubbles: true }))
+      } else {
+        input.value = value
+        input.dispatchEvent(new Event('input', { bubbles: true }))
+      }
+      await editor.updateComplete
+    }
+
+    window.getEmittedConfig = () => lastConfig
+
+    // Read the current value shown by a form control (to assert a field is not wiped on the echo).
+    window.getFieldValue = (name) => {
+      const form = document.getElementById('editor').shadowRoot.querySelector('ha-form')
+      const input = form.querySelector('[data-name="' + name + '"]')
+      if (!input) { return undefined }
+      return input.type === 'checkbox' ? input.checked : input.value
+    }
+  </script>
+</body>
+</html>
