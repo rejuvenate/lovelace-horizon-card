@@ -100,7 +100,7 @@ Installation via HACS is recommended, but a manual setup is supported.
 The card ships with a full visual editor. After adding it from the dashboard UI, every option below
 is available as a form control, with the less common ones grouped into collapsible **Fields**,
 **Advanced**, **Location and format** and **Debug** sections. Prefer YAML? Use **Show code editor** in
-the same dialog — the two are interchangeable. The editor writes the same config keys documented
+the same dialog; the two are interchangeable. The editor writes the same config keys documented
 here, and only the options you actually change from their defaults, so it keeps your YAML tidy.
 Latitude and longitude are set as a pair; clear both fields to go back to using the Home Assistant
 location.

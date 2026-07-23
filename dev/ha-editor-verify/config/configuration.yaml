@@ -1,5 +1,0 @@
-# Minimal Home Assistant config for visually verifying the Horizon Card editor (Stufe 2).
-# default_config gives a storage-mode (UI-managed) Lovelace, which is what exposes the visual
-# "Edit card" editor (a YAML-mode dashboard would not). The card's JS resource is pre-seeded in
-# .storage/lovelace_resources so the card type is registered without any manual resource step.
-default_config:

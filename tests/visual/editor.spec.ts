@@ -12,7 +12,8 @@ declare global {
 // The editor renders a single <ha-form>. ha-form is a Home Assistant runtime element, so the harness
 // stubs it (see editor-harness.html) and renders the real editor's schema as native controls. These
 // tests therefore pin the editor STRUCTURE with a screenshot and assert the config-changed
-// round-trip logic; the pixel-faithful HA look is covered separately by dev/ha-editor-verify (Stufe 2).
+// round-trip logic; the pixel-faithful HA look is covered separately by the dev/ha-live capability
+// (`dev/ha-live/verify.sh --editor`), which renders the editor in a real Home Assistant.
 
 test.describe('Visual editor', () => {
   test('renders the full grouped editor structure', async ({ page }) => {
